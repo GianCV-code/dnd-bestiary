@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "import": "node scripts/import_bestiary.js"
+    "import": "node scripts/import_bestiary.js",
+    "deploy": "node scripts/deploy.js"
   },
   "dependencies": {
     "lucide-react": "^1.64.0",
