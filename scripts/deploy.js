@@ -13,6 +13,7 @@ const distPath = path.resolve('dist');
 
 const commands = [
   'git init',
+  'git config http.postBuffer 524288000',
   'git checkout -B gh-pages',
   'git add -A',
   'git commit -m "deploy: update github pages site"',
