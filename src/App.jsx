@@ -35,6 +35,7 @@ import {
   computeVersionDiff 
 } from './engine/versionManager';
 import PartySyncBar from './components/PartySyncBar';
+import CreatureStatblock from './components/CreatureStatblock';
 import { loadBestiaryWithCache } from './engine/cacheManager';
 
 // 5e Tools Advanced Filter Constants
@@ -2059,228 +2060,21 @@ export default function App() {
       {/* Creature Statblock Modal */}
       {activeModalCreature && (
         <div className="modal-overlay" onClick={() => setActiveModalCreature(null)}>
-          <div className="statblock-sheet" onClick={e => e.stopPropagation()}>
-            <div className="statblock-header">
-              <div>
-                <h2 className="statblock-title">{activeModalCreature.name}</h2>
-                <p className="statblock-subtitle">
-                  {activeModalCreature.size} {activeModalCreature.type}
-                  {activeModalCreature.typeTags && activeModalCreature.typeTags.length > 0 ? ` (${activeModalCreature.typeTags.join(', ')})` : ''}, {activeModalCreature.alignment}
-                </p>
-                <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginTop: '6px', flexWrap: 'wrap' }}>
-                  <span className={`publisher-pill ${
-                    activeModalCreature.category === 'Third-Party (3PP Pro)' 
-                      ? 'pill-3pp' 
-                      : activeModalCreature.category === 'Crossover / Video Games' 
-                        ? 'pill-crossover' 
-                        : 'pill-wotc'
-                  }`}>
-                    {activeModalCreature.publisher || 'Wizards of the Coast'}
-                  </span>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                    {activeModalCreature.sourceGroup}
-                  </span>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--text-dark)' }}>
-                    • {activeModalCreature.category}
-                  </span>
-                </div>
-              </div>
-
-              <button className="close-btn" onClick={() => setActiveModalCreature(null)}>
-                <X size={20} />
-              </button>
-            </div>
-
-            {/* Version Switcher and Comparison Banner if creature has multiple versions */}
-            {modalGroup && modalGroup.versions.length > 1 && (
-              <div className="modal-versions-container">
-                <div className="modal-versions-header">
-                  <span className="modal-versions-heading">
-                    <Sparkles size={14} color="var(--accent-gold)" />
-                    <span>Versiones disponibles ({modalGroup.versions.length})</span>
-                  </span>
-                  <span className="modal-versions-help">
-                    Haz clic para alternar estadísticas entre ediciones y fuentes
-                  </span>
-                </div>
-
-                <div className="modal-version-tabs">
-                  {modalGroup.versions.map(v => {
-                    const isSelected = v.id === activeModalCreature.id;
-                    return (
-                      <button
-                        key={v.id}
-                        type="button"
-                        className={`modal-version-tab ${isSelected ? 'active' : ''} tab-${v.versionMeta.pillType}`}
-                        onClick={() => {
-                          setActiveModalCreature(v);
-                          setCardVersionOverrides(prev => ({ ...prev, [modalGroup.groupKey]: v.id }));
-                        }}
-                      >
-                        <div className="tab-top-row">
-                          <span className="tab-badge-title">
-                            {v.versionMeta.is2024 && '✨ '}
-                            {v.versionMeta.is2014 && '📜 '}
-                            {v.versionMeta.badge}
-                          </span>
-                          {isSelected && <span className="tab-selected-dot">● Activa</span>}
-                        </div>
-                        <div className="tab-source-sub" title={v.sourceGroup || v.source}>
-                          {v.sourceGroup || v.source}
-                        </div>
-                        <div className="tab-quick-stats">
-                          CR {v.cr} • {v.hp} HP • CA {v.ac}
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-
-                {/* Smart Diff Comparison Banner */}
-                {modalVersionDiffs && modalVersionDiffs.length > 0 && comparisonBaseline && (
-                  <div className="modal-version-diff-card">
-                    <div className="diff-header">
-                      <Activity size={13} color="var(--accent-gold)" />
-                      <span>
-                        Diferencias respecto a <strong>{comparisonBaseline.versionMeta.shortLabel} ({comparisonBaseline.source})</strong>:
-                      </span>
-                    </div>
-                    <div className="diff-badges-row">
-                      {modalVersionDiffs.map((d, idx) => (
-                        <span key={idx} className="diff-chip" title={d.text}>
-                          <strong>{d.label}:</strong> {d.delta ? `${d.from} → ${d.to} (${d.delta})` : `${d.from} → ${d.to}`}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-
-            <div className="statblock-body">
-              {/* Combat Core Stats */}
-              <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-                <div><strong>Clase de Armadura:</strong> {activeModalCreature.acText}</div>
-                <div><strong>Puntos de Golpe:</strong> {activeModalCreature.hp} ({activeModalCreature.hpFormula})</div>
-                <div>
-                  <strong>Velocidad:</strong> {activeModalCreature.speed.walk || 30} ft
-                  {activeModalCreature.speed.fly ? `, volar ${activeModalCreature.speed.fly} ft${activeModalCreature.speed.canHover ? ' (levita)' : ''}` : ''}
-                  {activeModalCreature.speed.swim ? `, nadar ${activeModalCreature.speed.swim} ft` : ''}
-                  {activeModalCreature.speed.climb ? `, trepar ${activeModalCreature.speed.climb} ft` : ''}
-                </div>
-              </div>
-
-              <div className="stat-divider" />
-
-              {/* Attributes Matrix */}
-              <div className="abilities-grid">
-                {[
-                  { label: 'FUE / STR', val: activeModalCreature.str },
-                  { label: 'DES / DEX', val: activeModalCreature.dex },
-                  { label: 'CON', val: activeModalCreature.con },
-                  { label: 'INT', val: activeModalCreature.int },
-                  { label: 'SAB / WIS', val: activeModalCreature.wis },
-                  { label: 'CAR / CHA', val: activeModalCreature.cha },
-                ].map(att => {
-                  const mod = Math.floor((att.val - 10) / 2);
-                  const modStr = mod >= 0 ? `+${mod}` : `${mod}`;
-                  return (
-                    <div key={att.label} className="ability-cell">
-                      <span className="ability-label">{att.label}</span>
-                      <span className="ability-score">{att.val}</span>
-                      <span className="ability-mod">{modStr}</span>
-                    </div>
-                  );
-                })}
-              </div>
-
-              <div className="stat-divider" />
-
-              {/* Defenses, Saves, Senses, Languages, CR */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', fontSize: '0.85rem' }}>
-                {activeModalCreature.forcesSaves && activeModalCreature.forcesSaves.length > 0 && (
-                  <div style={{ color: '#fbbf24', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <Zap size={14} />
-                    <strong>Exige Salvaciones (Ataques/Magia):</strong> {activeModalCreature.forcesSaves.map(s => s.toUpperCase()).join(', ')}
-                  </div>
-                )}
-                {activeModalCreature.save && Object.keys(activeModalCreature.save).length > 0 && (
-                  <div style={{ color: '#a7f3d0', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <Shield size={14} />
-                    <strong>Salvaciones (Defensa):</strong> {Object.entries(activeModalCreature.save).map(([k, v]) => `${k.toUpperCase()} ${v}`).join(', ')}
-                  </div>
-                )}
-                {activeModalCreature.resist && activeModalCreature.resist.length > 0 && (
-                  <div><strong>Resistencias a Daño:</strong> {activeModalCreature.resist.join(', ')}</div>
-                )}
-                {activeModalCreature.immune && activeModalCreature.immune.length > 0 && (
-                  <div><strong>Inmunidades a Daño:</strong> {activeModalCreature.immune.join(', ')}</div>
-                )}
-                {activeModalCreature.conditionImmune && activeModalCreature.conditionImmune.length > 0 && (
-                  <div><strong>Inmunidades a Estados:</strong> {activeModalCreature.conditionImmune.join(', ')}</div>
-                )}
-                <div><strong>Sentidos:</strong> {activeModalCreature.senses || '—'}, Percepción Pasiva {activeModalCreature.passivePerception}</div>
-                <div><strong>Idiomas:</strong> {activeModalCreature.languages || '—'}</div>
-                <div><strong>Desafío (CR):</strong> {activeModalCreature.cr} ({activeModalCreature.xp.toLocaleString()} XP)</div>
-              </div>
-
-              {/* Traits */}
-              {activeModalCreature.trait && activeModalCreature.trait.length > 0 && (
-                <div>
-                  <h4 className="section-heading">Rasgos Especiales</h4>
-                  {activeModalCreature.trait.map((t, idx) => (
-                    <div key={idx} className="entry-block">
-                      <span className="entry-name">{t.name}. </span>
-                      <span>{(t.entries || []).join ? t.entries.join(' ') : String(t.entries)}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* Actions */}
-              {activeModalCreature.action && activeModalCreature.action.length > 0 && (
-                <div>
-                  <h4 className="section-heading">Acciones</h4>
-                  {activeModalCreature.action.map((a, idx) => (
-                    <div key={idx} className="entry-block">
-                      <span className="entry-name">{a.name}. </span>
-                      <span>{(a.entries || []).join ? a.entries.join(' ') : String(a.entries)}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* Legendary Actions */}
-              {activeModalCreature.legendary && activeModalCreature.legendary.length > 0 && (
-                <div>
-                  <h4 className="section-heading" style={{ color: '#fbbf24' }}>Acciones Legendarias</h4>
-                  <p style={{ fontSize: '0.8rem', fontStyle: 'italic', marginBottom: '8px' }}>
-                    La criatura puede realizar 3 acciones legendarias al final del turno de otro combatiente.
-                  </p>
-                  {activeModalCreature.legendary.map((l, idx) => (
-                    <div key={idx} className="entry-block">
-                      <span className="entry-name" style={{ color: '#fde68a' }}>{l.name}. </span>
-                      <span>{(l.entries || []).join ? l.entries.join(' ') : String(l.entries)}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* Quick Add Button inside Modal */}
-              <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'flex-end' }}>
-                <button 
-                  className="simulate-action-btn"
-                  onClick={() => {
-                    handleAddToEncounter(activeModalCreature);
-                    setActiveModalCreature(null);
-                  }}
-                >
-                  <Plus size={16} />
-                  <span>Añadir al Encuentro</span>
-                </button>
-              </div>
-            </div>
-          </div>
+          <CreatureStatblock 
+            creature={activeModalCreature}
+            modalGroup={modalGroup}
+            onSelectVersion={(v) => {
+              setActiveModalCreature(v);
+              setCardVersionOverrides(prev => ({ ...prev, [modalGroup.groupKey]: v.id }));
+            }}
+            modalVersionDiffs={modalVersionDiffs}
+            comparisonBaseline={comparisonBaseline}
+            onAddToEncounter={(c) => {
+              handleAddToEncounter(c);
+              setActiveModalCreature(null);
+            }}
+            onClose={() => setActiveModalCreature(null)}
+          />
         </div>
       )}
     </div>
