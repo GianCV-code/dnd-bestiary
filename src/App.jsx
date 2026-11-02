@@ -939,6 +939,29 @@ export default function App() {
         </div>
 
         <div className="header-actions">
+          <a
+            href="./demos.html"
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '6px 12px',
+              borderRadius: '8px',
+              fontSize: '0.8rem',
+              fontWeight: 600,
+              background: 'rgba(245, 158, 11, 0.15)',
+              border: '1px solid rgba(245, 158, 11, 0.35)',
+              color: '#fde68a',
+              textDecoration: 'none',
+              transition: 'all 0.2s'
+            }}
+            title="Abrir el comparador interactivo de las 6 demos de statblocks"
+          >
+            <span>🧪</span>
+            <span>Ver Demos Statblock</span>
+          </a>
           <button 
             id="encounter-drawer-toggle"
             className="encounter-toggle-btn"
