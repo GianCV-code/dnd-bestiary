@@ -35,6 +35,7 @@ import {
   computeVersionDiff 
 } from './engine/versionManager';
 import PartySyncBar from './components/PartySyncBar';
+import { loadBestiaryWithCache } from './engine/cacheManager';
 
 // 5e Tools Advanced Filter Constants
 const SIZES = [
@@ -191,6 +192,122 @@ function extractForcesSaves(c) {
   return Array.from(saves);
 }
 
+// Transform and index raw bestiary data for instant searches and edition grouping
+function indexRawBestiary(data) {
+  const repaired = repairHollowCopies(data);
+
+  const sizeMap = {
+    'T': 'tiny diminuto',
+    'S': 'small pequeño',
+    'M': 'medium mediano',
+    'L': 'large grande',
+    'H': 'huge enorme',
+    'G': 'gargantuan gargantuesco'
+  };
+
+  return repaired.map(c => {
+    const versionMeta = getCreatureVersionMeta(c);
+    const parts = [
+      c.name,
+      c.type,
+      (c.typeTags || []).join(' '),
+      c.publisher || '',
+      c.sourceGroup || '',
+      c.source || '',
+      versionMeta.is2024 ? '2024 revised xmm' : '',
+      versionMeta.is2014 ? '2014 classic mm' : '',
+      versionMeta.is3pp ? '3pp third party' : '',
+      versionMeta.isCrossover ? 'crossover video game' : '',
+      c.source || '',
+      c.senses || '',
+      c.languages || '',
+      (c.resist || []).join(' '),
+      (c.immune || []).join(' '),
+      (c.vulnerable || []).join(' '),
+      (c.conditionImmune || []).join(' '),
+      (c.environment || []).join(' ')
+    ];
+
+    if (sizeMap[c.size]) parts.push(sizeMap[c.size]);
+
+    if (c.save) {
+      Object.keys(c.save).forEach(k => {
+        parts.push(`${k} save`, `${k} saving throw`);
+        if (k === 'wis') parts.push('wisdom wisdom save wisdom saving throw sab sabiduria');
+        if (k === 'dex') parts.push('dexterity dexterity save dexterity saving throw des destreza');
+        if (k === 'con') parts.push('constitution constitution save constitution saving throw constitucion');
+        if (k === 'str') parts.push('strength strength save strength saving throw fue fuerza');
+        if (k === 'int') parts.push('intelligence intelligence save intelligence saving throw inteligencia');
+        if (k === 'cha') parts.push('charisma charisma save charisma saving throw car carisma');
+      });
+    }
+
+    if (c.speed) {
+      if (c.speed.fly > 0) parts.push('fly flying flight volar vuelo');
+      if (c.speed.swim > 0) parts.push('swim swimming nadar nado');
+      if (c.speed.climb > 0) parts.push('climb climbing trepar');
+      if (c.speed.burrow > 0) parts.push('burrow burrowing cavar');
+      if (c.speed.canHover) parts.push('hover levitar');
+    }
+
+    if (c.legendary && c.legendary.length > 0) parts.push('legendary legendary action acciones legendarias');
+    if (c.mythic && c.mythic.length > 0) parts.push('mythic acciones miticas');
+    if (c.spellcasting && c.spellcasting.length > 0) parts.push('spellcaster spellcasting lanzador de conjuros');
+
+    (c.trait || []).forEach(t => {
+      parts.push(t.name);
+      (t.entries || []).forEach(e => {
+        if (typeof e === 'string') parts.push(e);
+        else if (e && e.entries) parts.push(JSON.stringify(e));
+      });
+    });
+
+    (c.action || []).forEach(t => {
+      parts.push(t.name);
+      (t.entries || []).forEach(e => {
+        if (typeof e === 'string') parts.push(e);
+        else if (e && e.entries) parts.push(JSON.stringify(e));
+      });
+    });
+
+    (c.reaction || []).forEach(t => {
+      parts.push(t.name);
+      (t.entries || []).forEach(e => {
+        if (typeof e === 'string') parts.push(e);
+        else if (e && e.entries) parts.push(JSON.stringify(e));
+      });
+    });
+
+    (c.legendary || []).forEach(t => {
+      parts.push(t.name);
+      (t.entries || []).forEach(e => {
+        if (typeof e === 'string') parts.push(e);
+        else if (e && e.entries) parts.push(JSON.stringify(e));
+      });
+    });
+
+    const forcesSaves = extractForcesSaves(c);
+    if (forcesSaves.length > 0) {
+      forcesSaves.forEach(k => {
+        parts.push(`forces ${k} save`, `forces ${k} saving throw`, `exige ${k}`, `salvacion ${k}`);
+        if (k === 'wis') parts.push('forces wisdom save exige sabiduria exige salvacion sabiduria wisdom saving throw dc wisdom wisdom');
+        if (k === 'dex') parts.push('forces dexterity save exige destreza exige salvacion destreza dexterity saving throw dc dexterity dexterity');
+        if (k === 'con') parts.push('forces constitution save exige constitucion exige salvacion constitucion constitution saving throw dc constitution constitution');
+        if (k === 'str') parts.push('forces strength save exige fuerza exige salvacion fuerza strength saving throw dc strength strength');
+        if (k === 'int') parts.push('forces intelligence save exige inteligencia exige salvacion inteligencia intelligence saving throw dc intelligence intelligence');
+        if (k === 'cha') parts.push('forces charisma save exige carisma exige salvacion carisma charisma saving throw dc charisma charisma');
+      });
+    }
+
+    return {
+      ...c,
+      versionMeta,
+      forcesSaves,
+      _searchIndex: parts.join(' ').toLowerCase()
+    };
+  });
+}
+
 export default function App() {
   const [creatures, setCreatures] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -321,128 +438,11 @@ export default function App() {
   const [simResult, setSimResult] = useState(null);
   const [isSimulating, setIsSimulating] = useState(false);
 
-  // Load Bestiary Data with Instant Search Indexing
+    // Load Bestiary Data with Persistent IndexedDB Cache (0 bytes bandwidth on repeat visits)
   useEffect(() => {
-    fetch(import.meta.env.BASE_URL + 'data/bestiary.json')
-      .then(res => {
-        if (!res.ok) throw new Error('No se pudo cargar el archivo bestiary.json');
-        return res.json();
-      })
-      .then(data => {
-        // 1. Repair same-name hollow copies so all editions have complete playable stats
-        const repaired = repairHollowCopies(data);
-
-        const sizeMap = {
-          'T': 'tiny diminuto',
-          'S': 'small pequeño',
-          'M': 'medium mediano',
-          'L': 'large grande',
-          'H': 'huge enorme',
-          'G': 'gargantuan gargantuesco'
-        };
-
-        const indexed = repaired.map(c => {
-          const versionMeta = getCreatureVersionMeta(c);
-          const parts = [
-            c.name,
-            c.type,
-            (c.typeTags || []).join(' '),
-            c.publisher || '',
-            c.sourceGroup || '',
-            c.source || '',
-            versionMeta.is2024 ? '2024 revised xmm' : '',
-            versionMeta.is2014 ? '2014 classic mm' : '',
-            versionMeta.is3pp ? '3pp third party' : '',
-            versionMeta.isCrossover ? 'crossover video game' : '',
-            c.source || '',
-            c.senses || '',
-            c.languages || '',
-            (c.resist || []).join(' '),
-            (c.immune || []).join(' '),
-            (c.vulnerable || []).join(' '),
-            (c.conditionImmune || []).join(' '),
-            (c.environment || []).join(' ')
-          ];
-
-          if (sizeMap[c.size]) parts.push(sizeMap[c.size]);
-
-          if (c.save) {
-            Object.keys(c.save).forEach(k => {
-              parts.push(`${k} save`, `${k} saving throw`);
-              if (k === 'wis') parts.push('wisdom wisdom save wisdom saving throw sab sabiduria');
-              if (k === 'dex') parts.push('dexterity dexterity save dexterity saving throw des destreza');
-              if (k === 'con') parts.push('constitution constitution save constitution saving throw constitucion');
-              if (k === 'str') parts.push('strength strength save strength saving throw fue fuerza');
-              if (k === 'int') parts.push('intelligence intelligence save intelligence saving throw inteligencia');
-              if (k === 'cha') parts.push('charisma charisma save charisma saving throw car carisma');
-            });
-          }
-
-          if (c.speed) {
-            if (c.speed.fly > 0) parts.push('fly flying flight volar vuelo');
-            if (c.speed.swim > 0) parts.push('swim swimming nadar nado');
-            if (c.speed.climb > 0) parts.push('climb climbing trepar');
-            if (c.speed.burrow > 0) parts.push('burrow burrowing cavar');
-            if (c.speed.canHover) parts.push('hover levitar');
-          }
-
-          if (c.legendary && c.legendary.length > 0) parts.push('legendary legendary action acciones legendarias');
-          if (c.mythic && c.mythic.length > 0) parts.push('mythic acciones miticas');
-          if (c.spellcasting && c.spellcasting.length > 0) parts.push('spellcaster spellcasting lanzador de conjuros');
-
-          (c.trait || []).forEach(t => {
-            parts.push(t.name);
-            (t.entries || []).forEach(e => {
-              if (typeof e === 'string') parts.push(e);
-              else if (e && e.entries) parts.push(JSON.stringify(e));
-            });
-          });
-
-          (c.action || []).forEach(t => {
-            parts.push(t.name);
-            (t.entries || []).forEach(e => {
-              if (typeof e === 'string') parts.push(e);
-              else if (e && e.entries) parts.push(JSON.stringify(e));
-            });
-          });
-
-          (c.reaction || []).forEach(t => {
-            parts.push(t.name);
-            (t.entries || []).forEach(e => {
-              if (typeof e === 'string') parts.push(e);
-              else if (e && e.entries) parts.push(JSON.stringify(e));
-            });
-          });
-
-          (c.legendary || []).forEach(t => {
-            parts.push(t.name);
-            (t.entries || []).forEach(e => {
-              if (typeof e === 'string') parts.push(e);
-              else if (e && e.entries) parts.push(JSON.stringify(e));
-            });
-          });
-
-          const forcesSaves = extractForcesSaves(c);
-          if (forcesSaves.length > 0) {
-            forcesSaves.forEach(k => {
-              parts.push(`forces ${k} save`, `forces ${k} saving throw`, `exige ${k}`, `salvacion ${k}`);
-              if (k === 'wis') parts.push('forces wisdom save exige sabiduria exige salvacion sabiduria wisdom saving throw dc wisdom wisdom');
-              if (k === 'dex') parts.push('forces dexterity save exige destreza exige salvacion destreza dexterity saving throw dc dexterity dexterity');
-              if (k === 'con') parts.push('forces constitution save exige constitucion exige salvacion constitucion constitution saving throw dc constitution constitution');
-              if (k === 'str') parts.push('forces strength save exige fuerza exige salvacion fuerza strength saving throw dc strength strength');
-              if (k === 'int') parts.push('forces intelligence save exige inteligencia exige salvacion inteligencia intelligence saving throw dc intelligence intelligence');
-              if (k === 'cha') parts.push('forces charisma save exige carisma exige salvacion carisma charisma saving throw dc charisma charisma');
-            });
-          }
-
-          return {
-            ...c,
-            versionMeta,
-            forcesSaves,
-            _searchIndex: parts.join(' ').toLowerCase()
-          };
-        });
-
+    const dataUrl = import.meta.env.BASE_URL + 'data/bestiary.json';
+    loadBestiaryWithCache(dataUrl, indexRawBestiary)
+      .then(indexed => {
         setCreatures(indexed);
         setLoading(false);
       })

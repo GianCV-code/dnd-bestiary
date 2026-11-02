@@ -30,3 +30,4 @@ try {
     fs.rmSync(gitFolder, { recursive: true, force: true });
   }
 }
+
