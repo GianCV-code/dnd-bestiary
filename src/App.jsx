@@ -23,10 +23,17 @@ import {
   RotateCcw,
   Eye,
   Wind,
-  Activity
+  Activity,
+  Layers
 } from 'lucide-react';
 import { evaluateEncounter } from './engine/encounterEngine';
 import { simulateBattle, DND_CLASSES, getStatsForClassAndLevel } from './engine/combatSimulator';
+import { 
+  getCreatureVersionMeta, 
+  repairHollowCopies, 
+  groupCreaturesByName, 
+  computeVersionDiff 
+} from './engine/versionManager';
 
 // 5e Tools Advanced Filter Constants
 const SIZES = [
@@ -206,6 +213,15 @@ export default function App() {
   const [hasTokenOnly, setHasTokenOnly] = useState(false);
   const [sortBy, setSortBy] = useState('name-asc');
 
+  // Edition Filter: 'ALL' | '2024' | '2014' | '3pp' | 'crossover'
+  const [selectedEdition, setSelectedEdition] = useState('ALL');
+
+  // Group Versions by default to eliminate duplicates and organize reprints
+  const [groupVersions, setGroupVersions] = useState(true);
+
+  // Selected Version ID per card: { [groupKey]: creatureId }
+  const [cardVersionOverrides, setCardVersionOverrides] = useState({});
+
   // Modal / Selected Detail Creature
   const [activeModalCreature, setActiveModalCreature] = useState(null);
 
@@ -281,6 +297,9 @@ export default function App() {
         return res.json();
       })
       .then(data => {
+        // 1. Repair same-name hollow copies so all editions have complete playable stats
+        const repaired = repairHollowCopies(data);
+
         const sizeMap = {
           'T': 'tiny diminuto',
           'S': 'small pequeño',
@@ -290,13 +309,19 @@ export default function App() {
           'G': 'gargantuan gargantuesco'
         };
 
-        const indexed = data.map(c => {
+        const indexed = repaired.map(c => {
+          const versionMeta = getCreatureVersionMeta(c);
           const parts = [
             c.name,
             c.type,
             (c.typeTags || []).join(' '),
             c.publisher || '',
             c.sourceGroup || '',
+            c.source || '',
+            versionMeta.is2024 ? '2024 revised xmm' : '',
+            versionMeta.is2014 ? '2014 classic mm' : '',
+            versionMeta.is3pp ? '3pp third party' : '',
+            versionMeta.isCrossover ? 'crossover video game' : '',
             c.source || '',
             c.senses || '',
             c.languages || '',
@@ -380,6 +405,7 @@ export default function App() {
 
           return {
             ...c,
+            versionMeta,
             forcesSaves,
             _searchIndex: parts.join(' ').toLowerCase()
           };
@@ -433,6 +459,7 @@ export default function App() {
   const activeFiltersCount = useMemo(() => {
     let count = 0;
     if (search.trim()) count++;
+    if (selectedEdition !== 'ALL') count++;
     if (selectedType !== 'ALL') count++;
     if (selectedSizes.length > 0) count += selectedSizes.length;
     if (selectedCrRange.min > 0 || selectedCrRange.max < 30) count++;
@@ -450,6 +477,7 @@ export default function App() {
     return count;
   }, [
     search, 
+    selectedEdition,
     selectedType, 
     selectedSizes, 
     selectedCrRange, 
@@ -468,6 +496,7 @@ export default function App() {
 
   const handleResetFilters = () => {
     setSearch('');
+    setSelectedEdition('ALL');
     setSelectedType('ALL');
     setSelectedSizes([]);
     setSelectedCrRange({ min: 0, max: 30 });
@@ -488,117 +517,189 @@ export default function App() {
     setList(prev => prev.includes(item) ? prev.filter(x => x !== item) : [...prev, item]);
   };
 
-  // Filtered & Sorted Creatures Across the ENTIRE Bestiary Database
-  const filteredCreatures = useMemo(() => {
+  // Group creatures by name (eliminating noise from identical reprints and organizing versions)
+  const { creatureGroups, creatureGroupsMap } = useMemo(() => {
+    return groupCreaturesByName(creatures);
+  }, [creatures]);
+
+  // Predicate checking if a creature matches all current active filters
+  const isCreatureMatching = (c, searchTerms) => {
+    // 1. Search Terms (Name, spells, traits, actions, saves)
+    if (searchTerms.length > 0) {
+      const matchesSearch = searchTerms.every(term => c._searchIndex && c._searchIndex.includes(term));
+      if (!matchesSearch) return false;
+    }
+
+    // 2. Edition Filter
+    if (selectedEdition === '2024' && !c.versionMeta?.is2024) return false;
+    if (selectedEdition === '2014' && !c.versionMeta?.is2014) return false;
+    if (selectedEdition === '3pp' && !c.versionMeta?.is3pp) return false;
+    if (selectedEdition === 'crossover' && !c.versionMeta?.isCrossover) return false;
+
+    // 3. Creature Type Filter
+    if (selectedType !== 'ALL' && c.type !== selectedType) return false;
+
+    // 4. Size Filter
+    if (selectedSizes.length > 0 && !selectedSizes.includes(c.size)) return false;
+
+    // 5. CR Range Filter
+    if (c.crNumeric < selectedCrRange.min || c.crNumeric > selectedCrRange.max) return false;
+
+    // 6. Saving Throws Forced on Targets (Offensive)
+    if (selectedForcesSaves.length > 0) {
+      const matchesForcesSaves = selectedForcesSaves.every(saveKey => 
+        (c.forcesSaves || []).includes(saveKey)
+      );
+      if (!matchesForcesSaves) return false;
+    }
+
+    // 7. Saving Throws Proficiency (Defensive)
+    if (selectedSaves.length > 0) {
+      const matchesSaves = selectedSaves.every(saveKey => c.save && c.save[saveKey] !== undefined);
+      if (!matchesSaves) return false;
+    }
+
+    // 8. Movement Speeds
+    if (selectedSpeeds.length > 0) {
+      const matchesSpeeds = selectedSpeeds.every(sp => {
+        if (sp === 'fly') return (c.speed?.fly || 0) > 0;
+        if (sp === 'swim') return (c.speed?.swim || 0) > 0;
+        if (sp === 'climb') return (c.speed?.climb || 0) > 0;
+        if (sp === 'burrow') return (c.speed?.burrow || 0) > 0;
+        if (sp === 'hover') return !!c.speed?.canHover;
+        return true;
+      });
+      if (!matchesSpeeds) return false;
+    }
+
+    // 9. Senses
+    if (selectedSenses.length > 0) {
+      const senseStr = (c.senses || '').toLowerCase();
+      const matchesSenses = selectedSenses.every(sense => senseStr.includes(sense));
+      if (!matchesSenses) return false;
+    }
+
+    // 10. Damage Immunities
+    if (selectedDamageImmunities.length > 0) {
+      const matchesImmunities = selectedDamageImmunities.every(dmg => 
+        (c.immune || []).some(im => (typeof im === 'string' ? im : JSON.stringify(im)).toLowerCase().includes(dmg))
+      );
+      if (!matchesImmunities) return false;
+    }
+
+    // 11. Damage Resistances
+    if (selectedDamageResistances.length > 0) {
+      const matchesResistances = selectedDamageResistances.every(dmg => 
+        (c.resist || []).some(res => (typeof res === 'string' ? res : JSON.stringify(res)).toLowerCase().includes(dmg))
+      );
+      if (!matchesResistances) return false;
+    }
+
+    // 12. Condition Immunities
+    if (selectedConditionImmunities.length > 0) {
+      const matchesConditions = selectedConditionImmunities.every(cond => 
+        (c.conditionImmune || []).some(ci => (typeof ci === 'string' ? ci : JSON.stringify(ci)).toLowerCase().includes(cond))
+      );
+      if (!matchesConditions) return false;
+    }
+
+    // 13. Environment
+    if (selectedEnvironment !== 'ALL') {
+      const envTarget = selectedEnvironment.toLowerCase();
+      const matchesEnv = (c.environment || []).some(env => {
+        const e = env.toLowerCase();
+        if (envTarget === 'jungle') return e.includes('jungle') || e.includes('tropical');
+        if (envTarget === 'planar') return e.includes('planar') || e.includes('feywild') || e.includes('shadowfell') || e.includes('abyss') || e.includes('astral') || e.includes('ethereal') || e.includes('nine hells');
+        return e.includes(envTarget);
+      });
+      if (!matchesEnv) return false;
+    }
+
+    // 14. Special Traits
+    if (hasLegendary && (!c.legendary || c.legendary.length === 0)) return false;
+    if (isSpellcaster && (!c.spellcasting || c.spellcasting.length === 0)) return false;
+    if (hasTokenOnly && !c.hasToken) return false;
+
+    return true;
+  };
+
+  // Filtered Creature Groups (Smart versioning grouping)
+  const { filteredCreatureGroups, totalMatchingVersionsCount } = useMemo(() => {
     const searchTerms = search.toLowerCase().trim().split(/\s+/).filter(Boolean);
 
-    return creatures.filter(c => {
-      // 1. Keyword search (Name, saving throws, actions, traits, damage, spells, etc.)
-      if (searchTerms.length > 0) {
-        const matchesSearch = searchTerms.every(term => c._searchIndex && c._searchIndex.includes(term));
-        if (!matchesSearch) return false;
+    let matchingVersionsTotal = 0;
+    const groupsResult = [];
+
+    for (const group of creatureGroups) {
+      // Find matching versions in this group
+      const matchingVersions = group.versions.filter(v => isCreatureMatching(v, searchTerms));
+      if (matchingVersions.length === 0) continue;
+
+      matchingVersionsTotal += matchingVersions.length;
+
+      // Select active version for this group
+      const overrideId = cardVersionOverrides[group.groupKey];
+      let activeVersion = matchingVersions.find(v => v.id === overrideId);
+      if (!activeVersion) {
+        // Fall back to preferred default among matching versions
+        activeVersion = matchingVersions[0];
       }
 
-      // 2. Creature Type Filter
-      if (selectedType !== 'ALL' && c.type !== selectedType) {
-        return false;
-      }
+      groupsResult.push({
+        groupKey: group.groupKey,
+        name: group.name,
+        versions: group.versions,
+        matchingVersions: matchingVersions,
+        activeVersion: activeVersion,
+        hasMultipleVersions: group.versions.length > 1
+      });
+    }
 
-      // 3. Size Filter
-      if (selectedSizes.length > 0 && !selectedSizes.includes(c.size)) {
-        return false;
-      }
+    // Sort groups based on activeVersion
+    groupsResult.sort((a, b) => {
+      const ca = a.activeVersion;
+      const cb = b.activeVersion;
+      if (sortBy === 'name-asc') return ca.name.localeCompare(cb.name);
+      if (sortBy === 'name-desc') return cb.name.localeCompare(ca.name);
+      if (sortBy === 'cr-asc') return ca.crNumeric - cb.crNumeric || ca.name.localeCompare(cb.name);
+      if (sortBy === 'cr-desc') return cb.crNumeric - ca.crNumeric || ca.name.localeCompare(cb.name);
+      if (sortBy === 'hp-desc') return cb.hp - ca.hp;
+      if (sortBy === 'ac-desc') return cb.ac - ca.ac;
+      return 0;
+    });
 
-      // 4. CR Range Filter
-      if (c.crNumeric < selectedCrRange.min || c.crNumeric > selectedCrRange.max) {
-        return false;
-      }
+    return {
+      filteredCreatureGroups: groupsResult,
+      totalMatchingVersionsCount: matchingVersionsTotal
+    };
+  }, [
+    creatureGroups,
+    cardVersionOverrides,
+    search,
+    selectedEdition,
+    selectedType,
+    selectedSizes,
+    selectedCrRange,
+    selectedForcesSaves,
+    selectedSaves,
+    selectedSpeeds,
+    selectedSenses,
+    selectedDamageImmunities,
+    selectedDamageResistances,
+    selectedConditionImmunities,
+    selectedEnvironment,
+    hasLegendary,
+    isSpellcaster,
+    hasTokenOnly,
+    sortBy
+  ]);
 
-      // 5. Saving Throws Forced on Targets (Offensive: Breath weapons, spells, gazes, poisons)
-      if (selectedForcesSaves.length > 0) {
-        const matchesForcesSaves = selectedForcesSaves.every(saveKey => 
-          (c.forcesSaves || []).includes(saveKey)
-        );
-        if (!matchesForcesSaves) return false;
-      }
+  // Flat Filtered Creatures (Fallback when user disables grouping)
+  const flatFilteredCreatures = useMemo(() => {
+    if (groupVersions) return [];
+    const searchTerms = search.toLowerCase().trim().split(/\s+/).filter(Boolean);
 
-      // 6. Saving Throws Proficiency (Defensive: STR, DEX, CON, INT, WIS, CHA)
-      if (selectedSaves.length > 0) {
-        const matchesSaves = selectedSaves.every(saveKey => c.save && c.save[saveKey] !== undefined);
-        if (!matchesSaves) return false;
-      }
-
-      // 7. Movement / Speeds Filter
-      if (selectedSpeeds.length > 0) {
-        const matchesSpeeds = selectedSpeeds.every(sp => {
-          if (sp === 'fly') return (c.speed?.fly || 0) > 0;
-          if (sp === 'swim') return (c.speed?.swim || 0) > 0;
-          if (sp === 'climb') return (c.speed?.climb || 0) > 0;
-          if (sp === 'burrow') return (c.speed?.burrow || 0) > 0;
-          if (sp === 'hover') return !!c.speed?.canHover;
-          return true;
-        });
-        if (!matchesSpeeds) return false;
-      }
-
-      // 8. Senses Filter
-      if (selectedSenses.length > 0) {
-        const senseStr = (c.senses || '').toLowerCase();
-        const matchesSenses = selectedSenses.every(sense => senseStr.includes(sense));
-        if (!matchesSenses) return false;
-      }
-
-      // 9. Damage Immunities Filter
-      if (selectedDamageImmunities.length > 0) {
-        const matchesImmunities = selectedDamageImmunities.every(dmg => 
-          (c.immune || []).some(im => (typeof im === 'string' ? im : JSON.stringify(im)).toLowerCase().includes(dmg))
-        );
-        if (!matchesImmunities) return false;
-      }
-
-      // 10. Damage Resistances Filter
-      if (selectedDamageResistances.length > 0) {
-        const matchesResistances = selectedDamageResistances.every(dmg => 
-          (c.resist || []).some(res => (typeof res === 'string' ? res : JSON.stringify(res)).toLowerCase().includes(dmg))
-        );
-        if (!matchesResistances) return false;
-      }
-
-      // 11. Condition Immunities Filter
-      if (selectedConditionImmunities.length > 0) {
-        const matchesConditions = selectedConditionImmunities.every(cond => 
-          (c.conditionImmune || []).some(ci => (typeof ci === 'string' ? ci : JSON.stringify(ci)).toLowerCase().includes(cond))
-        );
-        if (!matchesConditions) return false;
-      }
-
-      // 12. Environment / Habitat Filter
-      if (selectedEnvironment !== 'ALL') {
-        const envTarget = selectedEnvironment.toLowerCase();
-        const matchesEnv = (c.environment || []).some(env => {
-          const e = env.toLowerCase();
-          if (envTarget === 'jungle') return e.includes('jungle') || e.includes('tropical');
-          if (envTarget === 'planar') return e.includes('planar') || e.includes('feywild') || e.includes('shadowfell') || e.includes('abyss') || e.includes('astral') || e.includes('ethereal') || e.includes('nine hells');
-          return e.includes(envTarget);
-        });
-        if (!matchesEnv) return false;
-      }
-
-      // 13. Special Combat Traits Filter
-      if (hasLegendary && (!c.legendary || c.legendary.length === 0)) {
-        return false;
-      }
-
-      if (isSpellcaster && (!c.spellcasting || c.spellcasting.length === 0)) {
-        return false;
-      }
-
-      if (hasTokenOnly && !c.hasToken) {
-        return false;
-      }
-
-      return true;
-    }).sort((a, b) => {
+    return creatures.filter(c => isCreatureMatching(c, searchTerms)).sort((a, b) => {
       if (sortBy === 'name-asc') return a.name.localeCompare(b.name);
       if (sortBy === 'name-desc') return b.name.localeCompare(a.name);
       if (sortBy === 'cr-asc') return a.crNumeric - b.crNumeric || a.name.localeCompare(b.name);
@@ -608,24 +709,62 @@ export default function App() {
       return 0;
     });
   }, [
-    creatures, 
-    search, 
-    selectedType, 
-    selectedSizes, 
-    selectedCrRange, 
+    groupVersions,
+    creatures,
+    search,
+    selectedEdition,
+    selectedType,
+    selectedSizes,
+    selectedCrRange,
     selectedForcesSaves,
-    selectedSaves, 
-    selectedSpeeds, 
-    selectedSenses, 
-    selectedDamageImmunities, 
-    selectedDamageResistances, 
-    selectedConditionImmunities, 
-    selectedEnvironment, 
-    hasLegendary, 
-    isSpellcaster, 
-    hasTokenOnly, 
+    selectedSaves,
+    selectedSpeeds,
+    selectedSenses,
+    selectedDamageImmunities,
+    selectedDamageResistances,
+    selectedConditionImmunities,
+    selectedEnvironment,
+    hasLegendary,
+    isSpellcaster,
+    hasTokenOnly,
     sortBy
   ]);
+
+  // Lookup group for active modal creature
+  const modalGroup = useMemo(() => {
+    if (!activeModalCreature) return null;
+    return creatureGroupsMap.get(activeModalCreature.name.toLowerCase().trim()) || null;
+  }, [activeModalCreature, creatureGroupsMap]);
+
+  // Determine comparison baseline for smart diff in modal
+  const comparisonBaseline = useMemo(() => {
+    if (!activeModalCreature || !modalGroup || modalGroup.versions.length < 2) return null;
+
+    // If active is 2024, compare against 2014 if available
+    if (activeModalCreature.versionMeta?.is2024) {
+      const v2014 = modalGroup.versions.find(v => v.versionMeta?.is2014);
+      if (v2014 && v2014.id !== activeModalCreature.id) return v2014;
+    }
+
+    // If active is 2014, compare against 2024 if available
+    if (activeModalCreature.versionMeta?.is2014) {
+      const v2024 = modalGroup.versions.find(v => v.versionMeta?.is2024);
+      if (v2024 && v2024.id !== activeModalCreature.id) return v2024;
+    }
+
+    // Otherwise compare against default version
+    if (activeModalCreature.id !== modalGroup.defaultVersion.id) {
+      return modalGroup.defaultVersion;
+    }
+
+    return modalGroup.versions.find(v => v.id !== activeModalCreature.id) || null;
+  }, [activeModalCreature, modalGroup]);
+
+  // Compute differences for modal
+  const modalVersionDiffs = useMemo(() => {
+    if (!activeModalCreature || !comparisonBaseline) return [];
+    return computeVersionDiff(activeModalCreature, comparisonBaseline);
+  }, [activeModalCreature, comparisonBaseline]);
 
   // Add Creature to Encounter
   const handleAddToEncounter = (creature, e) => {
@@ -1147,9 +1286,70 @@ export default function App() {
         {/* Center: Creature Cards Grid */}
         <main className="creatures-view">
           <div className="view-toolbar">
-            <span className="result-count">
-              Mostrando <strong>{filteredCreatures.length}</strong> de {creatures.length} criaturas
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+              <span className="result-count">
+                Mostrando <strong>{groupVersions ? filteredCreatureGroups.length : flatFilteredCreatures.length}</strong> {groupVersions ? 'criaturas únicas' : 'criaturas'}
+                {groupVersions && (
+                  <span style={{ fontSize: '0.75rem', color: 'var(--text-dark)', marginLeft: '6px' }}>
+                    ({totalMatchingVersionsCount} versiones indexadas)
+                  </span>
+                )}
+              </span>
+
+              {/* Grouping Toggle Button */}
+              <button 
+                type="button"
+                className={`group-toggle-btn ${groupVersions ? 'active' : ''}`}
+                onClick={() => setGroupVersions(prev => !prev)}
+                title={groupVersions ? "Haz clic para ver el catálogo desglosado (sin agrupar reimpresiones)" : "Haz clic para agrupar versiones bajo una misma criatura"}
+              >
+                <Layers size={13} />
+                <span>{groupVersions ? 'Versiones Agrupadas' : 'Desglosado'}</span>
+              </button>
+
+              {/* Quick Edition Selector Pills */}
+              <div className="edition-filter-group" title="Filtrar criaturas por edición de reglas o tipo de fuente">
+                <button 
+                  type="button"
+                  className={`edition-btn ${selectedEdition === 'ALL' ? 'active' : ''}`}
+                  onClick={() => setSelectedEdition('ALL')}
+                >
+                  Todas
+                </button>
+                <button 
+                  type="button"
+                  className={`edition-btn btn-2024-filter ${selectedEdition === '2024' ? 'active' : ''}`}
+                  onClick={() => setSelectedEdition(selectedEdition === '2024' ? 'ALL' : '2024')}
+                  title="Mostrar criaturas con versión oficial revisada 2024 (XMM, XPHB, XDMG)"
+                >
+                  ✨ 2024
+                </button>
+                <button 
+                  type="button"
+                  className={`edition-btn btn-2014-filter ${selectedEdition === '2014' ? 'active' : ''}`}
+                  onClick={() => setSelectedEdition(selectedEdition === '2014' ? 'ALL' : '2014')}
+                  title="Mostrar criaturas con versión oficial clásica 2014 (Monster Manual, etc.)"
+                >
+                  📜 2014
+                </button>
+                <button 
+                  type="button"
+                  className={`edition-btn btn-3pp-filter ${selectedEdition === '3pp' ? 'active' : ''}`}
+                  onClick={() => setSelectedEdition(selectedEdition === '3pp' ? 'ALL' : '3pp')}
+                  title="Mostrar criaturas de editoriales Third-Party (Kobold Press, MCDM, etc.)"
+                >
+                  🛡️ 3PP
+                </button>
+                <button 
+                  type="button"
+                  className={`edition-btn btn-crossover-filter ${selectedEdition === 'crossover' ? 'active' : ''}`}
+                  onClick={() => setSelectedEdition(selectedEdition === 'crossover' ? 'ALL' : 'crossover')}
+                  title="Mostrar criaturas de crossovers de videojuegos (Dark Souls, Monster Hunter, etc.)"
+                >
+                  🎮 Crossovers
+                </button>
+              </div>
+            </div>
 
             <div className="sort-controls">
               <span style={{ fontSize: '0.8rem', color: 'var(--text-dark)' }}>Ordenar por:</span>
@@ -1170,101 +1370,146 @@ export default function App() {
 
           <div className="creatures-scroll-area">
             <div className="creatures-grid">
-              {filteredCreatures.slice(0, 100).map(creature => (
-                <div 
-                  key={creature.id}
-                  className="creature-card"
-                  onClick={() => setActiveModalCreature(creature)}
-                >
-                  <div className="card-top">
-                    <div className="creature-token">
-                      {creature.hasToken ? (
-                        <img 
-                          src={creature.tokenUrl} 
-                          alt={creature.name}
-                          loading="lazy"
-                          onError={(e) => { e.target.style.display = 'none'; }}
-                        />
-                      ) : (
-                        <div className="token-fallback">
-                          {creature.name.charAt(0)}
+              {(groupVersions ? filteredCreatureGroups : flatFilteredCreatures).slice(0, 100).map(item => {
+                const isGroup = groupVersions;
+                const group = isGroup ? item : null;
+                const creature = isGroup ? item.activeVersion : item;
+
+                return (
+                  <div 
+                    key={creature.id}
+                    className="creature-card"
+                    onClick={() => setActiveModalCreature(creature)}
+                  >
+                    <div className="card-top">
+                      <div className="creature-token">
+                        {creature.hasToken ? (
+                          <img 
+                            src={creature.tokenUrl} 
+                            alt={creature.name}
+                            loading="lazy"
+                            onError={(e) => { e.target.style.display = 'none'; }}
+                          />
+                        ) : (
+                          <div className="token-fallback">
+                            {creature.name.charAt(0)}
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="card-meta">
+                        <h3 className="card-name" title={creature.name}>{creature.name}</h3>
+                        <p className="card-type-line">
+                          {creature.size} {creature.type}
+                          {creature.typeTags && creature.typeTags.length > 0 ? ` (${creature.typeTags.join(', ')})` : ''}
+                        </p>
+                      </div>
+
+                      <div className="cr-badge">
+                        <span>CR</span>
+                        {creature.cr}
+                      </div>
+                    </div>
+
+                    {/* Version Switcher Bar on the Card (When creature has multiple editions/versions) */}
+                    {isGroup && group.hasMultipleVersions && (
+                      <div className="card-versions-bar">
+                        <div className="card-versions-header">
+                          <span className="card-versions-title">
+                            <Sparkles size={11} /> {group.versions.length} versiones
+                          </span>
+                          <span className={`card-versions-active-tag tag-${creature.versionMeta.pillType}`}>
+                            {creature.versionMeta.shortLabel}
+                          </span>
                         </div>
-                      )}
+
+                        <div className="card-version-pills-row">
+                          {group.versions.map(v => {
+                            const isSelected = v.id === creature.id;
+                            return (
+                              <button
+                                key={v.id}
+                                type="button"
+                                className={`card-version-btn ${isSelected ? 'active' : ''} btn-${v.versionMeta.pillType}`}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setCardVersionOverrides(prev => ({ ...prev, [group.groupKey]: v.id }));
+                                }}
+                                title={`${v.versionMeta.shortLabel} (${v.sourceGroup || v.source}) — CR ${v.cr}, HP ${v.hp}, CA ${v.ac}`}
+                              >
+                                {v.versionMeta.is2024 && <span className="btn-sparkle">✨</span>}
+                                {v.versionMeta.is2014 && <span className="btn-sparkle">📜</span>}
+                                {v.versionMeta.badge}
+                                {v.cr !== group.versions[0].cr && (
+                                  <span className="pill-cr-delta">CR {v.cr}</span>
+                                )}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="card-stats-row">
+                      <div className="card-stat-item">
+                        <span className="card-stat-label">CA / Armor</span>
+                        <span className="card-stat-val">{creature.ac}</span>
+                      </div>
+                      <div className="card-stat-item">
+                        <span className="card-stat-label">HP / Vida</span>
+                        <span className="card-stat-val">{creature.hp}</span>
+                      </div>
+                      <div className="card-stat-item">
+                        <span className="card-stat-label">Velocidad</span>
+                        <span className="card-stat-val">{creature.speed.walk || creature.speed.fly || 30} ft</span>
+                      </div>
                     </div>
 
-                    <div className="card-meta">
-                      <h3 className="card-name" title={creature.name}>{creature.name}</h3>
-                      <p className="card-type-line">
-                        {creature.size} {creature.type}
-                        {creature.typeTags && creature.typeTags.length > 0 ? ` (${creature.typeTags.join(', ')})` : ''}
-                      </p>
-                    </div>
+                    {(creature.forcesSaves?.length > 0 || (creature.save && Object.keys(creature.save).length > 0)) && (
+                      <div className="card-saves-row">
+                        {creature.forcesSaves?.length > 0 && (
+                          <span className="card-forces-saves-badge" title="Tiradas de salvación que exige a los jugadores">
+                            <Zap size={10} />
+                            Exige: {creature.forcesSaves.map(s => s.toUpperCase()).join(', ')}
+                          </span>
+                        )}
+                        {creature.save && Object.keys(creature.save).length > 0 && (
+                          <span className="card-def-saves-badge" title="Salvaciones en las que la criatura es competente defensivamente">
+                            <Shield size={10} />
+                            Def: {Object.keys(creature.save).map(s => s.toUpperCase()).join(', ')}
+                          </span>
+                        )}
+                      </div>
+                    )}
 
-                    <div className="cr-badge">
-                      <span>CR</span>
-                      {creature.cr}
-                    </div>
-                  </div>
-
-                  <div className="card-stats-row">
-                    <div className="card-stat-item">
-                      <span className="card-stat-label">CA / Armor</span>
-                      <span className="card-stat-val">{creature.ac}</span>
-                    </div>
-                    <div className="card-stat-item">
-                      <span className="card-stat-label">HP / Vida</span>
-                      <span className="card-stat-val">{creature.hp}</span>
-                    </div>
-                    <div className="card-stat-item">
-                      <span className="card-stat-label">Velocidad</span>
-                      <span className="card-stat-val">{creature.speed.walk || creature.speed.fly || 30} ft</span>
-                    </div>
-                  </div>
-
-                  {(creature.forcesSaves?.length > 0 || (creature.save && Object.keys(creature.save).length > 0)) && (
-                    <div className="card-saves-row">
-                      {creature.forcesSaves?.length > 0 && (
-                        <span className="card-forces-saves-badge" title="Tiradas de salvación que exige a los jugadores">
-                          <Zap size={10} />
-                          Exige: {creature.forcesSaves.map(s => s.toUpperCase()).join(', ')}
+                    <div className="card-bottom-actions">
+                      <div className="card-source-badges">
+                        <span className={`publisher-pill ${
+                          creature.category === 'Third-Party (3PP Pro)' 
+                            ? 'pill-3pp' 
+                            : creature.category === 'Crossover / Video Games' 
+                              ? 'pill-crossover' 
+                              : 'pill-wotc'
+                        }`}>
+                          {creature.publisher || 'WotC'}
                         </span>
-                      )}
-                      {creature.save && Object.keys(creature.save).length > 0 && (
-                        <span className="card-def-saves-badge" title="Salvaciones en las que la criatura es competente defensivamente">
-                          <Shield size={10} />
-                          Def: {Object.keys(creature.save).map(s => s.toUpperCase()).join(', ')}
+                        <span className="source-pill" title={creature.sourceGroup}>
+                          {creature.sourceGroup}
                         </span>
-                      )}
-                    </div>
-                  )}
+                      </div>
 
-                  <div className="card-bottom-actions">
-                    <div className="card-source-badges">
-                      <span className={`publisher-pill ${
-                        creature.category === 'Third-Party (3PP Pro)' 
-                          ? 'pill-3pp' 
-                          : creature.category === 'Crossover / Video Games' 
-                            ? 'pill-crossover' 
-                            : 'pill-wotc'
-                      }`}>
-                        {creature.publisher || 'WotC'}
-                      </span>
-                      <span className="source-pill" title={creature.sourceGroup}>
-                        {creature.sourceGroup}
-                      </span>
+                      <button 
+                        className="add-encounter-btn"
+                        onClick={(e) => handleAddToEncounter(creature, e)}
+                        title="Añadir a la batalla"
+                      >
+                        <Plus size={14} />
+                        <span>Al Encuentro</span>
+                      </button>
                     </div>
-
-                    <button 
-                      className="add-encounter-btn"
-                      onClick={(e) => handleAddToEncounter(creature, e)}
-                      title="Añadir a la batalla"
-                    >
-                      <Plus size={14} />
-                      <span>Al Encuentro</span>
-                    </button>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </main>
@@ -1554,8 +1799,17 @@ export default function App() {
                     {encounterMonsters.map(({ creature, count }) => (
                       <div key={creature.id} className="encounter-monster-item">
                         <div style={{ flex: 1, minWidth: 0 }}>
-                          <div style={{ fontWeight: 600, fontSize: '0.85rem', color: '#fff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                            {creature.name}
+                          <div style={{ fontWeight: 600, fontSize: '0.85rem', color: '#fff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            <span>{creature.name}</span>
+                            <span className={`publisher-pill ${
+                              creature.category === 'Third-Party (3PP Pro)' 
+                                ? 'pill-3pp' 
+                                : creature.category === 'Crossover / Video Games' 
+                                  ? 'pill-crossover' 
+                                  : 'pill-wotc'
+                            }`} style={{ fontSize: '0.6rem', padding: '0 4px' }}>
+                              {creature.versionMeta?.badge || creature.source}
+                            </span>
                           </div>
                           <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
                             CR {creature.cr} &bull; {creature.xp.toLocaleString()} XP c/u
@@ -1773,6 +2027,72 @@ export default function App() {
                 <X size={20} />
               </button>
             </div>
+
+            {/* Version Switcher and Comparison Banner if creature has multiple versions */}
+            {modalGroup && modalGroup.versions.length > 1 && (
+              <div className="modal-versions-container">
+                <div className="modal-versions-header">
+                  <span className="modal-versions-heading">
+                    <Sparkles size={14} color="var(--accent-gold)" />
+                    <span>Versiones disponibles ({modalGroup.versions.length})</span>
+                  </span>
+                  <span className="modal-versions-help">
+                    Haz clic para alternar estadísticas entre ediciones y fuentes
+                  </span>
+                </div>
+
+                <div className="modal-version-tabs">
+                  {modalGroup.versions.map(v => {
+                    const isSelected = v.id === activeModalCreature.id;
+                    return (
+                      <button
+                        key={v.id}
+                        type="button"
+                        className={`modal-version-tab ${isSelected ? 'active' : ''} tab-${v.versionMeta.pillType}`}
+                        onClick={() => {
+                          setActiveModalCreature(v);
+                          setCardVersionOverrides(prev => ({ ...prev, [modalGroup.groupKey]: v.id }));
+                        }}
+                      >
+                        <div className="tab-top-row">
+                          <span className="tab-badge-title">
+                            {v.versionMeta.is2024 && '✨ '}
+                            {v.versionMeta.is2014 && '📜 '}
+                            {v.versionMeta.badge}
+                          </span>
+                          {isSelected && <span className="tab-selected-dot">● Activa</span>}
+                        </div>
+                        <div className="tab-source-sub" title={v.sourceGroup || v.source}>
+                          {v.sourceGroup || v.source}
+                        </div>
+                        <div className="tab-quick-stats">
+                          CR {v.cr} • {v.hp} HP • CA {v.ac}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Smart Diff Comparison Banner */}
+                {modalVersionDiffs && modalVersionDiffs.length > 0 && comparisonBaseline && (
+                  <div className="modal-version-diff-card">
+                    <div className="diff-header">
+                      <Activity size={13} color="var(--accent-gold)" />
+                      <span>
+                        Diferencias respecto a <strong>{comparisonBaseline.versionMeta.shortLabel} ({comparisonBaseline.source})</strong>:
+                      </span>
+                    </div>
+                    <div className="diff-badges-row">
+                      {modalVersionDiffs.map((d, idx) => (
+                        <span key={idx} className="diff-chip" title={d.text}>
+                          <strong>{d.label}:</strong> {d.delta ? `${d.from} → ${d.to} (${d.delta})` : `${d.from} → ${d.to}`}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
 
             <div className="statblock-body">
               {/* Combat Core Stats */}

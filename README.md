@@ -14,6 +14,9 @@ Una suite web moderna, rápida y completa para Dungeon Masters de **Dungeons & D
 ### 📖 1. Bestiario Completo (10,496 Criaturas)
 * **Fuentes Oficiales y Third-Party:** Incluye suplementos oficiales de Wizards of the Coast (WotC), grandes editoriales de terceros (Kobold Press, MCDM, etc.) y crossovers.
 * **Ficha de Estadísticas (Statblock) Completa:** Atributos, CA, HP, salvaciones, habilidades, sentidos, rasgos especiales, acciones, reacciones y acciones legendarias.
+* **Agrupación Inteligente de Versiones:** Agrupa más de 2,400 reimpresiones y variantes bajo 9,206 criaturas únicas. Cada tarjeta cuenta con selector interactivo de versiones (`✨ 2024`, `📜 2014`, `3PP`, `Crossovers`).
+* **Comparador Visual de Diferencias (Smart Diff):** Muestra de forma inmediata en la ficha modal qué cambió entre la versión 2014 clásica y la versión 2024 revisada (deltas de HP, CA, atributos, acciones y rasgos).
+
 
 ### 🔍 2. Filtros Avanzados (Estilo 5e.tools)
 * **Desafío (CR):** Selector de rango exacto desde CR 0, 1/8, 1/4, 1/2 hasta CR 30.
