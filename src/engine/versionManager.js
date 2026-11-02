@@ -88,6 +88,7 @@ export function getCreatureVersionMeta(c) {
  * Repairs hollow copy stubs by inheriting valid stats from base creatures of the same name.
  */
 export function repairHollowCopies(creaturesList) {
+  if (!creaturesList || !Array.isArray(creaturesList)) return [];
   const validMap = new Map();
 
   // 1. Index high quality base creatures
@@ -130,10 +131,19 @@ export function repairHollowCopies(creaturesList) {
 
 /**
  * Groups a list of creatures by normalized name, sorting their versions by edition priority.
- * Returns: { groups: CreatureGroup[], groupsMap: Map<string, CreatureGroup> }
+ * Returns both { groups, groupsMap } and { creatureGroups, creatureGroupsMap } for compatibility.
  */
 export function groupCreaturesByName(creaturesList) {
   const groupsMap = new Map();
+
+  if (!creaturesList || !Array.isArray(creaturesList)) {
+    return {
+      creatureGroups: [],
+      creatureGroupsMap: groupsMap,
+      groups: [],
+      groupsMap
+    };
+  }
 
   for (const c of creaturesList) {
     const key = (c.name || '').trim().toLowerCase();
@@ -169,7 +179,12 @@ export function groupCreaturesByName(creaturesList) {
     groups.push(group);
   }
 
-  return { groups, groupsMap };
+  return {
+    creatureGroups: groups,
+    creatureGroupsMap: groupsMap,
+    groups,
+    groupsMap
+  };
 }
 
 /**

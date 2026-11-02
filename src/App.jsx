@@ -34,6 +34,7 @@ import {
   groupCreaturesByName, 
   computeVersionDiff 
 } from './engine/versionManager';
+import PartySyncBar from './components/PartySyncBar';
 
 // 5e Tools Advanced Filter Constants
 const SIZES = [
@@ -269,6 +270,37 @@ export default function App() {
     }
   }, [partyMode]);
 
+  // Read party from URL hash if shared (e.g., #party=...)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const hash = window.location.hash;
+    if (hash && hash.includes('party=')) {
+      try {
+        const raw = hash.split('party=')[1];
+        if (raw) {
+          const jsonStr = decodeURIComponent(escape(atob(decodeURIComponent(raw))));
+          const parsed = JSON.parse(jsonStr);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            const formatted = parsed.map((p, idx) => ({
+              id: p.id || ('cp-' + Date.now() + '-' + idx),
+              name: p.name || 'Héroe',
+              className: p.class || p.className || 'Guerrero',
+              level: Number(p.lvl || p.level) || 5,
+              hp: Number(p.hp) || 40,
+              ac: Number(p.ac) || 16,
+              toHit: Number(p.hit || p.toHit) || 7,
+              dpr: Number(p.dpr) || 20
+            }));
+            setCustomPlayers(formatted);
+            window.history.replaceState(null, '', window.location.pathname + window.location.search);
+          }
+        }
+      } catch (err) {
+        console.warn('Could not parse party from URL hash:', err);
+      }
+    }
+  }, []);
+
   // Generic Party Groups State (Kobold+ Fight Club Quick Mode)
   const [partyGroups, setPartyGroups] = useState([
     { id: 'g1', level: 5, count: 4 }
@@ -291,7 +323,7 @@ export default function App() {
 
   // Load Bestiary Data with Instant Search Indexing
   useEffect(() => {
-    fetch('/data/bestiary.json')
+    fetch(import.meta.env.BASE_URL + 'data/bestiary.json')
       .then(res => {
         if (!res.ok) throw new Error('No se pudo cargar el archivo bestiary.json');
         return res.json();
@@ -519,7 +551,11 @@ export default function App() {
 
   // Group creatures by name (eliminating noise from identical reprints and organizing versions)
   const { creatureGroups, creatureGroupsMap } = useMemo(() => {
-    return groupCreaturesByName(creatures);
+    const res = groupCreaturesByName(creatures);
+    return {
+      creatureGroups: res?.creatureGroups || res?.groups || [],
+      creatureGroupsMap: res?.creatureGroupsMap || res?.groupsMap || new Map()
+    };
   }, [creatures]);
 
   // Predicate checking if a creature matches all current active filters
@@ -630,7 +666,7 @@ export default function App() {
     let matchingVersionsTotal = 0;
     const groupsResult = [];
 
-    for (const group of creatureGroups) {
+    for (const group of (creatureGroups || [])) {
       // Find matching versions in this group
       const matchingVersions = group.versions.filter(v => isCreatureMatching(v, searchTerms));
       if (matchingVersions.length === 0) continue;
@@ -733,7 +769,7 @@ export default function App() {
   // Lookup group for active modal creature
   const modalGroup = useMemo(() => {
     if (!activeModalCreature) return null;
-    return creatureGroupsMap.get(activeModalCreature.name.toLowerCase().trim()) || null;
+    return creatureGroupsMap && creatureGroupsMap.get ? (creatureGroupsMap.get(activeModalCreature.name.toLowerCase().trim()) || null) : null;
   }, [activeModalCreature, creatureGroupsMap]);
 
   // Determine comparison baseline for smart diff in modal
@@ -1556,6 +1592,10 @@ export default function App() {
                 {partyMode === 'custom' ? (
                   /* Custom Players Mode */
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <PartySyncBar 
+                      customPlayers={customPlayers}
+                      onPartyLoaded={(newParty) => setCustomPlayers(newParty)}
+                    />
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                       <span style={{ fontSize: '0.75rem', color: 'var(--text-dark)', fontWeight: 600, textTransform: 'uppercase' }}>
                         Fichas Reales de los Jugadores
