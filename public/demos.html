@@ -2,488 +2,497 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>D&D 5e Statblock Redesign Demos</title>
+  <title>D&D 5e Statblocks Completos - 6 Demos de Diseño</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap');
     body { font-family: 'Outfit', sans-serif; }
     .font-cinzel { font-family: 'Cinzel', serif; }
     .font-mono { font-family: 'JetBrains Mono', monospace; }
   </style>
 </head>
-<body class="bg-[#0a0c12] text-slate-100 p-4 md:p-6 min-h-screen">
+<body class="bg-[#080a0f] text-slate-100 p-3 md:p-6 min-h-screen">
 
-  <div class="max-w-5xl mx-auto space-y-6">
+  <div class="max-w-5xl mx-auto space-y-5">
     
-    <!-- Header -->
-    <div class="border-b border-slate-800 pb-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <!-- Header de la Herramienta -->
+    <div class="border-b border-slate-800/80 pb-4 flex flex-col md:flex-row md:items-center justify-between gap-3">
       <div>
         <div class="flex items-center gap-2">
-          <span class="text-amber-400 text-lg">🐉</span>
-          <h1 class="text-xl md:text-2xl font-bold font-cinzel text-amber-300">Explorador de Demos: Statblocks Tácticos</h1>
+          <span class="text-amber-400 text-xl">🐉</span>
+          <h1 class="text-xl md:text-2xl font-bold font-cinzel text-amber-300 tracking-wide">Laboratorio de Statblocks Completos</h1>
         </div>
-        <p class="text-slate-400 text-sm mt-1">
-          Resolviendo el problema del bonificador perdido (<code class="bg-slate-800 text-rose-300 px-1.5 py-0.5 rounded text-xs">m 8</code>) y mejorando la velocidad de consulta en mesa.
+        <p class="text-slate-400 text-xs md:text-sm mt-0.5">
+          Fichas completas de combate (Atributos, Rasgos, Acciones y Legendarias) con 6 estilos de legibilidad para DM.
         </p>
       </div>
 
-      <!-- Selector de Monstruo de Prueba -->
-      <div class="flex items-center gap-2 bg-slate-900 p-1.5 rounded-lg border border-slate-800 text-xs">
-        <span class="text-slate-400 font-medium px-2">Monstruo demo:</span>
-        <button id="btn-croc" onclick="selectCreature('croc')" class="creature-btn px-3 py-1.5 rounded font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/40">
+      <!-- Selector de Monstruo -->
+      <div class="flex items-center gap-1.5 bg-slate-900/90 p-1.5 rounded-xl border border-slate-800 text-xs shadow-inner">
+        <span class="text-slate-400 font-semibold px-2 text-[11px] uppercase tracking-wider">Criatura:</span>
+        <button id="btn-croc" onclick="selectCreature('croc')" class="creature-btn px-3 py-1.5 rounded-lg font-semibold transition-all bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm">
           🐊 Giant Crocodile
         </button>
-        <button id="btn-kobold" onclick="selectCreature('kobold')" class="creature-btn px-3 py-1.5 rounded font-semibold text-slate-400 hover:text-slate-200">
+        <button id="btn-kobold" onclick="selectCreature('kobold')" class="creature-btn px-3 py-1.5 rounded-lg font-semibold transition-all text-slate-400 hover:text-slate-200">
           🦎 Kobold
         </button>
-        <button id="btn-vecna" onclick="selectCreature('vecna')" class="creature-btn px-3 py-1.5 rounded font-semibold text-slate-400 hover:text-slate-200">
-          💀 Vecna (Jefe Épico)
+        <button id="btn-dragon" onclick="selectCreature('dragon')" class="creature-btn px-3 py-1.5 rounded-lg font-semibold transition-all text-slate-400 hover:text-slate-200">
+          🔥 Ancient Red Dragon (Jefe)
         </button>
       </div>
     </div>
 
-    <!-- Comparativa: El Problema de Ayer vs Solución -->
-    <div class="bg-rose-950/20 border border-rose-900/40 rounded-lg p-3.5 flex items-start gap-3 text-xs">
-      <span class="text-rose-400 text-base">⚠️</span>
-      <div>
-        <strong class="text-rose-300">El diagnóstico del problema actual:</strong>
-        <span class="text-slate-300 ml-1">
-          El formato crudo muestra <code class="text-amber-300 bg-black/40 px-1 py-0.5 rounded">Bite. m 8, reach 5 ft. Hit: 21 (3d10 + 5)...</code> donde la <code class="text-amber-300">m</code> (Melee Weapon) y el <code class="text-amber-300">8</code> (bono +8) quedan diluidos en una masa de texto blanco. En combate, el DM tarda 3 a 5 segundos buscando qué sumar al d20.
-        </span>
-      </div>
-    </div>
-
-    <!-- Selector de las 6 Demos -->
+    <!-- Barra de Selección de las 6 Demos -->
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
-      <button onclick="selectDemo(1)" id="tab-1" class="demo-tab text-left p-3 rounded-lg border transition-all text-xs bg-amber-500/20 border-amber-400/50 text-amber-200 font-semibold shadow-sm">
-        <span class="block text-[11px] opacity-75">Demo 1</span>
+      <button onclick="selectDemo(1)" id="tab-1" class="demo-tab text-left p-2.5 rounded-xl border transition-all text-xs bg-amber-500/20 border-amber-400/50 text-amber-200 font-semibold shadow-sm">
+        <span class="block text-[10px] text-amber-400 font-mono font-normal">ENFOQUE 1</span>
         Tactical Pill Badges
       </button>
-      <button onclick="selectDemo(2)" id="tab-2" class="demo-tab text-left p-3 rounded-lg border border-slate-800 bg-slate-900/60 hover:bg-slate-800/60 text-slate-400 transition-all text-xs">
-        <span class="block text-[11px] opacity-75">Demo 2</span>
+      <button onclick="selectDemo(2)" id="tab-2" class="demo-tab text-left p-2.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/60 text-slate-400 transition-all text-xs">
+        <span class="block text-[10px] text-slate-500 font-mono font-normal">ENFOQUE 2</span>
         Action Header HUD
       </button>
-      <button onclick="selectDemo(3)" id="tab-3" class="demo-tab text-left p-3 rounded-lg border border-slate-800 bg-slate-900/60 hover:bg-slate-800/60 text-slate-400 transition-all text-xs">
-        <span class="block text-[11px] opacity-75">Demo 3</span>
+      <button onclick="selectDemo(3)" id="tab-3" class="demo-tab text-left p-2.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/60 text-slate-400 transition-all text-xs">
+        <span class="block text-[10px] text-slate-500 font-mono font-normal">ENFOQUE 3</span>
         5.5e Clean Typo
       </button>
-      <button onclick="selectDemo(4)" id="tab-4" class="demo-tab text-left p-3 rounded-lg border border-slate-800 bg-slate-900/60 hover:bg-slate-800/60 text-slate-400 transition-all text-xs">
-        <span class="block text-[11px] opacity-75">Demo 4</span>
+      <button onclick="selectDemo(4)" id="tab-4" class="demo-tab text-left p-2.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/60 text-slate-400 transition-all text-xs">
+        <span class="block text-[10px] text-slate-500 font-mono font-normal">ENFOQUE 4</span>
         Tabla Rápida Resumen
       </button>
-      <button onclick="selectDemo(5)" id="tab-5" class="demo-tab text-left p-3 rounded-lg border border-slate-800 bg-slate-900/60 hover:bg-slate-800/60 text-slate-400 transition-all text-xs">
-        <span class="block text-[11px] opacity-75">Demo 5</span>
+      <button onclick="selectDemo(5)" id="tab-5" class="demo-tab text-left p-2.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/60 text-slate-400 transition-all text-xs">
+        <span class="block text-[10px] text-slate-500 font-mono font-normal">ENFOQUE 5</span>
         Tarjetas Modulares
       </button>
-      <button onclick="selectDemo(6)" id="tab-6" class="demo-tab text-left p-3 rounded-lg border border-slate-800 bg-slate-900/60 hover:bg-slate-800/60 text-slate-400 transition-all text-xs">
-        <span class="block text-[11px] opacity-75">Demo 6</span>
+      <button onclick="selectDemo(6)" id="tab-6" class="demo-tab text-left p-2.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/60 text-slate-400 transition-all text-xs">
+        <span class="block text-[10px] text-slate-500 font-mono font-normal">ENFOQUE 6</span>
         Desglose Táctico Boss
       </button>
     </div>
 
-    <!-- Área de Exhibición de la Demo -->
-    <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-5 md:p-6 shadow-xl">
-      <!-- Demo Meta Header -->
-      <div class="flex flex-col md:flex-row md:items-center justify-between pb-4 mb-4 border-b border-slate-800 gap-2">
-        <div>
-          <h2 id="demo-title" class="text-base md:text-lg font-bold text-amber-300 font-cinzel">Demo 1: Tactical Pill Badges (Pastillas de Color)</h2>
-          <p id="demo-description" class="text-xs text-slate-400 mt-0.5">Convierte automáticamente los valores de ataque, daño, alcance y salvaciones en etiquetas destacadas de alto contraste sin alterar el flujo de lectura.</p>
-        </div>
-        <div id="demo-pros" class="text-[11px] px-2.5 py-1 rounded bg-emerald-950/40 text-emerald-300 border border-emerald-800/50 self-start md:self-auto font-medium">
-          ✓ Lectura instantánea en 0.2 seg
-        </div>
+    <!-- Explicación Rápida del Enfoque Actual -->
+    <div class="bg-slate-900/70 border border-slate-800 px-4 py-2.5 rounded-xl flex items-center justify-between gap-3 text-xs">
+      <div>
+        <strong id="demo-title" class="text-amber-300 font-cinzel text-sm">Demo 1: Tactical Pill Badges (Pastillas de Color)</strong>
+        <p id="demo-description" class="text-slate-400 text-xs mt-0.5">El bonificador de ataque <code class="text-amber-300 bg-black/40 px-1 py-0.5 rounded font-mono">+8</code>, daño y salvaciones resaltan en pastillas coloreadas.</p>
       </div>
+      <span id="demo-badge" class="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-950/60 text-emerald-300 border border-emerald-800/60 whitespace-nowrap">
+        ✓ Lectura en 0.2 seg
+      </span>
+    </div>
 
-      <!-- Live Preview Container -->
-      <div id="statblock-preview" class="space-y-4">
-        <!-- Contenido generado dinámicamente por JS -->
-      </div>
+    <!-- Contenedor del Statblock Completo -->
+    <div id="statblock-container" class="transition-all duration-200">
+      <!-- El contenido completo se inyecta dinámicamente con JavaScript -->
     </div>
 
   </div>
 
   <script>
-    // Datos de prueba basados en el JSON real de bestiary.json
-    const CREATURES = {
+    // Base de datos completa para las 3 criaturas de prueba
+    const CREATURES_DATA = {
       croc: {
         name: "Giant Crocodile",
-        type: "Huge Beast, Unaligned",
-        cr: "5 (1,800 XP)",
-        ac: 14,
+        size: "Huge",
+        type: "Beast",
+        typeTags: [],
+        alignment: "Unaligned",
+        cr: "5",
+        xp: "1,800 XP",
+        pb: "+3",
+        ac: "14",
+        acText: "14 (armadura natural)",
         hp: 85,
         hpFormula: "9d12 + 27",
+        initiative: "-1 (9)",
         speed: "30 ft., nadar 50 ft.",
         stats: { str: 21, dex: 9, con: 17, int: 2, wis: 10, cha: 7 },
-        skills: "Percepción +3, Sigilo +5",
+        saves: { str: "+5", dex: "-1", con: "+3", int: "-4", wis: "+0", cha: "-2" },
+        skills: "Sigilo +5, Percepción +3",
+        senses: "Visión en la penumbra 60 ft., Percepción pasiva 13",
+        languages: "—",
+        traits: [
+          {
+            name: "Hold Breath (Aguantar la respiración)",
+            text: "El cocodrilo puede aguantar la respiración durante 30 minutos sin salir a la superficie."
+          }
+        ],
         actions: [
           {
             name: "Multiattack",
-            text: "The crocodile makes one Bite attack and one Tail attack."
+            text: "El cocodrilo realiza dos ataques: uno con su Mordisco (Bite) y uno con su Coletazo (Tail)."
           },
           {
-            name: "Bite",
-            atkType: "Melee",
+            name: "Bite (Mordisco)",
+            atkType: "Cuerpo a cuerpo",
             bonus: 8,
             reach: "5 ft.",
             avgDamage: 21,
             damageDice: "3d10 + 5",
-            damageType: "Piercing",
-            effect: "If the target is a Large or smaller creature, it has the Grappled condition (escape DC 15). While Grappled, the target has the Restrained condition and can't be targeted by the crocodile's Tail."
+            damageType: "Perforante",
+            effect: "El objetivo queda Agarrado (Grappled, CD 16 para escapar). Mientras dure el agarre, el objetivo está Apresado (Restrained), y el cocodrilo no puede morder a otro objetivo."
           },
           {
-            name: "Tail",
-            atkType: "Melee",
+            name: "Tail (Coletazo)",
+            atkType: "Cuerpo a cuerpo",
             bonus: 8,
             reach: "10 ft.",
-            avgDamage: 18,
-            damageDice: "3d8 + 5",
-            damageType: "Bludgeoning",
-            effect: "If the target is a Large or smaller creature, it has the Prone condition."
+            avgDamage: 14,
+            damageDice: "2d8 + 5",
+            damageType: "Contundente",
+            effect: "Si el objetivo es una criatura que no esté agarrada por el cocodrilo, debe superar una tirada de salvación de Fuerza CD 16 o caer Derribada (Prone)."
           }
         ]
       },
       kobold: {
         name: "Kobold",
-        type: "Small Dragon (Humanoid), Lawful Evil",
-        cr: "1/8 (25 XP)",
-        ac: 12,
+        size: "Small",
+        type: "Humanoid",
+        typeTags: ["kobold"],
+        alignment: "Lawful Evil",
+        cr: "1/8",
+        xp: "25 XP",
+        pb: "+2",
+        ac: "12",
+        acText: "12 (cuero)",
         hp: 5,
         hpFormula: "2d6 - 2",
+        initiative: "+2 (12)",
         speed: "30 ft.",
         stats: { str: 7, dex: 15, con: 9, int: 8, wis: 7, cha: 8 },
+        saves: { str: "-2", dex: "+2", con: "-1", int: "-1", wis: "-2", cha: "-1" },
         skills: "Sigilo +4",
+        senses: "Visión en la oscuridad 60 ft., Percepción pasiva 8",
+        languages: "Común, Dracónico",
         traits: [
           {
-            name: "Sunlight Sensitivity",
-            text: "While in sunlight, the kobold has Disadvantage on attack rolls and Wisdom (Perception) checks."
+            name: "Sunlight Sensitivity (Sensibilidad a la luz solar)",
+            text: "Mientras esté bajo la luz del sol, el kobold tiene Desventaja en tiradas de ataque y pruebas de Sabiduría (Percepción) basadas en la vista."
           },
           {
-            name: "Pack Tactics",
-            text: "The kobold has Advantage on attack rolls against a creature if at least one ally is within 5 ft. of the target and not incapacitated."
+            name: "Pack Tactics (Tácticas de manada)",
+            text: "El kobold tiene Ventaja en las tiradas de ataque contra una criatura si al menos uno de sus aliados está a 5 pies de la criatura y no está incapacitado."
           }
         ],
         actions: [
           {
-            name: "Dagger",
-            atkType: "Melee",
+            name: "Dagger (Daga)",
+            atkType: "Cuerpo a cuerpo / Distancia",
             bonus: 4,
-            reach: "5 ft.",
+            reach: "5 ft. o alcance 20/60 ft.",
             avgDamage: 4,
             damageDice: "1d4 + 2",
-            damageType: "Piercing",
+            damageType: "Perforante",
             effect: ""
           },
           {
-            name: "Sling",
-            atkType: "Ranged",
+            name: "Sling (Honda)",
+            atkType: "A distancia",
             bonus: 4,
-            reach: "30/120 ft.",
+            reach: "Alcance 30/120 ft.",
             avgDamage: 4,
             damageDice: "1d4 + 2",
-            damageType: "Bludgeoning",
+            damageType: "Contundente",
             effect: ""
           }
         ]
       },
-      vecna: {
-        name: "Vecna the Archlich",
-        type: "Medium Undead, Neutral Evil",
-        cr: "26 (90,000 XP)",
-        ac: 18,
-        hp: 272,
-        hpFormula: "32d8 + 128",
-        speed: "30 ft., volar 40 ft. (levita)",
-        stats: { str: 14, dex: 16, con: 18, int: 22, wis: 18, cha: 16 },
+      dragon: {
+        name: "Ancient Red Dragon",
+        size: "Gargantuan",
+        type: "Dragon",
+        typeTags: [],
+        alignment: "Chaotic Evil",
+        cr: "24",
+        xp: "62,000 XP",
+        pb: "+7",
+        ac: "22",
+        acText: "22 (armadura natural)",
+        hp: 546,
+        hpFormula: "28d20 + 252",
+        initiative: "+0 (10)",
+        speed: "40 ft., trepar 40 ft., volar 80 ft.",
+        stats: { str: 30, dex: 10, con: 29, int: 18, wis: 15, cha: 23 },
+        saves: { str: "+10", dex: "+7", con: "+16", int: "+4", wis: "+9", cha: "+13" },
+        skills: "Percepción +16, Sigilo +7",
+        damageImmunities: "Fuego",
+        senses: "Vista ciega 60 ft., Visión en la oscuridad 120 ft., Percepción pasiva 26",
+        languages: "Común, Dracónico",
+        traits: [
+          {
+            name: "Legendary Resistance (Resistencia Legendaria - 3/Día)",
+            text: "Si el dragón falla una tirada de salvación, puede elegir tener éxito en su lugar."
+          }
+        ],
         actions: [
           {
             name: "Multiattack",
-            text: "Vecna uses Flight of the Damned or Rotten Fate (if available), then makes two Afterthought attacks."
+            text: "El dragón puede usar su Presencia Pavorosa. Luego realiza tres ataques: uno con su Mordisco y dos con sus Garras."
           },
           {
-            name: "Afterthought",
-            atkType: "Melee",
-            bonus: 14,
-            reach: "5 ft.",
-            avgDamage: 36,
-            damageDice: "7d8 + 5",
-            damageType: "Necrotic",
-            effect: "Vecna regains 80 HP. The target can't regain hit points until the start of Vecna's next turn."
+            name: "Bite (Mordisco)",
+            atkType: "Cuerpo a cuerpo",
+            bonus: 17,
+            reach: "15 ft.",
+            avgDamage: 35,
+            damageDice: "2d10 + 10 perf. + 4d6 fuego",
+            damageType: "Perforante + Fuego",
+            effect: "Inflige 21 de daño perforante más 14 de daño de fuego."
           },
           {
-            name: "Flight of the Damned (Recharge 5–6)",
-            atkType: "Area Save",
-            saveDC: 22,
-            saveStat: "CON",
-            avgDamage: 54,
-            damageDice: "12d8",
-            damageType: "Necrotic",
-            effect: "Each creature in a 120-foot cone must make a DC 22 Constitution saving throw. On failure, takes 54 damage and is Frightened for 1 minute."
+            name: "Claw (Garra)",
+            atkType: "Cuerpo a cuerpo",
+            bonus: 17,
+            reach: "10 ft.",
+            avgDamage: 17,
+            damageDice: "2d6 + 10",
+            damageType: "Cortante",
+            effect: ""
+          },
+          {
+            name: "Tail (Coletazo)",
+            atkType: "Cuerpo a cuerpo",
+            bonus: 17,
+            reach: "20 ft.",
+            avgDamage: 19,
+            damageDice: "2d8 + 10",
+            damageType: "Contundente",
+            effect: ""
+          },
+          {
+            name: "Frightful Presence (Presencia Pavorosa)",
+            atkType: "Área de Efecto",
+            saveDC: 21,
+            saveStat: "SAB",
+            reach: "120 ft.",
+            effect: "Cada criatura a elección a 120 pies debe superar una salvación de Sabiduría CD 21 o quedar Asustada (Frightened) durante 1 minuto."
+          },
+          {
+            name: "Fire Breath (Aliento de Fuego - Recarga 5-6)",
+            atkType: "Cono de 90 ft.",
+            saveDC: 24,
+            saveStat: "DES",
+            avgDamage: 91,
+            damageDice: "26d6",
+            damageType: "Fuego",
+            effect: "Cono de fuego de 90 pies. Cada criatura debe hacer una salvación de Destreza CD 24, sufriendo 91 de daño si falla o la mitad si supera."
+          }
+        ],
+        legendary: [
+          {
+            name: "Detect (Detectar)",
+            cost: 1,
+            text: "El dragón realiza una prueba de Sabiduría (Percepción)."
+          },
+          {
+            name: "Tail Attack (Ataque de Cola)",
+            cost: 1,
+            text: "El dragón realiza un ataque de coletazo."
+          },
+          {
+            name: "Wing Attack (Ataque con Alas)",
+            cost: 2,
+            text: "El dragón bate sus alas. Cada criatura a 15 pies debe superar una salvación de Destreza CD 25 o sufrir 17 (2d6 + 10) de daño contundente y caer Derribada (Prone). El dragón puede luego volar hasta la mitad de su velocidad."
           }
         ]
       }
     };
 
-    let currentCreature = 'croc';
-    let currentDemo = 1;
+    let activeCreature = 'croc';
+    let activeDemo = 1;
 
-    const DEMO_METAS = {
+    const DEMO_INFO = {
       1: {
         title: "Demo 1: Tactical Pill Badges (Pastillas de Color)",
-        description: "Mantiene la fluidez narrativa del libro, pero parsea el bonificador y daño envolviéndolos en pastillas de alto contraste con iconos de combate.",
-        pros: "✓ Fácil de escanear en 0.2s • Mantiene formato tradicional • Cero curvas de aprendizaje"
+        desc: "Mantiene la estructura tradicional de D&D pero resalta bono de ataque (+8), alcance, daño y salvaciones en pastillas de alto contraste.",
+        badge: "✓ Lectura instantánea en 0.2 seg"
       },
       2: {
         title: "Demo 2: Action Header HUD (Franja Superior de Impacto)",
-        description: "Cada acción tiene una barra superior compacta que resume lo que el DM necesita tirar. No necesitas leer la prosa a menos que el golpe acierte.",
-        pros: "✓ Resuelve el turno en 1 vistazo • Separa 'tirar el d20' de 'leer efectos' • Extremadamente limpio"
+        desc: "Cada acción se encabeza con una franja de combate compacta: tirada, daño y alcance visibles en una sola línea antes de leer texto.",
+        badge: "✓ Máxima velocidad al tirar dados"
       },
       3: {
-        title: "Demo 3: 5.5e Clean Typo (Tipografía y Jerarquía Oficial 2024)",
-        description: "Inspirado en los libros 5.5e pero adaptado a fondo oscuro. Los números y términos clave usan pesos de fuente mayores y colores dorados de acento.",
-        pros: "✓ Aspecto editorial elegante • Sin saturar de colores • Máxima fidelidad al manual oficial"
+        title: "Demo 3: 5.5e Clean Typo (Fidelidad Oficial 2024)",
+        desc: "Inspirado en el manual 2024 de D&D: tabla de atributos en 2 columnas (3+3) con columnas MOD y SAVE moradas y tipografía jerárquica.",
+        badge: "✓ Estilo idéntico a libros 5.5e"
       },
       4: {
         title: "Demo 4: Quick Combat Matrix (Tabla Resumen de Acciones)",
-        description: "Inserta una tabla táctica al inicio de la sección de Acciones. Permite al DM comparar todas las opciones de la criatura antes de leer el detalle.",
-        pros: "✓ Ideal para monstruos con muchas opciones • Comparación instantánea daño/alcance • Compacto"
+        desc: "Inserta una tabla táctica que compara todas las armas y ataques al inicio de la sección de acciones, con el texto completo abajo.",
+        badge: "✓ Visión general de todas las opciones"
       },
       5: {
-        title: "Demo 5: Interactive Combat Cards (Fichas Modulares de Acción)",
-        description: "Cada ataque es un bloque independiente con caja de condición destacada en tono ámbar y botones visuales con dados listos.",
-        pros: "✓ Condiciones (Grappled, Prone) imposibles de pasar por alto • Estructura modular moderna"
+        title: "Demo 5: Interactive Combat Cards (Fichas Modulares)",
+        desc: "Cada ataque es un bloque de acción independiente con dados listos y caja ámbar destacada para condiciones como Grappled o Prone.",
+        badge: "✓ Imposible olvidar condiciones"
       },
       6: {
-        title: "Demo 6: Boss Tiered Layout (Categorización Táctica para Jefes)",
-        description: "Especialmente diseñado para monstruos como Vecna o Dragones. Separa ataques físicos, habilidades mágicas con CD, y condiciones en secciones coloreadas.",
-        pros: "✓ Escala sin despeinarse a monstruos CR 20+ • Cero confusión entre ataques y salvaciones"
+        title: "Demo 6: Boss Tiered Layout (Desglose Táctico para Jefes)",
+        desc: "Especialmente diseñado para monstruos legendarios o complejos: divide ataques básicos, poderes de área con CD y acciones legendarias.",
+        badge: "✓ Escala sin saturación en CR 20+"
       }
     };
 
     function selectCreature(key) {
-      currentCreature = key;
+      activeCreature = key;
       document.querySelectorAll('.creature-btn').forEach(btn => {
-        btn.className = 'creature-btn px-3 py-1.5 rounded font-semibold text-slate-400 hover:text-slate-200';
+        btn.className = 'creature-btn px-3 py-1.5 rounded-lg font-semibold transition-all text-slate-400 hover:text-slate-200';
       });
-      document.getElementById('btn-' + key).className = 'creature-btn px-3 py-1.5 rounded font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/40';
+      document.getElementById('btn-' + key).className = 'creature-btn px-3 py-1.5 rounded-lg font-semibold transition-all bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm';
       render();
     }
 
     function selectDemo(num) {
-      currentDemo = num;
+      activeDemo = num;
       document.querySelectorAll('.demo-tab').forEach(t => {
-        t.className = 'demo-tab text-left p-3 rounded-lg border border-slate-800 bg-slate-900/60 hover:bg-slate-800/60 text-slate-400 transition-all text-xs';
+        t.className = 'demo-tab text-left p-2.5 rounded-xl border border-slate-800/80 bg-slate-900/60 hover:bg-slate-800/60 text-slate-400 transition-all text-xs';
       });
-      document.getElementById('tab-' + num).className = 'demo-tab text-left p-3 rounded-lg border transition-all text-xs bg-amber-500/20 border-amber-400/50 text-amber-200 font-semibold shadow-sm';
+      document.getElementById('tab-' + num).className = 'demo-tab text-left p-2.5 rounded-xl border transition-all text-xs bg-amber-500/20 border-amber-400/50 text-amber-200 font-semibold shadow-sm';
       
-      const meta = DEMO_METAS[num];
+      const meta = DEMO_INFO[num];
       document.getElementById('demo-title').innerText = meta.title;
-      document.getElementById('demo-description').innerText = meta.description;
-      document.getElementById('demo-pros').innerText = meta.pros;
+      document.getElementById('demo-description').innerText = meta.desc;
+      document.getElementById('demo-badge').innerText = meta.badge;
       render();
     }
 
-    function render() {
-      const c = CREATURES[currentCreature];
-      const container = document.getElementById('statblock-preview');
-      let html = '';
-
-      // Render demo according to choice
-      if (currentDemo === 1) {
-        html = renderDemo1(c);
-      } else if (currentDemo === 2) {
-        html = renderDemo2(c);
-      } else if (currentDemo === 3) {
-        html = renderDemo3(c);
-      } else if (currentDemo === 4) {
-        html = renderDemo4(c);
-      } else if (currentDemo === 5) {
-        html = renderDemo5(c);
-      } else if (currentDemo === 6) {
-        html = renderDemo6(c);
-      }
-
-      container.innerHTML = html;
+    // Helper: calcular modificador de habilidad
+    function getMod(val) {
+      const m = Math.floor((val - 10) / 2);
+      return m >= 0 ? `+${m}` : `${m}`;
     }
 
-    // ==========================================
-    // DEMO 1: Tactical Pill Badges
-    // ==========================================
-    function renderDemo1(c) {
+    // Helper: cabecera común para todas las demos
+    function renderHeader(c) {
       return `
-        <div class="space-y-4 font-sans text-sm">
-          <div class="border-b border-rose-900/50 pb-2">
-            <h3 class="text-rose-500 font-cinzel font-bold text-sm tracking-wider uppercase">Acciones</h3>
+        <div class="border-b-2 border-amber-500/30 pb-3 mb-4">
+          <div class="flex flex-wrap items-baseline justify-between gap-2">
+            <h2 class="text-2xl md:text-3xl font-extrabold font-cinzel text-amber-300 tracking-wide">${c.name}</h2>
+            <div class="flex items-center gap-2">
+              <span class="text-xs px-2.5 py-1 rounded bg-amber-500/20 border border-amber-500/30 text-amber-300 font-bold font-mono">
+                CR ${c.cr} (${c.xp})
+              </span>
+              <span class="text-xs px-2 py-1 rounded bg-slate-800 border border-slate-700 text-slate-300 font-mono">
+                PB ${c.pb}
+              </span>
+            </div>
           </div>
-          <div class="space-y-3">
-            ${c.actions.map(a => {
-              if (a.name === 'Multiattack') {
-                return `<div class="text-slate-300"><strong class="italic text-slate-100 font-semibold">Multiattack.</strong> ${a.text}</div>`;
-              }
-              const isSave = !!a.saveDC;
-              return `
-                <div class="leading-relaxed bg-slate-950/40 p-2.5 rounded-lg border border-slate-800/60">
-                  <span class="font-bold text-slate-100 italic mr-1">${a.name}.</span>
-                  ${isSave ? `
-                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded font-mono font-bold text-xs bg-purple-950/60 text-purple-300 border border-purple-800/60">
-                      🛡️ CD ${a.saveDC} ${a.saveStat}
-                    </span>
-                  ` : `
-                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded font-mono font-bold text-xs bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm">
-                      ⚔️ +${a.bonus}
-                    </span>
-                    <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-mono text-[11px] bg-slate-800 text-slate-300 border border-slate-700">
-                      📏 ${a.reach}
-                    </span>
-                  `}
-                  <span class="text-slate-400 text-xs mx-1">Impacto:</span>
-                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded font-mono font-bold text-xs bg-rose-950/50 text-rose-300 border border-rose-800/50">
-                    🩸 ${a.avgDamage} (${a.damageDice}) ${a.damageType}
-                  </span>
-                  ${a.effect ? `
-                    <div class="mt-1.5 text-xs text-slate-300 pl-2 border-l-2 border-amber-500/40">
-                      ${a.effect}
-                    </div>
-                  ` : ''}
-                </div>
-              `;
-            }).join('')}
+          <div class="text-xs text-slate-400 italic mt-0.5 font-serif">
+            ${c.size} ${c.type}${c.typeTags.length ? ` (${c.typeTags.join(', ')})` : ''}, ${c.alignment}
           </div>
         </div>
       `;
     }
 
-    // ==========================================
-    // DEMO 2: Action Header HUD
-    // ==========================================
-    function renderDemo2(c) {
+    // Helper: barra de CA, Vida, Velocidad
+    function renderVitals(c) {
       return `
-        <div class="space-y-4 font-sans text-sm">
-          <div class="border-b border-rose-900/50 pb-2">
-            <h3 class="text-rose-500 font-cinzel font-bold text-sm tracking-wider uppercase">Acciones</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 mb-4 text-xs font-mono">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-sky-950/60 border border-sky-700/50 flex items-center justify-center text-sky-400 font-bold text-sm">🛡️</div>
+            <div>
+              <span class="text-[10px] uppercase text-slate-500 font-bold block">Clase Armadura</span>
+              <span class="text-sm font-bold text-slate-100">${c.acText}</span>
+            </div>
           </div>
-          <div class="space-y-3">
-            ${c.actions.map(a => {
-              if (a.name === 'Multiattack') {
-                return `<div class="text-slate-300 bg-slate-950/30 p-2.5 rounded border border-slate-800/40"><strong class="italic text-slate-100">Multiattack.</strong> ${a.text}</div>`;
-              }
-              return `
-                <div class="bg-slate-950/70 border border-slate-800 rounded-lg overflow-hidden">
-                  <!-- HUD Top Bar -->
-                  <div class="bg-slate-800/60 px-3 py-1.5 flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 text-xs">
-                    <span class="font-bold text-slate-100 font-cinzel text-sm">${a.name}</span>
-                    <div class="flex items-center gap-2 font-mono">
-                      ${a.saveDC ? `
-                        <span class="bg-purple-900/40 text-purple-300 px-2 py-0.5 rounded border border-purple-700/40 font-bold">CD ${a.saveDC} ${a.saveStat}</span>
-                      ` : `
-                        <span class="bg-amber-400/20 text-amber-300 px-2 py-0.5 rounded border border-amber-500/30 font-bold">Ataque +${a.bonus}</span>
-                        <span class="text-slate-400">${a.reach}</span>
-                      `}
-                      <span class="bg-rose-900/30 text-rose-300 px-2 py-0.5 rounded border border-rose-700/30 font-bold">Daño: ${a.avgDamage} (${a.damageDice})</span>
-                    </div>
-                  </div>
-                  <!-- Effect Description -->
-                  ${a.effect ? `
-                    <div class="p-3 text-xs text-slate-300 leading-relaxed bg-black/20">
-                      ${a.effect}
-                    </div>
-                  ` : '<div class="px-3 py-1 text-[11px] text-slate-500 italic">Ataque directo sin efectos secundarios.</div>'}
-                </div>
-              `;
-            }).join('')}
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-rose-950/60 border border-rose-700/50 flex items-center justify-center text-rose-400 font-bold text-sm">❤️</div>
+            <div>
+              <span class="text-[10px] uppercase text-slate-500 font-bold block">Puntos de Golpe</span>
+              <span class="text-sm font-bold text-rose-300">${c.hp} <span class="text-slate-400 font-normal text-xs">(${c.hpFormula})</span></span>
+            </div>
+          </div>
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-emerald-950/60 border border-emerald-700/50 flex items-center justify-center text-emerald-400 font-bold text-sm">⚡</div>
+            <div>
+              <span class="text-[10px] uppercase text-slate-500 font-bold block">Velocidad / Inic.</span>
+              <span class="text-xs font-bold text-slate-200">${c.speed}</span>
+            </div>
           </div>
         </div>
       `;
     }
 
-    // ==========================================
-    // DEMO 3: 5.5e Clean Typo
-    // ==========================================
-    function renderDemo3(c) {
+    // Helper: tabla clásica de 6 atributos
+    function renderClassicStats(c) {
+      const statsList = [
+        { id: 'FUE', val: c.stats.str },
+        { id: 'DES', val: c.stats.dex },
+        { id: 'CON', val: c.stats.con },
+        { id: 'INT', val: c.stats.int },
+        { id: 'SAB', val: c.stats.wis },
+        { id: 'CAR', val: c.stats.cha }
+      ];
       return `
-        <div class="space-y-4 font-sans text-sm">
-          <div class="border-b-2 border-sky-600/40 pb-1.5">
-            <h3 class="text-sky-400 font-cinzel font-bold text-sm tracking-widest uppercase">Actions</h3>
+        <div class="grid grid-cols-6 gap-1.5 md:gap-2 bg-black/40 p-2.5 rounded-xl border border-slate-800/80 mb-4 text-center">
+          ${statsList.map(s => `
+            <div class="p-1 rounded bg-slate-900/60 border border-slate-800">
+              <span class="text-[10px] font-bold text-amber-400 block">${s.id}</span>
+              <span class="text-sm md:text-base font-bold text-slate-100 block">${s.val}</span>
+              <span class="text-xs font-mono text-slate-400 font-semibold">${getMod(s.val)}</span>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    // Helper: bloque de salvaciones, sentidos, idiomas
+    function renderSecondaryStats(c) {
+      return `
+        <div class="space-y-1.5 text-xs text-slate-300 border-b border-slate-800/80 pb-3 mb-4 leading-relaxed">
+          ${c.skills ? `<div><strong class="text-slate-200">Habilidades:</strong> ${c.skills}</div>` : ''}
+          ${c.damageImmunities ? `<div><strong class="text-slate-200">Inmunidades a daño:</strong> <span class="text-rose-300 font-medium">${c.damageImmunities}</span></div>` : ''}
+          <div><strong class="text-slate-200">Sentidos:</strong> ${c.senses}</div>
+          <div><strong class="text-slate-200">Idiomas:</strong> ${c.languages}</div>
+        </div>
+      `;
+    }
+
+    // Helper: sección de rasgos especiales (Traits)
+    function renderTraits(c) {
+      if (!c.traits || !c.traits.length) return '';
+      return `
+        <div class="mb-5 space-y-2">
+          <div class="border-b border-slate-800 pb-1">
+            <h3 class="text-xs font-cinzel font-bold text-amber-400 uppercase tracking-widest">Rasgos Especiales</h3>
           </div>
-          <div class="space-y-3 divide-y divide-slate-800/60">
-            ${c.actions.map(a => {
-              if (a.name === 'Multiattack') {
-                return `<div class="text-slate-300 pt-2"><strong class="italic text-slate-100 font-semibold">Multiattack.</strong> ${a.text}</div>`;
-              }
-              return `
-                <div class="pt-2.5 leading-relaxed text-slate-300 text-xs md:text-sm">
-                  <span class="font-bold text-slate-100 italic text-base">${a.name}.</span>
-                  ${a.saveDC ? `
-                    <span class="italic text-slate-400">Saving Throw:</span>
-                    <strong class="text-purple-300 font-mono text-sm font-bold">DC ${a.saveDC} ${a.saveStat}</strong>.
-                  ` : `
-                    <span class="italic text-slate-400">${a.atkType} Attack Roll:</span>
-                    <strong class="text-amber-300 font-mono text-base font-bold bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20">+${a.bonus}</strong>,
-                    reach ${a.reach}.
-                  `}
-                  <span class="italic text-slate-400">Hit:</span>
-                  <strong class="text-rose-300 font-mono text-sm">${a.avgDamage} (${a.damageDice})</strong> ${a.damageType} damage.
-                  ${a.effect ? `<span class="text-slate-300"> ${a.effect}</span>` : ''}
-                </div>
-              `;
-            }).join('')}
+          <div class="space-y-2 text-xs text-slate-300 leading-relaxed">
+            ${c.traits.map(t => `
+              <div class="bg-slate-950/40 p-2.5 rounded-lg border border-slate-800/60">
+                <strong class="text-amber-300 italic font-semibold text-sm mr-1">${t.name}.</strong>
+                <span>${t.text}</span>
+              </div>
+            `).join('')}
           </div>
         </div>
       `;
     }
 
-    // ==========================================
-    // DEMO 4: Quick Combat Matrix
-    // ==========================================
-    function renderDemo4(c) {
-      const attackActions = c.actions.filter(a => a.name !== 'Multiattack');
+    // Helper: acciones legendarias
+    function renderLegendary(c) {
+      if (!c.legendary || !c.legendary.length) return '';
       return `
-        <div class="space-y-4 font-sans text-sm">
-          <div class="border-b border-rose-900/50 pb-2 flex items-center justify-between">
-            <h3 class="text-rose-500 font-cinzel font-bold text-sm tracking-wider uppercase">Acciones & Tabla Táctica</h3>
-            <span class="text-[11px] text-slate-400">Vista rápida para el DM</span>
+        <div class="mt-5 pt-3 border-t-2 border-amber-500/30 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-cinzel font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span>👑 Acciones Legendarias</span>
+            </h3>
+            <span class="text-[11px] text-amber-300 font-mono">3 / Turno</span>
           </div>
-
-          <!-- Matriz Rápida -->
-          <div class="overflow-x-auto rounded-lg border border-slate-800 bg-slate-950/80">
-            <table class="w-full text-left text-xs font-mono">
-              <thead class="bg-slate-900/90 text-slate-400 uppercase text-[10px] tracking-wider border-b border-slate-800">
-                <tr>
-                  <th class="p-2.5">Acción</th>
-                  <th class="p-2.5 text-center">Bono / CD</th>
-                  <th class="p-2.5 text-center">Alcance</th>
-                  <th class="p-2.5">Daño Prom.</th>
-                  <th class="p-2.5">Efecto Táctico</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-800/50">
-                ${attackActions.map(a => `
-                  <tr class="hover:bg-slate-900/40">
-                    <td class="p-2.5 font-bold font-sans text-slate-200">${a.name}</td>
-                    <td class="p-2.5 text-center">
-                      ${a.saveDC ? `
-                        <span class="text-purple-300 font-bold bg-purple-950/60 px-1.5 py-0.5 rounded border border-purple-800/40">CD ${a.saveDC}</span>
-                      ` : `
-                        <span class="text-amber-300 font-bold bg-amber-500/20 px-2 py-0.5 rounded border border-amber-500/40">+${a.bonus}</span>
-                      `}
-                    </td>
-                    <td class="p-2.5 text-center text-slate-400">${a.reach || '—'}</td>
-                    <td class="p-2.5 font-bold text-rose-300">${a.avgDamage} <span class="text-slate-500 font-normal">(${a.damageDice})</span></td>
-                    <td class="p-2.5 font-sans text-slate-400 text-[11px]">
-                      ${a.effect ? (a.effect.length > 55 ? a.effect.slice(0, 55) + '...' : a.effect) : '—'}
-                    </td>
-                  </tr>
-                `).join('')}
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Texto descriptivo normal abajo -->
-          <div class="text-xs text-slate-400 space-y-2 mt-3 pt-2 border-t border-slate-800/50">
-            <div class="font-semibold text-slate-300 text-xs">Detalles completos:</div>
-            ${c.actions.map(a => `
-              <div class="text-slate-400">
-                <strong class="text-slate-200 italic">${a.name}.</strong> 
-                ${a.text ? a.text : `${a.atkType || 'Melee'} Attack: +${a.bonus || 0}, ${a.reach || ''}. Hit: ${a.avgDamage} ${a.damageType}. ${a.effect || ''}`}
+          <p class="text-xs text-slate-400 italic">
+            El dragón puede realizar 3 acciones legendarias al final del turno de otra criatura. Recupera las gastadas al inicio de su turno.
+          </p>
+          <div class="space-y-2 text-xs">
+            ${c.legendary.map(l => `
+              <div class="bg-slate-950/50 p-2.5 rounded-lg border border-amber-500/20 flex flex-col md:flex-row md:items-baseline justify-between gap-1">
+                <div>
+                  <strong class="text-amber-300 italic font-semibold">${l.name}.</strong>
+                  <span class="text-slate-300 ml-1">${l.text}</span>
+                </div>
+                <span class="self-end md:self-auto text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/30 font-bold whitespace-nowrap">
+                  ${l.cost > 1 ? `Coste: ${l.cost} Acciones` : '1 Acción'}
+                </span>
               </div>
             `).join('')}
           </div>
@@ -492,111 +501,453 @@
     }
 
     // ==========================================
-    // DEMO 5: Interactive Combat Cards
+    // RENDERIZADO COMPLETO POR DEMO
     // ==========================================
-    function renderDemo5(c) {
-      return `
-        <div class="space-y-4 font-sans text-sm">
-          <div class="border-b border-rose-900/50 pb-2">
-            <h3 class="text-rose-500 font-cinzel font-bold text-sm tracking-wider uppercase">Fichas Modulares de Ataque</h3>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-            ${c.actions.map(a => {
-              if (a.name === 'Multiattack') {
-                return `
-                  <div class="col-span-full bg-slate-900/40 p-3 rounded-lg border border-slate-800 text-xs text-slate-300">
-                    <span class="font-bold text-amber-300 uppercase font-cinzel text-xs mr-2">Multiataque</span>
-                    ${a.text}
-                  </div>
-                `;
-              }
-              return `
-                <div class="bg-gradient-to-b from-slate-900 to-slate-950 p-3.5 rounded-xl border border-slate-800 hover:border-slate-700 transition-all shadow-md flex flex-col justify-between">
-                  <div>
-                    <div class="flex items-center justify-between mb-2">
-                      <h4 class="font-bold text-slate-100 font-cinzel text-sm">${a.name}</h4>
-                      <span class="text-[10px] text-slate-400 font-mono">${a.atkType}</span>
-                    </div>
 
-                    <div class="grid grid-cols-2 gap-2 mb-3">
-                      <div class="bg-black/40 p-2 rounded-lg border border-slate-800 text-center">
-                        <span class="text-[10px] uppercase font-bold text-slate-500 block">Tirada Ataque</span>
-                        ${a.saveDC ? `
-                          <span class="font-mono font-bold text-sm text-purple-300">CD ${a.saveDC} ${a.saveStat}</span>
-                        ` : `
-                          <span class="font-mono font-bold text-base text-amber-300">+${a.bonus} to hit</span>
-                        `}
-                      </div>
-                      <div class="bg-black/40 p-2 rounded-lg border border-slate-800 text-center">
-                        <span class="text-[10px] uppercase font-bold text-slate-500 block">Daño Promedio</span>
-                        <span class="font-mono font-bold text-sm text-rose-300">${a.avgDamage} <span class="text-xs text-slate-400">(${a.damageDice})</span></span>
-                      </div>
+    // DEMO 1: Tactical Pill Badges
+    function renderFullDemo1(c) {
+      return `
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 md:p-7 shadow-2xl">
+          ${renderHeader(c)}
+          ${renderVitals(c)}
+          ${renderClassicStats(c)}
+          ${renderSecondaryStats(c)}
+          ${renderTraits(c)}
+          
+          <!-- Sección de Acciones con Pastillas -->
+          <div class="space-y-3">
+            <div class="border-b-2 border-rose-900/50 pb-1.5 flex items-center justify-between">
+              <h3 class="text-rose-500 font-cinzel font-bold text-sm tracking-widest uppercase">Acciones</h3>
+              <span class="text-[10px] font-mono text-slate-400">Pastillas Tácticas de Alto Contraste</span>
+            </div>
+            
+            <div class="space-y-2.5">
+              ${c.actions.map(a => {
+                if (a.name === 'Multiattack') {
+                  return `
+                    <div class="bg-slate-950/40 p-2.5 rounded-lg border border-slate-800/60 text-xs text-slate-300">
+                      <strong class="italic text-slate-100 font-semibold text-sm">Multiattack.</strong> ${a.text}
+                    </div>
+                  `;
+                }
+                const isSave = !!a.saveDC;
+                return `
+                  <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 space-y-1.5">
+                    <div class="flex flex-wrap items-center gap-1.5 text-xs">
+                      <span class="font-bold text-slate-100 italic text-sm mr-1 font-serif">${a.name}.</span>
+                      
+                      ${isSave ? `
+                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md font-mono font-bold text-xs bg-purple-950/70 text-purple-300 border border-purple-800/80 shadow-sm">
+                          🛡️ Salvación CD ${a.saveDC} ${a.saveStat}
+                        </span>
+                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded font-mono text-[11px] bg-slate-800 text-slate-300">
+                          📏 ${a.reach}
+                        </span>
+                      ` : `
+                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md font-mono font-bold text-xs bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm">
+                          ⚔️ Ataque +${a.bonus}
+                        </span>
+                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded font-mono text-[11px] bg-slate-800 text-slate-300">
+                          📏 Alcance ${a.reach}
+                        </span>
+                      `}
+
+                      ${a.avgDamage ? `
+                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md font-mono font-bold text-xs bg-rose-950/60 text-rose-300 border border-rose-800/60 shadow-sm">
+                          🩸 Daño: ${a.avgDamage} (${a.damageDice}) ${a.damageType}
+                        </span>
+                      ` : ''}
                     </div>
 
                     ${a.effect ? `
-                      <div class="bg-amber-500/10 border border-amber-500/20 p-2 rounded text-[11px] text-amber-200 leading-snug">
-                        ⚠️ <strong>Efecto táctico:</strong> ${a.effect}
+                      <div class="text-xs text-slate-300 pl-2.5 border-l-2 border-amber-500/50 mt-1.5 leading-relaxed bg-black/20 p-1.5 rounded-r">
+                        ${a.effect}
                       </div>
                     ` : ''}
                   </div>
-                </div>
-              `;
-            }).join('')}
+                `;
+              }).join('')}
+            </div>
           </div>
+
+          ${renderLegendary(c)}
         </div>
       `;
     }
 
-    // ==========================================
-    // DEMO 6: Boss Tiered Layout
-    // ==========================================
-    function renderDemo6(c) {
+    // DEMO 2: Action Header HUD
+    function renderFullDemo2(c) {
       return `
-        <div class="space-y-4 font-sans text-sm">
-          <div class="border-b border-rose-900/50 pb-2 flex items-center justify-between">
-            <h3 class="text-rose-500 font-cinzel font-bold text-sm tracking-wider uppercase">Acciones con Desglose Táctico</h3>
-            <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40">Tier Táctico</span>
-          </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 md:p-7 shadow-2xl">
+          ${renderHeader(c)}
+          ${renderVitals(c)}
+          ${renderClassicStats(c)}
+          ${renderSecondaryStats(c)}
+          ${renderTraits(c)}
+
           <div class="space-y-3">
-            ${c.actions.map(a => {
-              if (a.name === 'Multiattack') {
+            <div class="border-b-2 border-rose-900/50 pb-1.5">
+              <h3 class="text-rose-500 font-cinzel font-bold text-sm tracking-widest uppercase">Acciones con HUD Superior</h3>
+            </div>
+
+            <div class="space-y-3">
+              ${c.actions.map(a => {
+                if (a.name === 'Multiattack') {
+                  return `
+                    <div class="bg-slate-950/50 p-2.5 rounded-lg border border-slate-800 text-xs text-slate-300">
+                      <strong class="italic text-slate-100 font-semibold text-sm">Multiattack.</strong> ${a.text}
+                    </div>
+                  `;
+                }
                 return `
-                  <div class="bg-slate-950/60 p-2.5 rounded-lg border-l-4 border-amber-400 text-xs text-slate-300">
-                    <strong class="text-slate-100 font-bold uppercase text-[11px] block text-amber-300">Estrategia de Turno: Multiataque</strong>
-                    ${a.text}
+                  <div class="bg-slate-950/80 border border-slate-800 rounded-xl overflow-hidden shadow-sm">
+                    <!-- Barra HUD Superior -->
+                    <div class="bg-slate-800/70 px-3.5 py-2 flex flex-wrap items-center justify-between gap-2 border-b border-slate-800">
+                      <span class="font-bold text-slate-100 font-cinzel text-sm">${a.name}</span>
+                      <div class="flex items-center gap-2 font-mono text-xs">
+                        ${a.saveDC ? `
+                          <span class="bg-purple-900/50 text-purple-200 px-2.5 py-0.5 rounded border border-purple-700/60 font-bold">CD ${a.saveDC} ${a.saveStat}</span>
+                        ` : `
+                          <span class="bg-amber-400/20 text-amber-300 px-2.5 py-0.5 rounded border border-amber-500/40 font-bold text-sm">⚔️ +${a.bonus}</span>
+                          <span class="text-slate-400 text-xs">${a.reach}</span>
+                        `}
+                        ${a.avgDamage ? `
+                          <span class="bg-rose-900/40 text-rose-200 px-2.5 py-0.5 rounded border border-rose-700/50 font-bold">Daño: ${a.avgDamage} (${a.damageDice})</span>
+                        ` : ''}
+                      </div>
+                    </div>
+                    <!-- Efecto o detalles -->
+                    <div class="p-3 text-xs text-slate-300 leading-relaxed bg-black/20">
+                      ${a.effect || '<span class="text-slate-500 italic">Ataque directo sin efectos secundarios.</span>'}
+                    </div>
                   </div>
                 `;
-              }
-              const isSave = !!a.saveDC;
-              return `
-                <div class="bg-slate-950/40 rounded-lg border border-slate-800 p-3 space-y-2">
-                  <div class="flex items-center justify-between">
-                    <span class="font-bold text-slate-100 font-cinzel text-sm">${a.name}</span>
-                    <span class="font-mono text-xs ${isSave ? 'text-purple-400' : 'text-amber-400'} font-bold">
-                      ${isSave ? `Salvación CD ${a.saveDC} ${a.saveStat}` : `Bono de Ataque: +${a.bonus}`}
-                    </span>
-                  </div>
-                  
-                  <div class="flex items-center gap-3 text-xs font-mono text-slate-300 bg-black/30 p-1.5 rounded">
-                    <span>📏 Alcance: <strong>${a.reach || '—'}</strong></span>
-                    <span>•</span>
-                    <span>🩸 Daño: <strong class="text-rose-300">${a.avgDamage} (${a.damageDice})</strong> ${a.damageType}</span>
-                  </div>
-
-                  ${a.effect ? `
-                    <div class="text-xs text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800/80">
-                      <strong class="text-amber-400">Condición / Efecto:</strong> ${a.effect}
-                    </div>
-                  ` : ''}
-                </div>
-              `;
-            }).join('')}
+              }).join('')}
+            </div>
           </div>
+
+          ${renderLegendary(c)}
         </div>
       `;
     }
 
-    // Inicializar primera renderización
+    // DEMO 3: 5.5e Clean Typo (con tabla 3+3 oficial)
+    function renderFullDemo3(c) {
+      // Tabla 2024 dividida en 3 columnas izquierda y 3 derecha con MOD y SAVE
+      const leftStats = [
+        { name: 'STR', val: c.stats.str, save: c.saves.str },
+        { name: 'DEX', val: c.stats.dex, save: c.saves.dex },
+        { name: 'CON', val: c.stats.con, save: c.saves.con }
+      ];
+      const rightStats = [
+        { name: 'INT', val: c.stats.int, save: c.saves.int },
+        { name: 'WIS', val: c.stats.wis, save: c.saves.wis },
+        { name: 'CHA', val: c.stats.cha, save: c.saves.cha }
+      ];
+
+      return `
+        <div class="bg-[#0f1422] border-2 border-sky-800/40 rounded-2xl p-5 md:p-7 shadow-2xl">
+          ${renderHeader(c)}
+          ${renderVitals(c)}
+
+          <!-- Tabla de Atributos 5.5e Oficial (3+3 con MOD y SAVE destacados) -->
+          <div class="bg-slate-950/70 p-3 rounded-xl border border-sky-900/40 mb-4 overflow-x-auto">
+            <div class="text-[10px] font-mono uppercase text-sky-400 font-bold mb-2 tracking-wider">Tabla de Estadísticas 5.5e (2024)</div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
+              <!-- Columna Izquierda -->
+              <table class="w-full text-center">
+                <thead>
+                  <tr class="text-[10px] text-slate-400 border-b border-slate-800">
+                    <th class="text-left pb-1 font-bold">STAT</th>
+                    <th class="pb-1 font-bold">VAL</th>
+                    <th class="pb-1 text-purple-300 bg-purple-950/40 font-bold">MOD</th>
+                    <th class="pb-1 text-purple-300 bg-purple-950/40 font-bold">SAVE</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-800/60">
+                  ${leftStats.map(s => `
+                    <tr>
+                      <td class="text-left py-1 font-bold text-slate-200">${s.name}</td>
+                      <td class="py-1 text-slate-300">${s.val}</td>
+                      <td class="py-1 bg-purple-950/30 text-purple-200 font-bold">${getMod(s.val)}</td>
+                      <td class="py-1 bg-purple-950/30 text-purple-200 font-bold">${s.save}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+
+              <!-- Columna Derecha -->
+              <table class="w-full text-center">
+                <thead>
+                  <tr class="text-[10px] text-slate-400 border-b border-slate-800">
+                    <th class="text-left pb-1 font-bold">STAT</th>
+                    <th class="pb-1 font-bold">VAL</th>
+                    <th class="pb-1 text-purple-300 bg-purple-950/40 font-bold">MOD</th>
+                    <th class="pb-1 text-purple-300 bg-purple-950/40 font-bold">SAVE</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-800/60">
+                  ${rightStats.map(s => `
+                    <tr>
+                      <td class="text-left py-1 font-bold text-slate-200">${s.name}</td>
+                      <td class="py-1 text-slate-300">${s.val}</td>
+                      <td class="py-1 bg-purple-950/30 text-purple-200 font-bold">${getMod(s.val)}</td>
+                      <td class="py-1 bg-purple-950/30 text-purple-200 font-bold">${s.save}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          ${renderSecondaryStats(c)}
+          ${renderTraits(c)}
+
+          <!-- Acciones estilo editorial 5.5e -->
+          <div class="space-y-3">
+            <div class="border-b-2 border-sky-600/50 pb-1">
+              <h3 class="text-sky-400 font-cinzel font-bold text-sm tracking-widest uppercase">Actions</h3>
+            </div>
+            <div class="space-y-3 divide-y divide-slate-800/70">
+              ${c.actions.map(a => {
+                if (a.name === 'Multiattack') {
+                  return `<div class="text-slate-300 pt-2 text-xs md:text-sm"><strong class="italic text-slate-100 font-semibold">Multiattack.</strong> ${a.text}</div>`;
+                }
+                return `
+                  <div class="pt-2.5 leading-relaxed text-slate-300 text-xs md:text-sm">
+                    <span class="font-bold text-slate-100 italic text-sm md:text-base mr-1 font-serif">${a.name}.</span>
+                    ${a.saveDC ? `
+                      <span class="italic text-slate-400">Saving Throw:</span>
+                      <strong class="text-purple-300 font-mono text-sm font-bold bg-purple-950/40 px-1.5 py-0.5 rounded border border-purple-800/40">DC ${a.saveDC} ${a.saveStat}</strong>.
+                    ` : `
+                      <span class="italic text-slate-400">${a.atkType} Attack Roll:</span>
+                      <strong class="text-amber-300 font-mono text-sm font-bold bg-amber-500/20 px-1.5 py-0.5 rounded border border-amber-500/30">+${a.bonus}</strong>,
+                      reach ${a.reach}.
+                    `}
+                    ${a.avgDamage ? `
+                      <span class="italic text-slate-400">Hit:</span>
+                      <strong class="text-rose-300 font-mono text-xs md:text-sm">${a.avgDamage} (${a.damageDice})</strong> ${a.damageType}.
+                    ` : ''}
+                    ${a.effect ? `<span class="text-slate-300"> ${a.effect}</span>` : ''}
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          ${renderLegendary(c)}
+        </div>
+      `;
+    }
+
+    // DEMO 4: Quick Combat Matrix
+    function renderFullDemo4(c) {
+      const attackActions = c.actions.filter(a => a.name !== 'Multiattack');
+      return `
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 md:p-7 shadow-2xl">
+          ${renderHeader(c)}
+          ${renderVitals(c)}
+          ${renderClassicStats(c)}
+          ${renderSecondaryStats(c)}
+          ${renderTraits(c)}
+
+          <div class="space-y-4">
+            <div class="border-b-2 border-rose-900/50 pb-1.5 flex items-center justify-between">
+              <h3 class="text-rose-500 font-cinzel font-bold text-sm tracking-widest uppercase">Acciones & Matriz de Ataques</h3>
+              <span class="text-[10px] text-slate-400 font-mono">Tabla Resumen para Consulta Inmediata</span>
+            </div>
+
+            <!-- Tabla Matriz de Ataques -->
+            <div class="overflow-x-auto rounded-xl border border-slate-800 bg-slate-950/90 shadow-md">
+              <table class="w-full text-left text-xs font-mono">
+                <thead class="bg-slate-800/90 text-slate-400 uppercase text-[10px] tracking-wider border-b border-slate-800">
+                  <tr>
+                    <th class="p-2.5">Acción</th>
+                    <th class="p-2.5 text-center">Tirada / CD</th>
+                    <th class="p-2.5 text-center">Alcance</th>
+                    <th class="p-2.5">Daño Prom. (Dados)</th>
+                    <th class="p-2.5">Efecto / Condición</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-800/50">
+                  ${attackActions.map(a => `
+                    <tr class="hover:bg-slate-900/40">
+                      <td class="p-2.5 font-bold font-sans text-slate-200">${a.name}</td>
+                      <td class="p-2.5 text-center">
+                        ${a.saveDC ? `
+                          <span class="text-purple-300 font-bold bg-purple-950/60 px-2 py-0.5 rounded border border-purple-800/50">CD ${a.saveDC} ${a.saveStat}</span>
+                        ` : `
+                          <span class="text-amber-300 font-bold bg-amber-500/20 px-2 py-0.5 rounded border border-amber-500/40 text-sm">+${a.bonus}</span>
+                        `}
+                      </td>
+                      <td class="p-2.5 text-center text-slate-400">${a.reach || '—'}</td>
+                      <td class="p-2.5 font-bold text-rose-300">${a.avgDamage || '—'} <span class="text-slate-500 font-normal">(${a.damageDice || ''})</span></td>
+                      <td class="p-2.5 font-sans text-slate-400 text-[11px]">
+                        ${a.effect ? (a.effect.length > 60 ? a.effect.slice(0, 60) + '...' : a.effect) : '—'}
+                      </td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Texto detallado abajo -->
+            <div class="space-y-2 mt-3 pt-2 text-xs text-slate-300 border-t border-slate-800/50">
+              <span class="text-slate-400 text-[11px] uppercase tracking-wider font-bold block mb-1">Detalle completo de cada acción:</span>
+              ${c.actions.map(a => `
+                <div class="leading-relaxed bg-black/20 p-2 rounded">
+                  <strong class="text-slate-100 italic">${a.name}.</strong>
+                  <span class="text-slate-300">${a.text || `${a.reach ? `Alcance ${a.reach}.` : ''} Impacto: ${a.avgDamage || ''} (${a.damageDice || ''}) ${a.damageType || ''}. ${a.effect || ''}`}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          ${renderLegendary(c)}
+        </div>
+      `;
+    }
+
+    // DEMO 5: Interactive Combat Cards
+    function renderFullDemo5(c) {
+      return `
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 md:p-7 shadow-2xl">
+          ${renderHeader(c)}
+          ${renderVitals(c)}
+          ${renderClassicStats(c)}
+          ${renderSecondaryStats(c)}
+          ${renderTraits(c)}
+
+          <div class="space-y-3">
+            <div class="border-b-2 border-rose-900/50 pb-1.5 flex items-center justify-between">
+              <h3 class="text-rose-500 font-cinzel font-bold text-sm tracking-widest uppercase">Fichas Modulares de Ataque</h3>
+              <span class="text-[10px] text-slate-400 font-mono">Diseño en Tarjetas Tácticas</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              ${c.actions.map(a => {
+                if (a.name === 'Multiattack') {
+                  return `
+                    <div class="col-span-full bg-slate-950/70 p-3 rounded-xl border border-slate-800 text-xs text-slate-300">
+                      <span class="font-bold text-amber-300 uppercase font-cinzel text-xs mr-2">Multiataque:</span>
+                      ${a.text}
+                    </div>
+                  `;
+                }
+                return `
+                  <div class="bg-gradient-to-b from-slate-950 to-slate-900 p-3.5 rounded-xl border border-slate-800 hover:border-slate-700 transition-all shadow-md flex flex-col justify-between">
+                    <div>
+                      <div class="flex items-center justify-between mb-2 pb-1.5 border-b border-slate-800/60">
+                        <h4 class="font-bold text-slate-100 font-cinzel text-sm">${a.name}</h4>
+                        <span class="text-[10px] text-slate-400 font-mono bg-slate-800 px-1.5 py-0.5 rounded">${a.atkType || 'Acción'}</span>
+                      </div>
+
+                      <div class="grid grid-cols-2 gap-2 mb-2.5">
+                        <div class="bg-black/50 p-2 rounded-lg border border-slate-800/80 text-center">
+                          <span class="text-[9px] uppercase font-bold text-slate-500 block">Tirada Ataque</span>
+                          ${a.saveDC ? `
+                            <span class="font-mono font-bold text-sm text-purple-300">CD ${a.saveDC} ${a.saveStat}</span>
+                          ` : `
+                            <span class="font-mono font-bold text-base text-amber-300">+${a.bonus} to hit</span>
+                          `}
+                        </div>
+                        <div class="bg-black/50 p-2 rounded-lg border border-slate-800/80 text-center">
+                          <span class="text-[9px] uppercase font-bold text-slate-500 block">Daño Promedio</span>
+                          <span class="font-mono font-bold text-sm text-rose-300">${a.avgDamage || '—'} <span class="text-xs text-slate-400 font-normal">(${a.damageDice || ''})</span></span>
+                        </div>
+                      </div>
+
+                      ${a.effect ? `
+                        <div class="bg-amber-500/10 border border-amber-500/30 p-2 rounded-lg text-[11px] text-amber-200 leading-snug">
+                          ⚠️ <strong>Efecto táctico:</strong> ${a.effect}
+                        </div>
+                      ` : ''}
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          ${renderLegendary(c)}
+        </div>
+      `;
+    }
+
+    // DEMO 6: Boss Tiered Layout
+    function renderFullDemo6(c) {
+      return `
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 md:p-7 shadow-2xl">
+          ${renderHeader(c)}
+          ${renderVitals(c)}
+          ${renderClassicStats(c)}
+          ${renderSecondaryStats(c)}
+          ${renderTraits(c)}
+
+          <div class="space-y-3.5">
+            <div class="border-b-2 border-rose-900/50 pb-1.5 flex items-center justify-between">
+              <h3 class="text-rose-500 font-cinzel font-bold text-sm tracking-widest uppercase">Acciones con Desglose Táctico</h3>
+              <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono">Tier Táctico</span>
+            </div>
+
+            <div class="space-y-3">
+              ${c.actions.map(a => {
+                if (a.name === 'Multiattack') {
+                  return `
+                    <div class="bg-slate-950/70 p-3 rounded-xl border-l-4 border-amber-400 text-xs text-slate-300">
+                      <strong class="text-slate-100 font-bold uppercase text-[11px] block text-amber-300 mb-0.5 font-cinzel">Estrategia de Turno: Multiataque</strong>
+                      ${a.text}
+                    </div>
+                  `;
+                }
+                const isSave = !!a.saveDC;
+                return `
+                  <div class="bg-slate-950/60 rounded-xl border border-slate-800/80 p-3.5 space-y-2">
+                    <div class="flex items-center justify-between">
+                      <span class="font-bold text-slate-100 font-cinzel text-sm">${a.name}</span>
+                      <span class="font-mono text-xs ${isSave ? 'text-purple-300 bg-purple-950/60 border border-purple-800/50' : 'text-amber-300 bg-amber-500/20 border border-amber-500/40'} font-bold px-2 py-0.5 rounded">
+                        ${isSave ? `Salvación CD ${a.saveDC} ${a.saveStat}` : `Ataque: +${a.bonus}`}
+                      </span>
+                    </div>
+                    
+                    <div class="flex flex-wrap items-center gap-3 text-xs font-mono text-slate-300 bg-black/40 p-2 rounded-lg border border-slate-800/60">
+                      <span>📏 Alcance: <strong class="text-slate-100">${a.reach || '—'}</strong></span>
+                      <span>•</span>
+                      <span>🩸 Daño: <strong class="text-rose-300">${a.avgDamage || '—'} (${a.damageDice || ''})</strong> ${a.damageType || ''}</span>
+                    </div>
+
+                    ${a.effect ? `
+                      <div class="text-xs text-slate-300 bg-slate-900/60 p-2.5 rounded-lg border border-slate-800 leading-relaxed">
+                        <strong class="text-amber-400">Condición / Efecto:</strong> ${a.effect}
+                      </div>
+                    ` : ''}
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          ${renderLegendary(c)}
+        </div>
+      `;
+    }
+
+    function render() {
+      const c = CREATURES_DATA[activeCreature];
+      const container = document.getElementById('statblock-container');
+      let html = '';
+
+      if (activeDemo === 1) html = renderFullDemo1(c);
+      else if (activeDemo === 2) html = renderFullDemo2(c);
+      else if (activeDemo === 3) html = renderFullDemo3(c);
+      else if (activeDemo === 4) html = renderFullDemo4(c);
+      else if (activeDemo === 5) html = renderFullDemo5(c);
+      else if (activeDemo === 6) html = renderFullDemo6(c);
+
+      container.innerHTML = html;
+    }
+
+    // Inicializar
     render();
   </script>
 </body>
