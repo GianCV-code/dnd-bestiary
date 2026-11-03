@@ -1,0 +1,1293 @@
+{
+  "totalOfficial": 4574,
+  "totalWithoutArt": 1235,
+  "bookStats": {
+    "AATM": {
+      "total": 3,
+      "withArt": 3,
+      "withoutArt": 0,
+      "withToken": 3
+    },
+    "ABH": {
+      "total": 5,
+      "withArt": 4,
+      "withoutArt": 1,
+      "withToken": 5
+    },
+    "AI": {
+      "total": 22,
+      "withArt": 20,
+      "withoutArt": 2,
+      "withToken": 22
+    },
+    "AitFR-ISF": {
+      "total": 2,
+      "withArt": 0,
+      "withoutArt": 2,
+      "withToken": 2
+    },
+    "AitFR-THP": {
+      "total": 3,
+      "withArt": 0,
+      "withoutArt": 3,
+      "withToken": 3
+    },
+    "AitFR-DN": {
+      "total": 4,
+      "withArt": 0,
+      "withoutArt": 4,
+      "withToken": 4
+    },
+    "AitFR-FCD": {
+      "total": 2,
+      "withArt": 0,
+      "withoutArt": 2,
+      "withToken": 2
+    },
+    "AU": {
+      "total": 23,
+      "withArt": 17,
+      "withoutArt": 6,
+      "withToken": 23
+    },
+    "AUD": {
+      "total": 6,
+      "withArt": 6,
+      "withoutArt": 0,
+      "withToken": 6
+    },
+    "AWM": {
+      "total": 11,
+      "withArt": 5,
+      "withoutArt": 6,
+      "withToken": 11
+    },
+    "BAM": {
+      "total": 72,
+      "withArt": 62,
+      "withoutArt": 10,
+      "withToken": 72
+    },
+    "BGDIA": {
+      "total": 53,
+      "withArt": 34,
+      "withoutArt": 19,
+      "withToken": 53
+    },
+    "BGG": {
+      "total": 72,
+      "withArt": 64,
+      "withoutArt": 8,
+      "withToken": 72
+    },
+    "BMT": {
+      "total": 41,
+      "withArt": 34,
+      "withoutArt": 7,
+      "withToken": 41
+    },
+    "CM": {
+      "total": 42,
+      "withArt": 27,
+      "withoutArt": 15,
+      "withToken": 42
+    },
+    "CoA": {
+      "total": 61,
+      "withArt": 44,
+      "withoutArt": 17,
+      "withToken": 61
+    },
+    "CoS": {
+      "total": 97,
+      "withArt": 57,
+      "withoutArt": 40,
+      "withToken": 97
+    },
+    "CRCotN": {
+      "total": 67,
+      "withArt": 50,
+      "withoutArt": 17,
+      "withToken": 67
+    },
+    "DC": {
+      "total": 5,
+      "withArt": 0,
+      "withoutArt": 5,
+      "withToken": 5
+    },
+    "DIP": {
+      "total": 6,
+      "withArt": 6,
+      "withoutArt": 0,
+      "withToken": 6
+    },
+    "DitLCoT": {
+      "total": 1,
+      "withArt": 1,
+      "withoutArt": 0,
+      "withToken": 1
+    },
+    "DMG": {
+      "total": 3,
+      "withArt": 1,
+      "withoutArt": 2,
+      "withToken": 3
+    },
+    "DoD": {
+      "total": 1,
+      "withArt": 1,
+      "withoutArt": 0,
+      "withToken": 1
+    },
+    "DoSI": {
+      "total": 10,
+      "withArt": 4,
+      "withoutArt": 6,
+      "withToken": 10
+    },
+    "DrDe-BD": {
+      "total": 1,
+      "withArt": 0,
+      "withoutArt": 1,
+      "withToken": 1
+    },
+    "DSotDQ": {
+      "total": 58,
+      "withArt": 49,
+      "withoutArt": 9,
+      "withToken": 58
+    },
+    "EFA": {
+      "total": 27,
+      "withArt": 25,
+      "withoutArt": 2,
+      "withToken": 27
+    },
+    "EGW": {
+      "total": 48,
+      "withArt": 24,
+      "withoutArt": 24,
+      "withToken": 48
+    },
+    "ERLW": {
+      "total": 41,
+      "withArt": 34,
+      "withoutArt": 7,
+      "withToken": 41
+    },
+    "ESK": {
+      "total": 3,
+      "withArt": 0,
+      "withoutArt": 3,
+      "withToken": 3
+    },
+    "FRAiF": {
+      "total": 42,
+      "withArt": 40,
+      "withoutArt": 2,
+      "withToken": 42
+    },
+    "FTD": {
+      "total": 85,
+      "withArt": 68,
+      "withoutArt": 17,
+      "withToken": 85
+    },
+    "GGR": {
+      "total": 79,
+      "withArt": 64,
+      "withoutArt": 15,
+      "withToken": 79
+    },
+    "GoS": {
+      "total": 57,
+      "withArt": 20,
+      "withoutArt": 37,
+      "withToken": 57
+    },
+    "GotSF": {
+      "total": 1,
+      "withArt": 0,
+      "withoutArt": 1,
+      "withToken": 1
+    },
+    "HAT-TG": {
+      "total": 7,
+      "withArt": 7,
+      "withoutArt": 0,
+      "withToken": 7
+    },
+    "HftT": {
+      "total": 3,
+      "withArt": 2,
+      "withoutArt": 1,
+      "withToken": 3
+    },
+    "HoL": {
+      "total": 4,
+      "withArt": 0,
+      "withoutArt": 4,
+      "withToken": 4
+    },
+    "HotB": {
+      "total": 11,
+      "withArt": 11,
+      "withoutArt": 0,
+      "withToken": 11
+    },
+    "HotDQ": {
+      "total": 23,
+      "withArt": 18,
+      "withoutArt": 5,
+      "withToken": 23
+    },
+    "IDRotF": {
+      "total": 83,
+      "withArt": 55,
+      "withoutArt": 28,
+      "withToken": 83
+    },
+    "IMR": {
+      "total": 26,
+      "withArt": 8,
+      "withoutArt": 18,
+      "withToken": 26
+    },
+    "JttRC": {
+      "total": 71,
+      "withArt": 64,
+      "withoutArt": 7,
+      "withToken": 71
+    },
+    "KftGV": {
+      "total": 57,
+      "withArt": 16,
+      "withoutArt": 41,
+      "withToken": 57
+    },
+    "KKW": {
+      "total": 3,
+      "withArt": 2,
+      "withoutArt": 1,
+      "withToken": 3
+    },
+    "LFL": {
+      "total": 8,
+      "withArt": 6,
+      "withoutArt": 2,
+      "withToken": 8
+    },
+    "LLK": {
+      "total": 13,
+      "withArt": 6,
+      "withoutArt": 7,
+      "withToken": 13
+    },
+    "LMoP": {
+      "total": 9,
+      "withArt": 3,
+      "withoutArt": 6,
+      "withToken": 9
+    },
+    "LoX": {
+      "total": 15,
+      "withArt": 13,
+      "withoutArt": 2,
+      "withToken": 15
+    },
+    "LR": {
+      "total": 6,
+      "withArt": 2,
+      "withoutArt": 4,
+      "withToken": 6
+    },
+    "LRDT": {
+      "total": 2,
+      "withArt": 2,
+      "withoutArt": 0,
+      "withToken": 2
+    },
+    "MaBJoV": {
+      "total": 56,
+      "withArt": 56,
+      "withoutArt": 0,
+      "withToken": 56
+    },
+    "MCV1SC": {
+      "total": 10,
+      "withArt": 10,
+      "withoutArt": 0,
+      "withToken": 10
+    },
+    "MCV2DC": {
+      "total": 11,
+      "withArt": 11,
+      "withoutArt": 0,
+      "withToken": 11
+    },
+    "MCV3MC": {
+      "total": 5,
+      "withArt": 5,
+      "withoutArt": 0,
+      "withToken": 5
+    },
+    "MCV4EC": {
+      "total": 25,
+      "withArt": 25,
+      "withoutArt": 0,
+      "withToken": 25
+    },
+    "MisMV1": {
+      "total": 6,
+      "withArt": 6,
+      "withoutArt": 0,
+      "withToken": 6
+    },
+    "MFF": {
+      "total": 18,
+      "withArt": 18,
+      "withoutArt": 0,
+      "withToken": 18
+    },
+    "MGELFT": {
+      "total": 6,
+      "withArt": 5,
+      "withoutArt": 1,
+      "withToken": 6
+    },
+    "MM": {
+      "total": 450,
+      "withArt": 369,
+      "withoutArt": 81,
+      "withToken": 450
+    },
+    "MPMM": {
+      "total": 261,
+      "withArt": 236,
+      "withoutArt": 25,
+      "withToken": 261
+    },
+    "MPP": {
+      "total": 54,
+      "withArt": 53,
+      "withoutArt": 1,
+      "withToken": 54
+    },
+    "MOT": {
+      "total": 51,
+      "withArt": 44,
+      "withoutArt": 7,
+      "withToken": 51
+    },
+    "MTF": {
+      "total": 140,
+      "withArt": 121,
+      "withoutArt": 19,
+      "withToken": 140
+    },
+    "NF": {
+      "total": 6,
+      "withArt": 5,
+      "withoutArt": 1,
+      "withToken": 6
+    },
+    "NRH-TCMC": {
+      "total": 2,
+      "withArt": 0,
+      "withoutArt": 2,
+      "withToken": 2
+    },
+    "NRH-AVitW": {
+      "total": 2,
+      "withArt": 0,
+      "withoutArt": 2,
+      "withToken": 2
+    },
+    "NRH-ASS": {
+      "total": 1,
+      "withArt": 0,
+      "withoutArt": 1,
+      "withToken": 1
+    },
+    "NRH-CoI": {
+      "total": 3,
+      "withArt": 0,
+      "withoutArt": 3,
+      "withToken": 3
+    },
+    "NRH-TLT": {
+      "total": 0,
+      "withArt": 0,
+      "withoutArt": 0,
+      "withToken": 0
+    },
+    "NRH-AWoL": {
+      "total": 1,
+      "withArt": 0,
+      "withoutArt": 1,
+      "withToken": 1
+    },
+    "NRH-AT": {
+      "total": 3,
+      "withArt": 0,
+      "withoutArt": 3,
+      "withToken": 3
+    },
+    "OotA": {
+      "total": 103,
+      "withArt": 46,
+      "withoutArt": 57,
+      "withToken": 103
+    },
+    "OoW": {
+      "total": 17,
+      "withArt": 7,
+      "withoutArt": 10,
+      "withToken": 17
+    },
+    "PaBTSO": {
+      "total": 56,
+      "withArt": 47,
+      "withoutArt": 9,
+      "withToken": 56
+    },
+    "PSA": {
+      "total": 24,
+      "withArt": 23,
+      "withoutArt": 1,
+      "withToken": 24
+    },
+    "PSD": {
+      "total": 7,
+      "withArt": 6,
+      "withoutArt": 1,
+      "withToken": 7
+    },
+    "PSI": {
+      "total": 20,
+      "withArt": 17,
+      "withoutArt": 3,
+      "withToken": 20
+    },
+    "PSK": {
+      "total": 27,
+      "withArt": 27,
+      "withoutArt": 0,
+      "withToken": 27
+    },
+    "PSX": {
+      "total": 47,
+      "withArt": 34,
+      "withoutArt": 13,
+      "withToken": 47
+    },
+    "PSZ": {
+      "total": 43,
+      "withArt": 35,
+      "withoutArt": 8,
+      "withToken": 43
+    },
+    "PHB": {
+      "total": 5,
+      "withArt": 0,
+      "withoutArt": 5,
+      "withToken": 5
+    },
+    "PL": {
+      "total": 14,
+      "withArt": 7,
+      "withoutArt": 7,
+      "withToken": 14
+    },
+    "PotA": {
+      "total": 59,
+      "withArt": 31,
+      "withoutArt": 28,
+      "withToken": 59
+    },
+    "QftIS": {
+      "total": 49,
+      "withArt": 30,
+      "withoutArt": 19,
+      "withToken": 49
+    },
+    "RHW": {
+      "total": 70,
+      "withArt": 69,
+      "withoutArt": 1,
+      "withToken": 70
+    },
+    "RMBRE": {
+      "total": 9,
+      "withArt": 4,
+      "withoutArt": 5,
+      "withToken": 9
+    },
+    "RoT": {
+      "total": 25,
+      "withArt": 7,
+      "withoutArt": 18,
+      "withToken": 25
+    },
+    "RtG": {
+      "total": 2,
+      "withArt": 0,
+      "withoutArt": 2,
+      "withToken": 2
+    },
+    "RWG": {
+      "total": 1,
+      "withArt": 0,
+      "withoutArt": 1,
+      "withToken": 1
+    },
+    "SADS": {
+      "total": 1,
+      "withArt": 1,
+      "withoutArt": 0,
+      "withToken": 1
+    },
+    "SCC": {
+      "total": 47,
+      "withArt": 32,
+      "withoutArt": 15,
+      "withToken": 47
+    },
+    "SDW": {
+      "total": 6,
+      "withArt": 0,
+      "withoutArt": 6,
+      "withToken": 6
+    },
+    "SKT": {
+      "total": 105,
+      "withArt": 34,
+      "withoutArt": 71,
+      "withToken": 105
+    },
+    "SLW": {
+      "total": 7,
+      "withArt": 0,
+      "withoutArt": 7,
+      "withToken": 7
+    },
+    "TCE": {
+      "total": 20,
+      "withArt": 5,
+      "withoutArt": 15,
+      "withToken": 20
+    },
+    "TTP": {
+      "total": 5,
+      "withArt": 4,
+      "withoutArt": 1,
+      "withToken": 5
+    },
+    "TftYP": {
+      "total": 133,
+      "withArt": 20,
+      "withoutArt": 113,
+      "withToken": 133
+    },
+    "ToA": {
+      "total": 89,
+      "withArt": 66,
+      "withoutArt": 23,
+      "withToken": 89
+    },
+    "ToFW": {
+      "total": 19,
+      "withArt": 15,
+      "withoutArt": 4,
+      "withToken": 19
+    },
+    "VD": {
+      "total": 1,
+      "withArt": 1,
+      "withoutArt": 0,
+      "withToken": 1
+    },
+    "VEoR": {
+      "total": 69,
+      "withArt": 35,
+      "withoutArt": 34,
+      "withToken": 69
+    },
+    "VGM": {
+      "total": 143,
+      "withArt": 106,
+      "withoutArt": 37,
+      "withToken": 143
+    },
+    "VRGR": {
+      "total": 35,
+      "withArt": 29,
+      "withoutArt": 6,
+      "withToken": 35
+    },
+    "XGE": {
+      "total": 2,
+      "withArt": 0,
+      "withoutArt": 2,
+      "withToken": 2
+    },
+    "WBtW": {
+      "total": 52,
+      "withArt": 40,
+      "withoutArt": 12,
+      "withToken": 52
+    },
+    "WDH": {
+      "total": 95,
+      "withArt": 47,
+      "withoutArt": 48,
+      "withToken": 95
+    },
+    "WDMM": {
+      "total": 110,
+      "withArt": 22,
+      "withoutArt": 88,
+      "withToken": 110
+    },
+    "WttHC": {
+      "total": 31,
+      "withArt": 31,
+      "withoutArt": 0,
+      "withToken": 31
+    },
+    "XDMG": {
+      "total": 2,
+      "withArt": 0,
+      "withoutArt": 2,
+      "withToken": 2
+    },
+    "XMM": {
+      "total": 503,
+      "withArt": 503,
+      "withoutArt": 0,
+      "withToken": 503
+    },
+    "XPHB": {
+      "total": 15,
+      "withArt": 15,
+      "withoutArt": 0,
+      "withToken": 15
+    }
+  },
+  "sampleNoArt": [
+    {
+      "name": "Vampire Warden",
+      "source": "ABH",
+      "cr": "10",
+      "type": "undead"
+    },
+    {
+      "name": "Clockwork Dragon",
+      "source": "AI",
+      "cr": "1",
+      "type": "construct"
+    },
+    {
+      "name": "Prophetess Dran",
+      "source": "AI",
+      "cr": "2",
+      "type": "humanoid"
+    },
+    {
+      "name": "Exul",
+      "source": "AitFR-ISF",
+      "cr": "11",
+      "type": "elemental"
+    },
+    {
+      "name": "Malivar",
+      "source": "AitFR-ISF",
+      "cr": "6",
+      "type": "humanoid"
+    },
+    {
+      "name": "Greater Shadow Horror",
+      "source": "AitFR-THP",
+      "cr": "12",
+      "type": "aberration"
+    },
+    {
+      "name": "Morwena Veilmist",
+      "source": "AitFR-THP",
+      "cr": "5",
+      "type": "humanoid"
+    },
+    {
+      "name": "Usagt",
+      "source": "AitFR-THP",
+      "cr": "5",
+      "type": "aberration"
+    },
+    {
+      "name": "Giant Zombie Constrictor Snake",
+      "source": "AitFR-DN",
+      "cr": "8",
+      "type": "undead"
+    },
+    {
+      "name": "Hamish Hewland",
+      "source": "AitFR-DN",
+      "cr": "5",
+      "type": "giant"
+    },
+    {
+      "name": "Kyrilla, Accursed Gorgon",
+      "source": "AitFR-DN",
+      "cr": "10",
+      "type": "monstrosity"
+    },
+    {
+      "name": "Skeletal Horror",
+      "source": "AitFR-DN",
+      "cr": "6",
+      "type": "undead"
+    },
+    {
+      "name": "Mercenary Envoy",
+      "source": "AitFR-FCD",
+      "cr": "1",
+      "type": "humanoid"
+    },
+    {
+      "name": "Tyreus, Illusionist",
+      "source": "AitFR-FCD",
+      "cr": "13",
+      "type": "humanoid"
+    },
+    {
+      "name": "Battle Familiar",
+      "source": "AU",
+      "cr": "0",
+      "type": {
+        "choose": [
+          "celestial",
+          "fey",
+          "fiend"
+        ]
+      }
+    },
+    {
+      "name": "Dinosaur Spirit",
+      "source": "AU",
+      "cr": "0",
+      "type": "beast"
+    },
+    {
+      "name": "Living Cone of Cold",
+      "source": "AU",
+      "cr": "7",
+      "type": "construct"
+    },
+    {
+      "name": "Living Vitriolic Sphere",
+      "source": "AU",
+      "cr": "5",
+      "type": "construct"
+    },
+    {
+      "name": "Plant Spirit",
+      "source": "AU",
+      "cr": "0",
+      "type": "plant"
+    },
+    {
+      "name": "Vestige Companion",
+      "source": "AU",
+      "cr": "0",
+      "type": {
+        "choose": [
+          "celestial",
+          "fiend",
+          "undead"
+        ]
+      }
+    },
+    {
+      "name": "Big Water Slurpent",
+      "source": "AWM",
+      "cr": "3",
+      "type": "elemental"
+    },
+    {
+      "name": "Boontu Monkey",
+      "source": "AWM",
+      "cr": "0",
+      "type": "beast"
+    },
+    {
+      "name": "Crystal Cave Merfolk",
+      "source": "AWM",
+      "cr": "1/8",
+      "type": "humanoid"
+    },
+    {
+      "name": "Dankwood Hag",
+      "source": "AWM",
+      "cr": "3",
+      "type": "fey"
+    },
+    {
+      "name": "Hangry Otyugh",
+      "source": "AWM",
+      "cr": "5",
+      "type": "aberration"
+    },
+    {
+      "name": "Saleeth the Couatl",
+      "source": "AWM",
+      "cr": "4",
+      "type": "celestial"
+    },
+    {
+      "name": "Adult Lunar Dragon",
+      "source": "BAM",
+      "cr": "13",
+      "type": "dragon"
+    },
+    {
+      "name": "Giff Shipmate",
+      "source": "BAM",
+      "cr": "3",
+      "type": "humanoid"
+    },
+    {
+      "name": "Neogi Hatchling Swarm",
+      "source": "BAM",
+      "cr": "3",
+      "type": "aberration"
+    },
+    {
+      "name": "Neogi Pirate",
+      "source": "BAM",
+      "cr": "3",
+      "type": "aberration"
+    },
+    {
+      "name": "Neogi Void Hunter",
+      "source": "BAM",
+      "cr": "4",
+      "type": "aberration"
+    },
+    {
+      "name": "Psurlon Ringer",
+      "source": "BAM",
+      "cr": "1",
+      "type": "aberration"
+    },
+    {
+      "name": "Space Hamster",
+      "source": "BAM",
+      "cr": "1/4",
+      "type": "monstrosity"
+    },
+    {
+      "name": "Vampirate Captain",
+      "source": "BAM",
+      "cr": "6",
+      "type": "undead"
+    },
+    {
+      "name": "Vampirate Mage",
+      "source": "BAM",
+      "cr": "5",
+      "type": "undead"
+    },
+    {
+      "name": "Young Lunar Dragon",
+      "source": "BAM",
+      "cr": "7",
+      "type": "dragon"
+    },
+    {
+      "name": "Burney the Barber",
+      "source": "BGDIA",
+      "cr": "0",
+      "type": "monstrosity"
+    },
+    {
+      "name": "Death's Head of Bhaal",
+      "source": "BGDIA",
+      "cr": "5",
+      "type": "humanoid"
+    },
+    {
+      "name": "Dryad Spirit",
+      "source": "BGDIA",
+      "cr": "0",
+      "type": "monstrosity"
+    },
+    {
+      "name": "Elliach",
+      "source": "BGDIA",
+      "cr": "0",
+      "type": "humanoid"
+    },
+    {
+      "name": "Fiendish Flesh Golem",
+      "source": "BGDIA",
+      "cr": "8",
+      "type": "construct"
+    },
+    {
+      "name": "Fist of Bane",
+      "source": "BGDIA",
+      "cr": "1/2",
+      "type": "humanoid"
+    },
+    {
+      "name": "Flying Dagger",
+      "source": "BGDIA",
+      "cr": "1/8",
+      "type": "monstrosity"
+    },
+    {
+      "name": "Harkina Hunt",
+      "source": "BGDIA",
+      "cr": "0",
+      "type": "humanoid"
+    },
+    {
+      "name": "Hellwasp Grub",
+      "source": "BGDIA",
+      "cr": "0",
+      "type": "monstrosity"
+    },
+    {
+      "name": "Iron Consul",
+      "source": "BGDIA",
+      "cr": "2",
+      "type": "humanoid"
+    },
+    {
+      "name": "Master of Souls",
+      "source": "BGDIA",
+      "cr": "4",
+      "type": "humanoid"
+    },
+    {
+      "name": "Necrotic Centipede",
+      "source": "BGDIA",
+      "cr": "0",
+      "type": "monstrosity"
+    },
+    {
+      "name": "Night Blade",
+      "source": "BGDIA",
+      "cr": "1/4",
+      "type": "humanoid"
+    },
+    {
+      "name": "Peacock",
+      "source": "BGDIA",
+      "cr": "0",
+      "type": "monstrosity"
+    },
+    {
+      "name": "Skeletal Rats",
+      "source": "BGDIA",
+      "cr": "0",
+      "type": "undead"
+    },
+    {
+      "name": "Skull Lasher of Myrkul",
+      "source": "BGDIA",
+      "cr": "1",
+      "type": "humanoid"
+    },
+    {
+      "name": "Sylvira Savikas",
+      "source": "BGDIA",
+      "cr": "0",
+      "type": "monstrosity"
+    },
+    {
+      "name": "Traxigor",
+      "source": "BGDIA",
+      "cr": "0",
+      "type": "beast"
+    },
+    {
+      "name": "Undead Tree",
+      "source": "BGDIA",
+      "cr": "0",
+      "type": "undead"
+    },
+    {
+      "name": "Cradle of the Cloud Scion",
+      "source": "BGG",
+      "cr": "26",
+      "type": "elemental"
+    },
+    {
+      "name": "Cradle of the Fire Scion",
+      "source": "BGG",
+      "cr": "25",
+      "type": "elemental"
+    },
+    {
+      "name": "Cradle of the Frost Scion",
+      "source": "BGG",
+      "cr": "24",
+      "type": "elemental"
+    },
+    {
+      "name": "Cradle of the Hill Scion",
+      "source": "BGG",
+      "cr": "22",
+      "type": "elemental"
+    },
+    {
+      "name": "Cradle of the Stone Scion",
+      "source": "BGG",
+      "cr": "23",
+      "type": "elemental"
+    },
+    {
+      "name": "Cradle of the Storm Scion",
+      "source": "BGG",
+      "cr": "27",
+      "type": "elemental"
+    },
+    {
+      "name": "Fensir Skirmisher",
+      "source": "BGG",
+      "cr": "6",
+      "type": "giant"
+    },
+    {
+      "name": "Giant Child",
+      "source": "BGG",
+      "cr": "0",
+      "type": "giant"
+    },
+    {
+      "name": "Advanced Detention Drone",
+      "source": "BMT",
+      "cr": "0",
+      "type": "monstrosity"
+    },
+    {
+      "name": "Animated Armor Detention Drone",
+      "source": "BMT",
+      "cr": "0",
+      "type": "monstrosity"
+    },
+    {
+      "name": "Brusipha",
+      "source": "BMT",
+      "cr": "3",
+      "type": "humanoid"
+    },
+    {
+      "name": "Gremorly's Ghost",
+      "source": "BMT",
+      "cr": "9",
+      "type": "undead"
+    },
+    {
+      "name": "Helmed Horror Detention Drone",
+      "source": "BMT",
+      "cr": "0",
+      "type": "monstrosity"
+    },
+    {
+      "name": "Minotaur Infiltrator",
+      "source": "BMT",
+      "cr": "2",
+      "type": "humanoid"
+    },
+    {
+      "name": "Reaper Spirit",
+      "source": "BMT",
+      "cr": "0",
+      "type": "undead"
+    },
+    {
+      "name": "Animated Broom",
+      "source": "CM",
+      "cr": "1/4",
+      "type": "construct"
+    },
+    {
+      "name": "Dragon Tortoise",
+      "source": "CM",
+      "cr": "0",
+      "type": "monstrosity"
+    },
+    {
+      "name": "Fungal Servant",
+      "source": "CM",
+      "cr": "15",
+      "type": "undead"
+    },
+    {
+      "name": "Gingwatzim",
+      "source": "CM",
+      "cr": "2",
+      "type": "aberration"
+    },
+    {
+      "name": "Immortal Lotus Monk",
+      "source": "CM",
+      "cr": "5",
+      "type": "humanoid"
+    },
+    {
+      "name": "K'Tulah",
+      "source": "CM",
+      "cr": "2",
+      "type": "humanoid"
+    },
+    {
+      "name": "Kharbek",
+      "source": "CM",
+      "cr": "0",
+      "type": "monstrosity"
+    },
+    {
+      "name": "Lightning Golem",
+      "source": "CM",
+      "cr": "5",
+      "type": "construct"
+    },
+    {
+      "name": "Mimic Chair",
+      "source": "CM",
+      "cr": "2",
+      "type": "monstrosity"
+    },
+    {
+      "name": "Ogruhl",
+      "source": "CM",
+      "cr": "0",
+      "type": "monstrosity"
+    },
+    {
+      "name": "Parasite-infested Behir",
+      "source": "CM",
+      "cr": "11",
+      "type": "undead"
+    },
+    {
+      "name": "Ram Sugar",
+      "source": "CM",
+      "cr": "2",
+      "type": "humanoid"
+    },
+    {
+      "name": "Storm Giant Skeleton",
+      "source": "CM",
+      "cr": "16",
+      "type": "undead"
+    },
+    {
+      "name": "Varnyr",
+      "source": "CM",
+      "cr": "1/8",
+      "type": "humanoid"
+    },
+    {
+      "name": "Wood Elf Wizard",
+      "source": "CM",
+      "cr": "0",
+      "type": "monstrosity"
+    },
+    {
+      "name": "Anacreda",
+      "source": "CoA",
+      "cr": "17",
+      "type": "fey"
+    },
+    {
+      "name": "Animated Furniture",
+      "source": "CoA",
+      "cr": "0",
+      "type": "monstrosity"
+    },
+    {
+      "name": "Awful Fisher",
+      "source": "CoA",
+      "cr": "18",
+      "type": "monstrosity"
+    },
+    {
+      "name": "Bel",
+      "source": "CoA",
+      "cr": "25",
+      "type": "fiend"
+    },
+    {
+      "name": "Demon Ichor",
+      "source": "CoA",
+      "cr": "0",
+      "type": "monstrosity"
+    },
+    {
+      "name": "Devorastus",
+      "source": "CoA",
+      "cr": "20",
+      "type": "fiend"
+    },
+    {
+      "name": "Ekengarik",
+      "source": "CoA",
+      "cr": "16",
+      "type": "fiend"
+    },
+    {
+      "name": "Fiendish Formian",
+      "source": "CoA",
+      "cr": "4",
+      "type": "fiend"
+    },
+    {
+      "name": "Frozen Golem",
+      "source": "CoA",
+      "cr": "0",
+      "type": "monstrosity"
+    },
+    {
+      "name": "Grotesque Tentacle",
+      "source": "CoA",
+      "cr": "0",
+      "type": "monstrosity"
+    },
+    {
+      "name": "Icy Simulacrum",
+      "source": "CoA",
+      "cr": "0",
+      "type": "monstrosity"
+    },
+    {
+      "name": "Kuo-toa Heretic",
+      "source": "CoA",
+      "cr": "0",
+      "type": "monstrosity"
+    },
+    {
+      "name": "Regular Orthoclath",
+      "source": "CoA",
+      "cr": "0",
+      "type": "monstrosity"
+    },
+    {
+      "name": "Rothé",
+      "source": "CoA",
+      "cr": "1/4",
+      "type": "beast"
+    },
+    {
+      "name": "Slayer",
+      "source": "CoA",
+      "cr": "12",
+      "type": "fiend"
+    }
+  ],
+  "allNoArtCount": 1235
+}

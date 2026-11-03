@@ -941,6 +941,30 @@ export default function App() {
 
         <div className="header-actions">
           <a
+            href="./image-demos.html"
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '6px 12px',
+              borderRadius: '8px',
+              fontSize: '0.8rem',
+              fontWeight: 600,
+              background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(244, 63, 94, 0.2))',
+              border: '1px solid rgba(245, 158, 11, 0.4)',
+              color: '#fef08a',
+              textDecoration: 'none',
+              transition: 'all 0.2s',
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)'
+            }}
+            title="Abrir la demo de estilos para mostrar las imágenes de las criaturas y recuento 5eTools"
+          >
+            <span>🎨</span>
+            <span>Demo Estilos de Imagen</span>
+          </a>
+          <a
             href="./demos.html"
             target="_blank"
             rel="noreferrer"

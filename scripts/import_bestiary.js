@@ -231,7 +231,7 @@ function formatList(val, fallback = '') {
   return fallback;
 }
 
-function normalizeCreature(m, meta) {
+function normalizeCreature(m, meta, fluffMap = null) {
   const crRaw = m.cr ? (typeof m.cr === 'object' ? (m.cr.cr || '0') : m.cr) : '0';
   const crNumeric = crToNumber(crRaw);
   const xp = m.xp || CR_TO_XP[crRaw] || 0;
@@ -265,10 +265,9 @@ function normalizeCreature(m, meta) {
     alignment = m.alignment;
   }
 
-  // Token URL for WotC official
-  const tokenUrl = meta.category === 'Official WotC'
-    ? `https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/${m.source}/${encodeURIComponent(m.name)}.webp`
-    : null;
+  // Token & Art Extraction Engine (WotC + 3PP + Crossovers)
+  const tokenUrl = extractTokenUrl(m, meta);
+  const artUrl = extractArtUrl(m, meta, fluffMap);
 
   return {
     id: `${m.name.toLowerCase().replace(/[^a-z0-9]/g, '-')}-${(m.source || meta.sourceGroup).toLowerCase().replace(/[^a-z0-9]/g, '-')}`,
@@ -318,8 +317,115 @@ function normalizeCreature(m, meta) {
     })),
     environment: m.environment || [],
     hasToken: !!tokenUrl,
-    tokenUrl: tokenUrl
+    tokenUrl: tokenUrl,
+    hasArt: !!artUrl,
+    artUrl: artUrl
   };
+}
+
+function resolveHref(href) {
+  if (!href) return null;
+  if (typeof href === 'string') return href;
+  if (href.url) return href.url;
+  if (href.href && typeof href.href === 'object') return resolveHref(href.href);
+  if (href.path) {
+    if (href.path.startsWith('http')) return href.path;
+    return `https://raw.githubusercontent.com/TheGiddyLimit/homebrew/master/${href.path.replace(/^\//, '')}`;
+  }
+  return null;
+}
+
+function findImageInEntries(entries) {
+  if (!Array.isArray(entries)) return null;
+  for (const entry of entries) {
+    if (!entry) continue;
+    if (entry.type === 'image') {
+      const url = resolveHref(entry.href || entry);
+      if (url) return url;
+    }
+    if (Array.isArray(entry.entries)) {
+      const nested = findImageInEntries(entry.entries);
+      if (nested) return nested;
+    }
+    if (Array.isArray(entry.items)) {
+      const nested = findImageInEntries(entry.items);
+      if (nested) return nested;
+    }
+  }
+  return null;
+}
+
+function extractTokenUrl(m, meta) {
+  // 1. Explicit tokenUrl / tokenHref in monster data (used across 3PP and Homebrew)
+  if (m.tokenUrl && typeof m.tokenUrl === 'string') return m.tokenUrl;
+  if (m.tokenHref) {
+    const url = resolveHref(m.tokenHref);
+    if (url) return url;
+  }
+  // 2. Official WotC token format (all official creatures have a token in 5eTools)
+  if (meta.category === 'Official WotC' || !meta.category) {
+    const src = m.source || meta.sourceGroup;
+    return `https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/${src}/${encodeURIComponent(m.name)}.webp`;
+  }
+  return null;
+}
+
+function extractArtUrl(m, meta, fluffMap) {
+  // 1. In monster.fluff.images (common in homebrew like MCDM and Dragonix)
+  if (m.fluff && Array.isArray(m.fluff.images)) {
+    for (const img of m.fluff.images) {
+      const url = resolveHref(img.href || img);
+      if (url) return url;
+    }
+  }
+  // 1b. In monster.fluff.entries
+  if (m.fluff && Array.isArray(m.fluff.entries)) {
+    const url = findImageInEntries(m.fluff.entries);
+    if (url) return url;
+  }
+  // 2. In monster.images
+  if (Array.isArray(m.images)) {
+    for (const img of m.images) {
+      const url = resolveHref(img.href || img);
+      if (url) return url;
+    }
+  }
+  // 3. In fluffMap (from data.monsterFluff, e.g. Kobold Press ToB 1, 2, 3, CC)
+  if (fluffMap) {
+    const key = (m.name || '').toLowerCase() + '__' + (m.source || '').toLowerCase();
+    const fluff = fluffMap.get(key) || fluffMap.get((m.name || '').toLowerCase());
+    if (fluff) {
+      if (Array.isArray(fluff.images)) {
+        for (const img of fluff.images) {
+          const url = resolveHref(img.href || img);
+          if (url) return url;
+        }
+      }
+      if (Array.isArray(fluff.entries)) {
+        const url = findImageInEntries(fluff.entries);
+        if (url) return url;
+      }
+    }
+  }
+  // 4. Official WotC illustration (with smart dragon mapping)
+  if (meta.category === 'Official WotC') {
+    const source = m.source || 'MM';
+    let artName = m.name || '';
+    let isDragonMapped = false;
+    if (source === 'MM' && artName.includes('Dragon')) {
+      const match = artName.match(/^(Ancient|Young)\s+(.+Dragon)$/i);
+      if (match) {
+        artName = `Adult ${match[2]}`;
+        isDragonMapped = true;
+      }
+    }
+    // Only return artUrl if 5eTools marks hasFluffImages or it was a mapped dragon
+    if (m.hasFluffImages || isDragonMapped) {
+      return `https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/${source}/${encodeURIComponent(artName)}.webp`;
+    }
+    return null;
+  }
+  return null;
 }
 
 // THE COMPLETE CURATED LIST OF ALL MAJOR THIRD-PARTY PUBLISHERS (3PP PRO)
@@ -549,17 +655,47 @@ async function run() {
     try {
       const data = await fetchJson(src.url);
       const list = data.monster || [];
+      const fluffList = data.monsterFluff || [];
+      const fluffMap = new Map();
+      for (const f of fluffList) {
+        if (!f.name) continue;
+        const key = f.name.toLowerCase() + '__' + (f.source || '').toLowerCase();
+        fluffMap.set(key, f);
+        if (!fluffMap.has(f.name.toLowerCase())) {
+          fluffMap.set(f.name.toLowerCase(), f);
+        }
+      }
+
       let added = 0;
+      let withToken = 0;
+      let withArt = 0;
       for (const m of list) {
         if (!m.name) continue;
-        const normalized = normalizeCreature(m, src);
+
+        // Filter out MCDM Companions, Retainers and hollow WhereEvilLives _copy aliases
+        if (src.publisher === 'MCDM Productions') {
+          const isRetainerOrCompanion = (
+            (Array.isArray(m.typeTags) && (m.typeTags.includes('retainer') || m.typeTags.includes('companion'))) ||
+            (m.type && Array.isArray(m.type.tags) && m.type.tags.some(t => typeof t === 'string' && (t.toLowerCase() === 'retainer' || t.toLowerCase() === 'companion'))) ||
+            m.name.toLowerCase().includes('retainer') ||
+            m.name.toLowerCase().includes('companion')
+          );
+          if (isRetainerOrCompanion) continue;
+
+          // Also filter out hollow _copy references in WhereEvilLives that have no actual actions or traits
+          if (m._copy && (!m.action || m.action.length === 0) && (!m.trait || m.trait.length === 0)) continue;
+        }
+
+        const normalized = normalizeCreature(m, src, fluffMap);
         if (!seenIds.has(normalized.id)) {
           seenIds.add(normalized.id);
           allCreatures.push(normalized);
           added++;
+          if (normalized.hasToken) withToken++;
+          if (normalized.hasArt) withArt++;
         }
       }
-      console.log(`  ✓ [${src.publisher}] ${src.sourceGroup}: ${added} creatures`);
+      console.log(`  ✓ [${src.publisher}] ${src.sourceGroup}: ${added} creatures (Tokens: ${withToken}, Art: ${withArt})`);
     } catch (err) {
       console.error(`  ❌ Error fetching ${src.sourceGroup}:`, err.message);
     }
@@ -571,17 +707,32 @@ async function run() {
     try {
       const data = await fetchJson(src.url);
       const list = data.monster || [];
+      const fluffList = data.monsterFluff || [];
+      const fluffMap = new Map();
+      for (const f of fluffList) {
+        if (!f.name) continue;
+        const key = f.name.toLowerCase() + '__' + (f.source || '').toLowerCase();
+        fluffMap.set(key, f);
+        if (!fluffMap.has(f.name.toLowerCase())) {
+          fluffMap.set(f.name.toLowerCase(), f);
+        }
+      }
+
       let added = 0;
+      let withToken = 0;
+      let withArt = 0;
       for (const m of list) {
         if (!m.name) continue;
-        const normalized = normalizeCreature(m, src);
+        const normalized = normalizeCreature(m, src, fluffMap);
         if (!seenIds.has(normalized.id)) {
           seenIds.add(normalized.id);
           allCreatures.push(normalized);
           added++;
+          if (normalized.hasToken) withToken++;
+          if (normalized.hasArt) withArt++;
         }
       }
-      console.log(`  ✓ [${src.publisher}] ${src.sourceGroup}: ${added} creatures`);
+      console.log(`  ✓ [${src.publisher}] ${src.sourceGroup}: ${added} creatures (Tokens: ${withToken}, Art: ${withArt})`);
     } catch (err) {
       console.error(`  ❌ Error fetching ${src.sourceGroup}:`, err.message);
     }
@@ -590,7 +741,17 @@ async function run() {
   // Sort by Name
   allCreatures.sort((a, b) => a.name.localeCompare(b.name));
 
+  const totalWithToken = allCreatures.filter(c => c.hasToken).length;
+  const totalWithArt = allCreatures.filter(c => c.hasArt).length;
+  const totalWithBoth = allCreatures.filter(c => c.hasToken && c.hasArt).length;
+  const totalWithNeither = allCreatures.filter(c => !c.hasToken && !c.hasArt).length;
+
   console.log(`\n🎉 TOTAL UNIQUE CREATURES IMPORTED: ${allCreatures.length}`);
+  console.log(`   Tokens VTT: ${totalWithToken} (${((totalWithToken/allCreatures.length)*100).toFixed(1)}%)`);
+  console.log(`   Full Artwork: ${totalWithArt} (${((totalWithArt/allCreatures.length)*100).toFixed(1)}%)`);
+  console.log(`   Both (Token + Art): ${totalWithBoth} (${((totalWithBoth/allCreatures.length)*100).toFixed(1)}%)`);
+  console.log(`   Neither: ${totalWithNeither} (${((totalWithNeither/allCreatures.length)*100).toFixed(1)}%)`);
+
   const outputPath = path.join(DATA_DIR, 'bestiary.json');
   fs.writeFileSync(outputPath, JSON.stringify(allCreatures, null, 2), 'utf8');
   console.log(`💾 Saved to ${outputPath} (${(fs.statSync(outputPath).size / 1024 / 1024).toFixed(2)} MB)`);

@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 console.log('📦 Compilando aplicación con Vite...');
-execSync('npm run build', { stdio: 'inherit' });
+execSync('node node_modules/vite/bin/vite.js build', { stdio: 'inherit' });
 
 // Add .nojekyll to prevent GitHub Pages from ignoring files
 fs.writeFileSync(path.join('dist', '.nojekyll'), '');

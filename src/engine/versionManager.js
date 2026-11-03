@@ -121,6 +121,8 @@ export function repairHollowCopies(creaturesList) {
           publisher: c.publisher,
           hasToken: c.hasToken || base.hasToken,
           tokenUrl: c.tokenUrl || base.tokenUrl,
+          hasArt: c.hasArt || base.hasArt,
+          artUrl: c.artUrl || base.artUrl,
           _isReprintOf: base.source
         };
       }

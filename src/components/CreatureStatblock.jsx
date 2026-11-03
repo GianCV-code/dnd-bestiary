@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Shield, 
   Heart, 
@@ -11,7 +11,9 @@ import {
   Crown, 
   Flame, 
   AlertTriangle,
-  Compass
+  Compass,
+  Maximize2,
+  Image as ImageIcon
 } from 'lucide-react';
 import { parseModularAction, calculatePB, extractEntryText, clean5eTags } from '../engine/statblockParser';
 
@@ -24,6 +26,13 @@ export default function CreatureStatblock({
   onAddToEncounter,
   onClose
 }) {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [artLoadFailed, setArtLoadFailed] = useState(false);
+
+  useEffect(() => {
+    setArtLoadFailed(false);
+  }, [creature?.id]);
+
   if (!creature) return null;
 
   // Calculo de modificadores
@@ -62,45 +71,137 @@ export default function CreatureStatblock({
   const reactions = creature.reaction || [];
   const legendary = creature.legendary || [];
 
+  // Token & Art URLs resolution (with smart MM dragon artwork mapping)
+  const source = creature.source || 'MM';
+  let artName = creature.name || '';
+  if (source === 'MM' && artName.includes('Dragon')) {
+    const match = artName.match(/^(Ancient|Young)\s+(.+Dragon)$/i);
+    if (match) {
+      artName = `Adult ${match[2]}`;
+    }
+  }
+
+  const tokenUrl = creature.tokenUrl || (
+    creature.category === 'Official WotC' || !creature.category
+      ? `https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/${source}/${encodeURIComponent(creature.name)}.webp`
+      : null
+  );
+
+  const fullArtUrl = creature.artUrl || (
+    creature.category === 'Official WotC' || !creature.category
+      ? `https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/${source}/${encodeURIComponent(artName)}.webp`
+      : null
+  );
+
   return (
     <div className="statblock-sheet" onClick={e => e.stopPropagation()}>
       
-      {/* 1. Encabezado de la Criatura */}
-      <div className="statblock-header">
-        <div>
-          <div className="flex-wrap-header">
-            <h2 className="statblock-title">{creature.name}</h2>
-            <div className="cr-pb-badges">
-              <span className="cr-badge">CR {creature.cr} ({creature.xp?.toLocaleString ? creature.xp.toLocaleString() : creature.xp} XP)</span>
-              <span className="pb-badge">PB +{pb}</span>
-            </div>
+      {/* 1. Hero Cinematic Banner (Modelo Visual 1) */}
+      <div className="statblock-hero-banner">
+        {/* Fondo del Banner: Ilustración Oficial o Fallback Atmosférico */}
+        {fullArtUrl && !artLoadFailed ? (
+          <img 
+            src={fullArtUrl} 
+            alt={creature.name} 
+            className="statblock-hero-bg-art"
+            onError={() => setArtLoadFailed(true)} 
+          />
+        ) : (
+          <div className="statblock-hero-bg-fallback">
+            {tokenUrl && (
+              <img 
+                src={tokenUrl} 
+                alt="" 
+                className="statblock-hero-bg-fallback-token" 
+              />
+            )}
+            <div className="statblock-hero-bg-fallback-pattern"></div>
           </div>
-          <p className="statblock-subtitle">
-            {creature.size} {creature.type}
-            {creature.typeTags && creature.typeTags.length > 0 ? ` (${creature.typeTags.join(', ')})` : ''}, {creature.alignment}
-          </p>
-          <div className="header-pills-row">
-            <span className={`publisher-pill ${
-              creature.category === 'Third-Party (3PP Pro)' 
-                ? 'pill-3pp' 
-                : creature.category === 'Crossover / Video Games' 
-                  ? 'pill-crossover' 
-                  : 'pill-wotc'
-            }`}>
-              {creature.publisher || 'Wizards of the Coast'}
-            </span>
-            <span className="source-meta-text">
-              {creature.sourceGroup || creature.source}
-            </span>
-            <span className="category-meta-text">
-              • {creature.category}
-            </span>
-          </div>
+        )}
+
+        {/* Degradados de Viñeta Cinematográfica Multi-Capa */}
+        <div className="statblock-hero-vignette-bottom"></div>
+        <div className="statblock-hero-vignette-top"></div>
+        <div className="statblock-hero-vignette-sides"></div>
+
+        {/* Barra Superior de Acciones del Banner */}
+        <div className="statblock-hero-top-actions">
+          {fullArtUrl && !artLoadFailed && (
+            <button 
+              type="button"
+              className="statblock-hero-btn-zoom"
+              onClick={() => setLightboxOpen(true)}
+              title="Ver ilustración oficial completa en alta definición"
+            >
+              <Maximize2 size={13} />
+              <span>Ver Ilustración Completa</span>
+            </button>
+          )}
+          <button 
+            type="button" 
+            className="statblock-hero-btn-close" 
+            onClick={onClose} 
+            title="Cerrar ficha (Esc)"
+          >
+            <X size={18} />
+          </button>
         </div>
 
-        <button className="close-btn" onClick={onClose} title="Cerrar ficha">
-          <X size={20} />
-        </button>
+        {/* Contenido Superpuesto al pie del Banner */}
+        <div className="statblock-hero-footer-content">
+          {/* Token Flotante con Anillo Dorado */}
+          {tokenUrl && (
+            <div 
+              className="statblock-hero-token-frame"
+              onClick={() => setLightboxOpen(true)}
+              title="Clic para inspeccionar token / ilustración"
+            >
+              <img 
+                src={tokenUrl} 
+                alt={creature.name}
+                className="statblock-hero-token-img"
+                onError={(e) => { e.target.style.display = 'none'; }}
+              />
+              <span className="statblock-hero-token-badge" title="Token VTT Oficial">
+                VTT
+              </span>
+            </div>
+          )}
+
+          {/* Título, Badges y Subtítulo */}
+          <div className="statblock-hero-meta-block">
+            <div className="statblock-hero-title-row">
+              <h2 className="statblock-hero-title">{creature.name}</h2>
+              <div className="statblock-hero-badges">
+                <span className="cr-badge">CR {creature.cr} ({creature.xp?.toLocaleString ? creature.xp.toLocaleString() : creature.xp} XP)</span>
+                <span className="pb-badge">PB +{pb}</span>
+              </div>
+            </div>
+
+            <p className="statblock-hero-subtitle">
+              {creature.size} {creature.type}
+              {creature.typeTags && creature.typeTags.length > 0 ? ` (${creature.typeTags.join(', ')})` : ''}, {creature.alignment}
+            </p>
+
+            <div className="statblock-hero-pills-row">
+              <span className={`publisher-pill ${
+                creature.category === 'Third-Party (3PP Pro)' 
+                  ? 'pill-3pp' 
+                  : creature.category === 'Crossover / Video Games' 
+                    ? 'pill-crossover' 
+                    : 'pill-wotc'
+              }`}>
+                {creature.publisher || 'Wizards of the Coast'}
+              </span>
+              <span className="source-meta-text">
+                {creature.sourceGroup || creature.source}
+              </span>
+              <span className="category-meta-text">
+                • {creature.category}
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* 2. Selector de Versiones y Diff (si existen múltiples versiones 2024 / 2014) */}
@@ -464,6 +565,69 @@ export default function CreatureStatblock({
         </div>
 
       </div>
+
+      {/* Lightbox Modal HD para ver Arte / Token */}
+      {lightboxOpen && (
+        <div 
+          className="statblock-lightbox-backdrop"
+          onClick={() => setLightboxOpen(false)}
+        >
+          <div 
+            className="statblock-lightbox-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button 
+              type="button"
+              className="statblock-lightbox-close"
+              onClick={() => setLightboxOpen(false)}
+              title="Cerrar (Esc)"
+            >
+              <X size={20} />
+            </button>
+
+            <div className="statblock-lightbox-media">
+              {fullArtUrl && !artLoadFailed ? (
+                <img 
+                  src={fullArtUrl} 
+                  alt={creature.name}
+                  className="statblock-lightbox-img"
+                  onError={() => setArtLoadFailed(true)}
+                />
+              ) : tokenUrl ? (
+                <div className="statblock-lightbox-token-wrap">
+                  <img 
+                    src={tokenUrl} 
+                    alt={creature.name}
+                    className="statblock-lightbox-token-img"
+                  />
+                  <p className="statblock-lightbox-note">
+                    Token VTT Oficial • Sin ilustración de página completa en libro
+                  </p>
+                </div>
+              ) : (
+                <p className="statblock-lightbox-note">Sin imagen disponible para esta criatura</p>
+              )}
+            </div>
+
+            <div className="statblock-lightbox-footer">
+              <div>
+                <h3 className="statblock-lightbox-name">{creature.name}</h3>
+                <p className="statblock-lightbox-meta">
+                  {creature.size} {creature.type} • CR {creature.cr} • {creature.sourceGroup || creature.source}
+                </p>
+              </div>
+              <a 
+                href={fullArtUrl && !artLoadFailed ? fullArtUrl : tokenUrl} 
+                target="_blank" 
+                rel="noreferrer"
+                className="statblock-lightbox-dl-btn"
+              >
+                Abrir Archivo Original ↗
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
