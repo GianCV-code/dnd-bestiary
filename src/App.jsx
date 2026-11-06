@@ -36,7 +36,7 @@ import {
 } from './engine/versionManager';
 import PartySyncBar from './components/PartySyncBar';
 import CreatureStatblock from './components/CreatureStatblock';
-import { loadBestiaryWithCache } from './engine/cacheManager';
+import { loadBestiaryWithCache, clearBestiaryCache } from './engine/cacheManager';
 
 // 5e Tools Advanced Filter Constants
 const SIZES = [

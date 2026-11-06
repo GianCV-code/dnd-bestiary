@@ -1,11 +1,14 @@
 /**
  * Bestiary IndexedDB Cache Manager
- * Prevents redundant downloads of the 30MB bestiary.json file from GitHub Pages,
+ * Prevents redundant downloads of the 35MB bestiary.json file from GitHub Pages,
  * protecting against bandwidth quota overruns and providing near-instant loading.
+ * Automatically invalidates when CURRENT_DATA_VERSION changes.
  */
 
+export const CURRENT_DATA_VERSION = '20261105_mme24_v2';
+
 const DB_NAME = 'DND_BESTIARY_PERSISTENT_CACHE';
-const DB_VERSION = 1;
+const DB_VERSION = 2; // Incremented to automatically bust stale v1 caches
 const STORE_NAME = 'bestiary_data';
 const CACHE_KEY = 'cached_indexed_creatures';
 const META_KEY = 'cache_metadata';
@@ -85,11 +88,23 @@ function putInDB(db, key, val) {
 }
 
 /**
- * Fetches bestiary data with intelligent local caching:
- * 1. Checks if a local cache exists in IndexedDB.
- * 2. If cached, sends a lightweight HEAD request (0 bytes body) to check ETag / Last-Modified.
- * 3. If server data has NOT changed, loads directly from local disk (0 bytes transferred from GitHub).
- * 4. Only downloads the 30MB file if cache is missing or server reports a newer version.
+ * Clears the local bestiary cache from IndexedDB
+ */
+export async function clearBestiaryCache() {
+  const db = await openDB();
+  if (!db) return;
+  try {
+    const tx = db.transaction(STORE_NAME, 'readwrite');
+    const store = tx.objectStore(STORE_NAME);
+    store.clear();
+    console.log('🧹 Caché de bestiario limpiada');
+  } catch (e) {
+    console.warn('Error clearing cache:', e);
+  }
+}
+
+/**
+ * Fetches bestiary data with intelligent local caching and version enforcement.
  */
 export async function loadBestiaryWithCache(dataUrl, processAndIndexFn) {
   const db = await openDB();
@@ -108,29 +123,35 @@ export async function loadBestiaryWithCache(dataUrl, processAndIndexFn) {
     }
   }
 
-  // If we have cached data, verify if the remote file has changed via HEAD (0 bytes)
-  if (cachedData && Array.isArray(cachedData) && cachedData.length > 0 && cachedMeta) {
+  const cleanUrl = dataUrl.split('?')[0];
+  const versionedUrl = `${cleanUrl}?v=${CURRENT_DATA_VERSION}`;
+
+  // Check if cache matches current application data version
+  const isVersionMatch = cachedMeta && cachedMeta.version === CURRENT_DATA_VERSION;
+
+  // If we have cached data and versions match, verify if remote changed via HEAD
+  if (cachedData && Array.isArray(cachedData) && cachedData.length > 0 && isVersionMatch) {
     try {
-      const headRes = await fetch(dataUrl, { method: 'HEAD', cache: 'no-cache' });
+      const headRes = await fetch(versionedUrl, { method: 'HEAD', cache: 'no-cache' });
       if (headRes.ok) {
         const currentETag = headRes.headers.get('ETag') || headRes.headers.get('Last-Modified') || '';
         
-        // If ETag matches, return cached data immediately (0 BYTES DOWNLOADED)
+        // If ETag matches or server is reachable with same ETag, return cached data (0 BYTES DOWNLOADED)
         if (currentETag && cachedMeta.etag && currentETag === cachedMeta.etag) {
-          console.log('⚡ Bestiary loaded from local IndexedDB cache (0 bytes transferred from GitHub)');
+          console.log(`⚡ Bestiary cargado desde IndexedDB local (${cachedData.length} criaturas, 0 bytes descargados)`);
           return cachedData;
         }
       }
     } catch (headErr) {
-      // If offline or network error, safely return the cached version
-      console.log('⚡ Bestiary loaded from offline local cache');
+      // If offline, safely return cached version
+      console.log('⚡ Bestiary cargado desde caché local offline');
       return cachedData;
     }
   }
 
-  // If no cache or data was updated on server, fetch the full JSON
-  console.log('📥 Descargando bestiario desde el servidor...');
-  const res = await fetch(dataUrl);
+  // If no cache or older version detected, fetch the full JSON with cache reload
+  console.log(`📥 Descargando bestiario actualizado v${CURRENT_DATA_VERSION} desde el servidor...`);
+  const res = await fetch(versionedUrl, { cache: 'reload' });
   if (!res.ok) throw new Error('No se pudo cargar el archivo bestiary.json');
 
   const etag = res.headers.get('ETag') || res.headers.get('Last-Modified') || Date.now().toString();
@@ -144,9 +165,14 @@ export async function loadBestiaryWithCache(dataUrl, processAndIndexFn) {
     try {
       await Promise.all([
         putInDB(db, CACHE_KEY, indexedData),
-        putInDB(db, META_KEY, { etag, cachedAt: new Date().toISOString(), count: indexedData.length })
+        putInDB(db, META_KEY, { 
+          version: CURRENT_DATA_VERSION, 
+          etag, 
+          cachedAt: new Date().toISOString(), 
+          count: indexedData.length 
+        })
       ]);
-      console.log('💾 Bestiario guardado en IndexedDB local para futuras visitas');
+      console.log(`💾 Bestiario v${CURRENT_DATA_VERSION} guardado en IndexedDB local (${indexedData.length} criaturas)`);
     } catch (saveErr) {
       console.warn('Could not persist to IndexedDB:', saveErr);
     }
@@ -154,4 +180,3 @@ export async function loadBestiaryWithCache(dataUrl, processAndIndexFn) {
 
   return indexedData;
 }
-
