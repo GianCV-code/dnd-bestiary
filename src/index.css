@@ -2749,3 +2749,80 @@ select option {
   transform: translateY(-1px);
   box-shadow: 0 6px 20px rgba(225, 29, 72, 0.5);
 }
+
+/* Additional styles for Bonus Actions, Reactions & Spellcasting */
+.header-bonus {
+  border-bottom: 2px solid rgba(6, 182, 212, 0.4) !important;
+}
+
+.header-reaction {
+  border-bottom: 2px solid rgba(245, 158, 11, 0.4) !important;
+}
+
+.header-legendary {
+  border-bottom: 2px solid rgba(245, 158, 11, 0.4) !important;
+}
+
+.header-mythic {
+  border-bottom: 2px solid rgba(225, 29, 72, 0.4) !important;
+}
+
+.text-cyan {
+  color: #38bdf8 !important;
+}
+
+.text-purple {
+  color: #c084fc !important;
+}
+
+.modular-trigger-box {
+  background: rgba(147, 51, 234, 0.12);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  border-radius: 8px;
+  padding: 7px 10px;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: #e9d5ff;
+  line-height: 1.4;
+}
+
+.modular-full-text {
+  font-size: 0.82rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+  margin-top: 8px;
+  white-space: pre-line;
+  word-break: break-word;
+}
+
+.trait-text-block {
+  color: #cbd5e1;
+  white-space: pre-line;
+  word-break: break-word;
+  margin-top: 3px;
+}
+
+.spellcasting-section {
+  margin-top: 10px;
+}
+
+.border-purple {
+  border-color: rgba(168, 85, 247, 0.3) !important;
+}
+
+.spellcasting-headers {
+  font-size: 0.82rem;
+  color: #e2e8f0;
+  margin-bottom: 6px;
+  font-style: italic;
+}
+
+.spell-row {
+  font-size: 0.8rem;
+  color: #cbd5e1;
+  margin-top: 4px;
+}
+
+.border-mythic {
+  border-color: rgba(225, 29, 72, 0.4) !important;
+}

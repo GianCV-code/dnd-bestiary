@@ -145,21 +145,32 @@ function cleanEntries(entries) {
 function cleanText(text) {
   if (typeof text !== 'string') return '';
   return text
-    .replace(/\{@dice ([^}]+)\}/g, '$1')
-    .replace(/\{@damage ([^}]+)\}/g, '$1')
-    .replace(/\{@atk ([^}]+)\}/g, '$1')
-    .replace(/\{@h\}/g, 'Hit: ')
-    .replace(/\{@recharge ([^}]+)\}/g, '(Recharge $1)')
-    .replace(/\{@recharge\}/g, '(Recharge 6)')
-    .replace(/\{@spell ([^}|]+)(?:\|[^}]+)?\}/g, '$1')
-    .replace(/\{@item ([^}|]+)(?:\|[^}]+)?\}/g, '$1')
-    .replace(/\{@creature ([^}|]+)(?:\|[^}]+)?\}/g, '$1')
-    .replace(/\{@condition ([^}|]+)(?:\|[^}]+)?\}/g, '$1')
-    .replace(/\{@dc ([^}]+)\}/g, 'DC $1')
-    .replace(/\{@b ([^}]+)\}/g, '$1')
-    .replace(/\{@i ([^}]+)\}/g, '$1')
-    .replace(/\{@note ([^}]+)\}/g, '$1')
-    .replace(/\{@[a-z]+ ([^}|]+)(?:\|[^}]+)?\}/g, '$1');
+    .replace(/\{@actTrigger\}/gi, 'Disparador: ')
+    .replace(/\{@actResponse\}/gi, 'Respuesta: ')
+    .replace(/\{@actSave\s+([^}]+)\}/gi, 'Salvación ($1): ')
+    .replace(/\{@actSaveFail\}/gi, 'Fallo: ')
+    .replace(/\{@actSaveSuccess\}/gi, 'Éxito: ')
+    .replace(/\{@actSaveSuccessOrFail\}/gi, 'Fallo o Éxito: ')
+    .replace(/\{@hitYourSpellAttack\}/gi, 'tu ataque de conjuro')
+    .replace(/\{@dcYourSpellSave\}/gi, 'tu CD de salvación')
+    .replace(/\{@h\}/gi, 'Impacto: ')
+    .replace(/\{@recharge\s*([^}]+)?\}/gi, (_, n) => `(Recarga ${n ? n : '6'})`)
+    .replace(/\{@dice\s+([^}]+)\}/gi, '$1')
+    .replace(/\{@damage\s+([^}]+)\}/gi, '$1')
+    .replace(/\{@atk\s+([^}]+)\}/gi, '$1')
+    .replace(/\{@spell\s+([^}|]+)(?:\|[^}]+)?\}/gi, '$1')
+    .replace(/\{@item\s+([^}|]+)(?:\|[^}]+)?\}/gi, '$1')
+    .replace(/\{@creature\s+([^}|]+)(?:\|[^}]+)?\}/gi, '$1')
+    .replace(/\{@condition\s+([^}|]+)(?:\|[^}]+)?\}/gi, '$1')
+    .replace(/\{@status\s+([^}|]+)(?:\|[^}]+)?\}/gi, '$1')
+    .replace(/\{@skill\s+([^}|]+)(?:\|[^}]+)?\}/gi, '$1')
+    .replace(/\{@sense\s+([^}|]+)(?:\|[^}]+)?\}/gi, '$1')
+    .replace(/\{@dc\s+([^}]+)\}/gi, 'CD $1')
+    .replace(/\{@b\s+([^}]+)\}/gi, '$1')
+    .replace(/\{@i\s+([^}]+)\}/gi, '$1')
+    .replace(/\{@note\s+([^}]+)\}/gi, '$1')
+    .replace(/\{@[a-zA-Z]+\s*([^}|]+)?(?:\|[^}]+)?\}/gi, (_, arg) => arg || '')
+    .trim();
 }
 
 function parseAc(ac) {
@@ -305,9 +316,12 @@ function normalizeCreature(m, meta, fluffMap = null) {
     conditionImmune: (m.conditionImmune || []).map(cleanText),
     trait: (m.trait || []).map(t => ({ name: t.name || '', entries: cleanEntries(t.entries) })),
     action: (m.action || []).map(a => ({ name: a.name || '', entries: cleanEntries(a.entries) })),
+    bonus: (m.bonus || []).map(b => ({ name: b.name || '', entries: cleanEntries(b.entries) })),
     reaction: (m.reaction || []).map(r => ({ name: r.name || '', entries: cleanEntries(r.entries) })),
     legendary: (m.legendary || []).map(l => ({ name: l.name || '', entries: cleanEntries(l.entries) })),
+    legendaryHeader: m.legendaryHeader ? cleanEntries(m.legendaryHeader) : null,
     mythic: (m.mythic || []).map(l => ({ name: l.name || '', entries: cleanEntries(l.entries) })),
+    mythicHeader: m.mythicHeader ? cleanEntries(m.mythicHeader) : null,
     spellcasting: (m.spellcasting || []).map(s => ({
       name: s.name || 'Spellcasting',
       headerEntries: cleanEntries(s.headerEntries),

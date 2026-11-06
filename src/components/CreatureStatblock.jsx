@@ -11,11 +11,96 @@ import {
   Crown, 
   Flame, 
   AlertTriangle,
+  RotateCcw,
+  BookOpen,
   Compass,
   Maximize2,
   Image as ImageIcon
 } from 'lucide-react';
 import { parseModularAction, calculatePB, extractEntryText, clean5eTags } from '../engine/statblockParser';
+
+/**
+ * Tarjeta Modular Reutilizable para Acciones, Acciones Adicionales y Reacciones
+ */
+function ModularCard({ action }) {
+  if (!action) return null;
+  const hasAttackOrSave = action.atkBonus || action.saveDC;
+  const hasDamage = action.avgDamage;
+
+  return (
+    <div className="modular-action-card">
+      <div>
+        {/* Cabecera de la Tarjeta */}
+        <div className="modular-card-header">
+          <h5 className="modular-action-name">{action.name}</h5>
+          <span className="modular-type-badge">{action.atkType}</span>
+        </div>
+
+        {/* Bloque HUD de Tirada y Daño (alto contraste) */}
+        {(hasAttackOrSave || hasDamage) && (
+          <div className="modular-hud-boxes">
+            <div className="modular-hud-box">
+              <span className="modular-hud-title">Tirada / CD</span>
+              {action.saveDC ? (
+                <span className="modular-hud-val-save">
+                  CD {action.saveDC} {action.saveStat || ''}
+                </span>
+              ) : action.atkBonus ? (
+                <span className="modular-hud-val-atk">
+                  {action.atkBonus} to hit
+                </span>
+              ) : (
+                <span className="modular-hud-val-neutral">Acción</span>
+              )}
+            </div>
+
+            <div className="modular-hud-box">
+              <span className="modular-hud-title">Daño Promedio</span>
+              {action.avgDamage ? (
+                <span className="modular-hud-val-dmg">
+                  {action.avgDamage} <span className="modular-dice-sub">({action.damageDice || ''})</span>
+                  {action.damageType ? ` ${action.damageType}` : ''}
+                  {action.plusDamage ? ` + ${action.plusDamage}` : ''}
+                </span>
+              ) : (
+                <span className="modular-hud-val-neutral">—</span>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Alcance / Rango si aplica */}
+        {action.reach && (
+          <div className="modular-reach-text">
+            📏 {action.reach}
+          </div>
+        )}
+
+        {/* Disparador de Reacción si aplica */}
+        {action.trigger && (
+          <div className="modular-trigger-box">
+            <strong>⚡ Disparador:</strong> {action.trigger}
+          </div>
+        )}
+
+        {/* Caja de Alerta para Condiciones Tácticas (Grappled, Prone, Restrained, etc.) */}
+        {action.conditions && action.conditions.length > 0 && (
+          <div className="modular-tactical-alert">
+            <div className="alert-condition-tags">
+              <AlertTriangle size={13} className="flex-shrink-0" />
+              <strong>Condición:</strong> {action.conditions.join(', ')}
+            </div>
+          </div>
+        )}
+
+        {/* Texto Completo de la Acción / Regla (Nunca se recorta información) */}
+        <div className="modular-full-text">
+          {action.narrativeText || action.response || action.rawText}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function CreatureStatblock({
   creature,
@@ -55,21 +140,30 @@ export default function CreatureStatblock({
   }
   const speedText = speedParts.length > 0 ? speedParts.join(', ') : '30 ft';
 
-  // Iniciativa estimada o explícita (10 + mod DES)
+  // Iniciativa estimada o explícita
   const dexMod = Math.floor(((creature.dex || 10) - 10) / 2);
   const initiativeScore = 10 + dexMod;
   const initiativeText = dexMod >= 0 ? `+${dexMod} (${initiativeScore})` : `${dexMod} (${initiativeScore})`;
   const pb = calculatePB(creature.cr);
 
-  // Parsear acciones
+  // Parsear Acciones
   const rawActions = creature.action || [];
-  const parsedActions = rawActions.map(a => parseModularAction(a));
+  const parsedActions = rawActions.map(a => parseModularAction(a, 'Acción'));
   const multiattackAction = parsedActions.find(a => a && a.isMultiattack);
   const combatActions = parsedActions.filter(a => a && !a.isMultiattack);
 
-  // Parsear reacciones y legendarias
-  const reactions = creature.reaction || [];
+  // Parsear Acciones Adicionales (Bonus Actions)
+  const rawBonus = creature.bonus || [];
+  const parsedBonus = rawBonus.map(b => parseModularAction(b, 'Acción Adicional'));
+
+  // Parsear Reacciones
+  const rawReactions = creature.reaction || [];
+  const parsedReactions = rawReactions.map(r => parseModularAction(r, 'Reacción'));
+
+  // Parsear Legendarias y Míticas
   const legendary = creature.legendary || [];
+  const mythic = creature.mythic || [];
+  const spellcasting = creature.spellcasting || [];
 
   // Token & Art URLs resolution (with smart MM dragon artwork mapping)
   const source = creature.source || 'MM';
@@ -386,14 +480,14 @@ export default function CreatureStatblock({
               {creature.trait.map((t, idx) => (
                 <div key={idx} className="modular-trait-card">
                   <strong className="trait-title">{clean5eTags(t.name)}. </strong>
-                  <span className="trait-text">{extractEntryText(t.entries)}</span>
+                  <div className="trait-text-block">{extractEntryText(t.entries)}</div>
                 </div>
               ))}
             </div>
           </div>
         )}
 
-        {/* 5. Acciones - MODELO DE TARJETAS MODULARES DE COMBATE */}
+        {/* 5. Acciones de Combate - TARJETAS MODULARES */}
         {rawActions.length > 0 && (
           <div className="modular-section">
             <div className="modular-section-header">
@@ -401,7 +495,7 @@ export default function CreatureStatblock({
                 <Swords size={16} />
                 <span>Acciones de Combate</span>
               </h4>
-              <span className="section-badge-help">Modelo Táctico Modular</span>
+              <span className="section-badge-help">Acción Principal</span>
             </div>
 
             {/* Tarjeta de Multiataque (si existe) */}
@@ -411,116 +505,103 @@ export default function CreatureStatblock({
                   <span className="multiattack-tag">Estrategia de Turno: Multiataque</span>
                 </div>
                 <div className="multiattack-text">
-                  {multiattackAction.text}
+                  {multiattackAction.rawText}
                 </div>
               </div>
             )}
 
             {/* Grid de Tarjetas Modulares de Ataque */}
             <div className="modular-actions-grid">
-              {combatActions.map((a, idx) => {
-                const hasAttackOrSave = a.atkBonus || a.saveDC;
-                const hasDamage = a.avgDamage;
-
-                return (
-                  <div key={idx} className="modular-action-card">
-                    {/* Cabecera de la Tarjeta */}
-                    <div>
-                      <div className="modular-card-header">
-                        <h5 className="modular-action-name">{a.name}</h5>
-                        <span className="modular-type-badge">{a.atkType}</span>
-                      </div>
-
-                      {/* Bloque HUD de Tirada y Daño (alto contraste) */}
-                      {hasAttackOrSave || hasDamage ? (
-                        <div className="modular-hud-boxes">
-                          <div className="modular-hud-box">
-                            <span className="modular-hud-title">Tirada / CD</span>
-                            {a.saveDC ? (
-                              <span className="modular-hud-val-save">
-                                CD {a.saveDC} {a.saveStat || ''}
-                              </span>
-                            ) : a.atkBonus ? (
-                              <span className="modular-hud-val-atk">
-                                {a.atkBonus} to hit
-                              </span>
-                            ) : (
-                              <span className="modular-hud-val-neutral">Acción</span>
-                            )}
-                          </div>
-
-                          <div className="modular-hud-box">
-                            <span className="modular-hud-title">Daño Promedio</span>
-                            {a.avgDamage ? (
-                              <span className="modular-hud-val-dmg">
-                                {a.avgDamage} <span className="modular-dice-sub">({a.damageDice || ''})</span>
-                              </span>
-                            ) : (
-                              <span className="modular-hud-val-neutral">—</span>
-                            )}
-                          </div>
-                        </div>
-                      ) : null}
-
-                      {/* Daño y alcance secundario en texto si aplica */}
-                      {a.reach && (
-                        <div className="modular-reach-text">
-                          📏 {a.reach} {a.damageType ? `• Daño ${a.damageType}` : ''}
-                        </div>
-                      )}
-
-                      {/* Caja de Alerta para Condiciones Tácticas (Grappled, Prone, Restrained, etc.) */}
-                      {a.conditions && a.conditions.length > 0 ? (
-                        <div className="modular-tactical-alert">
-                          <div className="alert-condition-tags">
-                            <AlertTriangle size={13} className="flex-shrink-0" />
-                            <strong>Condición:</strong> {a.conditions.join(', ')}
-                          </div>
-                          {a.tacticalEffect && (
-                            <div className="alert-effect-text">
-                              {a.tacticalEffect}
-                            </div>
-                          )}
-                        </div>
-                      ) : a.tacticalEffect ? (
-                        <div className="modular-effect-box">
-                          {a.tacticalEffect}
-                        </div>
-                      ) : (!hasAttackOrSave && !hasDamage) ? (
-                        <div className="modular-narrative-text">
-                          {a.rawText}
-                        </div>
-                      ) : null}
-                    </div>
-                  </div>
-                );
-              })}
+              {combatActions.map((a, idx) => (
+                <ModularCard key={idx} action={a} />
+              ))}
             </div>
           </div>
         )}
 
-        {/* 6. Reacciones en Tarjetas Modulares (si existen) */}
-        {reactions.length > 0 && (
-          <div className="modular-section">
-            <h4 className="modular-section-title text-amber">
-              <Zap size={15} />
-              <span>Reacciones</span>
+        {/* 6. ACCIONES ADICIONALES (BONUS ACTIONS) - NUEVA SECCIÓN MODULAR */}
+        {parsedBonus.length > 0 && (
+          <div className="modular-section bonus-section">
+            <div className="modular-section-header header-bonus">
+              <h4 className="modular-section-title text-cyan">
+                <Zap size={16} />
+                <span>Acciones Adicionales (Bonus Actions)</span>
+              </h4>
+              <span className="section-badge-help">1 por turno</span>
+            </div>
+
+            <div className="modular-actions-grid">
+              {parsedBonus.map((b, idx) => (
+                <ModularCard key={idx} action={b} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* 7. REACCIONES EN TARJETAS MODULARES */}
+        {parsedReactions.length > 0 && (
+          <div className="modular-section reaction-section">
+            <div className="modular-section-header header-reaction">
+              <h4 className="modular-section-title text-amber">
+                <RotateCcw size={16} />
+                <span>Reacciones</span>
+              </h4>
+              <span className="section-badge-help">Disparador / 1 por ronda</span>
+            </div>
+
+            <div className="modular-actions-grid">
+              {parsedReactions.map((r, idx) => (
+                <ModularCard key={idx} action={r} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* 8. Lanzamiento de Conjuros (Spellcasting) si aplica */}
+        {spellcasting.length > 0 && (
+          <div className="modular-section spellcasting-section">
+            <h4 className="modular-section-title text-purple">
+              <BookOpen size={16} />
+              <span>Lanzamiento de Conjuros (Spellcasting)</span>
             </h4>
             <div className="modular-traits-list">
-              {reactions.map((r, idx) => (
-                <div key={idx} className="modular-trait-card border-amber">
-                  <strong className="trait-title">{clean5eTags(r.name)}. </strong>
-                  <span className="trait-text">{extractEntryText(r.entries)}</span>
+              {spellcasting.map((s, idx) => (
+                <div key={idx} className="modular-trait-card border-purple">
+                  <strong className="trait-title">{clean5eTags(s.name)}. </strong>
+                  {s.headerEntries && (
+                    <div className="spellcasting-headers">{s.headerEntries.join(' ')}</div>
+                  )}
+                  {s.will && s.will.length > 0 && (
+                    <div className="spell-row"><strong>A voluntad:</strong> {s.will.join(', ')}</div>
+                  )}
+                  {s.daily && (
+                    <div className="spell-daily-block">
+                      {Object.entries(s.daily).map(([times, list]) => (
+                        <div key={times} className="spell-row">
+                          <strong>{times}/día:</strong> {Array.isArray(list) ? list.map(clean5eTags).join(', ') : clean5eTags(String(list))}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {s.spells && Object.keys(s.spells).length > 0 && (
+                    <div className="spell-levels-block">
+                      {Object.entries(s.spells).map(([lvl, info]) => (
+                        <div key={lvl} className="spell-row">
+                          <strong>Nivel {lvl}{info.slots ? ` (${info.slots} espacios)` : ''}:</strong> {Array.isArray(info.spells) ? info.spells.map(clean5eTags).join(', ') : clean5eTags(String(info))}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
           </div>
         )}
 
-        {/* 7. Acciones Legendarias en Tarjetas Modulares (si existen) */}
+        {/* 9. Acciones Legendarias en Tarjetas Modulares (si existen) */}
         {legendary.length > 0 && (
           <div className="modular-section legendary-section">
-            <div className="modular-section-header">
+            <div className="modular-section-header header-legendary">
               <h4 className="modular-section-title text-gold">
                 <Crown size={16} />
                 <span>Acciones Legendarias</span>
@@ -528,7 +609,7 @@ export default function CreatureStatblock({
               <span className="legendary-budget-pill">3 / Turno</span>
             </div>
             <p className="legendary-intro-text">
-              La criatura puede realizar 3 acciones legendarias al final del turno de otra criatura. Recupera las gastadas al inicio de su turno.
+              {creature.legendaryHeader || 'La criatura puede realizar 3 acciones legendarias al final del turno de otra criatura. Recupera las gastadas al inicio de su turno.'}
             </p>
             <div className="modular-traits-list">
               {legendary.map((l, idx) => {
@@ -540,7 +621,7 @@ export default function CreatureStatblock({
                   <div key={idx} className="modular-legendary-card">
                     <div>
                       <strong className="legendary-card-title">{cleanName}. </strong>
-                      <span className="legendary-card-text">{extractEntryText(l.entries)}</span>
+                      <div className="legendary-card-text">{extractEntryText(l.entries)}</div>
                     </div>
                     <span className="legendary-cost-chip">
                       {cost > 1 ? `Coste: ${cost} Acciones` : '1 Acción'}
@@ -552,7 +633,33 @@ export default function CreatureStatblock({
           </div>
         )}
 
-        {/* 8. Botón inferior para añadir al combate */}
+        {/* 10. Acciones Míticas (si existen) */}
+        {mythic.length > 0 && (
+          <div className="modular-section mythic-section">
+            <div className="modular-section-header header-mythic">
+              <h4 className="modular-section-title text-crimson">
+                <Flame size={16} />
+                <span>Acciones Míticas</span>
+              </h4>
+              <span className="legendary-budget-pill">Fase Mítica</span>
+            </div>
+            <p className="legendary-intro-text">
+              {creature.mythicHeader || 'Si el rasgo mítico de la criatura se activa, puede usar las siguientes opciones como acciones legendarias.'}
+            </p>
+            <div className="modular-traits-list">
+              {mythic.map((m, idx) => (
+                <div key={idx} className="modular-legendary-card border-mythic">
+                  <div>
+                    <strong className="legendary-card-title">{clean5eTags(m.name)}. </strong>
+                    <div className="legendary-card-text">{extractEntryText(m.entries)}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* 11. Botón inferior para añadir al combate */}
         <div className="statblock-bottom-bar">
           <button 
             type="button"
@@ -631,4 +738,3 @@ export default function CreatureStatblock({
     </div>
   );
 }
-
