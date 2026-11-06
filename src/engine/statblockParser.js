@@ -52,7 +52,17 @@ export function clean5eTags(text) {
       .replace(/\{@m\}/gi, 'Fallo: ')
       .replace(/\{@hom\}/gi, 'Impacto o Fallo: ')
 
-      .replace(/\{@recharge\s*([^}]+)?\}/gi, (_, n) => `(Recarga ${n ? n.trim() : '6'})`)
+      .replace(/\{@recharge\s*([^}]+)?\}/gi, (_, n) => {
+        if (!n) return '(Recarga 6)';
+        const val = n.trim();
+        if (val === '6') return '(Recarga 6)';
+        if (val === '5') return '(Recarga 5-6)';
+        if (val === '4') return '(Recarga 4-6)';
+        if (val === '3') return '(Recarga 3-6)';
+        if (val === '2') return '(Recarga 2-6)';
+        if (/^\d$/.test(val)) return `(Recarga ${val}-6)`;
+        return `(Recarga ${val})`;
+      })
       .replace(/\{@dice\s+([^}]+)\}/gi, '$1')
       .replace(/\{@damage\s+([^}]+)\}/gi, '$1')
       .replace(/\{@d20\s*([+-]?\d+)?\}/gi, (_, mod) => mod ? `d20${mod}` : 'd20')
@@ -86,6 +96,8 @@ export function clean5eTags(text) {
 
       .replace(/\{@[a-zA-Z]+\s*([^}|]+)?(?:\|[^}|]*)*(?:\|([^}]+))?\}/gi, (_, p1, p2) => p2 || p1 || '');
   }
+
+  str = str.replace(/\b(Recarga|Recharge|Recharges)\s*([2-5])(?!\s*[-–\d])\b/gi, (m, word, num) => `${word} ${num}-6`);
 
   return str.replace(/\s{2,}/g, ' ').trim();
 }

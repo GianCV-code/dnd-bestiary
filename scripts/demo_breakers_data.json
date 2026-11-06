@@ -1,0 +1,1812 @@
+[
+  {
+    "id": "goblin-mm",
+    "name": "Goblin",
+    "raw": {
+      "id": "goblin-mm",
+      "name": "Goblin",
+      "source": "MM",
+      "sourceGroup": "Monster Manual (2014)",
+      "category": "Official WotC",
+      "publisher": "Wizards of the Coast",
+      "size": "S",
+      "type": "humanoid",
+      "typeTags": [
+        "goblinoid"
+      ],
+      "alignment": "N / E",
+      "cr": "1/4",
+      "crNumeric": 0.25,
+      "xp": 50,
+      "ac": 15,
+      "acText": "15 (leather armor, shield)",
+      "hp": 7,
+      "hpFormula": "2d6",
+      "speed": {
+        "walk": 30,
+        "fly": 0,
+        "swim": 0,
+        "climb": 0,
+        "burrow": 0,
+        "canHover": false
+      },
+      "str": 8,
+      "dex": 14,
+      "con": 10,
+      "int": 10,
+      "wis": 8,
+      "cha": 8,
+      "save": {},
+      "skill": {
+        "stealth": "+6"
+      },
+      "senses": "darkvision 60 ft.",
+      "passivePerception": 9,
+      "languages": "Common, Goblin",
+      "immune": [],
+      "resist": [],
+      "vulnerable": [],
+      "conditionImmune": [],
+      "trait": [
+        {
+          "name": "Nimble Escape",
+          "entries": [
+            "The goblin can take the Disengage or Hide action as a bonus action on each of its turns."
+          ]
+        }
+      ],
+      "action": [
+        {
+          "name": "Scimitar",
+          "entries": [
+            "mw 4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) slashing damage."
+          ]
+        },
+        {
+          "name": "Shortbow",
+          "entries": [
+            "rw 4 to hit, range 80/320 ft., one target. Hit: 5 (1d6 + 2) piercing damage."
+          ]
+        }
+      ],
+      "reaction": [],
+      "legendary": [],
+      "mythic": [],
+      "spellcasting": [],
+      "environment": [
+        "underdark",
+        "grassland",
+        "forest",
+        "hill"
+      ],
+      "hasToken": true,
+      "tokenUrl": "https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/MM/Goblin.webp",
+      "bonus": [],
+      "hasArt": true,
+      "artUrl": "https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/MM/Goblin.webp"
+    },
+    "statblockJson": {
+      "name": "Goblin",
+      "size": "Small",
+      "type": "humanoid",
+      "alignment": "Neutral Evil",
+      "ac": "15 (leather armor, shield)",
+      "hp": 7,
+      "hit_dice": "2d6",
+      "speed": "30 ft.",
+      "stats": [
+        8,
+        14,
+        10,
+        10,
+        8,
+        8
+      ],
+      "skills": {
+        "Stealth": "+6"
+      },
+      "senses": "darkvision 60 ft., passive Perception 9",
+      "languages": "Common, Goblin",
+      "cr": "1/4",
+      "proficiency_bonus": "+2",
+      "traits": [
+        {
+          "name": "Nimble Escape",
+          "desc": "The goblin can take the Disengage or Hide action as a bonus action on each of its turns."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Scimitar",
+          "desc": "Melee Weapon Attack: ++4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) slashing damage."
+        },
+        {
+          "name": "Shortbow",
+          "desc": "Ranged Weapon Attack: ++4 to hit, range 80/320 ft., one target. Hit: 5 (1d6 + 2) piercing damage."
+        }
+      ]
+    },
+    "markdown": "```statblock\n{\n    \"name\": \"Goblin\",\n    \"size\": \"Small\",\n    \"type\": \"humanoid\",\n    \"alignment\": \"Neutral Evil\",\n    \"ac\": \"15 (leather armor, shield)\",\n    \"hp\": 7,\n    \"hit_dice\": \"2d6\",\n    \"speed\": \"30 ft.\",\n    \"stats\": [\n        8,\n        14,\n        10,\n        10,\n        8,\n        8\n    ],\n    \"skills\": {\n        \"Stealth\": \"+6\"\n    },\n    \"senses\": \"darkvision 60 ft., passive Perception 9\",\n    \"languages\": \"Common, Goblin\",\n    \"cr\": \"1/4\",\n    \"proficiency_bonus\": \"+2\",\n    \"traits\": [\n        {\n            \"name\": \"Nimble Escape\",\n            \"desc\": \"The goblin can take the Disengage or Hide action as a bonus action on each of its turns.\"\n        }\n    ],\n    \"actions\": [\n        {\n            \"name\": \"Scimitar\",\n            \"desc\": \"Melee Weapon Attack: ++4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) slashing damage.\"\n        },\n        {\n            \"name\": \"Shortbow\",\n            \"desc\": \"Ranged Weapon Attack: ++4 to hit, range 80/320 ft., one target. Hit: 5 (1d6 + 2) piercing damage.\"\n        }\n    ]\n}\n```\n\n![[Goblin.png|center|350]]\n",
+    "obsidianUri": "obsidian://new?vault=DnD%20-%20DM%20(Remote)&file=04.%20Custom%20Bestiary%2F00.%20Criaturas%20Varias%2FGoblin&content=%60%60%60statblock%0A%7B%0A%20%20%20%20%22name%22%3A%20%22Goblin%22%2C%0A%20%20%20%20%22size%22%3A%20%22Small%22%2C%0A%20%20%20%20%22type%22%3A%20%22humanoid%22%2C%0A%20%20%20%20%22alignment%22%3A%20%22Neutral%20Evil%22%2C%0A%20%20%20%20%22ac%22%3A%20%2215%20(leather%20armor%2C%20shield)%22%2C%0A%20%20%20%20%22hp%22%3A%207%2C%0A%20%20%20%20%22hit_dice%22%3A%20%222d6%22%2C%0A%20%20%20%20%22speed%22%3A%20%2230%20ft.%22%2C%0A%20%20%20%20%22stats%22%3A%20%5B%0A%20%20%20%20%20%20%20%208%2C%0A%20%20%20%20%20%20%20%2014%2C%0A%20%20%20%20%20%20%20%2010%2C%0A%20%20%20%20%20%20%20%2010%2C%0A%20%20%20%20%20%20%20%208%2C%0A%20%20%20%20%20%20%20%208%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22skills%22%3A%20%7B%0A%20%20%20%20%20%20%20%20%22Stealth%22%3A%20%22%2B6%22%0A%20%20%20%20%7D%2C%0A%20%20%20%20%22senses%22%3A%20%22darkvision%2060%20ft.%2C%20passive%20Perception%209%22%2C%0A%20%20%20%20%22languages%22%3A%20%22Common%2C%20Goblin%22%2C%0A%20%20%20%20%22cr%22%3A%20%221%2F4%22%2C%0A%20%20%20%20%22proficiency_bonus%22%3A%20%22%2B2%22%2C%0A%20%20%20%20%22traits%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Nimble%20Escape%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20goblin%20can%20take%20the%20Disengage%20or%20Hide%20action%20as%20a%20bonus%20action%20on%20each%20of%20its%20turns.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22actions%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Scimitar%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Melee%20Weapon%20Attack%3A%20%2B%2B4%20to%20hit%2C%20reach%205%20ft.%2C%20one%20target.%20Hit%3A%205%20(1d6%20%2B%202)%20slashing%20damage.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Shortbow%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Ranged%20Weapon%20Attack%3A%20%2B%2B4%20to%20hit%2C%20range%2080%2F320%20ft.%2C%20one%20target.%20Hit%3A%205%20(1d6%20%2B%202)%20piercing%20damage.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%0A%7D%0A%60%60%60%0A%0A!%5B%5BGoblin.png%7Ccenter%7C350%5D%5D%0A&overwrite=true",
+    "tag": "Estándar",
+    "breakerReason": "Caso base simple: Ataques básicos y rasgos ligeros.",
+    "uriLength": 2341
+  },
+  {
+    "id": "mind-flayer-mm",
+    "name": "Mind Flayer",
+    "raw": {
+      "id": "mind-flayer-mm",
+      "name": "Mind Flayer",
+      "source": "MM",
+      "sourceGroup": "Monster Manual (2014)",
+      "category": "Official WotC",
+      "publisher": "Wizards of the Coast",
+      "size": "M",
+      "type": "aberration",
+      "typeTags": [],
+      "alignment": "L / E",
+      "cr": "7",
+      "crNumeric": 7,
+      "xp": 2900,
+      "ac": 15,
+      "acText": "15 (breastplate)",
+      "hp": 71,
+      "hpFormula": "13d8 + 13",
+      "speed": {
+        "walk": 30,
+        "fly": 0,
+        "swim": 0,
+        "climb": 0,
+        "burrow": 0,
+        "canHover": false
+      },
+      "str": 11,
+      "dex": 12,
+      "con": 12,
+      "int": 19,
+      "wis": 17,
+      "cha": 17,
+      "save": {
+        "int": "+7",
+        "wis": "+6",
+        "cha": "+6"
+      },
+      "skill": {
+        "arcana": "+7",
+        "deception": "+6",
+        "insight": "+6",
+        "perception": "+6",
+        "persuasion": "+6",
+        "stealth": "+4"
+      },
+      "senses": "darkvision 120 ft.",
+      "passivePerception": 16,
+      "languages": "Deep Speech, Undercommon, telepathy 120 ft.",
+      "immune": [],
+      "resist": [],
+      "vulnerable": [],
+      "conditionImmune": [],
+      "trait": [
+        {
+          "name": "Magic Resistance",
+          "entries": [
+            "The mind flayer has advantage on saving throws against spells and other magical effects."
+          ]
+        }
+      ],
+      "action": [
+        {
+          "name": "Tentacles",
+          "entries": [
+            "mw 7 to hit, reach 5 ft., one creature. Hit: 15 (2d10 + 4) psychic damage. If the target is Medium or smaller, it is grappled (escape DC 15) and must succeed on a DC 15 Intelligence saving throw or be stunned until this grapple ends."
+          ]
+        },
+        {
+          "name": "Extract Brain",
+          "entries": [
+            "mw 7 to hit, reach 5 ft., one incapacitated humanoid grappled by the mind flayer. Hit: The target takes 55 (10d10) piercing damage. If this damage reduces the target to 0 hit points, the mind flayer kills the target by extracting and devouring its brain."
+          ]
+        },
+        {
+          "name": "Mind Blast (Recarga 5)",
+          "entries": [
+            "The mind flayer magically emits psychic energy in a 60-foot cone. Each creature in that area must succeed on a DC 15 Intelligence saving throw or take 22 (4d8 + 4) psychic damage and be stunned for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+          ]
+        }
+      ],
+      "reaction": [],
+      "legendary": [],
+      "mythic": [],
+      "spellcasting": [
+        {
+          "name": "Innate Spellcasting (Psionics)",
+          "headerEntries": [
+            "The mind flayer's innate spellcasting ability is Intelligence (spell save DC 15). It can innately cast the following spells, requiring no components:"
+          ],
+          "spells": {},
+          "will": [
+            "detect thoughts",
+            "levitate"
+          ],
+          "daily": {
+            "1e": [
+              "dominate monster",
+              "plane shift (self only)"
+            ]
+          }
+        }
+      ],
+      "environment": [
+        "underdark"
+      ],
+      "hasToken": true,
+      "tokenUrl": "https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/MM/Mind%20Flayer.webp",
+      "bonus": [],
+      "hasArt": true,
+      "artUrl": "https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/MM/Mind%20Flayer.webp"
+    },
+    "statblockJson": {
+      "name": "Mind Flayer",
+      "size": "Medium",
+      "type": "aberration",
+      "alignment": "Lawful Evil",
+      "ac": "15 (breastplate)",
+      "hp": 71,
+      "hit_dice": "13d8 + 13",
+      "speed": "30 ft.",
+      "stats": [
+        11,
+        12,
+        12,
+        19,
+        17,
+        17
+      ],
+      "saves": [
+        {
+          "int": "+7"
+        },
+        {
+          "wis": "+6"
+        },
+        {
+          "cha": "+6"
+        }
+      ],
+      "skills": {
+        "Arcana": "+7",
+        "Deception": "+6",
+        "Insight": "+6",
+        "Perception": "+6",
+        "Persuasion": "+6",
+        "Stealth": "+4"
+      },
+      "senses": "darkvision 120 ft., passive Perception 16",
+      "languages": "Deep Speech, Undercommon, telepathy 120 ft.",
+      "cr": "7",
+      "proficiency_bonus": "+3",
+      "traits": [
+        {
+          "name": "Magic Resistance",
+          "desc": "The mind flayer has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Innate Spellcasting (Psionics)",
+          "desc": "The mind flayer's innate spellcasting ability is Intelligence (spell save DC 15). It can innately cast the following spells, requiring no components:\nAt will: detect thoughts, levitate\n1/day each: dominate monster, plane shift (self only)"
+        }
+      ],
+      "actions": [
+        {
+          "name": "Tentacles",
+          "desc": "Melee Weapon Attack: ++7 to hit, reach 5 ft., one creature. Hit: 15 (2d10 + 4) psychic damage. If the target is Medium or smaller, it is grappled (escape DC 15) and must succeed on a DC 15 Intelligence saving throw or be stunned until this grapple ends."
+        },
+        {
+          "name": "Extract Brain",
+          "desc": "Melee Weapon Attack: ++7 to hit, reach 5 ft., one incapacitated humanoid grappled by the mind flayer. Hit: The target takes 55 (10d10) piercing damage. If this damage reduces the target to 0 hit points, the mind flayer kills the target by extracting and devouring its brain."
+        },
+        {
+          "name": "Mind Blast (Recharge 5-6)",
+          "desc": "The mind flayer magically emits psychic energy in a 60-foot cone. Each creature in that area must succeed on a DC 15 Intelligence saving throw or take 22 (4d8 + 4) psychic damage and be stunned for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+        }
+      ]
+    },
+    "markdown": "```statblock\n{\n    \"name\": \"Mind Flayer\",\n    \"size\": \"Medium\",\n    \"type\": \"aberration\",\n    \"alignment\": \"Lawful Evil\",\n    \"ac\": \"15 (breastplate)\",\n    \"hp\": 71,\n    \"hit_dice\": \"13d8 + 13\",\n    \"speed\": \"30 ft.\",\n    \"stats\": [\n        11,\n        12,\n        12,\n        19,\n        17,\n        17\n    ],\n    \"saves\": [\n        {\n            \"int\": \"+7\"\n        },\n        {\n            \"wis\": \"+6\"\n        },\n        {\n            \"cha\": \"+6\"\n        }\n    ],\n    \"skills\": {\n        \"Arcana\": \"+7\",\n        \"Deception\": \"+6\",\n        \"Insight\": \"+6\",\n        \"Perception\": \"+6\",\n        \"Persuasion\": \"+6\",\n        \"Stealth\": \"+4\"\n    },\n    \"senses\": \"darkvision 120 ft., passive Perception 16\",\n    \"languages\": \"Deep Speech, Undercommon, telepathy 120 ft.\",\n    \"cr\": \"7\",\n    \"proficiency_bonus\": \"+3\",\n    \"traits\": [\n        {\n            \"name\": \"Magic Resistance\",\n            \"desc\": \"The mind flayer has advantage on saving throws against spells and other magical effects.\"\n        },\n        {\n            \"name\": \"Innate Spellcasting (Psionics)\",\n            \"desc\": \"The mind flayer's innate spellcasting ability is Intelligence (spell save DC 15). It can innately cast the following spells, requiring no components:\\nAt will: detect thoughts, levitate\\n1/day each: dominate monster, plane shift (self only)\"\n        }\n    ],\n    \"actions\": [\n        {\n            \"name\": \"Tentacles\",\n            \"desc\": \"Melee Weapon Attack: ++7 to hit, reach 5 ft., one creature. Hit: 15 (2d10 + 4) psychic damage. If the target is Medium or smaller, it is grappled (escape DC 15) and must succeed on a DC 15 Intelligence saving throw or be stunned until this grapple ends.\"\n        },\n        {\n            \"name\": \"Extract Brain\",\n            \"desc\": \"Melee Weapon Attack: ++7 to hit, reach 5 ft., one incapacitated humanoid grappled by the mind flayer. Hit: The target takes 55 (10d10) piercing damage. If this damage reduces the target to 0 hit points, the mind flayer kills the target by extracting and devouring its brain.\"\n        },\n        {\n            \"name\": \"Mind Blast (Recharge 5-6)\",\n            \"desc\": \"The mind flayer magically emits psychic energy in a 60-foot cone. Each creature in that area must succeed on a DC 15 Intelligence saving throw or take 22 (4d8 + 4) psychic damage and be stunned for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.\"\n        }\n    ]\n}\n```\n\n![[Mind Flayer.png|center|350]]\n",
+    "obsidianUri": "obsidian://new?vault=DnD%20-%20DM%20(Remote)&file=04.%20Custom%20Bestiary%2F00.%20Criaturas%20Varias%2FMind%20Flayer&content=%60%60%60statblock%0A%7B%0A%20%20%20%20%22name%22%3A%20%22Mind%20Flayer%22%2C%0A%20%20%20%20%22size%22%3A%20%22Medium%22%2C%0A%20%20%20%20%22type%22%3A%20%22aberration%22%2C%0A%20%20%20%20%22alignment%22%3A%20%22Lawful%20Evil%22%2C%0A%20%20%20%20%22ac%22%3A%20%2215%20(breastplate)%22%2C%0A%20%20%20%20%22hp%22%3A%2071%2C%0A%20%20%20%20%22hit_dice%22%3A%20%2213d8%20%2B%2013%22%2C%0A%20%20%20%20%22speed%22%3A%20%2230%20ft.%22%2C%0A%20%20%20%20%22stats%22%3A%20%5B%0A%20%20%20%20%20%20%20%2011%2C%0A%20%20%20%20%20%20%20%2012%2C%0A%20%20%20%20%20%20%20%2012%2C%0A%20%20%20%20%20%20%20%2019%2C%0A%20%20%20%20%20%20%20%2017%2C%0A%20%20%20%20%20%20%20%2017%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22saves%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22int%22%3A%20%22%2B7%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22wis%22%3A%20%22%2B6%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22cha%22%3A%20%22%2B6%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22skills%22%3A%20%7B%0A%20%20%20%20%20%20%20%20%22Arcana%22%3A%20%22%2B7%22%2C%0A%20%20%20%20%20%20%20%20%22Deception%22%3A%20%22%2B6%22%2C%0A%20%20%20%20%20%20%20%20%22Insight%22%3A%20%22%2B6%22%2C%0A%20%20%20%20%20%20%20%20%22Perception%22%3A%20%22%2B6%22%2C%0A%20%20%20%20%20%20%20%20%22Persuasion%22%3A%20%22%2B6%22%2C%0A%20%20%20%20%20%20%20%20%22Stealth%22%3A%20%22%2B4%22%0A%20%20%20%20%7D%2C%0A%20%20%20%20%22senses%22%3A%20%22darkvision%20120%20ft.%2C%20passive%20Perception%2016%22%2C%0A%20%20%20%20%22languages%22%3A%20%22Deep%20Speech%2C%20Undercommon%2C%20telepathy%20120%20ft.%22%2C%0A%20%20%20%20%22cr%22%3A%20%227%22%2C%0A%20%20%20%20%22proficiency_bonus%22%3A%20%22%2B3%22%2C%0A%20%20%20%20%22traits%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Magic%20Resistance%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20mind%20flayer%20has%20advantage%20on%20saving%20throws%20against%20spells%20and%20other%20magical%20effects.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Innate%20Spellcasting%20(Psionics)%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20mind%20flayer's%20innate%20spellcasting%20ability%20is%20Intelligence%20(spell%20save%20DC%2015).%20It%20can%20innately%20cast%20the%20following%20spells%2C%20requiring%20no%20components%3A%5CnAt%20will%3A%20detect%20thoughts%2C%20levitate%5Cn1%2Fday%20each%3A%20dominate%20monster%2C%20plane%20shift%20(self%20only)%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22actions%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Tentacles%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Melee%20Weapon%20Attack%3A%20%2B%2B7%20to%20hit%2C%20reach%205%20ft.%2C%20one%20creature.%20Hit%3A%2015%20(2d10%20%2B%204)%20psychic%20damage.%20If%20the%20target%20is%20Medium%20or%20smaller%2C%20it%20is%20grappled%20(escape%20DC%2015)%20and%20must%20succeed%20on%20a%20DC%2015%20Intelligence%20saving%20throw%20or%20be%20stunned%20until%20this%20grapple%20ends.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Extract%20Brain%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Melee%20Weapon%20Attack%3A%20%2B%2B7%20to%20hit%2C%20reach%205%20ft.%2C%20one%20incapacitated%20humanoid%20grappled%20by%20the%20mind%20flayer.%20Hit%3A%20The%20target%20takes%2055%20(10d10)%20piercing%20damage.%20If%20this%20damage%20reduces%20the%20target%20to%200%20hit%20points%2C%20the%20mind%20flayer%20kills%20the%20target%20by%20extracting%20and%20devouring%20its%20brain.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Mind%20Blast%20(Recharge%205-6)%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20mind%20flayer%20magically%20emits%20psychic%20energy%20in%20a%2060-foot%20cone.%20Each%20creature%20in%20that%20area%20must%20succeed%20on%20a%20DC%2015%20Intelligence%20saving%20throw%20or%20take%2022%20(4d8%20%2B%204)%20psychic%20damage%20and%20be%20stunned%20for%201%20minute.%20A%20creature%20can%20repeat%20the%20saving%20throw%20at%20the%20end%20of%20each%20of%20its%20turns%2C%20ending%20the%20effect%20on%20itself%20on%20a%20success.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%0A%7D%0A%60%60%60%0A%0A!%5B%5BMind%20Flayer.png%7Ccenter%7C350%5D%5D%0A&overwrite=true",
+    "tag": "Saving Throws",
+    "breakerReason": "Múltiples salvaciones de INT CD 15 con aturdimiento y presas.",
+    "uriLength": 4807
+  },
+  {
+    "id": "ancient-red-dragon-mm",
+    "name": "Ancient Red Dragon",
+    "raw": {
+      "id": "ancient-red-dragon-mm",
+      "name": "Ancient Red Dragon",
+      "source": "MM",
+      "sourceGroup": "Monster Manual (2014)",
+      "category": "Official WotC",
+      "publisher": "Wizards of the Coast",
+      "size": "G",
+      "type": "dragon",
+      "typeTags": [],
+      "alignment": "C / E",
+      "cr": "24",
+      "crNumeric": 24,
+      "xp": 62000,
+      "ac": 22,
+      "acText": "22 (natural armor)",
+      "hp": 546,
+      "hpFormula": "28d20 + 252",
+      "speed": {
+        "walk": 40,
+        "fly": 80,
+        "swim": 0,
+        "climb": 40,
+        "burrow": 0,
+        "canHover": false
+      },
+      "str": 30,
+      "dex": 10,
+      "con": 29,
+      "int": 18,
+      "wis": 15,
+      "cha": 23,
+      "save": {
+        "dex": "+7",
+        "con": "+16",
+        "wis": "+9",
+        "cha": "+13"
+      },
+      "skill": {
+        "perception": "+16",
+        "stealth": "+7"
+      },
+      "senses": "blindsight 60 ft., darkvision 120 ft.",
+      "passivePerception": 26,
+      "languages": "Common, Draconic",
+      "immune": [
+        "fire"
+      ],
+      "resist": [],
+      "vulnerable": [],
+      "conditionImmune": [],
+      "trait": [
+        {
+          "name": "Legendary Resistance (3/Day)",
+          "entries": [
+            "If the dragon fails a saving throw, it can choose to succeed instead."
+          ]
+        }
+      ],
+      "action": [
+        {
+          "name": "Multiattack",
+          "entries": [
+            "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws."
+          ]
+        },
+        {
+          "name": "Bite",
+          "entries": [
+            "mw 17 to hit, reach 15 ft., one target. Hit: 21 (2d10 + 10) piercing damage plus 14 (4d6) fire damage."
+          ]
+        },
+        {
+          "name": "Claw",
+          "entries": [
+            "mw 17 to hit, reach 10 ft., one target. Hit: 17 (2d6 + 10) slashing damage."
+          ]
+        },
+        {
+          "name": "Tail",
+          "entries": [
+            "mw 17 to hit, reach 20 ft., one target. Hit: 19 (2d8 + 10) bludgeoning damage."
+          ]
+        },
+        {
+          "name": "Frightful Presence",
+          "entries": [
+            "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 21 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours."
+          ]
+        },
+        {
+          "name": "Fire Breath (Recarga 5)",
+          "entries": [
+            "The dragon exhales fire in a 90-foot cone. Each creature in that area must make a DC 24 Dexterity saving throw, taking 91 (26d6) fire damage on a failed save, or half as much damage on a successful one."
+          ]
+        }
+      ],
+      "reaction": [],
+      "legendary": [
+        {
+          "name": "Detect",
+          "entries": [
+            "The dragon makes a Wisdom (Perception) check."
+          ]
+        },
+        {
+          "name": "Tail Attack",
+          "entries": [
+            "The dragon makes a tail attack."
+          ]
+        },
+        {
+          "name": "Wing Attack (Costs 2 Actions)",
+          "entries": [
+            "The dragon beats its wings. Each creature within 15 feet of the dragon must succeed on a DC 25 Dexterity saving throw or take 17 (2d6 + 10) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed."
+          ]
+        }
+      ],
+      "mythic": [],
+      "spellcasting": [],
+      "environment": [
+        "mountain",
+        "hill"
+      ],
+      "hasToken": true,
+      "tokenUrl": "https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/MM/Ancient%20Red%20Dragon.webp",
+      "bonus": [],
+      "hasArt": true,
+      "artUrl": "https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/MM/Adult%20Red%20Dragon.webp"
+    },
+    "statblockJson": {
+      "name": "Ancient Red Dragon",
+      "size": "Gargantuan",
+      "type": "dragon",
+      "alignment": "Chaotic Evil",
+      "ac": "22 (natural armor)",
+      "hp": 546,
+      "hit_dice": "28d20 + 252",
+      "speed": "40 ft., climb 40 ft., fly 80 ft.",
+      "stats": [
+        30,
+        10,
+        29,
+        18,
+        15,
+        23
+      ],
+      "saves": [
+        {
+          "dex": "+7"
+        },
+        {
+          "con": "+16"
+        },
+        {
+          "wis": "+9"
+        },
+        {
+          "cha": "+13"
+        }
+      ],
+      "skills": {
+        "Perception": "+16",
+        "Stealth": "+7"
+      },
+      "damage_immunities": "fire",
+      "senses": "blindsight 60 ft., darkvision 120 ft., passive Perception 26",
+      "languages": "Common, Draconic",
+      "cr": "24",
+      "proficiency_bonus": "+7",
+      "traits": [
+        {
+          "name": "Legendary Resistance (3/Day)",
+          "desc": "If the dragon fails a saving throw, it can choose to succeed instead."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "desc": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws."
+        },
+        {
+          "name": "Bite",
+          "desc": "Melee Weapon Attack: ++17 to hit, reach 15 ft., one target. Hit: 21 (2d10 + 10) piercing damage plus 14 (4d6) fire damage."
+        },
+        {
+          "name": "Claw",
+          "desc": "Melee Weapon Attack: ++17 to hit, reach 10 ft., one target. Hit: 17 (2d6 + 10) slashing damage."
+        },
+        {
+          "name": "Tail",
+          "desc": "Melee Weapon Attack: ++17 to hit, reach 20 ft., one target. Hit: 19 (2d8 + 10) bludgeoning damage."
+        },
+        {
+          "name": "Frightful Presence",
+          "desc": "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 21 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours."
+        },
+        {
+          "name": "Fire Breath (Recharge 5-6)",
+          "desc": "The dragon exhales fire in a 90-foot cone. Each creature in that area must make a DC 24 Dexterity saving throw, taking 91 (26d6) fire damage on a failed save, or half as much damage on a successful one."
+        }
+      ],
+      "legendary_description": "The ancient red dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The ancient red dragon regains spent legendary actions at the start of its turn.",
+      "legendary_actions": [
+        {
+          "name": "Detect",
+          "desc": "The dragon makes a Wisdom (Perception) check."
+        },
+        {
+          "name": "Tail Attack",
+          "desc": "The dragon makes a tail attack."
+        },
+        {
+          "name": "Wing Attack (Costs 2 Actions)",
+          "desc": "The dragon beats its wings. Each creature within 15 feet of the dragon must succeed on a DC 25 Dexterity saving throw or take 17 (2d6 + 10) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed."
+        }
+      ]
+    },
+    "markdown": "```statblock\n{\n    \"name\": \"Ancient Red Dragon\",\n    \"size\": \"Gargantuan\",\n    \"type\": \"dragon\",\n    \"alignment\": \"Chaotic Evil\",\n    \"ac\": \"22 (natural armor)\",\n    \"hp\": 546,\n    \"hit_dice\": \"28d20 + 252\",\n    \"speed\": \"40 ft., climb 40 ft., fly 80 ft.\",\n    \"stats\": [\n        30,\n        10,\n        29,\n        18,\n        15,\n        23\n    ],\n    \"saves\": [\n        {\n            \"dex\": \"+7\"\n        },\n        {\n            \"con\": \"+16\"\n        },\n        {\n            \"wis\": \"+9\"\n        },\n        {\n            \"cha\": \"+13\"\n        }\n    ],\n    \"skills\": {\n        \"Perception\": \"+16\",\n        \"Stealth\": \"+7\"\n    },\n    \"damage_immunities\": \"fire\",\n    \"senses\": \"blindsight 60 ft., darkvision 120 ft., passive Perception 26\",\n    \"languages\": \"Common, Draconic\",\n    \"cr\": \"24\",\n    \"proficiency_bonus\": \"+7\",\n    \"traits\": [\n        {\n            \"name\": \"Legendary Resistance (3/Day)\",\n            \"desc\": \"If the dragon fails a saving throw, it can choose to succeed instead.\"\n        }\n    ],\n    \"actions\": [\n        {\n            \"name\": \"Multiattack\",\n            \"desc\": \"The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.\"\n        },\n        {\n            \"name\": \"Bite\",\n            \"desc\": \"Melee Weapon Attack: ++17 to hit, reach 15 ft., one target. Hit: 21 (2d10 + 10) piercing damage plus 14 (4d6) fire damage.\"\n        },\n        {\n            \"name\": \"Claw\",\n            \"desc\": \"Melee Weapon Attack: ++17 to hit, reach 10 ft., one target. Hit: 17 (2d6 + 10) slashing damage.\"\n        },\n        {\n            \"name\": \"Tail\",\n            \"desc\": \"Melee Weapon Attack: ++17 to hit, reach 20 ft., one target. Hit: 19 (2d8 + 10) bludgeoning damage.\"\n        },\n        {\n            \"name\": \"Frightful Presence\",\n            \"desc\": \"Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 21 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours.\"\n        },\n        {\n            \"name\": \"Fire Breath (Recharge 5-6)\",\n            \"desc\": \"The dragon exhales fire in a 90-foot cone. Each creature in that area must make a DC 24 Dexterity saving throw, taking 91 (26d6) fire damage on a failed save, or half as much damage on a successful one.\"\n        }\n    ],\n    \"legendary_description\": \"The ancient red dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The ancient red dragon regains spent legendary actions at the start of its turn.\",\n    \"legendary_actions\": [\n        {\n            \"name\": \"Detect\",\n            \"desc\": \"The dragon makes a Wisdom (Perception) check.\"\n        },\n        {\n            \"name\": \"Tail Attack\",\n            \"desc\": \"The dragon makes a tail attack.\"\n        },\n        {\n            \"name\": \"Wing Attack (Costs 2 Actions)\",\n            \"desc\": \"The dragon beats its wings. Each creature within 15 feet of the dragon must succeed on a DC 25 Dexterity saving throw or take 17 (2d6 + 10) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed.\"\n        }\n    ]\n}\n```\n\n![[Ancient Red Dragon.png|center|350]]\n",
+    "obsidianUri": "obsidian://new?vault=DnD%20-%20DM%20(Remote)&file=04.%20Custom%20Bestiary%2F00.%20Criaturas%20Varias%2FAncient%20Red%20Dragon&content=%60%60%60statblock%0A%7B%0A%20%20%20%20%22name%22%3A%20%22Ancient%20Red%20Dragon%22%2C%0A%20%20%20%20%22size%22%3A%20%22Gargantuan%22%2C%0A%20%20%20%20%22type%22%3A%20%22dragon%22%2C%0A%20%20%20%20%22alignment%22%3A%20%22Chaotic%20Evil%22%2C%0A%20%20%20%20%22ac%22%3A%20%2222%20(natural%20armor)%22%2C%0A%20%20%20%20%22hp%22%3A%20546%2C%0A%20%20%20%20%22hit_dice%22%3A%20%2228d20%20%2B%20252%22%2C%0A%20%20%20%20%22speed%22%3A%20%2240%20ft.%2C%20climb%2040%20ft.%2C%20fly%2080%20ft.%22%2C%0A%20%20%20%20%22stats%22%3A%20%5B%0A%20%20%20%20%20%20%20%2030%2C%0A%20%20%20%20%20%20%20%2010%2C%0A%20%20%20%20%20%20%20%2029%2C%0A%20%20%20%20%20%20%20%2018%2C%0A%20%20%20%20%20%20%20%2015%2C%0A%20%20%20%20%20%20%20%2023%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22saves%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22dex%22%3A%20%22%2B7%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22con%22%3A%20%22%2B16%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22wis%22%3A%20%22%2B9%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22cha%22%3A%20%22%2B13%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22skills%22%3A%20%7B%0A%20%20%20%20%20%20%20%20%22Perception%22%3A%20%22%2B16%22%2C%0A%20%20%20%20%20%20%20%20%22Stealth%22%3A%20%22%2B7%22%0A%20%20%20%20%7D%2C%0A%20%20%20%20%22damage_immunities%22%3A%20%22fire%22%2C%0A%20%20%20%20%22senses%22%3A%20%22blindsight%2060%20ft.%2C%20darkvision%20120%20ft.%2C%20passive%20Perception%2026%22%2C%0A%20%20%20%20%22languages%22%3A%20%22Common%2C%20Draconic%22%2C%0A%20%20%20%20%22cr%22%3A%20%2224%22%2C%0A%20%20%20%20%22proficiency_bonus%22%3A%20%22%2B7%22%2C%0A%20%20%20%20%22traits%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Legendary%20Resistance%20(3%2FDay)%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22If%20the%20dragon%20fails%20a%20saving%20throw%2C%20it%20can%20choose%20to%20succeed%20instead.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22actions%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Multiattack%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20dragon%20can%20use%20its%20Frightful%20Presence.%20It%20then%20makes%20three%20attacks%3A%20one%20with%20its%20bite%20and%20two%20with%20its%20claws.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Bite%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Melee%20Weapon%20Attack%3A%20%2B%2B17%20to%20hit%2C%20reach%2015%20ft.%2C%20one%20target.%20Hit%3A%2021%20(2d10%20%2B%2010)%20piercing%20damage%20plus%2014%20(4d6)%20fire%20damage.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Claw%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Melee%20Weapon%20Attack%3A%20%2B%2B17%20to%20hit%2C%20reach%2010%20ft.%2C%20one%20target.%20Hit%3A%2017%20(2d6%20%2B%2010)%20slashing%20damage.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Tail%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Melee%20Weapon%20Attack%3A%20%2B%2B17%20to%20hit%2C%20reach%2020%20ft.%2C%20one%20target.%20Hit%3A%2019%20(2d8%20%2B%2010)%20bludgeoning%20damage.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Frightful%20Presence%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Each%20creature%20of%20the%20dragon's%20choice%20that%20is%20within%20120%20feet%20of%20the%20dragon%20and%20aware%20of%20it%20must%20succeed%20on%20a%20DC%2021%20Wisdom%20saving%20throw%20or%20become%20frightened%20for%201%20minute.%20A%20creature%20can%20repeat%20the%20saving%20throw%20at%20the%20end%20of%20each%20of%20its%20turns%2C%20ending%20the%20effect%20on%20itself%20on%20a%20success.%20If%20a%20creature's%20saving%20throw%20is%20successful%20or%20the%20effect%20ends%20for%20it%2C%20the%20creature%20is%20immune%20to%20the%20dragon's%20Frightful%20Presence%20for%20the%20next%2024%20hours.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Fire%20Breath%20(Recharge%205-6)%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20dragon%20exhales%20fire%20in%20a%2090-foot%20cone.%20Each%20creature%20in%20that%20area%20must%20make%20a%20DC%2024%20Dexterity%20saving%20throw%2C%20taking%2091%20(26d6)%20fire%20damage%20on%20a%20failed%20save%2C%20or%20half%20as%20much%20damage%20on%20a%20successful%20one.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22legendary_description%22%3A%20%22The%20ancient%20red%20dragon%20can%20take%203%20legendary%20actions%2C%20choosing%20from%20the%20options%20below.%20Only%20one%20legendary%20action%20option%20can%20be%20used%20at%20a%20time%20and%20only%20at%20the%20end%20of%20another%20creature's%20turn.%20The%20ancient%20red%20dragon%20regains%20spent%20legendary%20actions%20at%20the%20start%20of%20its%20turn.%22%2C%0A%20%20%20%20%22legendary_actions%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Detect%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20dragon%20makes%20a%20Wisdom%20(Perception)%20check.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Tail%20Attack%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20dragon%20makes%20a%20tail%20attack.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Wing%20Attack%20(Costs%202%20Actions)%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20dragon%20beats%20its%20wings.%20Each%20creature%20within%2015%20feet%20of%20the%20dragon%20must%20succeed%20on%20a%20DC%2025%20Dexterity%20saving%20throw%20or%20take%2017%20(2d6%20%2B%2010)%20bludgeoning%20damage%20and%20be%20knocked%20prone.%20The%20dragon%20can%20then%20fly%20up%20to%20half%20its%20flying%20speed.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%0A%7D%0A%60%60%60%0A%0A!%5B%5BAncient%20Red%20Dragon.png%7Ccenter%7C350%5D%5D%0A&overwrite=true",
+    "tag": "Boss Legendario",
+    "breakerReason": "Resistencias legendarias, acciones legendarias y presencia temible.",
+    "uriLength": 6705
+  },
+  {
+    "id": "beholder-mm",
+    "name": "Beholder",
+    "raw": {
+      "id": "beholder-mm",
+      "name": "Beholder",
+      "source": "MM",
+      "sourceGroup": "Monster Manual (2014)",
+      "category": "Official WotC",
+      "publisher": "Wizards of the Coast",
+      "size": "L",
+      "type": "aberration",
+      "typeTags": [],
+      "alignment": "L / E",
+      "cr": "13",
+      "crNumeric": 13,
+      "xp": 10000,
+      "ac": 18,
+      "acText": "18 (natural armor)",
+      "hp": 180,
+      "hpFormula": "19d10 + 76",
+      "speed": {
+        "walk": 0,
+        "fly": 20,
+        "swim": 0,
+        "climb": 0,
+        "burrow": 0,
+        "canHover": true
+      },
+      "str": 10,
+      "dex": 14,
+      "con": 18,
+      "int": 17,
+      "wis": 15,
+      "cha": 17,
+      "save": {
+        "int": "+8",
+        "wis": "+7",
+        "cha": "+8"
+      },
+      "skill": {
+        "perception": "+12"
+      },
+      "senses": "darkvision 120 ft.",
+      "passivePerception": 22,
+      "languages": "Deep Speech, Undercommon",
+      "immune": [],
+      "resist": [],
+      "vulnerable": [],
+      "conditionImmune": [
+        "prone"
+      ],
+      "trait": [
+        {
+          "name": "Antimagic Cone",
+          "entries": [
+            "The beholder's central eye creates an area of antimagic, as in the antimagic field spell, in a 150-foot cone. At the start of each of its turns, the beholder decides which way the cone faces and whether the cone is active. The area works against the beholder's own eye rays."
+          ]
+        }
+      ],
+      "action": [
+        {
+          "name": "Bite",
+          "entries": [
+            "mw 5 to hit, reach 5 ft., one target. Hit: 14 (4d6) piercing damage."
+          ]
+        },
+        {
+          "name": "Eye Rays",
+          "entries": [
+            "The beholder shoots three of the following magical eye rays at random (reroll duplicates), choosing one to three targets it can see within 120 feet of it:",
+            {
+              "name": "1. Charm Ray",
+              "entries": [
+                "The targeted creature must succeed on a DC 16 Wisdom saving throw or be charmed by the beholder for 1 hour, or until the beholder harms the creature."
+              ]
+            },
+            {
+              "name": "2. Paralyzing Ray",
+              "entries": [
+                "The targeted creature must succeed on a DC 16 Constitution saving throw or be paralyzed for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+              ]
+            },
+            {
+              "name": "3. Fear Ray",
+              "entries": [
+                "The targeted creature must succeed on a DC 16 Wisdom saving throw or be frightened for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+              ]
+            },
+            {
+              "name": "4. Slowing Ray",
+              "entries": [
+                "The targeted creature must succeed on a DC 16 Dexterity saving throw. On a failed save, the target's speed is halved for 1 minute. In addition, the creature can't take reactions, and it can take either an action or a bonus action on its turn, not both. The creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+              ]
+            },
+            {
+              "name": "5. Enervation Ray",
+              "entries": [
+                "The targeted creature must make a DC 16 Constitution saving throw, taking 36 (8d8) necrotic damage on a failed save, or half as much damage on a successful one."
+              ]
+            },
+            {
+              "name": "6. Telekinetic Ray",
+              "entries": [
+                "If the target is a creature, it must succeed on a DC 16 Strength saving throw or the beholder moves it up to 30 feet in any direction. It is restrained by the ray's telekinetic grip until the start of the beholder's next turn or until the beholder is incapacitated.",
+                "If the target is an object weighing 300 pounds or less that isn't being worn or carried, it is moved up to 30 feet in any direction. The beholder can also exert fine control on objects with this ray, such as manipulating a simple tool or opening a door or a container."
+              ]
+            },
+            {
+              "name": "7. Sleep Ray",
+              "entries": [
+                "The targeted creature must succeed on a DC 16 Wisdom saving throw or fall asleep and remain unconscious for 1 minute. The target awakens if it takes damage or another creature takes an action to wake it. This ray has no effect on constructs and undead."
+              ]
+            },
+            {
+              "name": "8. Petrification Ray",
+              "entries": [
+                "The targeted creature must make a DC 16 Dexterity saving throw. On a failed save, the creature begins to turn to stone and is restrained. It must repeat the saving throw at the end of its next turn. On a success, the effect ends. On a failure, the creature is petrified until freed by the greater restoration spell or other magic."
+              ]
+            },
+            {
+              "name": "9. Disintegration Ray",
+              "entries": [
+                "If the target is a creature, it must succeed on a DC 16 Dexterity saving throw or take 45 (10d8) force damage. If this damage reduces the creature to 0 hit points, its body becomes a pile of fine gray dust.",
+                "If the target is a Large or smaller nonmagical object or creation of magical force, it is disintegrated without a saving throw. If the target is a Huge or larger object or creation of magical force, this ray disintegrates a 10-foot cube of it."
+              ]
+            },
+            {
+              "name": "10. Death Ray",
+              "entries": [
+                "The targeted creature must succeed on a DC 16 Dexterity saving throw or take 55 (10d10) necrotic damage. The target dies if the ray reduces it to 0 hit points."
+              ]
+            }
+          ]
+        }
+      ],
+      "reaction": [],
+      "legendary": [
+        {
+          "name": "Eye Ray",
+          "entries": [
+            "The beholder uses one random eye ray."
+          ]
+        }
+      ],
+      "mythic": [],
+      "spellcasting": [],
+      "environment": [
+        "underdark"
+      ],
+      "hasToken": true,
+      "tokenUrl": "https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/MM/Beholder.webp",
+      "bonus": [],
+      "legendaryHeader": [
+        "The beholder can take 3 legendary actions, using the Eye Ray option below. It can take only one legendary action at a time and only at the end of another creature's turn. The beholder regains spent legendary actions at the start of its turn."
+      ],
+      "hasArt": true,
+      "artUrl": "https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/MM/Beholder.webp"
+    },
+    "statblockJson": {
+      "name": "Beholder",
+      "size": "Large",
+      "type": "aberration",
+      "alignment": "Lawful Evil",
+      "ac": "18 (natural armor)",
+      "hp": 180,
+      "hit_dice": "19d10 + 76",
+      "speed": "fly 20 ft. (hover)",
+      "stats": [
+        10,
+        14,
+        18,
+        17,
+        15,
+        17
+      ],
+      "saves": [
+        {
+          "int": "+8"
+        },
+        {
+          "wis": "+7"
+        },
+        {
+          "cha": "+8"
+        }
+      ],
+      "skills": {
+        "Perception": "+12"
+      },
+      "condition_immunities": "prone",
+      "senses": "darkvision 120 ft., passive Perception 22",
+      "languages": "Deep Speech, Undercommon",
+      "cr": "13",
+      "proficiency_bonus": "+5",
+      "traits": [
+        {
+          "name": "Antimagic Cone",
+          "desc": "The beholder's central eye creates an area of antimagic, as in the antimagic field spell, in a 150-foot cone. At the start of each of its turns, the beholder decides which way the cone faces and whether the cone is active. The area works against the beholder's own eye rays."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Bite",
+          "desc": "Melee Weapon Attack: ++5 to hit, reach 5 ft., one target. Hit: 14 (4d6) piercing damage."
+        },
+        {
+          "name": "Eye Rays",
+          "desc": "The beholder shoots three of the following magical eye rays at random (reroll duplicates), choosing one to three targets it can see within 120 feet of it:\n\n1. Charm Ray: The targeted creature must succeed on a DC 16 Wisdom saving throw or be charmed by the beholder for 1 hour, or until the beholder harms the creature.\n\n2. Paralyzing Ray: The targeted creature must succeed on a DC 16 Constitution saving throw or be paralyzed for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.\n\n3. Fear Ray: The targeted creature must succeed on a DC 16 Wisdom saving throw or be frightened for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.\n\n4. Slowing Ray: The targeted creature must succeed on a DC 16 Dexterity saving throw. On a failed save, the target's speed is halved for 1 minute. In addition, the creature can't take reactions, and it can take either an action or a bonus action on its turn, not both. The creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.\n\n5. Enervation Ray: The targeted creature must make a DC 16 Constitution saving throw, taking 36 (8d8) necrotic damage on a failed save, or half as much damage on a successful one.\n\n6. Telekinetic Ray: If the target is a creature, it must succeed on a DC 16 Strength saving throw or the beholder moves it up to 30 feet in any direction. It is restrained by the ray's telekinetic grip until the start of the beholder's next turn or until the beholder is incapacitated.\n\nIf the target is an object weighing 300 pounds or less that isn't being worn or carried, it is moved up to 30 feet in any direction. The beholder can also exert fine control on objects with this ray, such as manipulating a simple tool or opening a door or a container.\n\n7. Sleep Ray: The targeted creature must succeed on a DC 16 Wisdom saving throw or fall asleep and remain unconscious for 1 minute. The target awakens if it takes damage or another creature takes an action to wake it. This ray has no effect on constructs and undead.\n\n8. Petrification Ray: The targeted creature must make a DC 16 Dexterity saving throw. On a failed save, the creature begins to turn to stone and is restrained. It must repeat the saving throw at the end of its next turn. On a success, the effect ends. On a failure, the creature is petrified until freed by the greater restoration spell or other magic.\n\n9. Disintegration Ray: If the target is a creature, it must succeed on a DC 16 Dexterity saving throw or take 45 (10d8) force damage. If this damage reduces the creature to 0 hit points, its body becomes a pile of fine gray dust.\n\nIf the target is a Large or smaller nonmagical object or creation of magical force, it is disintegrated without a saving throw. If the target is a Huge or larger object or creation of magical force, this ray disintegrates a 10-foot cube of it.\n\n10. Death Ray: The targeted creature must succeed on a DC 16 Dexterity saving throw or take 55 (10d10) necrotic damage. The target dies if the ray reduces it to 0 hit points."
+        }
+      ],
+      "legendary_description": "The beholder can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The beholder regains spent legendary actions at the start of its turn.",
+      "legendary_actions": [
+        {
+          "name": "Eye Ray",
+          "desc": "The beholder uses one random eye ray."
+        }
+      ]
+    },
+    "markdown": "```statblock\n{\n    \"name\": \"Beholder\",\n    \"size\": \"Large\",\n    \"type\": \"aberration\",\n    \"alignment\": \"Lawful Evil\",\n    \"ac\": \"18 (natural armor)\",\n    \"hp\": 180,\n    \"hit_dice\": \"19d10 + 76\",\n    \"speed\": \"fly 20 ft. (hover)\",\n    \"stats\": [\n        10,\n        14,\n        18,\n        17,\n        15,\n        17\n    ],\n    \"saves\": [\n        {\n            \"int\": \"+8\"\n        },\n        {\n            \"wis\": \"+7\"\n        },\n        {\n            \"cha\": \"+8\"\n        }\n    ],\n    \"skills\": {\n        \"Perception\": \"+12\"\n    },\n    \"condition_immunities\": \"prone\",\n    \"senses\": \"darkvision 120 ft., passive Perception 22\",\n    \"languages\": \"Deep Speech, Undercommon\",\n    \"cr\": \"13\",\n    \"proficiency_bonus\": \"+5\",\n    \"traits\": [\n        {\n            \"name\": \"Antimagic Cone\",\n            \"desc\": \"The beholder's central eye creates an area of antimagic, as in the antimagic field spell, in a 150-foot cone. At the start of each of its turns, the beholder decides which way the cone faces and whether the cone is active. The area works against the beholder's own eye rays.\"\n        }\n    ],\n    \"actions\": [\n        {\n            \"name\": \"Bite\",\n            \"desc\": \"Melee Weapon Attack: ++5 to hit, reach 5 ft., one target. Hit: 14 (4d6) piercing damage.\"\n        },\n        {\n            \"name\": \"Eye Rays\",\n            \"desc\": \"The beholder shoots three of the following magical eye rays at random (reroll duplicates), choosing one to three targets it can see within 120 feet of it:\\n\\n1. Charm Ray: The targeted creature must succeed on a DC 16 Wisdom saving throw or be charmed by the beholder for 1 hour, or until the beholder harms the creature.\\n\\n2. Paralyzing Ray: The targeted creature must succeed on a DC 16 Constitution saving throw or be paralyzed for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.\\n\\n3. Fear Ray: The targeted creature must succeed on a DC 16 Wisdom saving throw or be frightened for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.\\n\\n4. Slowing Ray: The targeted creature must succeed on a DC 16 Dexterity saving throw. On a failed save, the target's speed is halved for 1 minute. In addition, the creature can't take reactions, and it can take either an action or a bonus action on its turn, not both. The creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.\\n\\n5. Enervation Ray: The targeted creature must make a DC 16 Constitution saving throw, taking 36 (8d8) necrotic damage on a failed save, or half as much damage on a successful one.\\n\\n6. Telekinetic Ray: If the target is a creature, it must succeed on a DC 16 Strength saving throw or the beholder moves it up to 30 feet in any direction. It is restrained by the ray's telekinetic grip until the start of the beholder's next turn or until the beholder is incapacitated.\\n\\nIf the target is an object weighing 300 pounds or less that isn't being worn or carried, it is moved up to 30 feet in any direction. The beholder can also exert fine control on objects with this ray, such as manipulating a simple tool or opening a door or a container.\\n\\n7. Sleep Ray: The targeted creature must succeed on a DC 16 Wisdom saving throw or fall asleep and remain unconscious for 1 minute. The target awakens if it takes damage or another creature takes an action to wake it. This ray has no effect on constructs and undead.\\n\\n8. Petrification Ray: The targeted creature must make a DC 16 Dexterity saving throw. On a failed save, the creature begins to turn to stone and is restrained. It must repeat the saving throw at the end of its next turn. On a success, the effect ends. On a failure, the creature is petrified until freed by the greater restoration spell or other magic.\\n\\n9. Disintegration Ray: If the target is a creature, it must succeed on a DC 16 Dexterity saving throw or take 45 (10d8) force damage. If this damage reduces the creature to 0 hit points, its body becomes a pile of fine gray dust.\\n\\nIf the target is a Large or smaller nonmagical object or creation of magical force, it is disintegrated without a saving throw. If the target is a Huge or larger object or creation of magical force, this ray disintegrates a 10-foot cube of it.\\n\\n10. Death Ray: The targeted creature must succeed on a DC 16 Dexterity saving throw or take 55 (10d10) necrotic damage. The target dies if the ray reduces it to 0 hit points.\"\n        }\n    ],\n    \"legendary_description\": \"The beholder can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The beholder regains spent legendary actions at the start of its turn.\",\n    \"legendary_actions\": [\n        {\n            \"name\": \"Eye Ray\",\n            \"desc\": \"The beholder uses one random eye ray.\"\n        }\n    ]\n}\n```\n\n![[Beholder.png|center|350]]\n",
+    "obsidianUri": "obsidian://new?vault=DnD%20-%20DM%20(Remote)&file=04.%20Custom%20Bestiary%2F00.%20Criaturas%20Varias%2FBeholder&content=%60%60%60statblock%0A%7B%0A%20%20%20%20%22name%22%3A%20%22Beholder%22%2C%0A%20%20%20%20%22size%22%3A%20%22Large%22%2C%0A%20%20%20%20%22type%22%3A%20%22aberration%22%2C%0A%20%20%20%20%22alignment%22%3A%20%22Lawful%20Evil%22%2C%0A%20%20%20%20%22ac%22%3A%20%2218%20(natural%20armor)%22%2C%0A%20%20%20%20%22hp%22%3A%20180%2C%0A%20%20%20%20%22hit_dice%22%3A%20%2219d10%20%2B%2076%22%2C%0A%20%20%20%20%22speed%22%3A%20%22fly%2020%20ft.%20(hover)%22%2C%0A%20%20%20%20%22stats%22%3A%20%5B%0A%20%20%20%20%20%20%20%2010%2C%0A%20%20%20%20%20%20%20%2014%2C%0A%20%20%20%20%20%20%20%2018%2C%0A%20%20%20%20%20%20%20%2017%2C%0A%20%20%20%20%20%20%20%2015%2C%0A%20%20%20%20%20%20%20%2017%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22saves%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22int%22%3A%20%22%2B8%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22wis%22%3A%20%22%2B7%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22cha%22%3A%20%22%2B8%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22skills%22%3A%20%7B%0A%20%20%20%20%20%20%20%20%22Perception%22%3A%20%22%2B12%22%0A%20%20%20%20%7D%2C%0A%20%20%20%20%22condition_immunities%22%3A%20%22prone%22%2C%0A%20%20%20%20%22senses%22%3A%20%22darkvision%20120%20ft.%2C%20passive%20Perception%2022%22%2C%0A%20%20%20%20%22languages%22%3A%20%22Deep%20Speech%2C%20Undercommon%22%2C%0A%20%20%20%20%22cr%22%3A%20%2213%22%2C%0A%20%20%20%20%22proficiency_bonus%22%3A%20%22%2B5%22%2C%0A%20%20%20%20%22traits%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Antimagic%20Cone%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20beholder's%20central%20eye%20creates%20an%20area%20of%20antimagic%2C%20as%20in%20the%20antimagic%20field%20spell%2C%20in%20a%20150-foot%20cone.%20At%20the%20start%20of%20each%20of%20its%20turns%2C%20the%20beholder%20decides%20which%20way%20the%20cone%20faces%20and%20whether%20the%20cone%20is%20active.%20The%20area%20works%20against%20the%20beholder's%20own%20eye%20rays.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22actions%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Bite%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Melee%20Weapon%20Attack%3A%20%2B%2B5%20to%20hit%2C%20reach%205%20ft.%2C%20one%20target.%20Hit%3A%2014%20(4d6)%20piercing%20damage.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Eye%20Rays%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20beholder%20shoots%20three%20of%20the%20following%20magical%20eye%20rays%20at%20random%20(reroll%20duplicates)%2C%20choosing%20one%20to%20three%20targets%20it%20can%20see%20within%20120%20feet%20of%20it%3A%5Cn%5Cn1.%20Charm%20Ray%3A%20The%20targeted%20creature%20must%20succeed%20on%20a%20DC%2016%20Wisdom%20saving%20throw%20or%20be%20charmed%20by%20the%20beholder%20for%201%20hour%2C%20or%20until%20the%20beholder%20harms%20the%20creature.%5Cn%5Cn2.%20Paralyzing%20Ray%3A%20The%20targeted%20creature%20must%20succeed%20on%20a%20DC%2016%20Constitution%20saving%20throw%20or%20be%20paralyzed%20for%201%20minute.%20The%20target%20can%20repeat%20the%20saving%20throw%20at%20the%20end%20of%20each%20of%20its%20turns%2C%20ending%20the%20effect%20on%20itself%20on%20a%20success.%5Cn%5Cn3.%20Fear%20Ray%3A%20The%20targeted%20creature%20must%20succeed%20on%20a%20DC%2016%20Wisdom%20saving%20throw%20or%20be%20frightened%20for%201%20minute.%20The%20target%20can%20repeat%20the%20saving%20throw%20at%20the%20end%20of%20each%20of%20its%20turns%2C%20ending%20the%20effect%20on%20itself%20on%20a%20success.%5Cn%5Cn4.%20Slowing%20Ray%3A%20The%20targeted%20creature%20must%20succeed%20on%20a%20DC%2016%20Dexterity%20saving%20throw.%20On%20a%20failed%20save%2C%20the%20target's%20speed%20is%20halved%20for%201%20minute.%20In%20addition%2C%20the%20creature%20can't%20take%20reactions%2C%20and%20it%20can%20take%20either%20an%20action%20or%20a%20bonus%20action%20on%20its%20turn%2C%20not%20both.%20The%20creature%20can%20repeat%20the%20saving%20throw%20at%20the%20end%20of%20each%20of%20its%20turns%2C%20ending%20the%20effect%20on%20itself%20on%20a%20success.%5Cn%5Cn5.%20Enervation%20Ray%3A%20The%20targeted%20creature%20must%20make%20a%20DC%2016%20Constitution%20saving%20throw%2C%20taking%2036%20(8d8)%20necrotic%20damage%20on%20a%20failed%20save%2C%20or%20half%20as%20much%20damage%20on%20a%20successful%20one.%5Cn%5Cn6.%20Telekinetic%20Ray%3A%20If%20the%20target%20is%20a%20creature%2C%20it%20must%20succeed%20on%20a%20DC%2016%20Strength%20saving%20throw%20or%20the%20beholder%20moves%20it%20up%20to%2030%20feet%20in%20any%20direction.%20It%20is%20restrained%20by%20the%20ray's%20telekinetic%20grip%20until%20the%20start%20of%20the%20beholder's%20next%20turn%20or%20until%20the%20beholder%20is%20incapacitated.%5Cn%5CnIf%20the%20target%20is%20an%20object%20weighing%20300%20pounds%20or%20less%20that%20isn't%20being%20worn%20or%20carried%2C%20it%20is%20moved%20up%20to%2030%20feet%20in%20any%20direction.%20The%20beholder%20can%20also%20exert%20fine%20control%20on%20objects%20with%20this%20ray%2C%20such%20as%20manipulating%20a%20simple%20tool%20or%20opening%20a%20door%20or%20a%20container.%5Cn%5Cn7.%20Sleep%20Ray%3A%20The%20targeted%20creature%20must%20succeed%20on%20a%20DC%2016%20Wisdom%20saving%20throw%20or%20fall%20asleep%20and%20remain%20unconscious%20for%201%20minute.%20The%20target%20awakens%20if%20it%20takes%20damage%20or%20another%20creature%20takes%20an%20action%20to%20wake%20it.%20This%20ray%20has%20no%20effect%20on%20constructs%20and%20undead.%5Cn%5Cn8.%20Petrification%20Ray%3A%20The%20targeted%20creature%20must%20make%20a%20DC%2016%20Dexterity%20saving%20throw.%20On%20a%20failed%20save%2C%20the%20creature%20begins%20to%20turn%20to%20stone%20and%20is%20restrained.%20It%20must%20repeat%20the%20saving%20throw%20at%20the%20end%20of%20its%20next%20turn.%20On%20a%20success%2C%20the%20effect%20ends.%20On%20a%20failure%2C%20the%20creature%20is%20petrified%20until%20freed%20by%20the%20greater%20restoration%20spell%20or%20other%20magic.%5Cn%5Cn9.%20Disintegration%20Ray%3A%20If%20the%20target%20is%20a%20creature%2C%20it%20must%20succeed%20on%20a%20DC%2016%20Dexterity%20saving%20throw%20or%20take%2045%20(10d8)%20force%20damage.%20If%20this%20damage%20reduces%20the%20creature%20to%200%20hit%20points%2C%20its%20body%20becomes%20a%20pile%20of%20fine%20gray%20dust.%5Cn%5CnIf%20the%20target%20is%20a%20Large%20or%20smaller%20nonmagical%20object%20or%20creation%20of%20magical%20force%2C%20it%20is%20disintegrated%20without%20a%20saving%20throw.%20If%20the%20target%20is%20a%20Huge%20or%20larger%20object%20or%20creation%20of%20magical%20force%2C%20this%20ray%20disintegrates%20a%2010-foot%20cube%20of%20it.%5Cn%5Cn10.%20Death%20Ray%3A%20The%20targeted%20creature%20must%20succeed%20on%20a%20DC%2016%20Dexterity%20saving%20throw%20or%20take%2055%20(10d10)%20necrotic%20damage.%20The%20target%20dies%20if%20the%20ray%20reduces%20it%20to%200%20hit%20points.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22legendary_description%22%3A%20%22The%20beholder%20can%20take%203%20legendary%20actions%2C%20choosing%20from%20the%20options%20below.%20Only%20one%20legendary%20action%20option%20can%20be%20used%20at%20a%20time%20and%20only%20at%20the%20end%20of%20another%20creature's%20turn.%20The%20beholder%20regains%20spent%20legendary%20actions%20at%20the%20start%20of%20its%20turn.%22%2C%0A%20%20%20%20%22legendary_actions%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Eye%20Ray%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20beholder%20uses%20one%20random%20eye%20ray.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%0A%7D%0A%60%60%60%0A%0A!%5B%5BBeholder.png%7Ccenter%7C350%5D%5D%0A&overwrite=true",
+    "tag": "Rompe-Statblock 👁️",
+    "breakerReason": "10 Rayos Oculares anidados con CDs individuales, dados y condiciones letales.",
+    "uriLength": 8152
+  },
+  {
+    "id": "lich-mm",
+    "name": "Lich",
+    "raw": {
+      "id": "lich-mm",
+      "name": "Lich",
+      "source": "MM",
+      "sourceGroup": "Monster Manual (2014)",
+      "category": "Official WotC",
+      "publisher": "Wizards of the Coast",
+      "size": "M",
+      "type": "undead",
+      "typeTags": [],
+      "alignment": "L / NX / C / E",
+      "cr": "21",
+      "crNumeric": 21,
+      "xp": 33000,
+      "ac": 17,
+      "acText": "17 (natural armor)",
+      "hp": 135,
+      "hpFormula": "18d8 + 54",
+      "speed": {
+        "walk": 30,
+        "fly": 0,
+        "swim": 0,
+        "climb": 0,
+        "burrow": 0,
+        "canHover": false
+      },
+      "str": 11,
+      "dex": 16,
+      "con": 16,
+      "int": 20,
+      "wis": 14,
+      "cha": 16,
+      "save": {
+        "con": "+10",
+        "int": "+12",
+        "wis": "+9"
+      },
+      "skill": {
+        "arcana": "+19",
+        "history": "+12",
+        "insight": "+9",
+        "perception": "+9"
+      },
+      "senses": "truesight 120 ft.",
+      "passivePerception": 19,
+      "languages": "Common plus up to five other languages",
+      "immune": [
+        "poison",
+        ""
+      ],
+      "resist": [
+        "cold",
+        "lightning",
+        "necrotic"
+      ],
+      "vulnerable": [],
+      "conditionImmune": [
+        "charmed",
+        "exhaustion",
+        "frightened",
+        "paralyzed",
+        "poisoned"
+      ],
+      "trait": [
+        {
+          "name": "Legendary Resistance (3/Day)",
+          "entries": [
+            "If the lich fails a saving throw, it can choose to succeed instead."
+          ]
+        },
+        {
+          "name": "Rejuvenation",
+          "entries": [
+            "If it has a phylactery, a destroyed lich gains a new body in 1d10 days, regaining all its hit points and becoming active again. The new body appears within 5 feet of the phylactery."
+          ]
+        },
+        {
+          "name": "Turn Resistance",
+          "entries": [
+            "The lich has advantage on saving throws against any effect that turns undead."
+          ]
+        }
+      ],
+      "action": [
+        {
+          "name": "Paralyzing Touch",
+          "entries": [
+            "ms 12 to hit, reach 5 ft., one creature. Hit: 10 (3d6) cold damage. The target must succeed on a DC 18 Constitution saving throw or be paralyzed for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+          ]
+        }
+      ],
+      "reaction": [],
+      "legendary": [
+        {
+          "name": "Cantrip",
+          "entries": [
+            "The lich casts a cantrip."
+          ]
+        },
+        {
+          "name": "Paralyzing Touch (Costs 2 Actions)",
+          "entries": [
+            "The lich uses its Paralyzing Touch."
+          ]
+        },
+        {
+          "name": "Frightening Gaze (Costs 2 Actions)",
+          "entries": [
+            "The lich fixes its gaze on one creature it can see within 10 feet of it. The target must succeed on a DC 18 Wisdom saving throw against this magic or become frightened for 1 minute. The frightened target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a target's saving throw is successful or the effect ends for it, the target is immune to the lich's gaze for the next 24 hours."
+          ]
+        },
+        {
+          "name": "Disrupt Life (Costs 3 Actions)",
+          "entries": [
+            "Each non-undead creature within 20 feet of the lich must make a DC 18 Constitution saving throw against this magic, taking 21 (6d6) necrotic damage on a failed save, or half as much damage on a successful one."
+          ]
+        }
+      ],
+      "mythic": [],
+      "spellcasting": [
+        {
+          "name": "Spellcasting",
+          "headerEntries": [
+            "The lich is an 18th-level spellcaster. Its spellcasting ability is Intelligence (spell save DC 20, 12 to hit with spell attacks). The lich has the following wizard spells prepared:"
+          ],
+          "spells": {
+            "0": {
+              "spells": [
+                "mage hand",
+                "prestidigitation",
+                "ray of frost"
+              ]
+            },
+            "1": {
+              "slots": 4,
+              "spells": [
+                "detect magic",
+                "magic missile",
+                "shield",
+                "thunderwave"
+              ]
+            },
+            "2": {
+              "slots": 3,
+              "spells": [
+                "detect thoughts",
+                "invisibility",
+                "Melf's acid arrow",
+                "mirror image"
+              ]
+            },
+            "3": {
+              "slots": 3,
+              "spells": [
+                "animate dead",
+                "counterspell",
+                "dispel magic",
+                "fireball"
+              ]
+            },
+            "4": {
+              "slots": 3,
+              "spells": [
+                "blight",
+                "dimension door"
+              ]
+            },
+            "5": {
+              "slots": 3,
+              "spells": [
+                "cloudkill",
+                "scrying"
+              ]
+            },
+            "6": {
+              "slots": 1,
+              "spells": [
+                "disintegrate",
+                "globe of invulnerability"
+              ]
+            },
+            "7": {
+              "slots": 1,
+              "spells": [
+                "finger of death",
+                "plane shift"
+              ]
+            },
+            "8": {
+              "slots": 1,
+              "spells": [
+                "dominate monster",
+                "power word stun"
+              ]
+            },
+            "9": {
+              "slots": 1,
+              "spells": [
+                "power word kill"
+              ]
+            }
+          },
+          "will": null,
+          "daily": null
+        }
+      ],
+      "environment": [],
+      "hasToken": true,
+      "tokenUrl": "https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/MM/Lich.webp",
+      "bonus": [],
+      "hasArt": true,
+      "artUrl": "https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/MM/Lich.webp"
+    },
+    "statblockJson": {
+      "name": "Lich",
+      "size": "Medium",
+      "type": "undead",
+      "alignment": "L / NX / C / E",
+      "ac": "17 (natural armor)",
+      "hp": 135,
+      "hit_dice": "18d8 + 54",
+      "speed": "30 ft.",
+      "stats": [
+        11,
+        16,
+        16,
+        20,
+        14,
+        16
+      ],
+      "saves": [
+        {
+          "con": "+10"
+        },
+        {
+          "int": "+12"
+        },
+        {
+          "wis": "+9"
+        }
+      ],
+      "skills": {
+        "Arcana": "+19",
+        "History": "+12",
+        "Insight": "+9",
+        "Perception": "+9"
+      },
+      "damage_resistances": "cold, lightning, necrotic",
+      "damage_immunities": "poison, ",
+      "condition_immunities": "charmed, exhaustion, frightened, paralyzed, poisoned",
+      "senses": "truesight 120 ft., passive Perception 19",
+      "languages": "Common plus up to five other languages",
+      "cr": "21",
+      "proficiency_bonus": "+7",
+      "traits": [
+        {
+          "name": "Legendary Resistance (3/Day)",
+          "desc": "If the lich fails a saving throw, it can choose to succeed instead."
+        },
+        {
+          "name": "Rejuvenation",
+          "desc": "If it has a phylactery, a destroyed lich gains a new body in 1d10 days, regaining all its hit points and becoming active again. The new body appears within 5 feet of the phylactery."
+        },
+        {
+          "name": "Turn Resistance",
+          "desc": "The lich has advantage on saving throws against any effect that turns undead."
+        },
+        {
+          "name": "Spellcasting",
+          "desc": "The lich is an 18th-level spellcaster. Its spellcasting ability is Intelligence (spell save DC 20, +12 to hit with spell attacks). The lich has the following wizard spells prepared:\nCantrips (at will): mage hand, prestidigitation, ray of frost\n1st level (4 slots): detect magic, magic missile, shield, thunderwave\n2nd level (3 slots): detect thoughts, invisibility, Melf's acid arrow, mirror image\n3rd level (3 slots): animate dead, counterspell, dispel magic, fireball\n4th level (3 slots): blight, dimension door\n5th level (3 slots): cloudkill, scrying\n6th level (1 slot): disintegrate, globe of invulnerability\n7th level (1 slot): finger of death, plane shift\n8th level (1 slot): dominate monster, power word stun\n9th level (1 slot): power word kill"
+        }
+      ],
+      "actions": [
+        {
+          "name": "Paralyzing Touch",
+          "desc": "Melee Spell Attack: ++12 to hit, reach 5 ft., one creature. Hit: 10 (3d6) cold damage. The target must succeed on a DC 18 Constitution saving throw or be paralyzed for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+        }
+      ],
+      "legendary_description": "The lich can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The lich regains spent legendary actions at the start of its turn.",
+      "legendary_actions": [
+        {
+          "name": "Cantrip",
+          "desc": "The lich casts a cantrip."
+        },
+        {
+          "name": "Paralyzing Touch (Costs 2 Actions)",
+          "desc": "The lich uses its Paralyzing Touch."
+        },
+        {
+          "name": "Frightening Gaze (Costs 2 Actions)",
+          "desc": "The lich fixes its gaze on one creature it can see within 10 feet of it. The target must succeed on a DC 18 Wisdom saving throw against this magic or become frightened for 1 minute. The frightened target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a target's saving throw is successful or the effect ends for it, the target is immune to the lich's gaze for the next 24 hours."
+        },
+        {
+          "name": "Disrupt Life (Costs 3 Actions)",
+          "desc": "Each non-undead creature within 20 feet of the lich must make a DC 18 Constitution saving throw against this magic, taking 21 (6d6) necrotic damage on a failed save, or half as much damage on a successful one."
+        }
+      ]
+    },
+    "markdown": "```statblock\n{\n    \"name\": \"Lich\",\n    \"size\": \"Medium\",\n    \"type\": \"undead\",\n    \"alignment\": \"L / NX / C / E\",\n    \"ac\": \"17 (natural armor)\",\n    \"hp\": 135,\n    \"hit_dice\": \"18d8 + 54\",\n    \"speed\": \"30 ft.\",\n    \"stats\": [\n        11,\n        16,\n        16,\n        20,\n        14,\n        16\n    ],\n    \"saves\": [\n        {\n            \"con\": \"+10\"\n        },\n        {\n            \"int\": \"+12\"\n        },\n        {\n            \"wis\": \"+9\"\n        }\n    ],\n    \"skills\": {\n        \"Arcana\": \"+19\",\n        \"History\": \"+12\",\n        \"Insight\": \"+9\",\n        \"Perception\": \"+9\"\n    },\n    \"damage_resistances\": \"cold, lightning, necrotic\",\n    \"damage_immunities\": \"poison, \",\n    \"condition_immunities\": \"charmed, exhaustion, frightened, paralyzed, poisoned\",\n    \"senses\": \"truesight 120 ft., passive Perception 19\",\n    \"languages\": \"Common plus up to five other languages\",\n    \"cr\": \"21\",\n    \"proficiency_bonus\": \"+7\",\n    \"traits\": [\n        {\n            \"name\": \"Legendary Resistance (3/Day)\",\n            \"desc\": \"If the lich fails a saving throw, it can choose to succeed instead.\"\n        },\n        {\n            \"name\": \"Rejuvenation\",\n            \"desc\": \"If it has a phylactery, a destroyed lich gains a new body in 1d10 days, regaining all its hit points and becoming active again. The new body appears within 5 feet of the phylactery.\"\n        },\n        {\n            \"name\": \"Turn Resistance\",\n            \"desc\": \"The lich has advantage on saving throws against any effect that turns undead.\"\n        },\n        {\n            \"name\": \"Spellcasting\",\n            \"desc\": \"The lich is an 18th-level spellcaster. Its spellcasting ability is Intelligence (spell save DC 20, +12 to hit with spell attacks). The lich has the following wizard spells prepared:\\nCantrips (at will): mage hand, prestidigitation, ray of frost\\n1st level (4 slots): detect magic, magic missile, shield, thunderwave\\n2nd level (3 slots): detect thoughts, invisibility, Melf's acid arrow, mirror image\\n3rd level (3 slots): animate dead, counterspell, dispel magic, fireball\\n4th level (3 slots): blight, dimension door\\n5th level (3 slots): cloudkill, scrying\\n6th level (1 slot): disintegrate, globe of invulnerability\\n7th level (1 slot): finger of death, plane shift\\n8th level (1 slot): dominate monster, power word stun\\n9th level (1 slot): power word kill\"\n        }\n    ],\n    \"actions\": [\n        {\n            \"name\": \"Paralyzing Touch\",\n            \"desc\": \"Melee Spell Attack: ++12 to hit, reach 5 ft., one creature. Hit: 10 (3d6) cold damage. The target must succeed on a DC 18 Constitution saving throw or be paralyzed for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.\"\n        }\n    ],\n    \"legendary_description\": \"The lich can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The lich regains spent legendary actions at the start of its turn.\",\n    \"legendary_actions\": [\n        {\n            \"name\": \"Cantrip\",\n            \"desc\": \"The lich casts a cantrip.\"\n        },\n        {\n            \"name\": \"Paralyzing Touch (Costs 2 Actions)\",\n            \"desc\": \"The lich uses its Paralyzing Touch.\"\n        },\n        {\n            \"name\": \"Frightening Gaze (Costs 2 Actions)\",\n            \"desc\": \"The lich fixes its gaze on one creature it can see within 10 feet of it. The target must succeed on a DC 18 Wisdom saving throw against this magic or become frightened for 1 minute. The frightened target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a target's saving throw is successful or the effect ends for it, the target is immune to the lich's gaze for the next 24 hours.\"\n        },\n        {\n            \"name\": \"Disrupt Life (Costs 3 Actions)\",\n            \"desc\": \"Each non-undead creature within 20 feet of the lich must make a DC 18 Constitution saving throw against this magic, taking 21 (6d6) necrotic damage on a failed save, or half as much damage on a successful one.\"\n        }\n    ]\n}\n```\n\n![[Lich.png|center|350]]\n",
+    "obsidianUri": "obsidian://new?vault=DnD%20-%20DM%20(Remote)&file=04.%20Custom%20Bestiary%2F00.%20Criaturas%20Varias%2FLich&content=%60%60%60statblock%0A%7B%0A%20%20%20%20%22name%22%3A%20%22Lich%22%2C%0A%20%20%20%20%22size%22%3A%20%22Medium%22%2C%0A%20%20%20%20%22type%22%3A%20%22undead%22%2C%0A%20%20%20%20%22alignment%22%3A%20%22L%20%2F%20NX%20%2F%20C%20%2F%20E%22%2C%0A%20%20%20%20%22ac%22%3A%20%2217%20(natural%20armor)%22%2C%0A%20%20%20%20%22hp%22%3A%20135%2C%0A%20%20%20%20%22hit_dice%22%3A%20%2218d8%20%2B%2054%22%2C%0A%20%20%20%20%22speed%22%3A%20%2230%20ft.%22%2C%0A%20%20%20%20%22stats%22%3A%20%5B%0A%20%20%20%20%20%20%20%2011%2C%0A%20%20%20%20%20%20%20%2016%2C%0A%20%20%20%20%20%20%20%2016%2C%0A%20%20%20%20%20%20%20%2020%2C%0A%20%20%20%20%20%20%20%2014%2C%0A%20%20%20%20%20%20%20%2016%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22saves%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22con%22%3A%20%22%2B10%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22int%22%3A%20%22%2B12%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22wis%22%3A%20%22%2B9%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22skills%22%3A%20%7B%0A%20%20%20%20%20%20%20%20%22Arcana%22%3A%20%22%2B19%22%2C%0A%20%20%20%20%20%20%20%20%22History%22%3A%20%22%2B12%22%2C%0A%20%20%20%20%20%20%20%20%22Insight%22%3A%20%22%2B9%22%2C%0A%20%20%20%20%20%20%20%20%22Perception%22%3A%20%22%2B9%22%0A%20%20%20%20%7D%2C%0A%20%20%20%20%22damage_resistances%22%3A%20%22cold%2C%20lightning%2C%20necrotic%22%2C%0A%20%20%20%20%22damage_immunities%22%3A%20%22poison%2C%20%22%2C%0A%20%20%20%20%22condition_immunities%22%3A%20%22charmed%2C%20exhaustion%2C%20frightened%2C%20paralyzed%2C%20poisoned%22%2C%0A%20%20%20%20%22senses%22%3A%20%22truesight%20120%20ft.%2C%20passive%20Perception%2019%22%2C%0A%20%20%20%20%22languages%22%3A%20%22Common%20plus%20up%20to%20five%20other%20languages%22%2C%0A%20%20%20%20%22cr%22%3A%20%2221%22%2C%0A%20%20%20%20%22proficiency_bonus%22%3A%20%22%2B7%22%2C%0A%20%20%20%20%22traits%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Legendary%20Resistance%20(3%2FDay)%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22If%20the%20lich%20fails%20a%20saving%20throw%2C%20it%20can%20choose%20to%20succeed%20instead.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Rejuvenation%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22If%20it%20has%20a%20phylactery%2C%20a%20destroyed%20lich%20gains%20a%20new%20body%20in%201d10%20days%2C%20regaining%20all%20its%20hit%20points%20and%20becoming%20active%20again.%20The%20new%20body%20appears%20within%205%20feet%20of%20the%20phylactery.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Turn%20Resistance%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20lich%20has%20advantage%20on%20saving%20throws%20against%20any%20effect%20that%20turns%20undead.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Spellcasting%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20lich%20is%20an%2018th-level%20spellcaster.%20Its%20spellcasting%20ability%20is%20Intelligence%20(spell%20save%20DC%2020%2C%20%2B12%20to%20hit%20with%20spell%20attacks).%20The%20lich%20has%20the%20following%20wizard%20spells%20prepared%3A%5CnCantrips%20(at%20will)%3A%20mage%20hand%2C%20prestidigitation%2C%20ray%20of%20frost%5Cn1st%20level%20(4%20slots)%3A%20detect%20magic%2C%20magic%20missile%2C%20shield%2C%20thunderwave%5Cn2nd%20level%20(3%20slots)%3A%20detect%20thoughts%2C%20invisibility%2C%20Melf's%20acid%20arrow%2C%20mirror%20image%5Cn3rd%20level%20(3%20slots)%3A%20animate%20dead%2C%20counterspell%2C%20dispel%20magic%2C%20fireball%5Cn4th%20level%20(3%20slots)%3A%20blight%2C%20dimension%20door%5Cn5th%20level%20(3%20slots)%3A%20cloudkill%2C%20scrying%5Cn6th%20level%20(1%20slot)%3A%20disintegrate%2C%20globe%20of%20invulnerability%5Cn7th%20level%20(1%20slot)%3A%20finger%20of%20death%2C%20plane%20shift%5Cn8th%20level%20(1%20slot)%3A%20dominate%20monster%2C%20power%20word%20stun%5Cn9th%20level%20(1%20slot)%3A%20power%20word%20kill%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22actions%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Paralyzing%20Touch%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Melee%20Spell%20Attack%3A%20%2B%2B12%20to%20hit%2C%20reach%205%20ft.%2C%20one%20creature.%20Hit%3A%2010%20(3d6)%20cold%20damage.%20The%20target%20must%20succeed%20on%20a%20DC%2018%20Constitution%20saving%20throw%20or%20be%20paralyzed%20for%201%20minute.%20The%20target%20can%20repeat%20the%20saving%20throw%20at%20the%20end%20of%20each%20of%20its%20turns%2C%20ending%20the%20effect%20on%20itself%20on%20a%20success.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22legendary_description%22%3A%20%22The%20lich%20can%20take%203%20legendary%20actions%2C%20choosing%20from%20the%20options%20below.%20Only%20one%20legendary%20action%20option%20can%20be%20used%20at%20a%20time%20and%20only%20at%20the%20end%20of%20another%20creature's%20turn.%20The%20lich%20regains%20spent%20legendary%20actions%20at%20the%20start%20of%20its%20turn.%22%2C%0A%20%20%20%20%22legendary_actions%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Cantrip%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20lich%20casts%20a%20cantrip.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Paralyzing%20Touch%20(Costs%202%20Actions)%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20lich%20uses%20its%20Paralyzing%20Touch.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Frightening%20Gaze%20(Costs%202%20Actions)%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20lich%20fixes%20its%20gaze%20on%20one%20creature%20it%20can%20see%20within%2010%20feet%20of%20it.%20The%20target%20must%20succeed%20on%20a%20DC%2018%20Wisdom%20saving%20throw%20against%20this%20magic%20or%20become%20frightened%20for%201%20minute.%20The%20frightened%20target%20can%20repeat%20the%20saving%20throw%20at%20the%20end%20of%20each%20of%20its%20turns%2C%20ending%20the%20effect%20on%20itself%20on%20a%20success.%20If%20a%20target's%20saving%20throw%20is%20successful%20or%20the%20effect%20ends%20for%20it%2C%20the%20target%20is%20immune%20to%20the%20lich's%20gaze%20for%20the%20next%2024%20hours.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Disrupt%20Life%20(Costs%203%20Actions)%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Each%20non-undead%20creature%20within%2020%20feet%20of%20the%20lich%20must%20make%20a%20DC%2018%20Constitution%20saving%20throw%20against%20this%20magic%2C%20taking%2021%20(6d6)%20necrotic%20damage%20on%20a%20failed%20save%2C%20or%20half%20as%20much%20damage%20on%20a%20successful%20one.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%0A%7D%0A%60%60%60%0A%0A!%5B%5BLich.png%7Ccenter%7C350%5D%5D%0A&overwrite=true",
+    "tag": "Rompe-Statblock 💀",
+    "breakerReason": "Mega-conjurador de nivel 18 con 10 niveles de conjuros y comillas en nombres.",
+    "uriLength": 7527
+  },
+  {
+    "id": "aspect-of-tiamat-ftd",
+    "name": "Aspect of Tiamat",
+    "raw": {
+      "id": "aspect-of-tiamat-ftd",
+      "name": "Aspect of Tiamat",
+      "source": "FTD",
+      "sourceGroup": "Fizban's Treasury of Dragons",
+      "category": "Official WotC",
+      "publisher": "Wizards of the Coast",
+      "size": "G",
+      "type": "dragon",
+      "typeTags": [
+        "chromatic"
+      ],
+      "alignment": "C / E",
+      "cr": "30",
+      "crNumeric": 30,
+      "xp": 155000,
+      "ac": 23,
+      "acText": "23 (natural armor)",
+      "hp": 574,
+      "hpFormula": "28d20 + 280",
+      "speed": {
+        "walk": 60,
+        "fly": 120,
+        "swim": 60,
+        "climb": 0,
+        "burrow": 60,
+        "canHover": false
+      },
+      "str": 30,
+      "dex": 14,
+      "con": 30,
+      "int": 21,
+      "wis": 20,
+      "cha": 26,
+      "save": {
+        "dex": "+11",
+        "con": "+19",
+        "wis": "+14",
+        "cha": "+17"
+      },
+      "skill": {
+        "intimidation": "+26",
+        "perception": "+23"
+      },
+      "senses": "truesight 120 ft.",
+      "passivePerception": 33,
+      "languages": "Common, Draconic, Infernal",
+      "immune": [
+        "acid",
+        "cold",
+        "fire",
+        "lightning",
+        "poison",
+        ""
+      ],
+      "resist": [],
+      "vulnerable": [],
+      "conditionImmune": [
+        "blinded",
+        "charmed",
+        "deafened",
+        "frightened",
+        "poisoned",
+        "stunned"
+      ],
+      "trait": [
+        {
+          "name": "Chromatic Wrath (Recharges after a Short or Long Rest)",
+          "entries": [
+            "If the aspect would be reduced to 0 hit points, her current hit point total instead resets to 500 hit points, she recharges her Chromatic Flames, and she regains any expended uses of Legendary Resistance. Additionally, the aspect can now use the options in the \"Mythic Actions\" section for 1 hour. Award a party an additional 155,000 XP (310,000 XP total) for defeating the aspect of Tiamat after her Chromatic Wrath activates."
+          ]
+        },
+        {
+          "name": "Legendary Resistance (5/Day)",
+          "entries": [
+            "If the aspect fails a saving throw, she can choose to succeed instead."
+          ]
+        }
+      ],
+      "action": [
+        {
+          "name": "Multiattack",
+          "entries": [
+            "The aspect makes one Bite attack, one Claw attack, and one Tail attack."
+          ]
+        },
+        {
+          "name": "Bite",
+          "entries": [
+            "mw 19 to hit, reach 20 ft., one target. Hit: 23 (2d12 + 10) piercing damage plus 19 (3d12) force damage."
+          ]
+        },
+        {
+          "name": "Claw",
+          "entries": [
+            "mw 19 to hit, reach 15 ft., one target. Hit: 21 (2d10 + 10) slashing damage. If the target is a Huge or smaller creature, it is grappled (escape DC 20) and is restrained until this grapple ends. The aspect can have only one creature grappled this way at a time."
+          ]
+        },
+        {
+          "name": "Tail",
+          "entries": [
+            "mw 19 to hit, reach 15 ft., one target. Hit: 23 (2d12 + 10) bludgeoning damage. If the target is a creature, it must succeed on a DC 27 Strength saving throw or be knocked prone."
+          ]
+        },
+        {
+          "name": "Chromatic Flames (Recarga 5)",
+          "entries": [
+            "The aspect exhales multicolored flames in a 300-foot cone. Each creature in that area must make a DC 27 Dexterity saving throw. On a failed save, the creature takes 71 (11d12) damage of a type of the aspect's choosing: acid, cold, fire, lightning, or poison. On a successful save, the creature takes half as much damage."
+          ]
+        }
+      ],
+      "reaction": [],
+      "legendary": [
+        {
+          "name": "Attack",
+          "entries": [
+            "The aspect makes one Claw or Tail attack."
+          ]
+        },
+        {
+          "name": "Furious Bite (Costs 2 Actions)",
+          "entries": [
+            "The aspect makes one Bite attack. If the attack hits a creature, the target must succeed on a DC 27 Wisdom saving throw or become frightened of the aspect until the end of its next turn."
+          ]
+        }
+      ],
+      "mythic": [
+        {
+          "name": "Hurl Through Avernus (Costs 2 Actions)",
+          "entries": [
+            "The aspect targets a creature she is grappling. The creature must succeed on a DC 25 Charisma saving throw or take 44 (8d10) psychic damage and be banished to Avernus (the first layer of the Nine Hells). At the start of the aspect's next turn, the creature reappears in an unoccupied space within 10 feet of the aspect."
+          ]
+        },
+        {
+          "name": "Chromatic Flare (Costs 3 Actions)",
+          "entries": [
+            "The aspect flares with elemental energy. Each creature of the aspect's choice in a 60-foot-radius sphere centered on her must make a DC 27 Dexterity saving throw. On a failed save, the creature takes 39 (6d12) damage of a type chosen by the aspect: acid, cold, fire, lightning, or poison. On a successful save, the creature takes half as much damage."
+          ]
+        }
+      ],
+      "spellcasting": [],
+      "environment": [],
+      "hasToken": true,
+      "tokenUrl": "https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/FTD/Aspect%20of%20Tiamat.webp",
+      "bonus": [],
+      "mythicHeader": [
+        "If the aspect's Chromatic Wrath trait has activated in the last hour, she can use the options below as legendary actions."
+      ],
+      "hasArt": true,
+      "artUrl": "https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/FTD/Aspect%20of%20Tiamat.webp"
+    },
+    "statblockJson": {
+      "name": "Aspect of Tiamat",
+      "size": "Gargantuan",
+      "type": "dragon",
+      "alignment": "Chaotic Evil",
+      "ac": "23 (natural armor)",
+      "hp": 574,
+      "hit_dice": "28d20 + 280",
+      "speed": "60 ft., burrow 60 ft., fly 120 ft., swim 60 ft.",
+      "stats": [
+        30,
+        14,
+        30,
+        21,
+        20,
+        26
+      ],
+      "saves": [
+        {
+          "dex": "+11"
+        },
+        {
+          "con": "+19"
+        },
+        {
+          "wis": "+14"
+        },
+        {
+          "cha": "+17"
+        }
+      ],
+      "skills": {
+        "Intimidation": "+26",
+        "Perception": "+23"
+      },
+      "damage_immunities": "acid, cold, fire, lightning, poison, ",
+      "condition_immunities": "blinded, charmed, deafened, frightened, poisoned, stunned",
+      "senses": "truesight 120 ft., passive Perception 33",
+      "languages": "Common, Draconic, Infernal",
+      "cr": "30",
+      "proficiency_bonus": "+9",
+      "traits": [
+        {
+          "name": "Chromatic Wrath (Recharges after a Short or Long Rest)",
+          "desc": "If the aspect would be reduced to 0 hit points, her current hit point total instead resets to 500 hit points, she recharges her Chromatic Flames, and she regains any expended uses of Legendary Resistance. Additionally, the aspect can now use the options in the \"Mythic Actions\" section for 1 hour. Award a party an additional 155,000 XP (310,000 XP total) for defeating the aspect of Tiamat after her Chromatic Wrath activates."
+        },
+        {
+          "name": "Legendary Resistance (5/Day)",
+          "desc": "If the aspect fails a saving throw, she can choose to succeed instead."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "desc": "The aspect makes one Bite attack, one Claw attack, and one Tail attack."
+        },
+        {
+          "name": "Bite",
+          "desc": "Melee Weapon Attack: ++19 to hit, reach 20 ft., one target. Hit: 23 (2d12 + 10) piercing damage plus 19 (3d12) force damage."
+        },
+        {
+          "name": "Claw",
+          "desc": "Melee Weapon Attack: ++19 to hit, reach 15 ft., one target. Hit: 21 (2d10 + 10) slashing damage. If the target is a Huge or smaller creature, it is grappled (escape DC 20) and is restrained until this grapple ends. The aspect can have only one creature grappled this way at a time."
+        },
+        {
+          "name": "Tail",
+          "desc": "Melee Weapon Attack: ++19 to hit, reach 15 ft., one target. Hit: 23 (2d12 + 10) bludgeoning damage. If the target is a creature, it must succeed on a DC 27 Strength saving throw or be knocked prone."
+        },
+        {
+          "name": "Chromatic Flames (Recharge 5-6)",
+          "desc": "The aspect exhales multicolored flames in a 300-foot cone. Each creature in that area must make a DC 27 Dexterity saving throw. On a failed save, the creature takes 71 (11d12) damage of a type of the aspect's choosing: acid, cold, fire, lightning, or poison. On a successful save, the creature takes half as much damage."
+        }
+      ],
+      "legendary_description": "The aspect of tiamat can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The aspect of tiamat regains spent legendary actions at the start of its turn.",
+      "legendary_actions": [
+        {
+          "name": "Attack",
+          "desc": "The aspect makes one Claw or Tail attack."
+        },
+        {
+          "name": "Furious Bite (Costs 2 Actions)",
+          "desc": "The aspect makes one Bite attack. If the attack hits a creature, the target must succeed on a DC 27 Wisdom saving throw or become frightened of the aspect until the end of its next turn."
+        }
+      ],
+      "mythic_description": "If the aspect of tiamat's mythic trait has activated in the last hour, it can use the options below as legendary actions.",
+      "mythic_actions": [
+        {
+          "name": "Hurl Through Avernus (Costs 2 Actions)",
+          "desc": "The aspect targets a creature she is grappling. The creature must succeed on a DC 25 Charisma saving throw or take 44 (8d10) psychic damage and be banished to Avernus (the first layer of the Nine Hells). At the start of the aspect's next turn, the creature reappears in an unoccupied space within 10 feet of the aspect."
+        },
+        {
+          "name": "Chromatic Flare (Costs 3 Actions)",
+          "desc": "The aspect flares with elemental energy. Each creature of the aspect's choice in a 60-foot-radius sphere centered on her must make a DC 27 Dexterity saving throw. On a failed save, the creature takes 39 (6d12) damage of a type chosen by the aspect: acid, cold, fire, lightning, or poison. On a successful save, the creature takes half as much damage."
+        }
+      ]
+    },
+    "markdown": "```statblock\n{\n    \"name\": \"Aspect of Tiamat\",\n    \"size\": \"Gargantuan\",\n    \"type\": \"dragon\",\n    \"alignment\": \"Chaotic Evil\",\n    \"ac\": \"23 (natural armor)\",\n    \"hp\": 574,\n    \"hit_dice\": \"28d20 + 280\",\n    \"speed\": \"60 ft., burrow 60 ft., fly 120 ft., swim 60 ft.\",\n    \"stats\": [\n        30,\n        14,\n        30,\n        21,\n        20,\n        26\n    ],\n    \"saves\": [\n        {\n            \"dex\": \"+11\"\n        },\n        {\n            \"con\": \"+19\"\n        },\n        {\n            \"wis\": \"+14\"\n        },\n        {\n            \"cha\": \"+17\"\n        }\n    ],\n    \"skills\": {\n        \"Intimidation\": \"+26\",\n        \"Perception\": \"+23\"\n    },\n    \"damage_immunities\": \"acid, cold, fire, lightning, poison, \",\n    \"condition_immunities\": \"blinded, charmed, deafened, frightened, poisoned, stunned\",\n    \"senses\": \"truesight 120 ft., passive Perception 33\",\n    \"languages\": \"Common, Draconic, Infernal\",\n    \"cr\": \"30\",\n    \"proficiency_bonus\": \"+9\",\n    \"traits\": [\n        {\n            \"name\": \"Chromatic Wrath (Recharges after a Short or Long Rest)\",\n            \"desc\": \"If the aspect would be reduced to 0 hit points, her current hit point total instead resets to 500 hit points, she recharges her Chromatic Flames, and she regains any expended uses of Legendary Resistance. Additionally, the aspect can now use the options in the \\\"Mythic Actions\\\" section for 1 hour. Award a party an additional 155,000 XP (310,000 XP total) for defeating the aspect of Tiamat after her Chromatic Wrath activates.\"\n        },\n        {\n            \"name\": \"Legendary Resistance (5/Day)\",\n            \"desc\": \"If the aspect fails a saving throw, she can choose to succeed instead.\"\n        }\n    ],\n    \"actions\": [\n        {\n            \"name\": \"Multiattack\",\n            \"desc\": \"The aspect makes one Bite attack, one Claw attack, and one Tail attack.\"\n        },\n        {\n            \"name\": \"Bite\",\n            \"desc\": \"Melee Weapon Attack: ++19 to hit, reach 20 ft., one target. Hit: 23 (2d12 + 10) piercing damage plus 19 (3d12) force damage.\"\n        },\n        {\n            \"name\": \"Claw\",\n            \"desc\": \"Melee Weapon Attack: ++19 to hit, reach 15 ft., one target. Hit: 21 (2d10 + 10) slashing damage. If the target is a Huge or smaller creature, it is grappled (escape DC 20) and is restrained until this grapple ends. The aspect can have only one creature grappled this way at a time.\"\n        },\n        {\n            \"name\": \"Tail\",\n            \"desc\": \"Melee Weapon Attack: ++19 to hit, reach 15 ft., one target. Hit: 23 (2d12 + 10) bludgeoning damage. If the target is a creature, it must succeed on a DC 27 Strength saving throw or be knocked prone.\"\n        },\n        {\n            \"name\": \"Chromatic Flames (Recharge 5-6)\",\n            \"desc\": \"The aspect exhales multicolored flames in a 300-foot cone. Each creature in that area must make a DC 27 Dexterity saving throw. On a failed save, the creature takes 71 (11d12) damage of a type of the aspect's choosing: acid, cold, fire, lightning, or poison. On a successful save, the creature takes half as much damage.\"\n        }\n    ],\n    \"legendary_description\": \"The aspect of tiamat can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The aspect of tiamat regains spent legendary actions at the start of its turn.\",\n    \"legendary_actions\": [\n        {\n            \"name\": \"Attack\",\n            \"desc\": \"The aspect makes one Claw or Tail attack.\"\n        },\n        {\n            \"name\": \"Furious Bite (Costs 2 Actions)\",\n            \"desc\": \"The aspect makes one Bite attack. If the attack hits a creature, the target must succeed on a DC 27 Wisdom saving throw or become frightened of the aspect until the end of its next turn.\"\n        }\n    ],\n    \"mythic_description\": \"If the aspect of tiamat's mythic trait has activated in the last hour, it can use the options below as legendary actions.\",\n    \"mythic_actions\": [\n        {\n            \"name\": \"Hurl Through Avernus (Costs 2 Actions)\",\n            \"desc\": \"The aspect targets a creature she is grappling. The creature must succeed on a DC 25 Charisma saving throw or take 44 (8d10) psychic damage and be banished to Avernus (the first layer of the Nine Hells). At the start of the aspect's next turn, the creature reappears in an unoccupied space within 10 feet of the aspect.\"\n        },\n        {\n            \"name\": \"Chromatic Flare (Costs 3 Actions)\",\n            \"desc\": \"The aspect flares with elemental energy. Each creature of the aspect's choice in a 60-foot-radius sphere centered on her must make a DC 27 Dexterity saving throw. On a failed save, the creature takes 39 (6d12) damage of a type chosen by the aspect: acid, cold, fire, lightning, or poison. On a successful save, the creature takes half as much damage.\"\n        }\n    ]\n}\n```\n\n![[Aspect of Tiamat.png|center|350]]\n",
+    "obsidianUri": "obsidian://new?vault=DnD%20-%20DM%20(Remote)&file=04.%20Custom%20Bestiary%2F00.%20Criaturas%20Varias%2FAspect%20of%20Tiamat&content=%60%60%60statblock%0A%7B%0A%20%20%20%20%22name%22%3A%20%22Aspect%20of%20Tiamat%22%2C%0A%20%20%20%20%22size%22%3A%20%22Gargantuan%22%2C%0A%20%20%20%20%22type%22%3A%20%22dragon%22%2C%0A%20%20%20%20%22alignment%22%3A%20%22Chaotic%20Evil%22%2C%0A%20%20%20%20%22ac%22%3A%20%2223%20(natural%20armor)%22%2C%0A%20%20%20%20%22hp%22%3A%20574%2C%0A%20%20%20%20%22hit_dice%22%3A%20%2228d20%20%2B%20280%22%2C%0A%20%20%20%20%22speed%22%3A%20%2260%20ft.%2C%20burrow%2060%20ft.%2C%20fly%20120%20ft.%2C%20swim%2060%20ft.%22%2C%0A%20%20%20%20%22stats%22%3A%20%5B%0A%20%20%20%20%20%20%20%2030%2C%0A%20%20%20%20%20%20%20%2014%2C%0A%20%20%20%20%20%20%20%2030%2C%0A%20%20%20%20%20%20%20%2021%2C%0A%20%20%20%20%20%20%20%2020%2C%0A%20%20%20%20%20%20%20%2026%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22saves%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22dex%22%3A%20%22%2B11%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22con%22%3A%20%22%2B19%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22wis%22%3A%20%22%2B14%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22cha%22%3A%20%22%2B17%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22skills%22%3A%20%7B%0A%20%20%20%20%20%20%20%20%22Intimidation%22%3A%20%22%2B26%22%2C%0A%20%20%20%20%20%20%20%20%22Perception%22%3A%20%22%2B23%22%0A%20%20%20%20%7D%2C%0A%20%20%20%20%22damage_immunities%22%3A%20%22acid%2C%20cold%2C%20fire%2C%20lightning%2C%20poison%2C%20%22%2C%0A%20%20%20%20%22condition_immunities%22%3A%20%22blinded%2C%20charmed%2C%20deafened%2C%20frightened%2C%20poisoned%2C%20stunned%22%2C%0A%20%20%20%20%22senses%22%3A%20%22truesight%20120%20ft.%2C%20passive%20Perception%2033%22%2C%0A%20%20%20%20%22languages%22%3A%20%22Common%2C%20Draconic%2C%20Infernal%22%2C%0A%20%20%20%20%22cr%22%3A%20%2230%22%2C%0A%20%20%20%20%22proficiency_bonus%22%3A%20%22%2B9%22%2C%0A%20%20%20%20%22traits%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Chromatic%20Wrath%20(Recharges%20after%20a%20Short%20or%20Long%20Rest)%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22If%20the%20aspect%20would%20be%20reduced%20to%200%20hit%20points%2C%20her%20current%20hit%20point%20total%20instead%20resets%20to%20500%20hit%20points%2C%20she%20recharges%20her%20Chromatic%20Flames%2C%20and%20she%20regains%20any%20expended%20uses%20of%20Legendary%20Resistance.%20Additionally%2C%20the%20aspect%20can%20now%20use%20the%20options%20in%20the%20%5C%22Mythic%20Actions%5C%22%20section%20for%201%20hour.%20Award%20a%20party%20an%20additional%20155%2C000%20XP%20(310%2C000%20XP%20total)%20for%20defeating%20the%20aspect%20of%20Tiamat%20after%20her%20Chromatic%20Wrath%20activates.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Legendary%20Resistance%20(5%2FDay)%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22If%20the%20aspect%20fails%20a%20saving%20throw%2C%20she%20can%20choose%20to%20succeed%20instead.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22actions%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Multiattack%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20aspect%20makes%20one%20Bite%20attack%2C%20one%20Claw%20attack%2C%20and%20one%20Tail%20attack.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Bite%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Melee%20Weapon%20Attack%3A%20%2B%2B19%20to%20hit%2C%20reach%2020%20ft.%2C%20one%20target.%20Hit%3A%2023%20(2d12%20%2B%2010)%20piercing%20damage%20plus%2019%20(3d12)%20force%20damage.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Claw%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Melee%20Weapon%20Attack%3A%20%2B%2B19%20to%20hit%2C%20reach%2015%20ft.%2C%20one%20target.%20Hit%3A%2021%20(2d10%20%2B%2010)%20slashing%20damage.%20If%20the%20target%20is%20a%20Huge%20or%20smaller%20creature%2C%20it%20is%20grappled%20(escape%20DC%2020)%20and%20is%20restrained%20until%20this%20grapple%20ends.%20The%20aspect%20can%20have%20only%20one%20creature%20grappled%20this%20way%20at%20a%20time.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Tail%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Melee%20Weapon%20Attack%3A%20%2B%2B19%20to%20hit%2C%20reach%2015%20ft.%2C%20one%20target.%20Hit%3A%2023%20(2d12%20%2B%2010)%20bludgeoning%20damage.%20If%20the%20target%20is%20a%20creature%2C%20it%20must%20succeed%20on%20a%20DC%2027%20Strength%20saving%20throw%20or%20be%20knocked%20prone.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Chromatic%20Flames%20(Recharge%205-6)%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20aspect%20exhales%20multicolored%20flames%20in%20a%20300-foot%20cone.%20Each%20creature%20in%20that%20area%20must%20make%20a%20DC%2027%20Dexterity%20saving%20throw.%20On%20a%20failed%20save%2C%20the%20creature%20takes%2071%20(11d12)%20damage%20of%20a%20type%20of%20the%20aspect's%20choosing%3A%20acid%2C%20cold%2C%20fire%2C%20lightning%2C%20or%20poison.%20On%20a%20successful%20save%2C%20the%20creature%20takes%20half%20as%20much%20damage.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22legendary_description%22%3A%20%22The%20aspect%20of%20tiamat%20can%20take%203%20legendary%20actions%2C%20choosing%20from%20the%20options%20below.%20Only%20one%20legendary%20action%20option%20can%20be%20used%20at%20a%20time%20and%20only%20at%20the%20end%20of%20another%20creature's%20turn.%20The%20aspect%20of%20tiamat%20regains%20spent%20legendary%20actions%20at%20the%20start%20of%20its%20turn.%22%2C%0A%20%20%20%20%22legendary_actions%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Attack%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20aspect%20makes%20one%20Claw%20or%20Tail%20attack.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Furious%20Bite%20(Costs%202%20Actions)%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20aspect%20makes%20one%20Bite%20attack.%20If%20the%20attack%20hits%20a%20creature%2C%20the%20target%20must%20succeed%20on%20a%20DC%2027%20Wisdom%20saving%20throw%20or%20become%20frightened%20of%20the%20aspect%20until%20the%20end%20of%20its%20next%20turn.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22mythic_description%22%3A%20%22If%20the%20aspect%20of%20tiamat's%20mythic%20trait%20has%20activated%20in%20the%20last%20hour%2C%20it%20can%20use%20the%20options%20below%20as%20legendary%20actions.%22%2C%0A%20%20%20%20%22mythic_actions%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Hurl%20Through%20Avernus%20(Costs%202%20Actions)%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20aspect%20targets%20a%20creature%20she%20is%20grappling.%20The%20creature%20must%20succeed%20on%20a%20DC%2025%20Charisma%20saving%20throw%20or%20take%2044%20(8d10)%20psychic%20damage%20and%20be%20banished%20to%20Avernus%20(the%20first%20layer%20of%20the%20Nine%20Hells).%20At%20the%20start%20of%20the%20aspect's%20next%20turn%2C%20the%20creature%20reappears%20in%20an%20unoccupied%20space%20within%2010%20feet%20of%20the%20aspect.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Chromatic%20Flare%20(Costs%203%20Actions)%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20aspect%20flares%20with%20elemental%20energy.%20Each%20creature%20of%20the%20aspect's%20choice%20in%20a%2060-foot-radius%20sphere%20centered%20on%20her%20must%20make%20a%20DC%2027%20Dexterity%20saving%20throw.%20On%20a%20failed%20save%2C%20the%20creature%20takes%2039%20(6d12)%20damage%20of%20a%20type%20chosen%20by%20the%20aspect%3A%20acid%2C%20cold%2C%20fire%2C%20lightning%2C%20or%20poison.%20On%20a%20successful%20save%2C%20the%20creature%20takes%20half%20as%20much%20damage.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%0A%7D%0A%60%60%60%0A%0A!%5B%5BAspect%20of%20Tiamat.png%7Ccenter%7C350%5D%5D%0A&overwrite=true",
+    "tag": "Rompe-Statblock 🐉",
+    "breakerReason": "CR 30, Fase 2 Mítica (Acciones Legendarias + Míticas), 5 inmunidades y 5 alientos.",
+    "uriLength": 8808
+  },
+  {
+    "id": "adult-suneater-owlbear-helianasguidetomonsterhunting",
+    "name": "Adult Suneater Owlbear",
+    "raw": {
+      "id": "adult-suneater-owlbear-helianasguidetomonsterhunting",
+      "name": "Adult Suneater Owlbear",
+      "source": "HelianasGuidetoMonsterHunting",
+      "sourceGroup": "Heliana's Guide To Monster Hunting",
+      "category": "Third-Party (3PP Pro)",
+      "publisher": "Loot Tavern",
+      "size": "L",
+      "type": "fey",
+      "typeTags": [],
+      "alignment": "U",
+      "cr": "8",
+      "crNumeric": 8,
+      "xp": 3900,
+      "ac": 15,
+      "acText": "15 (natural armor)",
+      "hp": 95,
+      "hpFormula": "10d10 + 40",
+      "speed": {
+        "walk": 40,
+        "fly": 0,
+        "swim": 30,
+        "climb": 0,
+        "burrow": 0,
+        "canHover": false
+      },
+      "str": 21,
+      "dex": 12,
+      "con": 19,
+      "int": 3,
+      "wis": 14,
+      "cha": 16,
+      "save": {
+        "wis": "+5",
+        "cha": "+6"
+      },
+      "skill": {
+        "perception": "+5"
+      },
+      "senses": "darkvision 60 ft.",
+      "passivePerception": 15,
+      "languages": "—",
+      "immune": [
+        "radiant"
+      ],
+      "resist": [
+        "fire"
+      ],
+      "vulnerable": [],
+      "conditionImmune": [
+        "charmed"
+      ],
+      "trait": [
+        {
+          "name": "Legendary Resistance (3/Day)",
+          "entries": [
+            "If the owlbear fails a saving throw, it can choose to succeed instead."
+          ]
+        },
+        {
+          "name": "Observer Mimic",
+          "entries": [
+            "If the owlbear is in dim light or darkness, it appears to be an observer, a type of powerful, floating eye tyrant."
+          ]
+        },
+        {
+          "name": "Photometabolise",
+          "entries": [
+            "If the owlbear is in direct sunlight, it regains 10 hit points at the start of its turn."
+          ]
+        },
+        {
+          "name": "Radiant Absorption",
+          "entries": [
+            "Whenever the owlbear is subjected to radiant damage, it takes no damage and instead regains a number of hit points equal to the radiant damage dealt."
+          ]
+        },
+        {
+          "name": "Supernova (Recharges after a Short or Long Rest)",
+          "entries": [
+            "If the owlbear would be reduced to 0 hit points, its current hit point total instead resets to 95 hit points, it recharges its Solar Beam, it immediately uses its Blinding Flash legendary action option (without expending any actions), and a small sun coalesces 10 feet above the owlbear and follows it for the next hour, shedding bright sunlight in a 30-foot radius and dispelling magical darkness created by spells of 2nd level or lower in the area. Additionally, the owlbear can use the options in the \"Mythic Actions\" section for 1 hour. Award a party an additional 5,000 XP (8,900 XP total) for defeating the owlbear after its Supernova activates."
+          ]
+        }
+      ],
+      "action": [
+        {
+          "name": "Multiattack",
+          "entries": [
+            "The owlbear makes two attacks: one with its Beak and one with its Claws."
+          ]
+        },
+        {
+          "name": "Beak",
+          "entries": [
+            "mw 8 to hit, reach 5 ft., one target. Hit: 14 (2d8 + 5) piercing damage."
+          ]
+        },
+        {
+          "name": "Claws",
+          "entries": [
+            "mw 8 to hit, reach 5 ft., one target. Hit: 10 (2d4 + 5) slashing damage."
+          ]
+        },
+        {
+          "name": "Solar Beam (Recharge 5-6)",
+          "entries": [
+            "The owlbear exhales a beam of irradiating energy in a 5-foot-wide, 60-foot-long line. Each creature in the area must make a DC 15 Dexterity saving throw, taking 24 (7d6) radiant damage on a failed save or half as much damage on a successful one."
+          ]
+        }
+      ],
+      "reaction": [],
+      "legendary": [
+        {
+          "name": "Claws",
+          "entries": [
+            "The owlbear makes a Claws attack."
+          ]
+        },
+        {
+          "name": "Sunstep",
+          "entries": [
+            "The owlbear teleports from one area of bright light to an unoccupied space of bright light within 60 feet of it that it can see."
+          ]
+        },
+        {
+          "name": "Blinding Flash (Costs 2 Actions)",
+          "entries": [
+            "The owlbear's featherfronds release a blinding burst of light. Each creature within 30 feet of the owlbear that can see the owlbear must succeed on a DC 15 Constitution saving throw or be blinded until the end of the creature's next turn."
+          ]
+        }
+      ],
+      "mythic": [
+        {
+          "name": "Reflash",
+          "entries": [
+            "The owlbear uses its Blinding Flash legendary action."
+          ]
+        },
+        {
+          "name": "Refract (Costs 2 Actions)",
+          "entries": [
+            "The owlbear recharges and uses its Solar Beam."
+          ]
+        }
+      ],
+      "spellcasting": [],
+      "environment": [],
+      "hasToken": true,
+      "tokenUrl": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/HelianasGuidetoMonsterHunting/tokens/Suneater_Owlbear.webp",
+      "bonus": [],
+      "legendaryHeader": [
+        "The owlbear can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The owlbear regains spent legendary actions at the start of its turn."
+      ],
+      "mythicHeader": [
+        "If the owlbear's Supernova trait has activated in the last hour, it can use the options below as legendary actions."
+      ],
+      "hasArt": true,
+      "artUrl": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/HelianasGuidetoMonsterHunting/images/Hunts/The_Shining_Shrine/Owlbear_Closed.webp"
+    },
+    "statblockJson": {
+      "name": "Adult Suneater Owlbear",
+      "size": "Large",
+      "type": "fey",
+      "alignment": "Unaligned",
+      "ac": "15 (natural armor)",
+      "hp": 95,
+      "hit_dice": "10d10 + 40",
+      "speed": "40 ft., swim 30 ft.",
+      "stats": [
+        21,
+        12,
+        19,
+        3,
+        14,
+        16
+      ],
+      "saves": [
+        {
+          "wis": "+5"
+        },
+        {
+          "cha": "+6"
+        }
+      ],
+      "skills": {
+        "Perception": "+5"
+      },
+      "damage_resistances": "fire",
+      "damage_immunities": "radiant",
+      "condition_immunities": "charmed",
+      "senses": "darkvision 60 ft., passive Perception 15",
+      "languages": "—",
+      "cr": "8",
+      "proficiency_bonus": "+3",
+      "traits": [
+        {
+          "name": "Legendary Resistance (3/Day)",
+          "desc": "If the owlbear fails a saving throw, it can choose to succeed instead."
+        },
+        {
+          "name": "Observer Mimic",
+          "desc": "If the owlbear is in dim light or darkness, it appears to be an observer, a type of powerful, floating eye tyrant."
+        },
+        {
+          "name": "Photometabolise",
+          "desc": "If the owlbear is in direct sunlight, it regains 10 hit points at the start of its turn."
+        },
+        {
+          "name": "Radiant Absorption",
+          "desc": "Whenever the owlbear is subjected to radiant damage, it takes no damage and instead regains a number of hit points equal to the radiant damage dealt."
+        },
+        {
+          "name": "Supernova (Recharges after a Short or Long Rest)",
+          "desc": "If the owlbear would be reduced to 0 hit points, its current hit point total instead resets to 95 hit points, it recharges its Solar Beam, it immediately uses its Blinding Flash legendary action option (without expending any actions), and a small sun coalesces 10 feet above the owlbear and follows it for the next hour, shedding bright sunlight in a 30-foot radius and dispelling magical darkness created by spells of 2nd level or lower in the area. Additionally, the owlbear can use the options in the \"Mythic Actions\" section for 1 hour. Award a party an additional 5,000 XP (8,900 XP total) for defeating the owlbear after its Supernova activates."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "desc": "The owlbear makes two attacks: one with its Beak and one with its Claws."
+        },
+        {
+          "name": "Beak",
+          "desc": "Melee Weapon Attack: ++8 to hit, reach 5 ft., one target. Hit: 14 (2d8 + 5) piercing damage."
+        },
+        {
+          "name": "Claws",
+          "desc": "Melee Weapon Attack: ++8 to hit, reach 5 ft., one target. Hit: 10 (2d4 + 5) slashing damage."
+        },
+        {
+          "name": "Solar Beam (Recharge 5-6)",
+          "desc": "The owlbear exhales a beam of irradiating energy in a 5-foot-wide, 60-foot-long line. Each creature in the area must make a DC 15 Dexterity saving throw, taking 24 (7d6) radiant damage on a failed save or half as much damage on a successful one."
+        }
+      ],
+      "legendary_description": "The adult suneater owlbear can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The adult suneater owlbear regains spent legendary actions at the start of its turn.",
+      "legendary_actions": [
+        {
+          "name": "Claws",
+          "desc": "The owlbear makes a Claws attack."
+        },
+        {
+          "name": "Sunstep",
+          "desc": "The owlbear teleports from one area of bright light to an unoccupied space of bright light within 60 feet of it that it can see."
+        },
+        {
+          "name": "Blinding Flash (Costs 2 Actions)",
+          "desc": "The owlbear's featherfronds release a blinding burst of light. Each creature within 30 feet of the owlbear that can see the owlbear must succeed on a DC 15 Constitution saving throw or be blinded until the end of the creature's next turn."
+        }
+      ],
+      "mythic_description": "If the adult suneater owlbear's mythic trait has activated in the last hour, it can use the options below as legendary actions.",
+      "mythic_actions": [
+        {
+          "name": "Reflash",
+          "desc": "The owlbear uses its Blinding Flash legendary action."
+        },
+        {
+          "name": "Refract (Costs 2 Actions)",
+          "desc": "The owlbear recharges and uses its Solar Beam."
+        }
+      ]
+    },
+    "markdown": "```statblock\n{\n    \"name\": \"Adult Suneater Owlbear\",\n    \"size\": \"Large\",\n    \"type\": \"fey\",\n    \"alignment\": \"Unaligned\",\n    \"ac\": \"15 (natural armor)\",\n    \"hp\": 95,\n    \"hit_dice\": \"10d10 + 40\",\n    \"speed\": \"40 ft., swim 30 ft.\",\n    \"stats\": [\n        21,\n        12,\n        19,\n        3,\n        14,\n        16\n    ],\n    \"saves\": [\n        {\n            \"wis\": \"+5\"\n        },\n        {\n            \"cha\": \"+6\"\n        }\n    ],\n    \"skills\": {\n        \"Perception\": \"+5\"\n    },\n    \"damage_resistances\": \"fire\",\n    \"damage_immunities\": \"radiant\",\n    \"condition_immunities\": \"charmed\",\n    \"senses\": \"darkvision 60 ft., passive Perception 15\",\n    \"languages\": \"—\",\n    \"cr\": \"8\",\n    \"proficiency_bonus\": \"+3\",\n    \"traits\": [\n        {\n            \"name\": \"Legendary Resistance (3/Day)\",\n            \"desc\": \"If the owlbear fails a saving throw, it can choose to succeed instead.\"\n        },\n        {\n            \"name\": \"Observer Mimic\",\n            \"desc\": \"If the owlbear is in dim light or darkness, it appears to be an observer, a type of powerful, floating eye tyrant.\"\n        },\n        {\n            \"name\": \"Photometabolise\",\n            \"desc\": \"If the owlbear is in direct sunlight, it regains 10 hit points at the start of its turn.\"\n        },\n        {\n            \"name\": \"Radiant Absorption\",\n            \"desc\": \"Whenever the owlbear is subjected to radiant damage, it takes no damage and instead regains a number of hit points equal to the radiant damage dealt.\"\n        },\n        {\n            \"name\": \"Supernova (Recharges after a Short or Long Rest)\",\n            \"desc\": \"If the owlbear would be reduced to 0 hit points, its current hit point total instead resets to 95 hit points, it recharges its Solar Beam, it immediately uses its Blinding Flash legendary action option (without expending any actions), and a small sun coalesces 10 feet above the owlbear and follows it for the next hour, shedding bright sunlight in a 30-foot radius and dispelling magical darkness created by spells of 2nd level or lower in the area. Additionally, the owlbear can use the options in the \\\"Mythic Actions\\\" section for 1 hour. Award a party an additional 5,000 XP (8,900 XP total) for defeating the owlbear after its Supernova activates.\"\n        }\n    ],\n    \"actions\": [\n        {\n            \"name\": \"Multiattack\",\n            \"desc\": \"The owlbear makes two attacks: one with its Beak and one with its Claws.\"\n        },\n        {\n            \"name\": \"Beak\",\n            \"desc\": \"Melee Weapon Attack: ++8 to hit, reach 5 ft., one target. Hit: 14 (2d8 + 5) piercing damage.\"\n        },\n        {\n            \"name\": \"Claws\",\n            \"desc\": \"Melee Weapon Attack: ++8 to hit, reach 5 ft., one target. Hit: 10 (2d4 + 5) slashing damage.\"\n        },\n        {\n            \"name\": \"Solar Beam (Recharge 5-6)\",\n            \"desc\": \"The owlbear exhales a beam of irradiating energy in a 5-foot-wide, 60-foot-long line. Each creature in the area must make a DC 15 Dexterity saving throw, taking 24 (7d6) radiant damage on a failed save or half as much damage on a successful one.\"\n        }\n    ],\n    \"legendary_description\": \"The adult suneater owlbear can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The adult suneater owlbear regains spent legendary actions at the start of its turn.\",\n    \"legendary_actions\": [\n        {\n            \"name\": \"Claws\",\n            \"desc\": \"The owlbear makes a Claws attack.\"\n        },\n        {\n            \"name\": \"Sunstep\",\n            \"desc\": \"The owlbear teleports from one area of bright light to an unoccupied space of bright light within 60 feet of it that it can see.\"\n        },\n        {\n            \"name\": \"Blinding Flash (Costs 2 Actions)\",\n            \"desc\": \"The owlbear's featherfronds release a blinding burst of light. Each creature within 30 feet of the owlbear that can see the owlbear must succeed on a DC 15 Constitution saving throw or be blinded until the end of the creature's next turn.\"\n        }\n    ],\n    \"mythic_description\": \"If the adult suneater owlbear's mythic trait has activated in the last hour, it can use the options below as legendary actions.\",\n    \"mythic_actions\": [\n        {\n            \"name\": \"Reflash\",\n            \"desc\": \"The owlbear uses its Blinding Flash legendary action.\"\n        },\n        {\n            \"name\": \"Refract (Costs 2 Actions)\",\n            \"desc\": \"The owlbear recharges and uses its Solar Beam.\"\n        }\n    ]\n}\n```\n\n![[Adult Suneater Owlbear.png|center|350]]\n",
+    "obsidianUri": "obsidian://new?vault=DnD%20-%20DM%20(Remote)&file=04.%20Custom%20Bestiary%2F00.%20Criaturas%20Varias%2FAdult%20Suneater%20Owlbear&content=%60%60%60statblock%0A%7B%0A%20%20%20%20%22name%22%3A%20%22Adult%20Suneater%20Owlbear%22%2C%0A%20%20%20%20%22size%22%3A%20%22Large%22%2C%0A%20%20%20%20%22type%22%3A%20%22fey%22%2C%0A%20%20%20%20%22alignment%22%3A%20%22Unaligned%22%2C%0A%20%20%20%20%22ac%22%3A%20%2215%20(natural%20armor)%22%2C%0A%20%20%20%20%22hp%22%3A%2095%2C%0A%20%20%20%20%22hit_dice%22%3A%20%2210d10%20%2B%2040%22%2C%0A%20%20%20%20%22speed%22%3A%20%2240%20ft.%2C%20swim%2030%20ft.%22%2C%0A%20%20%20%20%22stats%22%3A%20%5B%0A%20%20%20%20%20%20%20%2021%2C%0A%20%20%20%20%20%20%20%2012%2C%0A%20%20%20%20%20%20%20%2019%2C%0A%20%20%20%20%20%20%20%203%2C%0A%20%20%20%20%20%20%20%2014%2C%0A%20%20%20%20%20%20%20%2016%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22saves%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22wis%22%3A%20%22%2B5%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22cha%22%3A%20%22%2B6%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22skills%22%3A%20%7B%0A%20%20%20%20%20%20%20%20%22Perception%22%3A%20%22%2B5%22%0A%20%20%20%20%7D%2C%0A%20%20%20%20%22damage_resistances%22%3A%20%22fire%22%2C%0A%20%20%20%20%22damage_immunities%22%3A%20%22radiant%22%2C%0A%20%20%20%20%22condition_immunities%22%3A%20%22charmed%22%2C%0A%20%20%20%20%22senses%22%3A%20%22darkvision%2060%20ft.%2C%20passive%20Perception%2015%22%2C%0A%20%20%20%20%22languages%22%3A%20%22%E2%80%94%22%2C%0A%20%20%20%20%22cr%22%3A%20%228%22%2C%0A%20%20%20%20%22proficiency_bonus%22%3A%20%22%2B3%22%2C%0A%20%20%20%20%22traits%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Legendary%20Resistance%20(3%2FDay)%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22If%20the%20owlbear%20fails%20a%20saving%20throw%2C%20it%20can%20choose%20to%20succeed%20instead.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Observer%20Mimic%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22If%20the%20owlbear%20is%20in%20dim%20light%20or%20darkness%2C%20it%20appears%20to%20be%20an%20observer%2C%20a%20type%20of%20powerful%2C%20floating%20eye%20tyrant.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Photometabolise%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22If%20the%20owlbear%20is%20in%20direct%20sunlight%2C%20it%20regains%2010%20hit%20points%20at%20the%20start%20of%20its%20turn.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Radiant%20Absorption%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Whenever%20the%20owlbear%20is%20subjected%20to%20radiant%20damage%2C%20it%20takes%20no%20damage%20and%20instead%20regains%20a%20number%20of%20hit%20points%20equal%20to%20the%20radiant%20damage%20dealt.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Supernova%20(Recharges%20after%20a%20Short%20or%20Long%20Rest)%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22If%20the%20owlbear%20would%20be%20reduced%20to%200%20hit%20points%2C%20its%20current%20hit%20point%20total%20instead%20resets%20to%2095%20hit%20points%2C%20it%20recharges%20its%20Solar%20Beam%2C%20it%20immediately%20uses%20its%20Blinding%20Flash%20legendary%20action%20option%20(without%20expending%20any%20actions)%2C%20and%20a%20small%20sun%20coalesces%2010%20feet%20above%20the%20owlbear%20and%20follows%20it%20for%20the%20next%20hour%2C%20shedding%20bright%20sunlight%20in%20a%2030-foot%20radius%20and%20dispelling%20magical%20darkness%20created%20by%20spells%20of%202nd%20level%20or%20lower%20in%20the%20area.%20Additionally%2C%20the%20owlbear%20can%20use%20the%20options%20in%20the%20%5C%22Mythic%20Actions%5C%22%20section%20for%201%20hour.%20Award%20a%20party%20an%20additional%205%2C000%20XP%20(8%2C900%20XP%20total)%20for%20defeating%20the%20owlbear%20after%20its%20Supernova%20activates.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22actions%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Multiattack%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20owlbear%20makes%20two%20attacks%3A%20one%20with%20its%20Beak%20and%20one%20with%20its%20Claws.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Beak%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Melee%20Weapon%20Attack%3A%20%2B%2B8%20to%20hit%2C%20reach%205%20ft.%2C%20one%20target.%20Hit%3A%2014%20(2d8%20%2B%205)%20piercing%20damage.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Claws%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Melee%20Weapon%20Attack%3A%20%2B%2B8%20to%20hit%2C%20reach%205%20ft.%2C%20one%20target.%20Hit%3A%2010%20(2d4%20%2B%205)%20slashing%20damage.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Solar%20Beam%20(Recharge%205-6)%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20owlbear%20exhales%20a%20beam%20of%20irradiating%20energy%20in%20a%205-foot-wide%2C%2060-foot-long%20line.%20Each%20creature%20in%20the%20area%20must%20make%20a%20DC%2015%20Dexterity%20saving%20throw%2C%20taking%2024%20(7d6)%20radiant%20damage%20on%20a%20failed%20save%20or%20half%20as%20much%20damage%20on%20a%20successful%20one.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22legendary_description%22%3A%20%22The%20adult%20suneater%20owlbear%20can%20take%203%20legendary%20actions%2C%20choosing%20from%20the%20options%20below.%20Only%20one%20legendary%20action%20option%20can%20be%20used%20at%20a%20time%20and%20only%20at%20the%20end%20of%20another%20creature's%20turn.%20The%20adult%20suneater%20owlbear%20regains%20spent%20legendary%20actions%20at%20the%20start%20of%20its%20turn.%22%2C%0A%20%20%20%20%22legendary_actions%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Claws%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20owlbear%20makes%20a%20Claws%20attack.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Sunstep%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20owlbear%20teleports%20from%20one%20area%20of%20bright%20light%20to%20an%20unoccupied%20space%20of%20bright%20light%20within%2060%20feet%20of%20it%20that%20it%20can%20see.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Blinding%20Flash%20(Costs%202%20Actions)%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20owlbear's%20featherfronds%20release%20a%20blinding%20burst%20of%20light.%20Each%20creature%20within%2030%20feet%20of%20the%20owlbear%20that%20can%20see%20the%20owlbear%20must%20succeed%20on%20a%20DC%2015%20Constitution%20saving%20throw%20or%20be%20blinded%20until%20the%20end%20of%20the%20creature's%20next%20turn.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22mythic_description%22%3A%20%22If%20the%20adult%20suneater%20owlbear's%20mythic%20trait%20has%20activated%20in%20the%20last%20hour%2C%20it%20can%20use%20the%20options%20below%20as%20legendary%20actions.%22%2C%0A%20%20%20%20%22mythic_actions%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Reflash%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20owlbear%20uses%20its%20Blinding%20Flash%20legendary%20action.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Refract%20(Costs%202%20Actions)%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20owlbear%20recharges%20and%20uses%20its%20Solar%20Beam.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%0A%7D%0A%60%60%60%0A%0A!%5B%5BAdult%20Suneater%20Owlbear.png%7Ccenter%7C350%5D%5D%0A&overwrite=true",
+    "tag": "Vault Benchmark 🦉",
+    "breakerReason": "Paridad 1:1 exacta con la nota real Adult Suneater Owlbear.md de tu bóveda.",
+    "uriLength": 8455
+  },
+  {
+    "id": "marilith-mm",
+    "name": "Marilith",
+    "raw": {
+      "id": "marilith-mm",
+      "name": "Marilith",
+      "source": "MM",
+      "sourceGroup": "Monster Manual (2014)",
+      "category": "Official WotC",
+      "publisher": "Wizards of the Coast",
+      "size": "L",
+      "type": "fiend",
+      "typeTags": [
+        "demon"
+      ],
+      "alignment": "C / E",
+      "cr": "16",
+      "crNumeric": 16,
+      "xp": 15000,
+      "ac": 18,
+      "acText": "18 (natural armor)",
+      "hp": 189,
+      "hpFormula": "18d10 + 90",
+      "speed": {
+        "walk": 40,
+        "fly": 0,
+        "swim": 0,
+        "climb": 0,
+        "burrow": 0,
+        "canHover": false
+      },
+      "str": 18,
+      "dex": 20,
+      "con": 20,
+      "int": 18,
+      "wis": 16,
+      "cha": 20,
+      "save": {
+        "str": "+9",
+        "con": "+10",
+        "wis": "+8",
+        "cha": "+10"
+      },
+      "skill": {},
+      "senses": "truesight 120 ft.",
+      "passivePerception": 13,
+      "languages": "Abyssal, telepathy 120 ft.",
+      "immune": [
+        "poison"
+      ],
+      "resist": [
+        "cold",
+        "fire",
+        "lightning",
+        ""
+      ],
+      "vulnerable": [],
+      "conditionImmune": [
+        "poisoned"
+      ],
+      "trait": [
+        {
+          "name": "Magic Resistance",
+          "entries": [
+            "The marilith has advantage on saving throws against spells and other magical effects."
+          ]
+        },
+        {
+          "name": "Magic Weapons",
+          "entries": [
+            "The marilith's weapon attacks are magical."
+          ]
+        },
+        {
+          "name": "Reactive",
+          "entries": [
+            "The marilith can take one reaction on every turn in combat."
+          ]
+        }
+      ],
+      "action": [
+        {
+          "name": "Multiattack",
+          "entries": [
+            "The marilith can make seven attacks: six with its longswords and one with its tail."
+          ]
+        },
+        {
+          "name": "Longsword",
+          "entries": [
+            "mw 9 to hit, reach 5 ft., one target. Hit: 13 (2d8 + 4) slashing damage."
+          ]
+        },
+        {
+          "name": "Tail",
+          "entries": [
+            "mw 9 to hit, reach 10 ft., one creature. Hit: 15 (2d10 + 4) bludgeoning damage. If the target is Medium or smaller, it is grappled (escape DC 19). Until this grapple ends, the target is restrained, the marilith can automatically hit the target with its tail, and the marilith can't make tail attacks against other targets."
+          ]
+        },
+        {
+          "name": "Teleport",
+          "entries": [
+            "The marilith magically teleports, along with any equipment it is wearing or carrying, up to 120 feet to an unoccupied space it can see."
+          ]
+        }
+      ],
+      "reaction": [
+        {
+          "name": "Parry",
+          "entries": [
+            "The marilith adds 5 to its AC against one melee attack that would hit it. To do so, the marilith must see the attacker and be wielding a melee weapon."
+          ]
+        }
+      ],
+      "legendary": [],
+      "mythic": [],
+      "spellcasting": [],
+      "environment": [],
+      "hasToken": true,
+      "tokenUrl": "https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/MM/Marilith.webp",
+      "bonus": [],
+      "hasArt": true,
+      "artUrl": "https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/MM/Marilith.webp"
+    },
+    "statblockJson": {
+      "name": "Marilith",
+      "size": "Large",
+      "type": "fiend",
+      "alignment": "Chaotic Evil",
+      "ac": "18 (natural armor)",
+      "hp": 189,
+      "hit_dice": "18d10 + 90",
+      "speed": "40 ft.",
+      "stats": [
+        18,
+        20,
+        20,
+        18,
+        16,
+        20
+      ],
+      "saves": [
+        {
+          "str": "+9"
+        },
+        {
+          "con": "+10"
+        },
+        {
+          "wis": "+8"
+        },
+        {
+          "cha": "+10"
+        }
+      ],
+      "damage_resistances": "cold, fire, lightning, ",
+      "damage_immunities": "poison",
+      "condition_immunities": "poisoned",
+      "senses": "truesight 120 ft., passive Perception 13",
+      "languages": "Abyssal, telepathy 120 ft.",
+      "cr": "16",
+      "proficiency_bonus": "+5",
+      "traits": [
+        {
+          "name": "Magic Resistance",
+          "desc": "The marilith has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Magic Weapons",
+          "desc": "The marilith's weapon attacks are magical."
+        },
+        {
+          "name": "Reactive",
+          "desc": "The marilith can take one reaction on every turn in combat."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "desc": "The marilith can make seven attacks: six with its longswords and one with its tail."
+        },
+        {
+          "name": "Longsword",
+          "desc": "Melee Weapon Attack: ++9 to hit, reach 5 ft., one target. Hit: 13 (2d8 + 4) slashing damage."
+        },
+        {
+          "name": "Tail",
+          "desc": "Melee Weapon Attack: ++9 to hit, reach 10 ft., one creature. Hit: 15 (2d10 + 4) bludgeoning damage. If the target is Medium or smaller, it is grappled (escape DC 19). Until this grapple ends, the target is restrained, the marilith can automatically hit the target with its tail, and the marilith can't make tail attacks against other targets."
+        },
+        {
+          "name": "Teleport",
+          "desc": "The marilith magically teleports, along with any equipment it is wearing or carrying, up to 120 feet to an unoccupied space it can see."
+        }
+      ],
+      "reactions": [
+        {
+          "name": "Parry",
+          "desc": "The marilith adds 5 to its AC against one melee attack that would hit it. To do so, the marilith must see the attacker and be wielding a melee weapon."
+        }
+      ]
+    },
+    "markdown": "```statblock\n{\n    \"name\": \"Marilith\",\n    \"size\": \"Large\",\n    \"type\": \"fiend\",\n    \"alignment\": \"Chaotic Evil\",\n    \"ac\": \"18 (natural armor)\",\n    \"hp\": 189,\n    \"hit_dice\": \"18d10 + 90\",\n    \"speed\": \"40 ft.\",\n    \"stats\": [\n        18,\n        20,\n        20,\n        18,\n        16,\n        20\n    ],\n    \"saves\": [\n        {\n            \"str\": \"+9\"\n        },\n        {\n            \"con\": \"+10\"\n        },\n        {\n            \"wis\": \"+8\"\n        },\n        {\n            \"cha\": \"+10\"\n        }\n    ],\n    \"damage_resistances\": \"cold, fire, lightning, \",\n    \"damage_immunities\": \"poison\",\n    \"condition_immunities\": \"poisoned\",\n    \"senses\": \"truesight 120 ft., passive Perception 13\",\n    \"languages\": \"Abyssal, telepathy 120 ft.\",\n    \"cr\": \"16\",\n    \"proficiency_bonus\": \"+5\",\n    \"traits\": [\n        {\n            \"name\": \"Magic Resistance\",\n            \"desc\": \"The marilith has advantage on saving throws against spells and other magical effects.\"\n        },\n        {\n            \"name\": \"Magic Weapons\",\n            \"desc\": \"The marilith's weapon attacks are magical.\"\n        },\n        {\n            \"name\": \"Reactive\",\n            \"desc\": \"The marilith can take one reaction on every turn in combat.\"\n        }\n    ],\n    \"actions\": [\n        {\n            \"name\": \"Multiattack\",\n            \"desc\": \"The marilith can make seven attacks: six with its longswords and one with its tail.\"\n        },\n        {\n            \"name\": \"Longsword\",\n            \"desc\": \"Melee Weapon Attack: ++9 to hit, reach 5 ft., one target. Hit: 13 (2d8 + 4) slashing damage.\"\n        },\n        {\n            \"name\": \"Tail\",\n            \"desc\": \"Melee Weapon Attack: ++9 to hit, reach 10 ft., one creature. Hit: 15 (2d10 + 4) bludgeoning damage. If the target is Medium or smaller, it is grappled (escape DC 19). Until this grapple ends, the target is restrained, the marilith can automatically hit the target with its tail, and the marilith can't make tail attacks against other targets.\"\n        },\n        {\n            \"name\": \"Teleport\",\n            \"desc\": \"The marilith magically teleports, along with any equipment it is wearing or carrying, up to 120 feet to an unoccupied space it can see.\"\n        }\n    ],\n    \"reactions\": [\n        {\n            \"name\": \"Parry\",\n            \"desc\": \"The marilith adds 5 to its AC against one melee attack that would hit it. To do so, the marilith must see the attacker and be wielding a melee weapon.\"\n        }\n    ]\n}\n```\n\n![[Marilith.png|center|350]]\n",
+    "obsidianUri": "obsidian://new?vault=DnD%20-%20DM%20(Remote)&file=04.%20Custom%20Bestiary%2F00.%20Criaturas%20Varias%2FMarilith&content=%60%60%60statblock%0A%7B%0A%20%20%20%20%22name%22%3A%20%22Marilith%22%2C%0A%20%20%20%20%22size%22%3A%20%22Large%22%2C%0A%20%20%20%20%22type%22%3A%20%22fiend%22%2C%0A%20%20%20%20%22alignment%22%3A%20%22Chaotic%20Evil%22%2C%0A%20%20%20%20%22ac%22%3A%20%2218%20(natural%20armor)%22%2C%0A%20%20%20%20%22hp%22%3A%20189%2C%0A%20%20%20%20%22hit_dice%22%3A%20%2218d10%20%2B%2090%22%2C%0A%20%20%20%20%22speed%22%3A%20%2240%20ft.%22%2C%0A%20%20%20%20%22stats%22%3A%20%5B%0A%20%20%20%20%20%20%20%2018%2C%0A%20%20%20%20%20%20%20%2020%2C%0A%20%20%20%20%20%20%20%2020%2C%0A%20%20%20%20%20%20%20%2018%2C%0A%20%20%20%20%20%20%20%2016%2C%0A%20%20%20%20%20%20%20%2020%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22saves%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22str%22%3A%20%22%2B9%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22con%22%3A%20%22%2B10%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22wis%22%3A%20%22%2B8%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22cha%22%3A%20%22%2B10%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22damage_resistances%22%3A%20%22cold%2C%20fire%2C%20lightning%2C%20%22%2C%0A%20%20%20%20%22damage_immunities%22%3A%20%22poison%22%2C%0A%20%20%20%20%22condition_immunities%22%3A%20%22poisoned%22%2C%0A%20%20%20%20%22senses%22%3A%20%22truesight%20120%20ft.%2C%20passive%20Perception%2013%22%2C%0A%20%20%20%20%22languages%22%3A%20%22Abyssal%2C%20telepathy%20120%20ft.%22%2C%0A%20%20%20%20%22cr%22%3A%20%2216%22%2C%0A%20%20%20%20%22proficiency_bonus%22%3A%20%22%2B5%22%2C%0A%20%20%20%20%22traits%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Magic%20Resistance%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20marilith%20has%20advantage%20on%20saving%20throws%20against%20spells%20and%20other%20magical%20effects.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Magic%20Weapons%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20marilith's%20weapon%20attacks%20are%20magical.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Reactive%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20marilith%20can%20take%20one%20reaction%20on%20every%20turn%20in%20combat.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22actions%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Multiattack%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20marilith%20can%20make%20seven%20attacks%3A%20six%20with%20its%20longswords%20and%20one%20with%20its%20tail.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Longsword%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Melee%20Weapon%20Attack%3A%20%2B%2B9%20to%20hit%2C%20reach%205%20ft.%2C%20one%20target.%20Hit%3A%2013%20(2d8%20%2B%204)%20slashing%20damage.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Tail%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Melee%20Weapon%20Attack%3A%20%2B%2B9%20to%20hit%2C%20reach%2010%20ft.%2C%20one%20creature.%20Hit%3A%2015%20(2d10%20%2B%204)%20bludgeoning%20damage.%20If%20the%20target%20is%20Medium%20or%20smaller%2C%20it%20is%20grappled%20(escape%20DC%2019).%20Until%20this%20grapple%20ends%2C%20the%20target%20is%20restrained%2C%20the%20marilith%20can%20automatically%20hit%20the%20target%20with%20its%20tail%2C%20and%20the%20marilith%20can't%20make%20tail%20attacks%20against%20other%20targets.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Teleport%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20marilith%20magically%20teleports%2C%20along%20with%20any%20equipment%20it%20is%20wearing%20or%20carrying%2C%20up%20to%20120%20feet%20to%20an%20unoccupied%20space%20it%20can%20see.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22reactions%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Parry%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20marilith%20adds%205%20to%20its%20AC%20against%20one%20melee%20attack%20that%20would%20hit%20it.%20To%20do%20so%2C%20the%20marilith%20must%20see%20the%20attacker%20and%20be%20wielding%20a%20melee%20weapon.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%0A%7D%0A%60%60%60%0A%0A!%5B%5BMarilith.png%7Ccenter%7C350%5D%5D%0A&overwrite=true",
+    "tag": "Rompe-Statblock ⚔️",
+    "breakerReason": "7 ataques en Multiattack, rasgo Reactivo en cada turno y bloque Reactions (Parry).",
+    "uriLength": 5030
+  }
+]

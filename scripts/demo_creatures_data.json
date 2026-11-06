@@ -1,0 +1,547 @@
+[
+  {
+    "raw": {
+      "id": "goblin-mm",
+      "name": "Goblin",
+      "source": "MM",
+      "sourceGroup": "Monster Manual (2014)",
+      "category": "Official WotC",
+      "publisher": "Wizards of the Coast",
+      "size": "S",
+      "type": "humanoid",
+      "typeTags": [
+        "goblinoid"
+      ],
+      "alignment": "N / E",
+      "cr": "1/4",
+      "crNumeric": 0.25,
+      "xp": 50,
+      "ac": 15,
+      "acText": "15 (leather armor, shield)",
+      "hp": 7,
+      "hpFormula": "2d6",
+      "speed": {
+        "walk": 30,
+        "fly": 0,
+        "swim": 0,
+        "climb": 0,
+        "burrow": 0,
+        "canHover": false
+      },
+      "str": 8,
+      "dex": 14,
+      "con": 10,
+      "int": 10,
+      "wis": 8,
+      "cha": 8,
+      "save": {},
+      "skill": {
+        "stealth": "+6"
+      },
+      "senses": "darkvision 60 ft.",
+      "passivePerception": 9,
+      "languages": "Common, Goblin",
+      "immune": [],
+      "resist": [],
+      "vulnerable": [],
+      "conditionImmune": [],
+      "trait": [
+        {
+          "name": "Nimble Escape",
+          "entries": [
+            "The goblin can take the Disengage or Hide action as a bonus action on each of its turns."
+          ]
+        }
+      ],
+      "action": [
+        {
+          "name": "Scimitar",
+          "entries": [
+            "mw 4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) slashing damage."
+          ]
+        },
+        {
+          "name": "Shortbow",
+          "entries": [
+            "rw 4 to hit, range 80/320 ft., one target. Hit: 5 (1d6 + 2) piercing damage."
+          ]
+        }
+      ],
+      "reaction": [],
+      "legendary": [],
+      "mythic": [],
+      "spellcasting": [],
+      "environment": [
+        "underdark",
+        "grassland",
+        "forest",
+        "hill"
+      ],
+      "hasToken": true,
+      "tokenUrl": "https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/MM/Goblin.webp",
+      "bonus": [],
+      "hasArt": true,
+      "artUrl": "https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/MM/Goblin.webp"
+    },
+    "statblockJson": {
+      "name": "Goblin",
+      "size": "Small",
+      "type": "humanoid",
+      "alignment": "Neutral Evil",
+      "ac": "15 (leather armor, shield)",
+      "hp": 7,
+      "hit_dice": "2d6",
+      "speed": "30 ft.",
+      "stats": [
+        8,
+        14,
+        10,
+        10,
+        8,
+        8
+      ],
+      "skills": {
+        "Stealth": "+6"
+      },
+      "senses": "darkvision 60 ft., passive Perception 9",
+      "languages": "Common, Goblin",
+      "cr": "1/4",
+      "proficiency_bonus": "+2",
+      "traits": [
+        {
+          "name": "Nimble Escape",
+          "desc": "The goblin can take the Disengage or Hide action as a bonus action on each of its turns."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Scimitar",
+          "desc": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) slashing damage."
+        },
+        {
+          "name": "Shortbow",
+          "desc": "Ranged Weapon Attack: +4 to hit, range 80/320 ft., one target. Hit: 5 (1d6 + 2) piercing damage."
+        }
+      ]
+    },
+    "markdown": "```statblock\n{\n    \"name\": \"Goblin\",\n    \"size\": \"Small\",\n    \"type\": \"humanoid\",\n    \"alignment\": \"Neutral Evil\",\n    \"ac\": \"15 (leather armor, shield)\",\n    \"hp\": 7,\n    \"hit_dice\": \"2d6\",\n    \"speed\": \"30 ft.\",\n    \"stats\": [\n        8,\n        14,\n        10,\n        10,\n        8,\n        8\n    ],\n    \"skills\": {\n        \"Stealth\": \"+6\"\n    },\n    \"senses\": \"darkvision 60 ft., passive Perception 9\",\n    \"languages\": \"Common, Goblin\",\n    \"cr\": \"1/4\",\n    \"proficiency_bonus\": \"+2\",\n    \"traits\": [\n        {\n            \"name\": \"Nimble Escape\",\n            \"desc\": \"The goblin can take the Disengage or Hide action as a bonus action on each of its turns.\"\n        }\n    ],\n    \"actions\": [\n        {\n            \"name\": \"Scimitar\",\n            \"desc\": \"Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) slashing damage.\"\n        },\n        {\n            \"name\": \"Shortbow\",\n            \"desc\": \"Ranged Weapon Attack: +4 to hit, range 80/320 ft., one target. Hit: 5 (1d6 + 2) piercing damage.\"\n        }\n    ]\n}\n```\n\n![[Goblin.png|center|350]]\n",
+    "obsidianUri": "obsidian://new?vault=DnD%20-%20DM%20(Remote)&file=04.%20Custom%20Bestiary%2F00.%20Criaturas%20Varias%2FGoblin&content=%60%60%60statblock%0A%7B%0A%20%20%20%20%22name%22%3A%20%22Goblin%22%2C%0A%20%20%20%20%22size%22%3A%20%22Small%22%2C%0A%20%20%20%20%22type%22%3A%20%22humanoid%22%2C%0A%20%20%20%20%22alignment%22%3A%20%22Neutral%20Evil%22%2C%0A%20%20%20%20%22ac%22%3A%20%2215%20(leather%20armor%2C%20shield)%22%2C%0A%20%20%20%20%22hp%22%3A%207%2C%0A%20%20%20%20%22hit_dice%22%3A%20%222d6%22%2C%0A%20%20%20%20%22speed%22%3A%20%2230%20ft.%22%2C%0A%20%20%20%20%22stats%22%3A%20%5B%0A%20%20%20%20%20%20%20%208%2C%0A%20%20%20%20%20%20%20%2014%2C%0A%20%20%20%20%20%20%20%2010%2C%0A%20%20%20%20%20%20%20%2010%2C%0A%20%20%20%20%20%20%20%208%2C%0A%20%20%20%20%20%20%20%208%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22skills%22%3A%20%7B%0A%20%20%20%20%20%20%20%20%22Stealth%22%3A%20%22%2B6%22%0A%20%20%20%20%7D%2C%0A%20%20%20%20%22senses%22%3A%20%22darkvision%2060%20ft.%2C%20passive%20Perception%209%22%2C%0A%20%20%20%20%22languages%22%3A%20%22Common%2C%20Goblin%22%2C%0A%20%20%20%20%22cr%22%3A%20%221%2F4%22%2C%0A%20%20%20%20%22proficiency_bonus%22%3A%20%22%2B2%22%2C%0A%20%20%20%20%22traits%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Nimble%20Escape%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20goblin%20can%20take%20the%20Disengage%20or%20Hide%20action%20as%20a%20bonus%20action%20on%20each%20of%20its%20turns.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22actions%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Scimitar%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Melee%20Weapon%20Attack%3A%20%2B4%20to%20hit%2C%20reach%205%20ft.%2C%20one%20target.%20Hit%3A%205%20(1d6%20%2B%202)%20slashing%20damage.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Shortbow%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Ranged%20Weapon%20Attack%3A%20%2B4%20to%20hit%2C%20range%2080%2F320%20ft.%2C%20one%20target.%20Hit%3A%205%20(1d6%20%2B%202)%20piercing%20damage.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%0A%7D%0A%60%60%60%0A%0A!%5B%5BGoblin.png%7Ccenter%7C350%5D%5D%0A&overwrite=true",
+    "vaultTarget": {
+      "vault": "DnD - DM (Remote)",
+      "folder": "04. Custom Bestiary/00. Criaturas Varias",
+      "file": "Goblin.md"
+    }
+  },
+  {
+    "raw": {
+      "id": "mind-flayer-mm",
+      "name": "Mind Flayer",
+      "source": "MM",
+      "sourceGroup": "Monster Manual (2014)",
+      "category": "Official WotC",
+      "publisher": "Wizards of the Coast",
+      "size": "M",
+      "type": "aberration",
+      "typeTags": [],
+      "alignment": "L / E",
+      "cr": "7",
+      "crNumeric": 7,
+      "xp": 2900,
+      "ac": 15,
+      "acText": "15 (breastplate)",
+      "hp": 71,
+      "hpFormula": "13d8 + 13",
+      "speed": {
+        "walk": 30,
+        "fly": 0,
+        "swim": 0,
+        "climb": 0,
+        "burrow": 0,
+        "canHover": false
+      },
+      "str": 11,
+      "dex": 12,
+      "con": 12,
+      "int": 19,
+      "wis": 17,
+      "cha": 17,
+      "save": {
+        "int": "+7",
+        "wis": "+6",
+        "cha": "+6"
+      },
+      "skill": {
+        "arcana": "+7",
+        "deception": "+6",
+        "insight": "+6",
+        "perception": "+6",
+        "persuasion": "+6",
+        "stealth": "+4"
+      },
+      "senses": "darkvision 120 ft.",
+      "passivePerception": 16,
+      "languages": "Deep Speech, Undercommon, telepathy 120 ft.",
+      "immune": [],
+      "resist": [],
+      "vulnerable": [],
+      "conditionImmune": [],
+      "trait": [
+        {
+          "name": "Magic Resistance",
+          "entries": [
+            "The mind flayer has advantage on saving throws against spells and other magical effects."
+          ]
+        }
+      ],
+      "action": [
+        {
+          "name": "Tentacles",
+          "entries": [
+            "mw 7 to hit, reach 5 ft., one creature. Hit: 15 (2d10 + 4) psychic damage. If the target is Medium or smaller, it is grappled (escape DC 15) and must succeed on a DC 15 Intelligence saving throw or be stunned until this grapple ends."
+          ]
+        },
+        {
+          "name": "Extract Brain",
+          "entries": [
+            "mw 7 to hit, reach 5 ft., one incapacitated humanoid grappled by the mind flayer. Hit: The target takes 55 (10d10) piercing damage. If this damage reduces the target to 0 hit points, the mind flayer kills the target by extracting and devouring its brain."
+          ]
+        },
+        {
+          "name": "Mind Blast (Recarga 5)",
+          "entries": [
+            "The mind flayer magically emits psychic energy in a 60-foot cone. Each creature in that area must succeed on a DC 15 Intelligence saving throw or take 22 (4d8 + 4) psychic damage and be stunned for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+          ]
+        }
+      ],
+      "reaction": [],
+      "legendary": [],
+      "mythic": [],
+      "spellcasting": [
+        {
+          "name": "Innate Spellcasting (Psionics)",
+          "headerEntries": [
+            "The mind flayer's innate spellcasting ability is Intelligence (spell save DC 15). It can innately cast the following spells, requiring no components:"
+          ],
+          "spells": {},
+          "will": [
+            "detect thoughts",
+            "levitate"
+          ],
+          "daily": {
+            "1e": [
+              "dominate monster",
+              "plane shift (self only)"
+            ]
+          }
+        }
+      ],
+      "environment": [
+        "underdark"
+      ],
+      "hasToken": true,
+      "tokenUrl": "https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/MM/Mind%20Flayer.webp",
+      "bonus": [],
+      "hasArt": true,
+      "artUrl": "https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/MM/Mind%20Flayer.webp"
+    },
+    "statblockJson": {
+      "name": "Mind Flayer",
+      "size": "Medium",
+      "type": "aberration",
+      "alignment": "Lawful Evil",
+      "ac": "15 (breastplate)",
+      "hp": 71,
+      "hit_dice": "13d8 + 13",
+      "speed": "30 ft.",
+      "stats": [
+        11,
+        12,
+        12,
+        19,
+        17,
+        17
+      ],
+      "saves": [
+        {
+          "int": "+7"
+        },
+        {
+          "wis": "+6"
+        },
+        {
+          "cha": "+6"
+        }
+      ],
+      "skills": {
+        "Arcana": "+7",
+        "Deception": "+6",
+        "Insight": "+6",
+        "Perception": "+6",
+        "Persuasion": "+6",
+        "Stealth": "+4"
+      },
+      "senses": "darkvision 120 ft., passive Perception 16",
+      "languages": "Deep Speech, Undercommon, telepathy 120 ft.",
+      "cr": "7",
+      "proficiency_bonus": "+3",
+      "traits": [
+        {
+          "name": "Magic Resistance",
+          "desc": "The mind flayer has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Innate Spellcasting (Psionics)",
+          "desc": "The mind flayer's innate spellcasting ability is Intelligence (spell save DC 15). It can innately cast the following spells, requiring no components:\nAt will: detect thoughts, levitate\n1/day each: dominate monster, plane shift (self only)"
+        }
+      ],
+      "actions": [
+        {
+          "name": "Tentacles",
+          "desc": "Melee Weapon Attack: +7 to hit, reach 5 ft., one creature. Hit: 15 (2d10 + 4) psychic damage. If the target is Medium or smaller, it is grappled (escape DC 15) and must succeed on a DC 15 Intelligence saving throw or be stunned until this grapple ends."
+        },
+        {
+          "name": "Extract Brain",
+          "desc": "Melee Weapon Attack: +7 to hit, reach 5 ft., one incapacitated humanoid grappled by the mind flayer. Hit: The target takes 55 (10d10) piercing damage. If this damage reduces the target to 0 hit points, the mind flayer kills the target by extracting and devouring its brain."
+        },
+        {
+          "name": "Mind Blast (Recarga 5)",
+          "desc": "The mind flayer magically emits psychic energy in a 60-foot cone. Each creature in that area must succeed on a DC 15 Intelligence saving throw or take 22 (4d8 + 4) psychic damage and be stunned for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+        }
+      ]
+    },
+    "markdown": "```statblock\n{\n    \"name\": \"Mind Flayer\",\n    \"size\": \"Medium\",\n    \"type\": \"aberration\",\n    \"alignment\": \"Lawful Evil\",\n    \"ac\": \"15 (breastplate)\",\n    \"hp\": 71,\n    \"hit_dice\": \"13d8 + 13\",\n    \"speed\": \"30 ft.\",\n    \"stats\": [\n        11,\n        12,\n        12,\n        19,\n        17,\n        17\n    ],\n    \"saves\": [\n        {\n            \"int\": \"+7\"\n        },\n        {\n            \"wis\": \"+6\"\n        },\n        {\n            \"cha\": \"+6\"\n        }\n    ],\n    \"skills\": {\n        \"Arcana\": \"+7\",\n        \"Deception\": \"+6\",\n        \"Insight\": \"+6\",\n        \"Perception\": \"+6\",\n        \"Persuasion\": \"+6\",\n        \"Stealth\": \"+4\"\n    },\n    \"senses\": \"darkvision 120 ft., passive Perception 16\",\n    \"languages\": \"Deep Speech, Undercommon, telepathy 120 ft.\",\n    \"cr\": \"7\",\n    \"proficiency_bonus\": \"+3\",\n    \"traits\": [\n        {\n            \"name\": \"Magic Resistance\",\n            \"desc\": \"The mind flayer has advantage on saving throws against spells and other magical effects.\"\n        },\n        {\n            \"name\": \"Innate Spellcasting (Psionics)\",\n            \"desc\": \"The mind flayer's innate spellcasting ability is Intelligence (spell save DC 15). It can innately cast the following spells, requiring no components:\\nAt will: detect thoughts, levitate\\n1/day each: dominate monster, plane shift (self only)\"\n        }\n    ],\n    \"actions\": [\n        {\n            \"name\": \"Tentacles\",\n            \"desc\": \"Melee Weapon Attack: +7 to hit, reach 5 ft., one creature. Hit: 15 (2d10 + 4) psychic damage. If the target is Medium or smaller, it is grappled (escape DC 15) and must succeed on a DC 15 Intelligence saving throw or be stunned until this grapple ends.\"\n        },\n        {\n            \"name\": \"Extract Brain\",\n            \"desc\": \"Melee Weapon Attack: +7 to hit, reach 5 ft., one incapacitated humanoid grappled by the mind flayer. Hit: The target takes 55 (10d10) piercing damage. If this damage reduces the target to 0 hit points, the mind flayer kills the target by extracting and devouring its brain.\"\n        },\n        {\n            \"name\": \"Mind Blast (Recarga 5)\",\n            \"desc\": \"The mind flayer magically emits psychic energy in a 60-foot cone. Each creature in that area must succeed on a DC 15 Intelligence saving throw or take 22 (4d8 + 4) psychic damage and be stunned for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.\"\n        }\n    ]\n}\n```\n\n![[Mind Flayer.png|center|350]]\n",
+    "obsidianUri": "obsidian://new?vault=DnD%20-%20DM%20(Remote)&file=04.%20Custom%20Bestiary%2F00.%20Criaturas%20Varias%2FMind%20Flayer&content=%60%60%60statblock%0A%7B%0A%20%20%20%20%22name%22%3A%20%22Mind%20Flayer%22%2C%0A%20%20%20%20%22size%22%3A%20%22Medium%22%2C%0A%20%20%20%20%22type%22%3A%20%22aberration%22%2C%0A%20%20%20%20%22alignment%22%3A%20%22Lawful%20Evil%22%2C%0A%20%20%20%20%22ac%22%3A%20%2215%20(breastplate)%22%2C%0A%20%20%20%20%22hp%22%3A%2071%2C%0A%20%20%20%20%22hit_dice%22%3A%20%2213d8%20%2B%2013%22%2C%0A%20%20%20%20%22speed%22%3A%20%2230%20ft.%22%2C%0A%20%20%20%20%22stats%22%3A%20%5B%0A%20%20%20%20%20%20%20%2011%2C%0A%20%20%20%20%20%20%20%2012%2C%0A%20%20%20%20%20%20%20%2012%2C%0A%20%20%20%20%20%20%20%2019%2C%0A%20%20%20%20%20%20%20%2017%2C%0A%20%20%20%20%20%20%20%2017%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22saves%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22int%22%3A%20%22%2B7%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22wis%22%3A%20%22%2B6%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22cha%22%3A%20%22%2B6%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22skills%22%3A%20%7B%0A%20%20%20%20%20%20%20%20%22Arcana%22%3A%20%22%2B7%22%2C%0A%20%20%20%20%20%20%20%20%22Deception%22%3A%20%22%2B6%22%2C%0A%20%20%20%20%20%20%20%20%22Insight%22%3A%20%22%2B6%22%2C%0A%20%20%20%20%20%20%20%20%22Perception%22%3A%20%22%2B6%22%2C%0A%20%20%20%20%20%20%20%20%22Persuasion%22%3A%20%22%2B6%22%2C%0A%20%20%20%20%20%20%20%20%22Stealth%22%3A%20%22%2B4%22%0A%20%20%20%20%7D%2C%0A%20%20%20%20%22senses%22%3A%20%22darkvision%20120%20ft.%2C%20passive%20Perception%2016%22%2C%0A%20%20%20%20%22languages%22%3A%20%22Deep%20Speech%2C%20Undercommon%2C%20telepathy%20120%20ft.%22%2C%0A%20%20%20%20%22cr%22%3A%20%227%22%2C%0A%20%20%20%20%22proficiency_bonus%22%3A%20%22%2B3%22%2C%0A%20%20%20%20%22traits%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Magic%20Resistance%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20mind%20flayer%20has%20advantage%20on%20saving%20throws%20against%20spells%20and%20other%20magical%20effects.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Innate%20Spellcasting%20(Psionics)%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20mind%20flayer's%20innate%20spellcasting%20ability%20is%20Intelligence%20(spell%20save%20DC%2015).%20It%20can%20innately%20cast%20the%20following%20spells%2C%20requiring%20no%20components%3A%5CnAt%20will%3A%20detect%20thoughts%2C%20levitate%5Cn1%2Fday%20each%3A%20dominate%20monster%2C%20plane%20shift%20(self%20only)%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22actions%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Tentacles%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Melee%20Weapon%20Attack%3A%20%2B7%20to%20hit%2C%20reach%205%20ft.%2C%20one%20creature.%20Hit%3A%2015%20(2d10%20%2B%204)%20psychic%20damage.%20If%20the%20target%20is%20Medium%20or%20smaller%2C%20it%20is%20grappled%20(escape%20DC%2015)%20and%20must%20succeed%20on%20a%20DC%2015%20Intelligence%20saving%20throw%20or%20be%20stunned%20until%20this%20grapple%20ends.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Extract%20Brain%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Melee%20Weapon%20Attack%3A%20%2B7%20to%20hit%2C%20reach%205%20ft.%2C%20one%20incapacitated%20humanoid%20grappled%20by%20the%20mind%20flayer.%20Hit%3A%20The%20target%20takes%2055%20(10d10)%20piercing%20damage.%20If%20this%20damage%20reduces%20the%20target%20to%200%20hit%20points%2C%20the%20mind%20flayer%20kills%20the%20target%20by%20extracting%20and%20devouring%20its%20brain.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Mind%20Blast%20(Recarga%205)%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20mind%20flayer%20magically%20emits%20psychic%20energy%20in%20a%2060-foot%20cone.%20Each%20creature%20in%20that%20area%20must%20succeed%20on%20a%20DC%2015%20Intelligence%20saving%20throw%20or%20take%2022%20(4d8%20%2B%204)%20psychic%20damage%20and%20be%20stunned%20for%201%20minute.%20A%20creature%20can%20repeat%20the%20saving%20throw%20at%20the%20end%20of%20each%20of%20its%20turns%2C%20ending%20the%20effect%20on%20itself%20on%20a%20success.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%0A%7D%0A%60%60%60%0A%0A!%5B%5BMind%20Flayer.png%7Ccenter%7C350%5D%5D%0A&overwrite=true",
+    "vaultTarget": {
+      "vault": "DnD - DM (Remote)",
+      "folder": "04. Custom Bestiary/00. Criaturas Varias",
+      "file": "Mind Flayer.md"
+    }
+  },
+  {
+    "raw": {
+      "id": "ancient-red-dragon-mm",
+      "name": "Ancient Red Dragon",
+      "source": "MM",
+      "sourceGroup": "Monster Manual (2014)",
+      "category": "Official WotC",
+      "publisher": "Wizards of the Coast",
+      "size": "G",
+      "type": "dragon",
+      "typeTags": [],
+      "alignment": "C / E",
+      "cr": "24",
+      "crNumeric": 24,
+      "xp": 62000,
+      "ac": 22,
+      "acText": "22 (natural armor)",
+      "hp": 546,
+      "hpFormula": "28d20 + 252",
+      "speed": {
+        "walk": 40,
+        "fly": 80,
+        "swim": 0,
+        "climb": 40,
+        "burrow": 0,
+        "canHover": false
+      },
+      "str": 30,
+      "dex": 10,
+      "con": 29,
+      "int": 18,
+      "wis": 15,
+      "cha": 23,
+      "save": {
+        "dex": "+7",
+        "con": "+16",
+        "wis": "+9",
+        "cha": "+13"
+      },
+      "skill": {
+        "perception": "+16",
+        "stealth": "+7"
+      },
+      "senses": "blindsight 60 ft., darkvision 120 ft.",
+      "passivePerception": 26,
+      "languages": "Common, Draconic",
+      "immune": [
+        "fire"
+      ],
+      "resist": [],
+      "vulnerable": [],
+      "conditionImmune": [],
+      "trait": [
+        {
+          "name": "Legendary Resistance (3/Day)",
+          "entries": [
+            "If the dragon fails a saving throw, it can choose to succeed instead."
+          ]
+        }
+      ],
+      "action": [
+        {
+          "name": "Multiattack",
+          "entries": [
+            "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws."
+          ]
+        },
+        {
+          "name": "Bite",
+          "entries": [
+            "mw 17 to hit, reach 15 ft., one target. Hit: 21 (2d10 + 10) piercing damage plus 14 (4d6) fire damage."
+          ]
+        },
+        {
+          "name": "Claw",
+          "entries": [
+            "mw 17 to hit, reach 10 ft., one target. Hit: 17 (2d6 + 10) slashing damage."
+          ]
+        },
+        {
+          "name": "Tail",
+          "entries": [
+            "mw 17 to hit, reach 20 ft., one target. Hit: 19 (2d8 + 10) bludgeoning damage."
+          ]
+        },
+        {
+          "name": "Frightful Presence",
+          "entries": [
+            "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 21 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours."
+          ]
+        },
+        {
+          "name": "Fire Breath (Recarga 5)",
+          "entries": [
+            "The dragon exhales fire in a 90-foot cone. Each creature in that area must make a DC 24 Dexterity saving throw, taking 91 (26d6) fire damage on a failed save, or half as much damage on a successful one."
+          ]
+        }
+      ],
+      "reaction": [],
+      "legendary": [
+        {
+          "name": "Detect",
+          "entries": [
+            "The dragon makes a Wisdom (Perception) check."
+          ]
+        },
+        {
+          "name": "Tail Attack",
+          "entries": [
+            "The dragon makes a tail attack."
+          ]
+        },
+        {
+          "name": "Wing Attack (Costs 2 Actions)",
+          "entries": [
+            "The dragon beats its wings. Each creature within 15 feet of the dragon must succeed on a DC 25 Dexterity saving throw or take 17 (2d6 + 10) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed."
+          ]
+        }
+      ],
+      "mythic": [],
+      "spellcasting": [],
+      "environment": [
+        "mountain",
+        "hill"
+      ],
+      "hasToken": true,
+      "tokenUrl": "https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/MM/Ancient%20Red%20Dragon.webp",
+      "bonus": [],
+      "hasArt": true,
+      "artUrl": "https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/MM/Adult%20Red%20Dragon.webp"
+    },
+    "statblockJson": {
+      "name": "Ancient Red Dragon",
+      "size": "Gargantuan",
+      "type": "dragon",
+      "alignment": "Chaotic Evil",
+      "ac": "22 (natural armor)",
+      "hp": 546,
+      "hit_dice": "28d20 + 252",
+      "speed": "40 ft., climb 40 ft., fly 80 ft.",
+      "stats": [
+        30,
+        10,
+        29,
+        18,
+        15,
+        23
+      ],
+      "saves": [
+        {
+          "dex": "+7"
+        },
+        {
+          "con": "+16"
+        },
+        {
+          "wis": "+9"
+        },
+        {
+          "cha": "+13"
+        }
+      ],
+      "skills": {
+        "Perception": "+16",
+        "Stealth": "+7"
+      },
+      "damage_immunities": "fire",
+      "senses": "blindsight 60 ft., darkvision 120 ft., passive Perception 26",
+      "languages": "Common, Draconic",
+      "cr": "24",
+      "proficiency_bonus": "+7",
+      "traits": [
+        {
+          "name": "Legendary Resistance (3/Day)",
+          "desc": "If the dragon fails a saving throw, it can choose to succeed instead."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "desc": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws."
+        },
+        {
+          "name": "Bite",
+          "desc": "Melee Weapon Attack: +17 to hit, reach 15 ft., one target. Hit: 21 (2d10 + 10) piercing damage plus 14 (4d6) fire damage."
+        },
+        {
+          "name": "Claw",
+          "desc": "Melee Weapon Attack: +17 to hit, reach 10 ft., one target. Hit: 17 (2d6 + 10) slashing damage."
+        },
+        {
+          "name": "Tail",
+          "desc": "Melee Weapon Attack: +17 to hit, reach 20 ft., one target. Hit: 19 (2d8 + 10) bludgeoning damage."
+        },
+        {
+          "name": "Frightful Presence",
+          "desc": "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 21 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours."
+        },
+        {
+          "name": "Fire Breath (Recarga 5)",
+          "desc": "The dragon exhales fire in a 90-foot cone. Each creature in that area must make a DC 24 Dexterity saving throw, taking 91 (26d6) fire damage on a failed save, or half as much damage on a successful one."
+        }
+      ],
+      "legendary_description": "The ancient red dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The ancient red dragon regains spent legendary actions at the start of its turn.",
+      "legendary_actions": [
+        {
+          "name": "Detect",
+          "desc": "The dragon makes a Wisdom (Perception) check."
+        },
+        {
+          "name": "Tail Attack",
+          "desc": "The dragon makes a tail attack."
+        },
+        {
+          "name": "Wing Attack (Costs 2 Actions)",
+          "desc": "The dragon beats its wings. Each creature within 15 feet of the dragon must succeed on a DC 25 Dexterity saving throw or take 17 (2d6 + 10) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed."
+        }
+      ]
+    },
+    "markdown": "```statblock\n{\n    \"name\": \"Ancient Red Dragon\",\n    \"size\": \"Gargantuan\",\n    \"type\": \"dragon\",\n    \"alignment\": \"Chaotic Evil\",\n    \"ac\": \"22 (natural armor)\",\n    \"hp\": 546,\n    \"hit_dice\": \"28d20 + 252\",\n    \"speed\": \"40 ft., climb 40 ft., fly 80 ft.\",\n    \"stats\": [\n        30,\n        10,\n        29,\n        18,\n        15,\n        23\n    ],\n    \"saves\": [\n        {\n            \"dex\": \"+7\"\n        },\n        {\n            \"con\": \"+16\"\n        },\n        {\n            \"wis\": \"+9\"\n        },\n        {\n            \"cha\": \"+13\"\n        }\n    ],\n    \"skills\": {\n        \"Perception\": \"+16\",\n        \"Stealth\": \"+7\"\n    },\n    \"damage_immunities\": \"fire\",\n    \"senses\": \"blindsight 60 ft., darkvision 120 ft., passive Perception 26\",\n    \"languages\": \"Common, Draconic\",\n    \"cr\": \"24\",\n    \"proficiency_bonus\": \"+7\",\n    \"traits\": [\n        {\n            \"name\": \"Legendary Resistance (3/Day)\",\n            \"desc\": \"If the dragon fails a saving throw, it can choose to succeed instead.\"\n        }\n    ],\n    \"actions\": [\n        {\n            \"name\": \"Multiattack\",\n            \"desc\": \"The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.\"\n        },\n        {\n            \"name\": \"Bite\",\n            \"desc\": \"Melee Weapon Attack: +17 to hit, reach 15 ft., one target. Hit: 21 (2d10 + 10) piercing damage plus 14 (4d6) fire damage.\"\n        },\n        {\n            \"name\": \"Claw\",\n            \"desc\": \"Melee Weapon Attack: +17 to hit, reach 10 ft., one target. Hit: 17 (2d6 + 10) slashing damage.\"\n        },\n        {\n            \"name\": \"Tail\",\n            \"desc\": \"Melee Weapon Attack: +17 to hit, reach 20 ft., one target. Hit: 19 (2d8 + 10) bludgeoning damage.\"\n        },\n        {\n            \"name\": \"Frightful Presence\",\n            \"desc\": \"Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 21 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours.\"\n        },\n        {\n            \"name\": \"Fire Breath (Recarga 5)\",\n            \"desc\": \"The dragon exhales fire in a 90-foot cone. Each creature in that area must make a DC 24 Dexterity saving throw, taking 91 (26d6) fire damage on a failed save, or half as much damage on a successful one.\"\n        }\n    ],\n    \"legendary_description\": \"The ancient red dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The ancient red dragon regains spent legendary actions at the start of its turn.\",\n    \"legendary_actions\": [\n        {\n            \"name\": \"Detect\",\n            \"desc\": \"The dragon makes a Wisdom (Perception) check.\"\n        },\n        {\n            \"name\": \"Tail Attack\",\n            \"desc\": \"The dragon makes a tail attack.\"\n        },\n        {\n            \"name\": \"Wing Attack (Costs 2 Actions)\",\n            \"desc\": \"The dragon beats its wings. Each creature within 15 feet of the dragon must succeed on a DC 25 Dexterity saving throw or take 17 (2d6 + 10) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed.\"\n        }\n    ]\n}\n```\n\n![[Ancient Red Dragon.png|center|350]]\n",
+    "obsidianUri": "obsidian://new?vault=DnD%20-%20DM%20(Remote)&file=04.%20Custom%20Bestiary%2F00.%20Criaturas%20Varias%2FAncient%20Red%20Dragon&content=%60%60%60statblock%0A%7B%0A%20%20%20%20%22name%22%3A%20%22Ancient%20Red%20Dragon%22%2C%0A%20%20%20%20%22size%22%3A%20%22Gargantuan%22%2C%0A%20%20%20%20%22type%22%3A%20%22dragon%22%2C%0A%20%20%20%20%22alignment%22%3A%20%22Chaotic%20Evil%22%2C%0A%20%20%20%20%22ac%22%3A%20%2222%20(natural%20armor)%22%2C%0A%20%20%20%20%22hp%22%3A%20546%2C%0A%20%20%20%20%22hit_dice%22%3A%20%2228d20%20%2B%20252%22%2C%0A%20%20%20%20%22speed%22%3A%20%2240%20ft.%2C%20climb%2040%20ft.%2C%20fly%2080%20ft.%22%2C%0A%20%20%20%20%22stats%22%3A%20%5B%0A%20%20%20%20%20%20%20%2030%2C%0A%20%20%20%20%20%20%20%2010%2C%0A%20%20%20%20%20%20%20%2029%2C%0A%20%20%20%20%20%20%20%2018%2C%0A%20%20%20%20%20%20%20%2015%2C%0A%20%20%20%20%20%20%20%2023%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22saves%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22dex%22%3A%20%22%2B7%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22con%22%3A%20%22%2B16%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22wis%22%3A%20%22%2B9%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22cha%22%3A%20%22%2B13%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22skills%22%3A%20%7B%0A%20%20%20%20%20%20%20%20%22Perception%22%3A%20%22%2B16%22%2C%0A%20%20%20%20%20%20%20%20%22Stealth%22%3A%20%22%2B7%22%0A%20%20%20%20%7D%2C%0A%20%20%20%20%22damage_immunities%22%3A%20%22fire%22%2C%0A%20%20%20%20%22senses%22%3A%20%22blindsight%2060%20ft.%2C%20darkvision%20120%20ft.%2C%20passive%20Perception%2026%22%2C%0A%20%20%20%20%22languages%22%3A%20%22Common%2C%20Draconic%22%2C%0A%20%20%20%20%22cr%22%3A%20%2224%22%2C%0A%20%20%20%20%22proficiency_bonus%22%3A%20%22%2B7%22%2C%0A%20%20%20%20%22traits%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Legendary%20Resistance%20(3%2FDay)%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22If%20the%20dragon%20fails%20a%20saving%20throw%2C%20it%20can%20choose%20to%20succeed%20instead.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22actions%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Multiattack%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20dragon%20can%20use%20its%20Frightful%20Presence.%20It%20then%20makes%20three%20attacks%3A%20one%20with%20its%20bite%20and%20two%20with%20its%20claws.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Bite%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Melee%20Weapon%20Attack%3A%20%2B17%20to%20hit%2C%20reach%2015%20ft.%2C%20one%20target.%20Hit%3A%2021%20(2d10%20%2B%2010)%20piercing%20damage%20plus%2014%20(4d6)%20fire%20damage.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Claw%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Melee%20Weapon%20Attack%3A%20%2B17%20to%20hit%2C%20reach%2010%20ft.%2C%20one%20target.%20Hit%3A%2017%20(2d6%20%2B%2010)%20slashing%20damage.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Tail%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Melee%20Weapon%20Attack%3A%20%2B17%20to%20hit%2C%20reach%2020%20ft.%2C%20one%20target.%20Hit%3A%2019%20(2d8%20%2B%2010)%20bludgeoning%20damage.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Frightful%20Presence%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22Each%20creature%20of%20the%20dragon's%20choice%20that%20is%20within%20120%20feet%20of%20the%20dragon%20and%20aware%20of%20it%20must%20succeed%20on%20a%20DC%2021%20Wisdom%20saving%20throw%20or%20become%20frightened%20for%201%20minute.%20A%20creature%20can%20repeat%20the%20saving%20throw%20at%20the%20end%20of%20each%20of%20its%20turns%2C%20ending%20the%20effect%20on%20itself%20on%20a%20success.%20If%20a%20creature's%20saving%20throw%20is%20successful%20or%20the%20effect%20ends%20for%20it%2C%20the%20creature%20is%20immune%20to%20the%20dragon's%20Frightful%20Presence%20for%20the%20next%2024%20hours.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Fire%20Breath%20(Recarga%205)%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20dragon%20exhales%20fire%20in%20a%2090-foot%20cone.%20Each%20creature%20in%20that%20area%20must%20make%20a%20DC%2024%20Dexterity%20saving%20throw%2C%20taking%2091%20(26d6)%20fire%20damage%20on%20a%20failed%20save%2C%20or%20half%20as%20much%20damage%20on%20a%20successful%20one.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%2C%0A%20%20%20%20%22legendary_description%22%3A%20%22The%20ancient%20red%20dragon%20can%20take%203%20legendary%20actions%2C%20choosing%20from%20the%20options%20below.%20Only%20one%20legendary%20action%20option%20can%20be%20used%20at%20a%20time%20and%20only%20at%20the%20end%20of%20another%20creature's%20turn.%20The%20ancient%20red%20dragon%20regains%20spent%20legendary%20actions%20at%20the%20start%20of%20its%20turn.%22%2C%0A%20%20%20%20%22legendary_actions%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Detect%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20dragon%20makes%20a%20Wisdom%20(Perception)%20check.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Tail%20Attack%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20dragon%20makes%20a%20tail%20attack.%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22name%22%3A%20%22Wing%20Attack%20(Costs%202%20Actions)%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22desc%22%3A%20%22The%20dragon%20beats%20its%20wings.%20Each%20creature%20within%2015%20feet%20of%20the%20dragon%20must%20succeed%20on%20a%20DC%2025%20Dexterity%20saving%20throw%20or%20take%2017%20(2d6%20%2B%2010)%20bludgeoning%20damage%20and%20be%20knocked%20prone.%20The%20dragon%20can%20then%20fly%20up%20to%20half%20its%20flying%20speed.%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%0A%7D%0A%60%60%60%0A%0A!%5B%5BAncient%20Red%20Dragon.png%7Ccenter%7C350%5D%5D%0A&overwrite=true",
+    "vaultTarget": {
+      "vault": "DnD - DM (Remote)",
+      "folder": "04. Custom Bestiary/00. Criaturas Varias",
+      "file": "Ancient Red Dragon.md"
+    }
+  }
+]

@@ -73,7 +73,15 @@ function clean5eTags(text) {
       .replace(/\{@m\}/gi, 'Fallo: ')
       .replace(/\{@hom\}/gi, 'Impacto o Fallo: ')
 
-      .replace(/\{@recharge\s*([^}]+)?\}/gi, (_, n) => `(Recarga ${n ? n.trim() : '6'})`)
+      .replace(/\{@recharge\s*([^}]+)?\}/gi, (_, n) => {
+        const val = n ? n.trim() : '6';
+        if (val === '5') return '(Recarga 5-6)';
+        if (val === '4') return '(Recarga 4-6)';
+        if (val === '3') return '(Recarga 3-6)';
+        if (val === '2') return '(Recarga 2-6)';
+        if (val === '6') return '(Recarga 6)';
+        return `(Recarga ${val})`;
+      })
       .replace(/\{@dice\s+([^}]+)\}/gi, '$1')
       .replace(/\{@damage\s+([^}]+)\}/gi, '$1')
       .replace(/\{@d20\s*([+-]?\d+)?\}/gi, (_, mod) => mod ? `d20${mod}` : 'd20')
