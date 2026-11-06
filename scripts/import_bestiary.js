@@ -536,6 +536,12 @@ const THIRD_PARTY_SOURCES = [
   {
     category: 'Third-Party (3PP Pro)',
     publisher: 'Dragonix',
+    sourceGroup: 'Monster Manual Expanded (2024)',
+    url: 'https://raw.githubusercontent.com/TheGiddyLimit/homebrew/master/creature/Dragonix%3B%20Monster%20Manual%20Expanded%20-%202024.json'
+  },
+  {
+    category: 'Third-Party (3PP Pro)',
+    publisher: 'Dragonix',
     sourceGroup: 'Monster Manual Expanded I',
     url: 'https://raw.githubusercontent.com/TheGiddyLimit/homebrew/master/creature/Dragonix%3B%20Monster%20Manual%20Expanded%20(v1).json'
   },

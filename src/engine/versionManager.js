@@ -24,11 +24,17 @@ export function getCreatureVersionMeta(c) {
   let pillType = 'wotc';
   let priority = 3;
 
-  if (is2024) {
+    if (is2024 && !is3pp) {
     badge = '2024';
     shortLabel = '2024 Revised';
     pillType = '2024';
     priority = 1;
+  } else if (is2024 && is3pp) {
+    const pub = c.publisher ? c.publisher.replace(' Productions', '').replace(' Press', '') : '3PP';
+    badge = `${pub} '24`;
+    shortLabel = `${pub} (2024)`;
+    pillType = '2024';
+    priority = 1.5;
   } else if (is2014) {
     badge = '2014';
     shortLabel = '2014 Classic';
