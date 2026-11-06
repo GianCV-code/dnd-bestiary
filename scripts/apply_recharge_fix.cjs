@@ -83,3 +83,4 @@ console.log(' - Acciones:', redDragon.action.map(a => a.name));
 const mindFlayer = bestiary.find(m => m.id === 'mind-flayer-mm');
 console.log('\nVerificación Mind Flayer:');
 console.log(' - Acciones:', mindFlayer.action.map(a => a.name));
+
