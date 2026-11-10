@@ -109,7 +109,10 @@ const ENVIRONMENTS = [
   { id: 'underdark', label: '🦇 Infraoscuridad (Underdark)' },
   { id: 'underwater', label: '🐠 Subacuático (Underwater)' },
   { id: 'urban', label: '🏛️ Urbano (Urban)' },
-  { id: 'planar', label: '🌌 Planar / Otros Planos' }
+  { id: 'badlands', label: '🏜️ Tierras Baldías / Páramos (Badlands)' },
+  { id: 'farmland', label: '🚜 Zonas Rurales / Cultivos (Farmland)' },
+  { id: 'planar', label: '🌌 Planar / Otros Planos' },
+  { id: 'any', label: '🌐 Cualquier Entorno / PNJs (Any)' }
 ];
 
 // Spells with forced saving throws mapping (5e offensive saves)
@@ -163,7 +166,7 @@ function extractForcesSaves(c) {
   const saves = new Set();
   const textParts = [];
 
-  ['trait', 'action', 'reaction', 'legendary', 'mythic'].forEach(cat => {
+  ['trait', 'action', 'bonus', 'reaction', 'legendary', 'mythic'].forEach(cat => {
     (c[cat] || []).forEach(item => {
       if (item.name) textParts.push(item.name);
       (item.entries || []).forEach(e => {
@@ -206,8 +209,88 @@ function indexRawBestiary(data) {
     'G': 'gargantuan gargantuesco'
   };
 
+  const SIZE_NORM_MAP = {
+    'medium': 'M', 'large': 'L', 'huge': 'H', 'small': 'S', 'tiny': 'T', 'gargantuan': 'G',
+    'm': 'M', 'l': 'L', 'h': 'H', 's': 'S', 't': 'T', 'g': 'G'
+  };
+
+  const TYPE_PLURALS = {
+    plant: 'plants plantas vegetacion vegetal flora',
+    beast: 'beasts bestias animales fauna animal',
+    dragon: 'dragons dragones',
+    monstrosity: 'monstrosities monstruosidades',
+    humanoid: 'humanoids humanoides',
+    undead: 'undeads no-muertos no muertos muertos vivientes',
+    fiend: 'fiends infernales demonios diablos',
+    fey: 'feéricos feericos fey hadas',
+    celestial: 'celestials celestiales',
+    construct: 'constructs constructos',
+    elemental: 'elementals elementales',
+    aberration: 'aberrations aberraciones',
+    giant: 'giants gigantes',
+    ooze: 'oozes cienos limos',
+    wyvern: 'wyverns wyvernos'
+  };
+
+  const TROPICAL_PATTERNS = [
+    /\bape\b/i, /\bbaboon\b/i, /\btiger\b/i, /\bpanther\b/i, /\bjaguar\b/i,
+    /\bgrung\b/i, /\bgirallon\b/i, /\bvelociraptor\b/i, /\btyrannosaurus\b/i,
+    /\ballosaurus\b/i, /\bbrontosaurus\b/i, /\bchwinga\b/i, /\bkamadan\b/i,
+    /\bsu-monster\b/i, /\bjaculi\b/i, /\bzorbo\b/i, /\beblis\b/i, /\bchultan\b/i
+  ];
+
   return repaired.map(c => {
     const versionMeta = getCreatureVersionMeta(c);
+
+    // 1. Normalize Size (handles full words from MME 2024 like 'Medium' -> 'M')
+    const normSize = SIZE_NORM_MAP[String(c.size || '').toLowerCase()] || c.size || 'M';
+
+    // 2. Normalize Speed (handles object speeds like fly: { number: 150, condition: '(hover)' })
+    const speedNorm = { ...(c.speed || {}) };
+    let flyNum = 0;
+    let hoverFlag = !!speedNorm.canHover;
+    if (typeof speedNorm.fly === 'number') {
+      flyNum = speedNorm.fly;
+    } else if (typeof speedNorm.fly === 'object' && speedNorm.fly !== null) {
+      flyNum = speedNorm.fly.number || 0;
+      if (speedNorm.fly.condition && String(speedNorm.fly.condition).toLowerCase().includes('hover')) {
+        hoverFlag = true;
+      }
+    }
+    speedNorm.fly = flyNum;
+    speedNorm.canHover = hoverFlag;
+    if (typeof speedNorm.climb === 'object' && speedNorm.climb !== null) speedNorm.climb = speedNorm.climb.number || 0;
+    if (typeof speedNorm.swim === 'object' && speedNorm.swim !== null) speedNorm.swim = speedNorm.swim.number || 0;
+    if (typeof speedNorm.burrow === 'object' && speedNorm.burrow !== null) speedNorm.burrow = speedNorm.burrow.number || 0;
+
+    // 3. Enrich Environment in Memory (Deterministic rules)
+    const envSet = new Set((c.environment || []).map(e => String(e).toLowerCase().trim()));
+    // Rule 1: Swamp + Forest (without arctic) = Jungle
+    const hasForest = envSet.has('forest');
+    const hasSwamp = envSet.has('swamp');
+    const hasArctic = envSet.has('arctic');
+    if (hasForest && hasSwamp && !hasArctic && envSet.size <= 4) {
+      envSet.add('jungle');
+    }
+    // Rule 2: Tomb of Annihilation (ToA) campaign canon = Jungle
+    if (c.source === 'ToA') {
+      envSet.add('jungle');
+    }
+    // Rule 3: Canonical Tropical fauna/flora patterns (Apes, Tigers, Grungs, Dinosaurs)
+    if (TROPICAL_PATTERNS.some(p => p.test(c.name))) {
+      envSet.add('jungle');
+    }
+    // Normalizations for Outer Planes and Underground
+    for (const e of Array.from(envSet)) {
+      if (e.includes('outer planes') || e.includes('abyss') || e.includes('nine hells') || e.includes('astral') || e.includes('ethereal') || e.includes('feywild') || e.includes('shadowfell')) {
+        envSet.add('planar');
+      }
+      if (e.includes('underground')) {
+        envSet.add('underdark');
+      }
+    }
+    const enrichedEnvironment = Array.from(envSet);
+
     const parts = [
       c.name,
       c.type,
@@ -226,10 +309,11 @@ function indexRawBestiary(data) {
       (c.immune || []).join(' '),
       (c.vulnerable || []).join(' '),
       (c.conditionImmune || []).join(' '),
-      (c.environment || []).join(' ')
+      enrichedEnvironment.join(' ')
     ];
 
-    if (sizeMap[c.size]) parts.push(sizeMap[c.size]);
+    if (TYPE_PLURALS[c.type]) parts.push(TYPE_PLURALS[c.type]);
+    if (sizeMap[normSize]) parts.push(sizeMap[normSize]);
 
     if (c.save) {
       Object.keys(c.save).forEach(k => {
@@ -243,12 +327,12 @@ function indexRawBestiary(data) {
       });
     }
 
-    if (c.speed) {
-      if (c.speed.fly > 0) parts.push('fly flying flight volar vuelo');
-      if (c.speed.swim > 0) parts.push('swim swimming nadar nado');
-      if (c.speed.climb > 0) parts.push('climb climbing trepar');
-      if (c.speed.burrow > 0) parts.push('burrow burrowing cavar');
-      if (c.speed.canHover) parts.push('hover levitar');
+    if (speedNorm) {
+      if (speedNorm.fly > 0) parts.push('fly flying flight volar vuelo');
+      if (speedNorm.swim > 0) parts.push('swim swimming nadar nado');
+      if (speedNorm.climb > 0) parts.push('climb climbing trepar');
+      if (speedNorm.burrow > 0) parts.push('burrow burrowing cavar');
+      if (speedNorm.canHover) parts.push('hover levitar');
     }
 
     if (c.legendary && c.legendary.length > 0) parts.push('legendary legendary action acciones legendarias');
@@ -264,6 +348,14 @@ function indexRawBestiary(data) {
     });
 
     (c.action || []).forEach(t => {
+      parts.push(t.name);
+      (t.entries || []).forEach(e => {
+        if (typeof e === 'string') parts.push(e);
+        else if (e && e.entries) parts.push(JSON.stringify(e));
+      });
+    });
+
+    (c.bonus || []).forEach(t => {
       parts.push(t.name);
       (t.entries || []).forEach(e => {
         if (typeof e === 'string') parts.push(e);
@@ -302,6 +394,9 @@ function indexRawBestiary(data) {
 
     return {
       ...c,
+      size: normSize,
+      speed: speedNorm,
+      environment: enrichedEnvironment,
       versionMeta,
       forcesSaves,
       _searchIndex: parts.join(' ').toLowerCase()
@@ -569,7 +664,7 @@ export default function App() {
 
     // 2. Edition Filter
     if (selectedEdition === '2024' && !c.versionMeta?.is2024) return false;
-    if (selectedEdition === '2014' && !c.versionMeta?.is2014) return false;
+    if (selectedEdition === '2014' && (c.versionMeta?.is2024 || c.versionMeta?.is3pp || c.versionMeta?.isCrossover)) return false;
     if (selectedEdition === '3pp' && !c.versionMeta?.is3pp) return false;
     if (selectedEdition === 'crossover' && !c.versionMeta?.isCrossover) return false;
 
@@ -596,13 +691,25 @@ export default function App() {
       if (!matchesSaves) return false;
     }
 
-    // 8. Movement Speeds
+    // 8. Movement Speeds (handles numbers, objects with hover, and conditions)
     if (selectedSpeeds.length > 0) {
       const matchesSpeeds = selectedSpeeds.every(sp => {
-        if (sp === 'fly') return (c.speed?.fly || 0) > 0;
-        if (sp === 'swim') return (c.speed?.swim || 0) > 0;
-        if (sp === 'climb') return (c.speed?.climb || 0) > 0;
-        if (sp === 'burrow') return (c.speed?.burrow || 0) > 0;
+        if (sp === 'fly') {
+          const f = typeof c.speed?.fly === 'number' ? c.speed.fly : (c.speed?.fly?.number || 0);
+          return f > 0;
+        }
+        if (sp === 'swim') {
+          const s = typeof c.speed?.swim === 'number' ? c.speed.swim : (c.speed?.swim?.number || 0);
+          return s > 0;
+        }
+        if (sp === 'climb') {
+          const cl = typeof c.speed?.climb === 'number' ? c.speed.climb : (c.speed?.climb?.number || 0);
+          return cl > 0;
+        }
+        if (sp === 'burrow') {
+          const b = typeof c.speed?.burrow === 'number' ? c.speed.burrow : (c.speed?.burrow?.number || 0);
+          return b > 0;
+        }
         if (sp === 'hover') return !!c.speed?.canHover;
         return true;
       });
@@ -646,7 +753,8 @@ export default function App() {
       const matchesEnv = (c.environment || []).some(env => {
         const e = env.toLowerCase();
         if (envTarget === 'jungle') return e.includes('jungle') || e.includes('tropical');
-        if (envTarget === 'planar') return e.includes('planar') || e.includes('feywild') || e.includes('shadowfell') || e.includes('abyss') || e.includes('astral') || e.includes('ethereal') || e.includes('nine hells');
+        if (envTarget === 'planar') return e.includes('planar') || e.includes('feywild') || e.includes('shadowfell') || e.includes('abyss') || e.includes('astral') || e.includes('ethereal') || e.includes('nine hells') || e.includes('outer planes');
+        if (envTarget === 'underdark') return e.includes('underdark') || e.includes('underground');
         return e.includes(envTarget);
       });
       if (!matchesEnv) return false;
@@ -1059,6 +1167,26 @@ export default function App() {
             </select>
           </div>
 
+          {/* Environment / Habitat (5e Tools) */}
+          <div>
+            <div className="filter-section-title">
+              <span>Entorno / Hábitat</span>
+              <Compass size={14} />
+            </div>
+            <select 
+              id="environment-filter-select"
+              className="select-styled"
+              style={{ width: '100%' }}
+              value={selectedEnvironment}
+              onChange={e => setSelectedEnvironment(e.target.value)}
+            >
+              <option value="ALL">Todos los Hábitats</option>
+              {ENVIRONMENTS.map(env => (
+                <option key={env.id} value={env.id}>{env.label}</option>
+              ))}
+            </select>
+          </div>
+
           {/* Size Filter */}
           <div>
             <div className="filter-section-title">
@@ -1306,26 +1434,6 @@ export default function App() {
                 );
               })}
             </div>
-          </div>
-
-          {/* Environment / Habitat (5e Tools) */}
-          <div>
-            <div className="filter-section-title">
-              <span>Entorno / Hábitat</span>
-              <Compass size={14} />
-            </div>
-            <select 
-              id="environment-filter-select"
-              className="select-styled"
-              style={{ width: '100%' }}
-              value={selectedEnvironment}
-              onChange={e => setSelectedEnvironment(e.target.value)}
-            >
-              <option value="ALL">Todos los Hábitats</option>
-              {ENVIRONMENTS.map(env => (
-                <option key={env.id} value={env.id}>{env.label}</option>
-              ))}
-            </select>
           </div>
 
           {/* Combat Features & Token Toggles */}
