@@ -31,6 +31,7 @@ import { simulateBattle, DND_CLASSES, getStatsForClassAndLevel } from './engine/
 import { 
   getCreatureVersionMeta, 
   repairHollowCopies, 
+  propagateVersionMedia,
   groupCreaturesByName, 
   computeVersionDiff 
 } from './engine/versionManager';
@@ -199,6 +200,7 @@ function extractForcesSaves(c) {
 // Transform and index raw bestiary data for instant searches and edition grouping
 function indexRawBestiary(data) {
   const repaired = repairHollowCopies(data);
+  const mediaEnriched = propagateVersionMedia(repaired);
 
   const sizeMap = {
     'T': 'tiny diminuto',
@@ -239,7 +241,7 @@ function indexRawBestiary(data) {
     /\bsu-monster\b/i, /\bjaculi\b/i, /\bzorbo\b/i, /\beblis\b/i, /\bchultan\b/i
   ];
 
-  return repaired.map(c => {
+  return mediaEnriched.map(c => {
     const versionMeta = getCreatureVersionMeta(c);
 
     // 1. Normalize Size (handles full words from MME 2024 like 'Medium' -> 'M')

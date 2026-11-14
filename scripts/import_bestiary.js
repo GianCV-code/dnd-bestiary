@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import https from 'https';
 import { fileURLToPath } from 'url';
+import { propagateVersionMedia } from '../src/engine/versionManager.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -769,19 +770,22 @@ async function run() {
   // Sort by Name
   allCreatures.sort((a, b) => a.name.localeCompare(b.name));
 
-  const totalWithToken = allCreatures.filter(c => c.hasToken).length;
-  const totalWithArt = allCreatures.filter(c => c.hasArt).length;
-  const totalWithBoth = allCreatures.filter(c => c.hasToken && c.hasArt).length;
-  const totalWithNeither = allCreatures.filter(c => !c.hasToken && !c.hasArt).length;
+  // Propagate artwork & tokens across reprints and editions
+  const finalCreatures = propagateVersionMedia(allCreatures);
 
-  console.log(`\n🎉 TOTAL UNIQUE CREATURES IMPORTED: ${allCreatures.length}`);
-  console.log(`   Tokens VTT: ${totalWithToken} (${((totalWithToken/allCreatures.length)*100).toFixed(1)}%)`);
-  console.log(`   Full Artwork: ${totalWithArt} (${((totalWithArt/allCreatures.length)*100).toFixed(1)}%)`);
-  console.log(`   Both (Token + Art): ${totalWithBoth} (${((totalWithBoth/allCreatures.length)*100).toFixed(1)}%)`);
-  console.log(`   Neither: ${totalWithNeither} (${((totalWithNeither/allCreatures.length)*100).toFixed(1)}%)`);
+  const totalWithToken = finalCreatures.filter(c => c.hasToken).length;
+  const totalWithArt = finalCreatures.filter(c => c.hasArt).length;
+  const totalWithBoth = finalCreatures.filter(c => c.hasToken && c.hasArt).length;
+  const totalWithNeither = finalCreatures.filter(c => !c.hasToken && !c.hasArt).length;
+
+  console.log(`\n🎉 TOTAL UNIQUE CREATURES IMPORTED: ${finalCreatures.length}`);
+  console.log(`   Tokens VTT: ${totalWithToken} (${((totalWithToken/finalCreatures.length)*100).toFixed(1)}%)`);
+  console.log(`   Full Artwork: ${totalWithArt} (${((totalWithArt/finalCreatures.length)*100).toFixed(1)}%)`);
+  console.log(`   Both (Token + Art): ${totalWithBoth} (${((totalWithBoth/finalCreatures.length)*100).toFixed(1)}%)`);
+  console.log(`   Neither: ${totalWithNeither} (${((totalWithNeither/finalCreatures.length)*100).toFixed(1)}%)`);
 
   const outputPath = path.join(DATA_DIR, 'bestiary.json');
-  fs.writeFileSync(outputPath, JSON.stringify(allCreatures, null, 2), 'utf8');
+  fs.writeFileSync(outputPath, JSON.stringify(finalCreatures, null, 2), 'utf8');
   console.log(`💾 Saved to ${outputPath} (${(fs.statSync(outputPath).size / 1024 / 1024).toFixed(2)} MB)`);
 }
 

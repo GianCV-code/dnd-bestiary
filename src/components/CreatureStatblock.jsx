@@ -113,12 +113,9 @@ export default function CreatureStatblock({
   onClose
 }) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [artLoadFailed, setArtLoadFailed] = useState(false);
+  const [failedArtUrls, setFailedArtUrls] = useState(new Set());
+  const [failedTokenUrls, setFailedTokenUrls] = useState(new Set());
   const [isObsidianModalOpen, setIsObsidianModalOpen] = useState(false);
-
-  useEffect(() => {
-    setArtLoadFailed(false);
-  }, [creature?.id]);
 
   if (!creature) return null;
 
@@ -188,7 +185,7 @@ export default function CreatureStatblock({
   const mythic = creature.mythic || [];
   const spellcasting = creature.spellcasting || [];
 
-  // Token & Art URLs resolution (with smart MM dragon artwork mapping)
+  // Token & Art URLs resolution (with smart MM dragon artwork mapping and cross-version fallback)
   const source = creature.source || 'MM';
   let artName = creature.name || '';
   if (source === 'MM' && artName.includes('Dragon')) {
@@ -198,17 +195,41 @@ export default function CreatureStatblock({
     }
   }
 
-  const tokenUrl = creature.tokenUrl || (
-    creature.category === 'Official WotC' || !creature.category
-      ? `https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/${source}/${encodeURIComponent(creature.name)}.webp`
-      : null
-  );
+  // Ordered candidate artworks: current version -> sibling versions in group -> official 5eTools
+  const candidateArts = [];
+  if (creature.artUrl) candidateArts.push(creature.artUrl);
+  if (modalGroup?.versions) {
+    for (const v of modalGroup.versions) {
+      if (v.artUrl && !candidateArts.includes(v.artUrl)) {
+        candidateArts.push(v.artUrl);
+      }
+    }
+  }
+  if (creature.category === 'Official WotC' || !creature.category) {
+    const officialArt = `https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/${source}/${encodeURIComponent(artName)}.webp`;
+    if (!candidateArts.includes(officialArt)) {
+      candidateArts.push(officialArt);
+    }
+  }
+  const fullArtUrl = candidateArts.find(url => !failedArtUrls.has(url)) || null;
 
-  const fullArtUrl = creature.artUrl || (
-    creature.category === 'Official WotC' || !creature.category
-      ? `https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/${source}/${encodeURIComponent(artName)}.webp`
-      : null
-  );
+  // Ordered candidate tokens: current version -> sibling versions in group -> official 5eTools
+  const candidateTokens = [];
+  if (creature.tokenUrl) candidateTokens.push(creature.tokenUrl);
+  if (modalGroup?.versions) {
+    for (const v of modalGroup.versions) {
+      if (v.tokenUrl && !candidateTokens.includes(v.tokenUrl)) {
+        candidateTokens.push(v.tokenUrl);
+      }
+    }
+  }
+  if (creature.category === 'Official WotC' || !creature.category) {
+    const officialToken = `https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/${source}/${encodeURIComponent(creature.name)}.webp`;
+    if (!candidateTokens.includes(officialToken)) {
+      candidateTokens.push(officialToken);
+    }
+  }
+  const tokenUrl = candidateTokens.find(url => !failedTokenUrls.has(url)) || null;
 
   return (
     <div className="statblock-sheet" onClick={e => e.stopPropagation()}>
@@ -216,12 +237,12 @@ export default function CreatureStatblock({
       {/* 1. Hero Cinematic Banner (Modelo Visual 1) */}
       <div className="statblock-hero-banner">
         {/* Fondo del Banner: Ilustración Oficial o Fallback Atmosférico */}
-        {fullArtUrl && !artLoadFailed ? (
+        {fullArtUrl ? (
           <img 
             src={fullArtUrl} 
             alt={creature.name} 
             className="statblock-hero-bg-art"
-            onError={() => setArtLoadFailed(true)} 
+            onError={() => setFailedArtUrls(prev => new Set(prev).add(fullArtUrl))} 
           />
         ) : (
           <div className="statblock-hero-bg-fallback">
@@ -230,6 +251,7 @@ export default function CreatureStatblock({
                 src={tokenUrl} 
                 alt="" 
                 className="statblock-hero-bg-fallback-token" 
+                onError={() => setFailedTokenUrls(prev => new Set(prev).add(tokenUrl))}
               />
             )}
             <div className="statblock-hero-bg-fallback-pattern"></div>
@@ -253,7 +275,7 @@ export default function CreatureStatblock({
             <span>Send to Obsidian</span>
           </button>
 
-          {fullArtUrl && !artLoadFailed && (
+          {fullArtUrl && (
             <button 
               type="button"
               className="statblock-hero-btn-zoom"
@@ -287,7 +309,7 @@ export default function CreatureStatblock({
                 src={tokenUrl} 
                 alt={creature.name}
                 className="statblock-hero-token-img"
-                onError={(e) => { e.target.style.display = 'none'; }}
+                onError={() => setFailedTokenUrls(prev => new Set(prev).add(tokenUrl))}
               />
               <span className="statblock-hero-token-badge" title="Official VTT Token">
                 VTT
@@ -790,12 +812,12 @@ export default function CreatureStatblock({
             </button>
 
             <div className="statblock-lightbox-media">
-              {fullArtUrl && !artLoadFailed ? (
+              {fullArtUrl ? (
                 <img 
                   src={fullArtUrl} 
                   alt={creature.name}
                   className="statblock-lightbox-img"
-                  onError={() => setArtLoadFailed(true)}
+                  onError={() => setFailedArtUrls(prev => new Set(prev).add(fullArtUrl))}
                 />
               ) : tokenUrl ? (
                 <div className="statblock-lightbox-token-wrap">
@@ -803,6 +825,7 @@ export default function CreatureStatblock({
                     src={tokenUrl} 
                     alt={creature.name}
                     className="statblock-lightbox-token-img"
+                    onError={() => setFailedTokenUrls(prev => new Set(prev).add(tokenUrl))}
                   />
                   <p className="statblock-lightbox-note">
                     Official VTT Token • No full page book illustration
@@ -821,7 +844,7 @@ export default function CreatureStatblock({
                 </p>
               </div>
               <a 
-                href={fullArtUrl && !artLoadFailed ? fullArtUrl : tokenUrl} 
+                href={fullArtUrl || tokenUrl} 
                 target="_blank" 
                 rel="noreferrer"
                 className="statblock-lightbox-dl-btn"
