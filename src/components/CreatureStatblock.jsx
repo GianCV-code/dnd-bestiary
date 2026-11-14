@@ -40,22 +40,22 @@ function ModularCard({ action }) {
         {(hasAttackOrSave || hasDamage) && (
           <div className="modular-hud-boxes">
             <div className="modular-hud-box">
-              <span className="modular-hud-title">Tirada / CD</span>
+              <span className="modular-hud-title">TO HIT / DC</span>
               {action.saveDC ? (
                 <span className="modular-hud-val-save">
-                  CD {action.saveDC} {action.saveStat || ''}
+                  DC {action.saveDC} {action.saveStat || ''}
                 </span>
               ) : action.atkBonus ? (
                 <span className="modular-hud-val-atk">
                   {action.atkBonus} to hit
                 </span>
               ) : (
-                <span className="modular-hud-val-neutral">Acción</span>
+                <span className="modular-hud-val-neutral">Action</span>
               )}
             </div>
 
             <div className="modular-hud-box">
-              <span className="modular-hud-title">Daño Promedio</span>
+              <span className="modular-hud-title">AVERAGE DAMAGE</span>
               {action.avgDamage ? (
                 <span className="modular-hud-val-dmg">
                   {action.avgDamage} <span className="modular-dice-sub">({action.damageDice || ''})</span>
@@ -79,7 +79,7 @@ function ModularCard({ action }) {
         {/* Disparador de Reacción si aplica */}
         {action.trigger && (
           <div className="modular-trigger-box">
-            <strong>⚡ Disparador:</strong> {action.trigger}
+            <strong>⚡ Trigger:</strong> {action.trigger}
           </div>
         )}
 
@@ -88,7 +88,7 @@ function ModularCard({ action }) {
           <div className="modular-tactical-alert">
             <div className="alert-condition-tags">
               <AlertTriangle size={13} className="flex-shrink-0" />
-              <strong>Condición:</strong> {action.conditions.join(', ')}
+              <strong>Condition:</strong> {action.conditions.join(', ')}
             </div>
           </div>
         )}
@@ -133,10 +133,10 @@ export default function CreatureStatblock({
     else if (typeof creature.speed === 'number') speedParts.push(`${creature.speed} ft`);
     else if (typeof creature.speed === 'string') speedParts.push(creature.speed);
 
-    if (creature.speed.fly) speedParts.push(`volar ${creature.speed.fly} ft${creature.speed.canHover ? ' (levita)' : ''}`);
-    if (creature.speed.swim) speedParts.push(`nadar ${creature.speed.swim} ft`);
-    if (creature.speed.climb) speedParts.push(`trepar ${creature.speed.climb} ft`);
-    if (creature.speed.burrow) speedParts.push(`cavar ${creature.speed.burrow} ft`);
+    if (creature.speed.fly) speedParts.push(`fly ${creature.speed.fly} ft${creature.speed.canHover ? ' (hover)' : ''}`);
+    if (creature.speed.swim) speedParts.push(`swim ${creature.speed.swim} ft`);
+    if (creature.speed.climb) speedParts.push(`climb ${creature.speed.climb} ft`);
+    if (creature.speed.burrow) speedParts.push(`burrow ${creature.speed.burrow} ft`);
   }
   const speedText = speedParts.length > 0 ? speedParts.join(', ') : '30 ft';
 
@@ -146,19 +146,40 @@ export default function CreatureStatblock({
   const initiativeText = dexMod >= 0 ? `+${dexMod} (${initiativeScore})` : `${dexMod} (${initiativeScore})`;
   const pb = calculatePB(creature.cr);
 
+  // Formateador robusto de Habilidades (Skills)
+  const formatSkills = (skillObj) => {
+    if (!skillObj || typeof skillObj !== 'object') return null;
+    return Object.entries(skillObj)
+      .map(([k, v]) => {
+        if (typeof v === 'string') {
+          return `${k.charAt(0).toUpperCase() + k.slice(1)} ${v}`;
+        }
+        if (Array.isArray(v)) {
+          return v.map(item => {
+            if (item && item.oneOf) {
+              return `plus one of (${Object.entries(item.oneOf).map(([sk, sv]) => `${sk.charAt(0).toUpperCase() + sk.slice(1)} ${sv}`).join(', ')})`;
+            }
+            return String(item);
+          }).join(', ');
+        }
+        return `${k}: ${String(v)}`;
+      })
+      .join(', ');
+  };
+
   // Parsear Acciones
   const rawActions = creature.action || [];
-  const parsedActions = rawActions.map(a => parseModularAction(a, 'Acción'));
-  const multiattackAction = parsedActions.find(a => a && a.isMultiattack);
+  const parsedActions = rawActions.map(a => parseModularAction(a, 'Action'));
+  const multiattackActions = parsedActions.filter(a => a && a.isMultiattack);
   const combatActions = parsedActions.filter(a => a && !a.isMultiattack);
 
   // Parsear Acciones Adicionales (Bonus Actions)
   const rawBonus = creature.bonus || [];
-  const parsedBonus = rawBonus.map(b => parseModularAction(b, 'Acción Adicional'));
+  const parsedBonus = rawBonus.map(b => parseModularAction(b, 'Bonus Action'));
 
   // Parsear Reacciones
   const rawReactions = creature.reaction || [];
-  const parsedReactions = rawReactions.map(r => parseModularAction(r, 'Reacción'));
+  const parsedReactions = rawReactions.map(r => parseModularAction(r, 'Reaction'));
 
   // Parsear Legendarias y Míticas
   const legendary = creature.legendary || [];
@@ -225,17 +246,17 @@ export default function CreatureStatblock({
               type="button"
               className="statblock-hero-btn-zoom"
               onClick={() => setLightboxOpen(true)}
-              title="Ver ilustración oficial completa en alta definición"
+              title="View full official artwork in high definition"
             >
               <Maximize2 size={13} />
-              <span>Ver Ilustración Completa</span>
+              <span>View Full Artwork</span>
             </button>
           )}
           <button 
             type="button" 
             className="statblock-hero-btn-close" 
             onClick={onClose} 
-            title="Cerrar ficha (Esc)"
+            title="Close statblock (Esc)"
           >
             <X size={18} />
           </button>
@@ -248,7 +269,7 @@ export default function CreatureStatblock({
             <div 
               className="statblock-hero-token-frame"
               onClick={() => setLightboxOpen(true)}
-              title="Clic para inspeccionar token / ilustración"
+              title="Click to inspect token / artwork"
             >
               <img 
                 src={tokenUrl} 
@@ -256,7 +277,7 @@ export default function CreatureStatblock({
                 className="statblock-hero-token-img"
                 onError={(e) => { e.target.style.display = 'none'; }}
               />
-              <span className="statblock-hero-token-badge" title="Token VTT Oficial">
+              <span className="statblock-hero-token-badge" title="Official VTT Token">
                 VTT
               </span>
             </div>
@@ -304,10 +325,10 @@ export default function CreatureStatblock({
           <div className="modal-versions-header">
             <span className="modal-versions-heading">
               <Sparkles size={14} color="var(--accent-gold)" />
-              <span>Versiones disponibles ({modalGroup.versions.length})</span>
+              <span>Available Versions ({modalGroup.versions.length})</span>
             </span>
             <span className="modal-versions-help">
-              Haz clic para alternar estadísticas entre ediciones y fuentes
+              Click to toggle statistics between editions and sources
             </span>
           </div>
 
@@ -327,13 +348,13 @@ export default function CreatureStatblock({
                       {v.versionMeta.is2014 && '📜 '}
                       {v.versionMeta.badge}
                     </span>
-                    {isSelected && <span className="tab-selected-dot">● Activa</span>}
+                    {isSelected && <span className="tab-selected-dot">● Active</span>}
                   </div>
                   <div className="tab-source-sub" title={v.sourceGroup || v.source}>
                     {v.sourceGroup || v.source}
                   </div>
                   <div className="tab-quick-stats">
-                    CR {v.cr} • {v.hp} HP • CA {v.ac}
+                    CR {v.cr} • {v.hp} HP • AC {v.ac}
                   </div>
                 </button>
               );
@@ -346,7 +367,7 @@ export default function CreatureStatblock({
               <div className="diff-header">
                 <Activity size={13} color="var(--accent-gold)" />
                 <span>
-                  Diferencias respecto a <strong>{comparisonBaseline.versionMeta.shortLabel} ({comparisonBaseline.source})</strong>:
+                  Differences compared to <strong>{comparisonBaseline.versionMeta.shortLabel} ({comparisonBaseline.source})</strong>:
                 </span>
               </div>
               <div className="diff-badges-row">
@@ -371,7 +392,7 @@ export default function CreatureStatblock({
               <Shield size={18} />
             </div>
             <div>
-              <span className="vital-label">Clase Armadura</span>
+              <span className="vital-label">Armor Class</span>
               <span className="vital-value">{creature.acText || creature.ac}</span>
             </div>
           </div>
@@ -381,9 +402,9 @@ export default function CreatureStatblock({
               <Heart size={18} />
             </div>
             <div>
-              <span className="vital-label">Puntos de Golpe</span>
+              <span className="vital-label">Hit Points</span>
               <span className="vital-value text-hp">
-                {creature.hp} <span className="vital-sub">({creature.hpFormula || 'Dado base'})</span>
+                {creature.hp} <span className="vital-sub">({creature.hpFormula || 'Hit Dice'})</span>
               </span>
             </div>
           </div>
@@ -393,8 +414,8 @@ export default function CreatureStatblock({
               <Zap size={18} />
             </div>
             <div>
-              <span className="vital-label">Velocidad / Inic.</span>
-              <span className="vital-value text-speed">{speedText} <span className="vital-sub">Inic {initiativeText}</span></span>
+              <span className="vital-label">Speed / Init.</span>
+              <span className="vital-value text-speed">{speedText} <span className="vital-sub">Init {initiativeText}</span></span>
             </div>
           </div>
         </div>
@@ -402,12 +423,12 @@ export default function CreatureStatblock({
         {/* Matriz de Habilidades (6 Atributos) */}
         <div className="abilities-grid">
           {[
-            { label: 'FUE / STR', val: creature.str },
-            { label: 'DES / DEX', val: creature.dex },
+            { label: 'STR', val: creature.str },
+            { label: 'DEX', val: creature.dex },
             { label: 'CON', val: creature.con },
             { label: 'INT', val: creature.int },
-            { label: 'SAB / WIS', val: creature.wis },
-            { label: 'CAR / CHA', val: creature.cha },
+            { label: 'WIS', val: creature.wis },
+            { label: 'CHA', val: creature.cha },
           ].map(att => {
             const modStr = getMod(att.val);
             return (
@@ -425,47 +446,53 @@ export default function CreatureStatblock({
           {creature.forcesSaves && creature.forcesSaves.length > 0 && (
             <div className="defense-row text-forces-saves">
               <Zap size={14} className="flex-shrink-0" />
-              <span><strong>Exige Salvaciones (Ofensivas):</strong> {creature.forcesSaves.map(s => s.toUpperCase()).join(', ')}</span>
+              <span><strong>Forces Saves (Offensive):</strong> {creature.forcesSaves.map(s => s.toUpperCase()).join(', ')}</span>
             </div>
           )}
 
           {creature.save && Object.keys(creature.save).length > 0 && (
             <div className="defense-row text-saves">
               <Shield size={14} className="flex-shrink-0" />
-              <span><strong>Salvaciones (Defensivas):</strong> {Object.entries(creature.save).map(([k, v]) => `${k.toUpperCase()} ${v}`).join(', ')}</span>
+              <span><strong>Saving Throws (Defensive):</strong> {Object.entries(creature.save).map(([k, v]) => `${k.toUpperCase()} ${v}`).join(', ')}</span>
+            </div>
+          )}
+
+          {creature.skill && Object.keys(creature.skill).length > 0 && (
+            <div className="defense-row">
+              <strong>Skills:</strong> <span>{formatSkills(creature.skill)}</span>
             </div>
           )}
 
           {creature.resist && creature.resist.length > 0 && (
             <div className="defense-row">
-              <strong>Resistencias a Daño:</strong> <span>{creature.resist.join(', ')}</span>
+              <strong>Damage Resistances:</strong> <span>{creature.resist.join(', ')}</span>
             </div>
           )}
 
           {creature.immune && creature.immune.length > 0 && (
             <div className="defense-row">
-              <strong>Inmunidades a Daño:</strong> <span className="text-immune">{creature.immune.join(', ')}</span>
+              <strong>Damage Immunities:</strong> <span className="text-immune">{creature.immune.join(', ')}</span>
             </div>
           )}
 
           {creature.vulnerable && creature.vulnerable.length > 0 && (
             <div className="defense-row">
-              <strong>Vulnerabilidades:</strong> <span className="text-vulnerable">{creature.vulnerable.join(', ')}</span>
+              <strong>Damage Vulnerabilities:</strong> <span className="text-vulnerable">{creature.vulnerable.join(', ')}</span>
             </div>
           )}
 
           {creature.conditionImmune && creature.conditionImmune.length > 0 && (
             <div className="defense-row">
-              <strong>Inmunidades a Estados:</strong> <span>{creature.conditionImmune.join(', ')}</span>
+              <strong>Condition Immunities:</strong> <span>{creature.conditionImmune.join(', ')}</span>
             </div>
           )}
 
           <div className="defense-row">
-            <strong>Sentidos:</strong> <span>{creature.senses || '—'}, Percepción Pasiva {creature.passivePerception}</span>
+            <strong>Senses:</strong> <span>{creature.senses || '—'}, Passive Perception {creature.passivePerception}</span>
           </div>
 
           <div className="defense-row">
-            <strong>Idiomas:</strong> <span>{creature.languages || '—'}</span>
+            <strong>Languages:</strong> <span>{creature.languages || '—'}</span>
           </div>
         </div>
 
@@ -473,7 +500,7 @@ export default function CreatureStatblock({
         {creature.trait && creature.trait.length > 0 && (
           <div className="modular-section">
             <h4 className="modular-section-title">
-              <span>Rasgos Especiales</span>
+              <span>Traits</span>
               <span className="section-count">{creature.trait.length}</span>
             </h4>
             <div className="modular-traits-list">
@@ -493,20 +520,24 @@ export default function CreatureStatblock({
             <div className="modular-section-header">
               <h4 className="modular-section-title text-crimson">
                 <Swords size={16} />
-                <span>Acciones de Combate</span>
+                <span>Actions</span>
               </h4>
-              <span className="section-badge-help">Acción Principal</span>
+              <span className="section-badge-help">Main Action</span>
             </div>
 
             {/* Tarjeta de Multiataque (si existe) */}
-            {multiattackAction && (
-              <div className="modular-multiattack-card">
-                <div className="multiattack-header">
-                  <span className="multiattack-tag">Estrategia de Turno: Multiataque</span>
-                </div>
-                <div className="multiattack-text">
-                  {multiattackAction.rawText}
-                </div>
+            {multiattackActions.length > 0 && (
+              <div className="modular-multiattacks-container" style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '12px' }}>
+                {multiattackActions.map((ma, idx) => (
+                  <div key={idx} className="modular-multiattack-card">
+                    <div className="multiattack-header">
+                      <span className="multiattack-tag">Turn Strategy: {clean5eTags(ma.name || 'Multiattack')}</span>
+                    </div>
+                    <div className="multiattack-text">
+                      {clean5eTags(ma.rawText)}
+                    </div>
+                  </div>
+                ))}
               </div>
             )}
 
@@ -525,9 +556,9 @@ export default function CreatureStatblock({
             <div className="modular-section-header header-bonus">
               <h4 className="modular-section-title text-cyan">
                 <Zap size={16} />
-                <span>Acciones Adicionales (Bonus Actions)</span>
+                <span>Bonus Actions</span>
               </h4>
-              <span className="section-badge-help">1 por turno</span>
+              <span className="section-badge-help">1 per turn</span>
             </div>
 
             <div className="modular-actions-grid">
@@ -544,9 +575,9 @@ export default function CreatureStatblock({
             <div className="modular-section-header header-reaction">
               <h4 className="modular-section-title text-amber">
                 <RotateCcw size={16} />
-                <span>Reacciones</span>
+                <span>Reactions</span>
               </h4>
-              <span className="section-badge-help">Disparador / 1 por ronda</span>
+              <span className="section-badge-help">Trigger / 1 per round</span>
             </div>
 
             <div className="modular-actions-grid">
@@ -562,7 +593,7 @@ export default function CreatureStatblock({
           <div className="modular-section spellcasting-section">
             <h4 className="modular-section-title text-purple">
               <BookOpen size={16} />
-              <span>Lanzamiento de Conjuros (Spellcasting)</span>
+              <span>Spellcasting</span>
             </h4>
             <div className="modular-traits-list">
               {spellcasting.map((s, idx) => (
@@ -572,24 +603,35 @@ export default function CreatureStatblock({
                     <div className="spellcasting-headers">{s.headerEntries.join(' ')}</div>
                   )}
                   {s.will && s.will.length > 0 && (
-                    <div className="spell-row"><strong>A voluntad:</strong> {s.will.join(', ')}</div>
+                    <div className="spell-row"><strong>At will:</strong> {s.will.join(', ')}</div>
                   )}
                   {s.daily && (
                     <div className="spell-daily-block">
                       {Object.entries(s.daily).map(([times, list]) => (
                         <div key={times} className="spell-row">
-                          <strong>{times}/día:</strong> {Array.isArray(list) ? list.map(clean5eTags).join(', ') : clean5eTags(String(list))}
+                          <strong>{times}/day:</strong> {Array.isArray(list) ? list.map(clean5eTags).join(', ') : clean5eTags(String(list))}
                         </div>
                       ))}
                     </div>
                   )}
                   {s.spells && Object.keys(s.spells).length > 0 && (
                     <div className="spell-levels-block">
-                      {Object.entries(s.spells).map(([lvl, info]) => (
-                        <div key={lvl} className="spell-row">
-                          <strong>Nivel {lvl}{info.slots ? ` (${info.slots} espacios)` : ''}:</strong> {Array.isArray(info.spells) ? info.spells.map(clean5eTags).join(', ') : clean5eTags(String(info))}
-                        </div>
-                      ))}
+                      {Object.entries(s.spells).map(([lvl, info]) => {
+                        const levelLabel = lvl === '0'
+                          ? 'Cantrips (at will)'
+                          : lvl === '1'
+                            ? `1st level${info.slots ? ` (${info.slots} slots)` : ''}`
+                            : lvl === '2'
+                              ? `2nd level${info.slots ? ` (${info.slots} slots)` : ''}`
+                              : lvl === '3'
+                                ? `3rd level${info.slots ? ` (${info.slots} slots)` : ''}`
+                                : `${lvl}th level${info.slots ? ` (${info.slots} slots)` : ''}`;
+                        return (
+                          <div key={lvl} className="spell-row">
+                            <strong>{levelLabel}:</strong> {Array.isArray(info.spells) ? info.spells.map(clean5eTags).join(', ') : clean5eTags(String(info))}
+                          </div>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
@@ -604,18 +646,25 @@ export default function CreatureStatblock({
             <div className="modular-section-header header-legendary">
               <h4 className="modular-section-title text-gold">
                 <Crown size={16} />
-                <span>Acciones Legendarias</span>
+                <span>Legendary Actions</span>
               </h4>
-              <span className="legendary-budget-pill">3 / Turno</span>
+              <span className="legendary-budget-pill">3 / Round</span>
             </div>
-            <p className="legendary-intro-text">
-              {creature.legendaryHeader || 'La criatura puede realizar 3 acciones legendarias al final del turno de otra criatura. Recupera las gastadas al inicio de su turno.'}
-            </p>
+            <div className="legendary-intro-text">
+              {Array.isArray(creature.legendaryHeader) && creature.legendaryHeader.length > 0
+                ? creature.legendaryHeader.map((h, i) => <p key={i}>{clean5eTags(typeof h === 'string' ? h : extractEntryText(h))}</p>)
+                : <p>{typeof creature.legendaryHeader === 'string' ? clean5eTags(creature.legendaryHeader) : "The creature can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The creature regains spent legendary actions at the start of its turn."}</p>
+              }
+            </div>
             <div className="modular-traits-list">
               {legendary.map((l, idx) => {
-                const costMatch = (l.name || '').match(/\(\s*costs?\s*(\d+)\s*actions?\s*\)/i);
+                const costMatch = (l.name || '').match(/\b(?:costs?|takes)?\s*(\d+)\s*actions?\b/i);
                 const cost = costMatch ? costMatch[1] : 1;
-                const cleanName = clean5eTags((l.name || '').replace(/\(\s*costs?\s*\d+\s*actions?\s*\)/i, '').trim());
+                const cleanName = clean5eTags(
+                  (l.name || '')
+                    .replace(/\(\s*(?:costs?|takes)?\s*\d+\s*actions?\s*(?:;[^)]*)?\)/i, '')
+                    .trim()
+                );
 
                 return (
                   <div key={idx} className="modular-legendary-card">
@@ -624,7 +673,7 @@ export default function CreatureStatblock({
                       <div className="legendary-card-text">{extractEntryText(l.entries)}</div>
                     </div>
                     <span className="legendary-cost-chip">
-                      {cost > 1 ? `Coste: ${cost} Acciones` : '1 Acción'}
+                      {cost > 1 ? `Costs: ${cost} Actions` : '1 Action'}
                     </span>
                   </div>
                 );
@@ -639,22 +688,40 @@ export default function CreatureStatblock({
             <div className="modular-section-header header-mythic">
               <h4 className="modular-section-title text-crimson">
                 <Flame size={16} />
-                <span>Acciones Míticas</span>
+                <span>Mythic Actions</span>
               </h4>
-              <span className="legendary-budget-pill">Fase Mítica</span>
+              <span className="legendary-budget-pill">Mythic Phase</span>
             </div>
-            <p className="legendary-intro-text">
-              {creature.mythicHeader || 'Si el rasgo mítico de la criatura se activa, puede usar las siguientes opciones como acciones legendarias.'}
-            </p>
+            <div className="legendary-intro-text">
+              {Array.isArray(creature.mythicHeader) && creature.mythicHeader.length > 0
+                ? creature.mythicHeader.map((h, i) => <p key={i}>{clean5eTags(typeof h === 'string' ? h : extractEntryText(h))}</p>)
+                : <p>{typeof creature.mythicHeader === 'string' ? clean5eTags(creature.mythicHeader) : "If the creature's mythic trait has activated, it can use the options below as legendary actions."}</p>
+              }
+            </div>
             <div className="modular-traits-list">
-              {mythic.map((m, idx) => (
-                <div key={idx} className="modular-legendary-card border-mythic">
-                  <div>
-                    <strong className="legendary-card-title">{clean5eTags(m.name)}. </strong>
-                    <div className="legendary-card-text">{extractEntryText(m.entries)}</div>
+              {mythic.map((m, idx) => {
+                const costMatch = (m.name || '').match(/\b(?:costs?|takes)?\s*(\d+)\s*actions?\b/i);
+                const cost = costMatch ? costMatch[1] : 1;
+                const cleanName = clean5eTags(
+                  (m.name || '')
+                    .replace(/\(\s*(?:costs?|takes)?\s*\d+\s*actions?\s*(?:;[^)]*)?\)/i, '')
+                    .trim()
+                );
+
+                return (
+                  <div key={idx} className="modular-legendary-card border-mythic">
+                    <div>
+                      <strong className="legendary-card-title">{cleanName}. </strong>
+                      <div className="legendary-card-text">{extractEntryText(m.entries)}</div>
+                    </div>
+                    {costMatch && (
+                      <span className="legendary-cost-chip">
+                        {cost > 1 ? `Costs: ${cost} Actions` : '1 Action'}
+                      </span>
+                    )}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}
@@ -667,7 +734,7 @@ export default function CreatureStatblock({
             onClick={() => onAddToEncounter && onAddToEncounter(creature)}
           >
             <Plus size={16} />
-            <span>Añadir al Encuentro</span>
+            <span>Add to Encounter</span>
           </button>
         </div>
 
@@ -687,7 +754,7 @@ export default function CreatureStatblock({
               type="button"
               className="statblock-lightbox-close"
               onClick={() => setLightboxOpen(false)}
-              title="Cerrar (Esc)"
+              title="Close (Esc)"
             >
               <X size={20} />
             </button>
@@ -708,11 +775,11 @@ export default function CreatureStatblock({
                     className="statblock-lightbox-token-img"
                   />
                   <p className="statblock-lightbox-note">
-                    Token VTT Oficial • Sin ilustración de página completa en libro
+                    Official VTT Token • No full page book illustration
                   </p>
                 </div>
               ) : (
-                <p className="statblock-lightbox-note">Sin imagen disponible para esta criatura</p>
+                <p className="statblock-lightbox-note">No image available for this creature</p>
               )}
             </div>
 
@@ -729,7 +796,7 @@ export default function CreatureStatblock({
                 rel="noreferrer"
                 className="statblock-lightbox-dl-btn"
               >
-                Abrir Archivo Original ↗
+                Open Original File ↗
               </a>
             </div>
           </div>
