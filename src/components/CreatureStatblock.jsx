@@ -18,6 +18,7 @@ import {
   Image as ImageIcon
 } from 'lucide-react';
 import { parseModularAction, calculatePB, extractEntryText, clean5eTags } from '../engine/statblockParser';
+import ObsidianExportModal from './ObsidianExportModal.jsx';
 
 /**
  * Tarjeta Modular Reutilizable para Acciones, Acciones Adicionales y Reacciones
@@ -113,6 +114,7 @@ export default function CreatureStatblock({
 }) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [artLoadFailed, setArtLoadFailed] = useState(false);
+  const [isObsidianModalOpen, setIsObsidianModalOpen] = useState(false);
 
   useEffect(() => {
     setArtLoadFailed(false);
@@ -241,6 +243,16 @@ export default function CreatureStatblock({
 
         {/* Barra Superior de Acciones del Banner */}
         <div className="statblock-hero-top-actions">
+          <button 
+            type="button"
+            className="statblock-hero-btn-obsidian"
+            onClick={() => setIsObsidianModalOpen(true)}
+            title="Send creature to Obsidian vault (DnD - DM Remote)"
+          >
+            <span className="obsidian-dot">🟣</span>
+            <span>Send to Obsidian</span>
+          </button>
+
           {fullArtUrl && !artLoadFailed && (
             <button 
               type="button"
@@ -726,7 +738,7 @@ export default function CreatureStatblock({
           </div>
         )}
 
-        {/* 11. Botón inferior para añadir al combate */}
+        {/* 11. Botón inferior para añadir al combate y enviar a Obsidian */}
         <div className="statblock-bottom-bar">
           <button 
             type="button"
@@ -736,9 +748,27 @@ export default function CreatureStatblock({
             <Plus size={16} />
             <span>Add to Encounter</span>
           </button>
+
+          <button 
+            type="button"
+            className="statblock-bottom-btn-obsidian"
+            onClick={() => setIsObsidianModalOpen(true)}
+            title="Send creature to Obsidian vault (DnD - DM Remote)"
+          >
+            <span>🟣</span>
+            <span>Send to Obsidian</span>
+          </button>
         </div>
 
       </div>
+
+      {/* Modal de Exportación a Obsidian */}
+      {isObsidianModalOpen && (
+        <ObsidianExportModal 
+          creature={creature}
+          onClose={() => setIsObsidianModalOpen(false)}
+        />
+      )}
 
       {/* Lightbox Modal HD para ver Arte / Token */}
       {lightboxOpen && (
