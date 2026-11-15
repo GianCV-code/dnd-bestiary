@@ -25,7 +25,7 @@ import ObsidianExportModal from './ObsidianExportModal.jsx';
  */
 function ModularCard({ action }) {
   if (!action) return null;
-  const hasAttackOrSave = action.atkBonus || action.saveDC;
+  const hasAttackOrSave = action.atkBonus || action.saveDC || action.isAutoHit;
   const hasDamage = action.avgDamage;
 
   return (
@@ -42,16 +42,34 @@ function ModularCard({ action }) {
           <div className="modular-hud-boxes">
             <div className="modular-hud-box">
               <span className="modular-hud-title">TO HIT / DC</span>
-              {action.saveDC ? (
+              {action.atkBonus ? (
+                <>
+                  <span className="modular-hud-val-atk">
+                    {action.atkBonus} to hit
+                  </span>
+                  {action.saveDC && (
+                    <span className="modular-dice-sub" style={{ display: 'block', fontSize: '0.73rem', marginTop: '2px', color: '#c084fc' }}>
+                      DC {action.saveDC} {action.saveStat || ''}
+                    </span>
+                  )}
+                </>
+              ) : action.isAutoHit ? (
+                <>
+                  <span className="modular-hud-val-atk" style={{ color: '#38bdf8' }}>
+                    Auto-hit
+                  </span>
+                  {action.saveDC && (
+                    <span className="modular-dice-sub" style={{ display: 'block', fontSize: '0.73rem', marginTop: '2px', color: '#c084fc' }}>
+                      DC {action.saveDC} {action.saveStat || ''}
+                    </span>
+                  )}
+                </>
+              ) : action.saveDC ? (
                 <span className="modular-hud-val-save">
                   DC {action.saveDC} {action.saveStat || ''}
                 </span>
-              ) : action.atkBonus ? (
-                <span className="modular-hud-val-atk">
-                  {action.atkBonus} to hit
-                </span>
               ) : (
-                <span className="modular-hud-val-neutral">Action</span>
+                <span className="modular-hud-val-neutral">—</span>
               )}
             </div>
 

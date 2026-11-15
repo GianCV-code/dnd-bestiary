@@ -155,12 +155,17 @@ export function parseModularAction(action, defaultType = 'Action') {
   // Es Multiattack
   const isMultiattack = /^multiattack/i.test(name) || /multiataque/i.test(name);
   if (isMultiattack) {
+    const formatted = formatActionNarrative(rawText);
     return {
       name,
       isMultiattack: true,
-      rawText
+      rawText: formatted,
+      narrativeText: formatted
     };
   }
+
+  // Detección de impacto automático
+  const isAutoHit = /\bautomatic\s+hit\b/i.test(rawText) || /\bautomático\s+hit\b/i.test(rawText);
 
   // 1. Detección exhaustiva de tirada de ataque (+X to hit, 'm,r +5', 'mw 8', etc.)
   const atkMatch = rawText.match(
@@ -188,18 +193,30 @@ export function parseModularAction(action, defaultType = 'Action') {
     } else {
       atkType = 'Melee or Ranged';
     }
-  } else if (/cuerpo\s*a\s*cuerpo/i.test(rawText) || /melee/i.test(rawText) || /^\s*mw\b/i.test(rawText) || /(?:^|\.\s*)\s*m\s*[+-]?\d+/i.test(rawText)) {
-    if (/conjuro/i.test(rawText) || /spell/i.test(rawText) || /^\s*ms\b/i.test(rawText)) {
+  } else if (
+    /cuerpo\s*a\s*cuerpo/i.test(rawText) || 
+    /melee/i.test(rawText) || 
+    /^\s*m[ws]?\b/i.test(rawText) || 
+    /(?:^|[:.\n•\-]\s*)\b(m|mw|ms)\b/i.test(rawText) || 
+    (/\breach\b/i.test(rawText) && !/\brange\b/i.test(rawText))
+  ) {
+    if (/conjuro/i.test(rawText) || /spell/i.test(rawText) || /\bms\b/i.test(rawText)) {
       atkType = 'Melee Spell';
-    } else if (/weapon/i.test(rawText) || /arma/i.test(rawText) || /^\s*mw\b/i.test(rawText)) {
+    } else if (/weapon/i.test(rawText) || /arma/i.test(rawText) || /\bmw\b/i.test(rawText)) {
       atkType = 'Melee Weapon';
     } else {
       atkType = 'Melee Attack';
     }
-  } else if (/a\s*distancia/i.test(rawText) || /ranged/i.test(rawText) || /^\s*rw\b/i.test(rawText) || /(?:^|\.\s*)\s*r\s*[+-]?\d+/i.test(rawText)) {
-    if (/conjuro/i.test(rawText) || /spell/i.test(rawText) || /^\s*rs\b/i.test(rawText)) {
+  } else if (
+    /a\s*distancia/i.test(rawText) || 
+    /ranged/i.test(rawText) || 
+    /^\s*r[ws]?\b/i.test(rawText) || 
+    /(?:^|[:.\n•\-]\s*)\b(r|rw|rs)\b/i.test(rawText) || 
+    (/\brange\b/i.test(rawText) && !/\breach\b/i.test(rawText))
+  ) {
+    if (/conjuro/i.test(rawText) || /spell/i.test(rawText) || /\brs\b/i.test(rawText)) {
       atkType = 'Ranged Spell';
-    } else if (/weapon/i.test(rawText) || /arma/i.test(rawText) || /^\s*rw\b/i.test(rawText)) {
+    } else if (/weapon/i.test(rawText) || /arma/i.test(rawText) || /\brw\b/i.test(rawText)) {
       atkType = 'Ranged Weapon';
     } else {
       atkType = 'Ranged Attack';
@@ -299,6 +316,7 @@ export function parseModularAction(action, defaultType = 'Action') {
   return {
     name,
     isMultiattack: false,
+    isAutoHit,
     atkBonus,
     atkType: atkType || reach || defaultType,
     reach,
@@ -346,8 +364,20 @@ export function formatActionNarrative(text) {
     .replace(/Ataque\s*\(\s*m\s*\)\s*:\s*/gi, 'Melee Attack: ')
     .replace(/Ataque\s*\(\s*r\s*\)\s*:\s*/gi, 'Ranged Attack: ')
     .replace(/Ataque\s*\(\s*([^)]+)\s*\)\s*:\s*/gi, 'Attack ($1): ')
-    .replace(/Salvaci[oó]n\s*de\s*([a-zA-Záéíóú]+)\s*\(([^)]+)\)\s*:\s*CD\s*(\d+)/gi, '$2 Saving Throw: DC $3')
-    .replace(/Salvaci[oó]n\s*de\s*([a-zA-Záéíóú]+)\s*:\s*CD\s*(\d+)/gi, '$1 Saving Throw: DC $2');
+    .replace(/Salvaci[oó]n\s*de\s*Fuerza\s*(?:\(Strength\))?\s*:\s*/gi, 'Strength Saving Throw: ')
+    .replace(/Salvaci[oó]n\s*de\s*Destreza\s*(?:\(Dexterity\))?\s*:\s*/gi, 'Dexterity Saving Throw: ')
+    .replace(/Salvaci[oó]n\s*de\s*Constituci[oó]n\s*(?:\(Constitution\))?\s*:\s*/gi, 'Constitution Saving Throw: ')
+    .replace(/Salvaci[oó]n\s*de\s*Inteligencia\s*(?:\(Intelligence\))?\s*:\s*/gi, 'Intelligence Saving Throw: ')
+    .replace(/Salvaci[oó]n\s*de\s*Sabidur[ií]a\s*(?:\(Wisdom\))?\s*:\s*/gi, 'Wisdom Saving Throw: ')
+    .replace(/Salvaci[oó]n\s*de\s*Carisma\s*(?:\(Charisma\))?\s*:\s*/gi, 'Charisma Saving Throw: ')
+    .replace(/Salvaci[oó]n\s*de\s*([a-zA-Záéíóú]+)\s*\(([^)]+)\)\s*:\s*/gi, '$2 Saving Throw: ')
+    .replace(/Salvaci[oó]n\s*de\s*([a-zA-Záéíóú]+)\s*:\s*/gi, '$1 Saving Throw: ')
+    .replace(/Salvaci[oó]n\s*\(([^)]+)\)\s*:\s*/gi, 'Saving Throw ($1): ')
+    .replace(/Salvaci[oó]n\s*:\s*/gi, 'Saving Throw: ')
+    .replace(/\bCD\s*(\d+)/gi, 'DC $1')
+    .replace(/\bCD\s*equals\b/gi, 'DC equals')
+    .replace(/\b(?:tu\s*modificador\s*de\s*ataque\s*de\s*conjuro|tu\s*ataque\s*de\s*conjuro)\b/gi, 'your spell attack modifier')
+    .replace(/\b(?:tu\s*CD\s*de\s*salvaci[oó]n(?:\s*de\s*conjuros)?)\b/gi, 'your spell save DC');
 
   // 2. Mapeo de prefijos abreviados de 5eTools como 'm,r +5, reach...' o 'mw 8 to hit...'
   const atkPrefixMap = {
@@ -366,7 +396,32 @@ export function formatActionNarrative(text) {
     'rp': 'Ranged Power Attack'
   };
 
-  // Reemplazo para prefijos de 2 letras o compuestos (mw, rw, m,r, etc.)
+  // Prefijo duplicado: ej. 'rs Ranged Spell Attack: 3 to hit...' o 'rw Attack: 4 to hit...'
+  str = str.replace(
+    /(?:^|(?<=[:.\n•\-]\s*))\b(mw,rw|ms,rs|m,r|mp,rp|mw,rs|mw|rw|ms|rs|mp|rp|m|r)\s+(?:Melee\s+or\s+Ranged\s+(?:Weapon\s+|Spell\s+)?Attack|Melee\s+(?:Weapon\s+|Spell\s+)?Attack|Ranged\s+(?:Weapon\s+|Spell\s+)?Attack|Attack)\s*:\s*([+-]?\d+)?\s*(?:to\s*hit|para\s*impactar)?\s*,?\s*/gi,
+    (match, tag, bonus) => {
+      const label = atkPrefixMap[tag.toLowerCase()];
+      if (bonus) {
+        const b = (bonus.startsWith('+') || bonus.startsWith('-')) ? bonus : `+${bonus}`;
+        return `${label}: ${b} to hit, `;
+      }
+      return `${label}: `;
+    }
+  );
+
+  // Automatic hit: ej. 'm automatic hit, reach 5 ft.'
+  str = str.replace(
+    /(?:^|(?<=[:.\n•\-]\s*))\b(mw,rw|ms,rs|m,r|mp,rp|mw,rs|mw|rw|ms|rs|mp|rp|m|r)\s+(?:automatic|automático)\s+hit\s*,?\s*/gi,
+    (match, tag) => `${atkPrefixMap[tag.toLowerCase()]}: Automatic hit, `
+  );
+
+  // PB o your spell attack modifier: ej. 'mw PB + 3 to hit' o 'rs your spell attack modifier to hit'
+  str = str.replace(
+    /(?:^|(?<=[:.\n•\-]\s*))\b(mw,rw|ms,rs|m,r|mp,rp|mw,rs|mw|rw|ms|rs|mp|rp|m|r)\s+(your\s+spell\s+attack\s+modifier|PB(?:\s*[+-]\s*\d+)?)\s*(?:to\s*hit|para\s*impactar)?\s*,?\s*/gi,
+    (match, tag, mod) => `${atkPrefixMap[tag.toLowerCase()]}: ${mod} to hit, `
+  );
+
+  // Reemplazo para prefijos de 2 letras o compuestos con número / bono
   str = str.replace(
     /\b(mw,rw|ms,rs|m,r|mp,rp|mw,rs|mw|rw|ms|rs|mp|rp)\s*([+-]?\d+)\s*(?:to\s*hit|para\s*impactar)?\s*,?\s*/gi,
     (match, tag, bonus) => {
@@ -377,7 +432,7 @@ export function formatActionNarrative(text) {
     }
   );
 
-  // Reemplazo para m o r simples (requiere delimitador o inicio para evitar falsos positivos con unidades)
+  // Reemplazo para m o r simples con número / bono
   str = str.replace(
     /(?:^|(?<=[:.\n•\-]\s*))\b(m|r)\s*([+-]?\d+)\s*(?:to\s*hit|para\s*impactar)?\s*,?\s*/gi,
     (match, tag, bonus) => {
@@ -386,6 +441,16 @@ export function formatActionNarrative(text) {
       const b = (bonus.startsWith('+') || bonus.startsWith('-')) ? bonus : `+${bonus}`;
       return `${label}: ${b} to hit, `;
     }
+  );
+
+  // Shorthand simple seguido de coma o reach/range/target
+  str = str.replace(
+    /(?:^|(?<=[:.\n•\-]\s*))\b(mw,rw|ms,rs|m,r|mp,rp|mw,rs|mw|rw|ms|rs|mp|rp|m|r)\s*,\s*/gi,
+    (match, tag) => `${atkPrefixMap[tag.toLowerCase()]}: `
+  );
+  str = str.replace(
+    /^(mw,rw|ms,rs|m,r|mp,rp|mw,rs|mw|rw|ms|rs|mp|rp|m|r)\s+(?=(?:reach|range|one\b|each\b|all\b|the\b))/gi,
+    (match, tag) => `${atkPrefixMap[tag.toLowerCase()]}: `
   );
 
   // Normalizar "+X para impactar" a "+X to hit"
@@ -410,11 +475,18 @@ export function formatActionNarrative(text) {
     .replace(/\bImpacto:\s*/gi, 'Hit: ')
     .replace(/\bFallo:\s*/gi, isSavingThrow ? 'Failure: ' : 'Miss: ')
     .replace(/(?:^|\s|[.,;])(?:Éxito|Exito):\s*/gi, ' Success: ')
+    .replace(/\bPrimer\s+Fallo:\s*/gi, 'First Failure: ')
+    .replace(/\bSegundo\s+Fallo:\s*/gi, 'Second Failure: ')
+    .replace(/\bFallo\s+o\s+[EÉ]xito:\s*/gi, 'Failure or Success: ')
+    .replace(/\bFallo\s+por\s+(\d+)\s+o\s+m[aá]s:\s*/gi, 'Failure by $1 or more: ')
     .replace(/\bHalf damage\b/gi, 'half damage')
     .replace(/\bmitad\s+de\s+daño\b/gi, 'half damage')
     .replace(/\bsi\s+falla\s+la\s+salvaci[oó]n\b/gi, 'on a failed save')
     .replace(/\bsi\s+tiene\s+[eé]xito\s+en\s+la\s+salvaci[oó]n\b/gi, 'on a successful save')
-    .replace(/\bRecarga\s*([0-9–-]+)/gi, 'Recharge $1');
+    .replace(/\bRecarga\s*([0-9–-]+)/gi, 'Recharge $1')
+    .replace(/\bRecarga\b/gi, 'Recharge')
+    .replace(/,\s*,/g, ',')
+    .replace(/:\s*:/g, ':');
 
   return str.replace(/\s{2,}/g, ' ').trim();
 }

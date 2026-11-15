@@ -5,10 +5,10 @@
  * Automatically invalidates when CURRENT_DATA_VERSION changes.
  */
 
-export const CURRENT_DATA_VERSION = '20261114_version_art_fix';
+export const CURRENT_DATA_VERSION = '20261114_descriptions_fix';
 
 const DB_NAME = 'DND_BESTIARY_PERSISTENT_CACHE';
-const DB_VERSION = 4; // Incremented to automatically bust stale caches and ensure inherited version media is loaded
+const DB_VERSION = 5; // Incremented to automatically bust stale caches and ensure sanitized descriptions and actions are loaded
 const STORE_NAME = 'bestiary_data';
 const CACHE_KEY = 'cached_indexed_creatures';
 const META_KEY = 'cache_metadata';

@@ -143,30 +143,52 @@ function cleanEntries(entries) {
   return result;
 }
 
+const atkTagMap = {
+  'mw': 'Melee Weapon Attack: ',
+  'rw': 'Ranged Weapon Attack: ',
+  'ms': 'Melee Spell Attack: ',
+  'rs': 'Ranged Spell Attack: ',
+  'mw,rw': 'Melee or Ranged Weapon Attack: ',
+  'ms,rs': 'Melee or Ranged Spell Attack: ',
+  'm,r': 'Melee or Ranged Attack: ',
+  'mp,rp': 'Melee or Ranged Power Attack: ',
+  'm': 'Melee Attack: ',
+  'r': 'Ranged Attack: ',
+  'mp': 'Melee Power Attack: ',
+  'rp': 'Ranged Power Attack: '
+};
+
 function cleanText(text) {
   if (typeof text !== 'string') return '';
   return text
-    .replace(/\{@actTrigger\}/gi, 'Disparador: ')
-    .replace(/\{@actResponse\}/gi, 'Respuesta: ')
-    .replace(/\{@actSave\s+([^}]+)\}/gi, 'Salvación ($1): ')
-    .replace(/\{@actSaveFail\}/gi, 'Fallo: ')
-    .replace(/\{@actSaveSuccess\}/gi, 'Éxito: ')
-    .replace(/\{@actSaveSuccessOrFail\}/gi, 'Fallo o Éxito: ')
-    .replace(/\{@hitYourSpellAttack\}/gi, 'tu ataque de conjuro')
-    .replace(/\{@dcYourSpellSave\}/gi, 'tu CD de salvación')
-    .replace(/\{@h\}/gi, 'Impacto: ')
+    .replace(/\{@actTrigger\}/gi, 'Trigger: ')
+    .replace(/\{@actResponse\}/gi, 'Response: ')
+    .replace(/\{@actSave\s+([^}]+)\}/gi, '$1 Saving Throw: ')
+    .replace(/\{@actSaveFail\}/gi, 'Failure: ')
+    .replace(/\{@actSaveSuccess\}/gi, 'Success: ')
+    .replace(/\{@actSaveSuccessOrFail\}/gi, 'Failure or Success: ')
+    .replace(/\{@hitYourSpellAttack\}/gi, 'your spell attack modifier')
+    .replace(/\{@dcYourSpellSave\}/gi, 'your spell save DC')
+    .replace(/\{@h\}/gi, 'Hit: ')
     .replace(/\{@recharge\s*([^}]+)?\}/gi, (_, n) => {
       const val = n ? n.trim() : '6';
-      if (val === '5') return '(Recarga 5-6)';
-      if (val === '4') return '(Recarga 4-6)';
-      if (val === '3') return '(Recarga 3-6)';
-      if (val === '2') return '(Recarga 2-6)';
-      if (val === '6') return '(Recarga 6)';
-      return `(Recarga ${val})`;
+      if (val === '5') return '(Recharge 5-6)';
+      if (val === '4') return '(Recharge 4-6)';
+      if (val === '3') return '(Recharge 3-6)';
+      if (val === '2') return '(Recharge 2-6)';
+      if (val === '6') return '(Recharge 6)';
+      return `(Recharge ${val})`;
     })
     .replace(/\{@dice\s+([^}]+)\}/gi, '$1')
     .replace(/\{@damage\s+([^}]+)\}/gi, '$1')
-    .replace(/\{@atk\s+([^}]+)\}/gi, '$1')
+    .replace(/\{@hit\s+([^}]+)\}/gi, (match, p1) => {
+      const trimmed = p1.trim();
+      return (trimmed.startsWith('+') || trimmed.startsWith('-')) ? trimmed : `+${trimmed}`;
+    })
+    .replace(/\{@atk\s+([^}]+)\}/gi, (match, tag) => {
+      const cleanTag = tag.trim().toLowerCase();
+      return atkTagMap[cleanTag] || `${tag}: `;
+    })
     .replace(/\{@spell\s+([^}|]+)(?:\|[^}]+)?\}/gi, '$1')
     .replace(/\{@item\s+([^}|]+)(?:\|[^}]+)?\}/gi, '$1')
     .replace(/\{@creature\s+([^}|]+)(?:\|[^}]+)?\}/gi, '$1')
@@ -174,7 +196,7 @@ function cleanText(text) {
     .replace(/\{@status\s+([^}|]+)(?:\|[^}]+)?\}/gi, '$1')
     .replace(/\{@skill\s+([^}|]+)(?:\|[^}]+)?\}/gi, '$1')
     .replace(/\{@sense\s+([^}|]+)(?:\|[^}]+)?\}/gi, '$1')
-    .replace(/\{@dc\s+([^}]+)\}/gi, 'CD $1')
+    .replace(/\{@dc\s+([^}]+)\}/gi, 'DC $1')
     .replace(/\{@b\s+([^}]+)\}/gi, '$1')
     .replace(/\{@i\s+([^}]+)\}/gi, '$1')
     .replace(/\{@note\s+([^}]+)\}/gi, '$1')
