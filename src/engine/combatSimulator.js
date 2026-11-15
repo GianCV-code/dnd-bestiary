@@ -141,19 +141,19 @@ export function extractMonsterCombatStats(creature) {
 }
 
 export const DND_CLASSES = [
-  'Bárbaro',
-  'Bardo',
-  'Clérigo',
-  'Druida',
-  'Guerrero',
-  'Monje',
-  'Paladín',
-  'Explorador',
-  'Pícaro',
-  'Hechicero',
-  'Brujo',
-  'Mago',
-  'Artífice'
+  'Barbarian',
+  'Bard',
+  'Cleric',
+  'Druid',
+  'Fighter',
+  'Monk',
+  'Paladin',
+  'Ranger',
+  'Rogue',
+  'Sorcerer',
+  'Warlock',
+  'Wizard',
+  'Artificer'
 ];
 
 /**
@@ -165,6 +165,7 @@ export function getStatsForClassAndLevel(className, level = 5) {
   const statMod = lvl >= 8 ? 5 : (lvl >= 4 ? 4 : 3);
 
   switch (className) {
+    case 'Barbarian':
     case 'Bárbaro': {
       const conMod = 3;
       const hp = 12 + conMod + (lvl - 1) * (7 + conMod);
@@ -174,6 +175,7 @@ export function getStatsForClassAndLevel(className, level = 5) {
       const dpr = attacks * (7 + statMod + rage);
       return { hp, ac, toHit: prof + statMod, dpr: Math.round(dpr) };
     }
+    case 'Fighter':
     case 'Guerrero': {
       const conMod = 2;
       const hp = 10 + conMod + (lvl - 1) * (6 + conMod);
@@ -182,6 +184,7 @@ export function getStatsForClassAndLevel(className, level = 5) {
       const dpr = attacks * (8.5 + statMod);
       return { hp, ac, toHit: prof + statMod, dpr: Math.round(dpr) };
     }
+    case 'Paladin':
     case 'Paladín': {
       const conMod = 2;
       const hp = 10 + conMod + (lvl - 1) * (6 + conMod);
@@ -191,6 +194,7 @@ export function getStatsForClassAndLevel(className, level = 5) {
       const dpr = attacks * (4.5 + statMod) + smiteBonus;
       return { hp, ac, toHit: prof + statMod, dpr: Math.round(dpr) };
     }
+    case 'Rogue':
     case 'Pícaro': {
       const conMod = 2;
       const hp = 8 + conMod + (lvl - 1) * (5 + conMod);
@@ -199,6 +203,7 @@ export function getStatsForClassAndLevel(className, level = 5) {
       const dpr = (4.5 + statMod) + sneakDice * 3.5;
       return { hp, ac: Math.min(18, ac), toHit: prof + statMod, dpr: Math.round(dpr) };
     }
+    case 'Wizard':
     case 'Mago': {
       const conMod = 2;
       const hp = 6 + conMod + (lvl - 1) * (4 + conMod);
@@ -207,6 +212,7 @@ export function getStatsForClassAndLevel(className, level = 5) {
       const dpr = lvl >= 5 ? Math.round(24 + (lvl - 5) * 3) : cantripDice * 5.5 + 3;
       return { hp, ac, toHit: prof + statMod, dpr };
     }
+    case 'Cleric':
     case 'Clérigo': {
       const conMod = 2;
       const hp = 8 + conMod + (lvl - 1) * (5 + conMod);
@@ -214,6 +220,7 @@ export function getStatsForClassAndLevel(className, level = 5) {
       const dpr = lvl >= 5 ? Math.round(18 + (lvl - 5) * 2.5) : 10;
       return { hp, ac, toHit: prof + statMod, dpr };
     }
+    case 'Bard':
     case 'Bardo': {
       const conMod = 2;
       const hp = 8 + conMod + (lvl - 1) * (5 + conMod);
@@ -221,6 +228,7 @@ export function getStatsForClassAndLevel(className, level = 5) {
       const dpr = lvl >= 5 ? Math.round(16 + (lvl - 5) * 2) : 9;
       return { hp, ac, toHit: prof + statMod, dpr };
     }
+    case 'Druid':
     case 'Druida': {
       const conMod = 2;
       const hp = 8 + conMod + (lvl - 1) * (5 + conMod);
@@ -228,6 +236,7 @@ export function getStatsForClassAndLevel(className, level = 5) {
       const dpr = lvl >= 5 ? Math.round(18 + (lvl - 5) * 2.5) : 10;
       return { hp, ac, toHit: prof + statMod, dpr };
     }
+    case 'Monk':
     case 'Monje': {
       const conMod = 2;
       const hp = 8 + conMod + (lvl - 1) * (5 + conMod);
@@ -237,6 +246,7 @@ export function getStatsForClassAndLevel(className, level = 5) {
       const dpr = attacks * (martialDie + statMod);
       return { hp, ac, toHit: prof + statMod, dpr: Math.round(dpr) };
     }
+    case 'Ranger':
     case 'Explorador': {
       const conMod = 2;
       const hp = 10 + conMod + (lvl - 1) * (6 + conMod);
@@ -245,6 +255,7 @@ export function getStatsForClassAndLevel(className, level = 5) {
       const dpr = attacks * (4.5 + statMod) + (lvl >= 3 ? 3.5 : 0);
       return { hp, ac, toHit: prof + statMod + 2, dpr: Math.round(dpr) };
     }
+    case 'Sorcerer':
     case 'Hechicero': {
       const conMod = 2;
       const hp = 6 + conMod + (lvl - 1) * (4 + conMod);
@@ -252,6 +263,7 @@ export function getStatsForClassAndLevel(className, level = 5) {
       const dpr = lvl >= 5 ? Math.round(25 + (lvl - 5) * 3) : 11;
       return { hp, ac, toHit: prof + statMod, dpr };
     }
+    case 'Warlock':
     case 'Brujo': {
       const conMod = 2;
       const hp = 8 + conMod + (lvl - 1) * (5 + conMod);
@@ -288,8 +300,8 @@ export function simulateBattle(monsterRoster, partyInput, luck = 0.5, partyMode 
 
       players.push({
         id: p.id || `p-${pIdx++}`,
-        name: p.name || `Héroe #${pIdx}`,
-        className: p.className || 'Aventurero',
+        name: p.name || `Hero #${pIdx}`,
+        className: p.className || 'Adventurer',
         level: Number(p.level) || 5,
         maxHp,
         currentHp: maxHp,

@@ -38,10 +38,10 @@ export class ErrorBoundary extends React.Component {
             boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.5)'
           }}>
             <h2 style={{ color: '#ef4444', marginTop: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
-              ⚠️ Error inesperado al cargar la aplicación
+              ⚠️ Unexpected error loading application
             </h2>
             <p style={{ color: '#94a3b8', fontSize: '0.95rem' }}>
-              {this.state.error?.message || 'Ha ocurrido un error en la renderización.'}
+              {this.state.error?.message || 'An error occurred during rendering.'}
             </p>
             <pre style={{
               backgroundColor: '#0a0c10',
@@ -66,7 +66,7 @@ export class ErrorBoundary extends React.Component {
                 fontWeight: 600
               }}
             >
-              Recargar página
+              Reload page
             </button>
           </div>
         </div>

@@ -162,7 +162,7 @@ function ModularCard({ action, isSubAction = false }) {
               <span className="modular-hud-title">Avg Damage</span>
               {action.avgDamage ? (
                 <span className="modular-hud-val-dmg">
-                  {action.avgDamage} <span className="modular-dice-sub">({action.damageDice || ''})</span>
+                  {action.avgDamage} {action.damageDice ? <span className="modular-dice-sub">({action.damageDice})</span> : null}
                   {action.damageType ? ` ${action.damageType}` : ''}
                   {action.plusDamage ? ` + ${action.plusDamage}` : ''}
                 </span>
@@ -234,16 +234,20 @@ export default function CreatureStatblock({
   // Speed in English
   const speedParts = [];
   if (creature.speed) {
-    if (creature.speed.walk) speedParts.push(`${creature.speed.walk} ft`);
-    else if (typeof creature.speed === 'number') speedParts.push(`${creature.speed} ft`);
-    else if (typeof creature.speed === 'string') speedParts.push(creature.speed);
+    if (typeof creature.speed === 'number') {
+      speedParts.push(`${creature.speed} ft`);
+    } else if (typeof creature.speed === 'string') {
+      speedParts.push(creature.speed);
+    } else if (typeof creature.speed === 'object') {
+      const { walk, fly, swim, climb, burrow, canHover } = creature.speed;
+      const hasOtherSpeeds = Boolean(fly || swim || climb || burrow);
 
     if (creature.speed.fly) speedParts.push(`fly ${creature.speed.fly} ft${creature.speed.canHover ? ' (hover)' : ''}`);
     if (creature.speed.swim) speedParts.push(`swim ${creature.speed.swim} ft`);
     if (creature.speed.climb) speedParts.push(`climb ${creature.speed.climb} ft`);
     if (creature.speed.burrow) speedParts.push(`burrow ${creature.speed.burrow} ft`);
   }
-  const speedText = speedParts.length > 0 ? speedParts.join(', ') : '30 ft';
+  const speedText = speedParts.length > 0 ? speedParts.join(', ') : (creature.speed ? '0 ft' : '30 ft');
 
   // Initiative score
   const dexMod = Math.floor(((creature.dex || 10) - 10) / 2);
@@ -270,7 +274,7 @@ export default function CreatureStatblock({
   const mythic = creature.mythic || [];
   const spellcasting = creature.spellcasting || [];
 
-  // Token & Art URLs resolution (with smart MM dragon artwork mapping)
+  // Token & Art URLs resolution (with smart MM dragon artwork mapping and cross-version fallback)
   const source = creature.source || 'MM';
   let artName = creature.name || '';
   if (source === 'MM' && artName.includes('Dragon')) {
@@ -280,17 +284,41 @@ export default function CreatureStatblock({
     }
   }
 
-  const tokenUrl = creature.tokenUrl || (
-    creature.category === 'Official WotC' || !creature.category
-      ? `https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/${source}/${encodeURIComponent(creature.name)}.webp`
-      : null
-  );
+  // Ordered candidate artworks: current version -> sibling versions in group -> official 5eTools
+  const candidateArts = [];
+  if (creature.artUrl) candidateArts.push(creature.artUrl);
+  if (modalGroup?.versions) {
+    for (const v of modalGroup.versions) {
+      if (v.artUrl && !candidateArts.includes(v.artUrl)) {
+        candidateArts.push(v.artUrl);
+      }
+    }
+  }
+  if (creature.category === 'Official WotC' || !creature.category) {
+    const officialArt = `https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/${source}/${encodeURIComponent(artName)}.webp`;
+    if (!candidateArts.includes(officialArt)) {
+      candidateArts.push(officialArt);
+    }
+  }
+  const fullArtUrl = candidateArts.find(url => !failedArtUrls.has(url)) || null;
 
-  const fullArtUrl = creature.artUrl || (
-    creature.category === 'Official WotC' || !creature.category
-      ? `https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/${source}/${encodeURIComponent(artName)}.webp`
-      : null
-  );
+  // Ordered candidate tokens: current version -> sibling versions in group -> official 5eTools
+  const candidateTokens = [];
+  if (creature.tokenUrl) candidateTokens.push(creature.tokenUrl);
+  if (modalGroup?.versions) {
+    for (const v of modalGroup.versions) {
+      if (v.tokenUrl && !candidateTokens.includes(v.tokenUrl)) {
+        candidateTokens.push(v.tokenUrl);
+      }
+    }
+  }
+  if (creature.category === 'Official WotC' || !creature.category) {
+    const officialToken = `https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/${source}/${encodeURIComponent(creature.name)}.webp`;
+    if (!candidateTokens.includes(officialToken)) {
+      candidateTokens.push(officialToken);
+    }
+  }
+  const tokenUrl = candidateTokens.find(url => !failedTokenUrls.has(url)) || null;
 
   return (
     <div className="statblock-sheet" onClick={e => e.stopPropagation()}>
@@ -303,7 +331,7 @@ export default function CreatureStatblock({
             src={fullArtUrl} 
             alt={creature.name} 
             className="statblock-hero-bg-art"
-            onError={() => setArtLoadFailed(true)} 
+            onError={() => setFailedArtUrls(prev => new Set(prev).add(fullArtUrl))} 
           />
         ) : (
           <div className="statblock-hero-bg-fallback">
@@ -312,6 +340,7 @@ export default function CreatureStatblock({
                 src={tokenUrl} 
                 alt="" 
                 className="statblock-hero-bg-fallback-token" 
+                onError={() => setFailedTokenUrls(prev => new Set(prev).add(tokenUrl))}
               />
             )}
             <div className="statblock-hero-bg-fallback-pattern"></div>
@@ -325,7 +354,17 @@ export default function CreatureStatblock({
 
         {/* Banner Top Actions */}
         <div className="statblock-hero-top-actions">
-          {fullArtUrl && !artLoadFailed && (
+          <button 
+            type="button"
+            className="statblock-hero-btn-obsidian"
+            onClick={() => setIsObsidianModalOpen(true)}
+            title="Send creature to Obsidian vault (DnD - DM Remote)"
+          >
+            <span className="obsidian-dot">🟣</span>
+            <span>Send to Obsidian</span>
+          </button>
+
+          {fullArtUrl && (
             <button 
               type="button"
               className="statblock-hero-btn-zoom"
@@ -359,7 +398,7 @@ export default function CreatureStatblock({
                 src={tokenUrl} 
                 alt={creature.name}
                 className="statblock-hero-token-img"
-                onError={(e) => { e.target.style.display = 'none'; }}
+                onError={() => setFailedTokenUrls(prev => new Set(prev).add(tokenUrl))}
               />
               <span className="statblock-hero-token-badge" title="Official VTT Token">
                 VTT
@@ -723,7 +762,11 @@ export default function CreatureStatblock({
                 const parsedL = parseModularAction(l, 'Legendary Action');
                 const costMatch = (l.name || '').match(/\(\s*costs?\s*(\d+)\s*actions?\s*\)/i);
                 const cost = costMatch ? costMatch[1] : 1;
-                const cleanName = clean5eTags((l.name || '').replace(/\(\s*costs?\s*\d+\s*actions?\s*\)/i, '').trim());
+                const cleanName = clean5eTags(
+                  (l.name || '')
+                    .replace(/\(\s*(?:costs?|takes)?\s*\d+\s*actions?\s*(?:;[^)]*)?\)/i, '')
+                    .trim()
+                );
 
                 return (
                   <div key={idx} className="modular-legendary-card">
@@ -894,12 +937,12 @@ export default function CreatureStatblock({
             </button>
 
             <div className="statblock-lightbox-media">
-              {fullArtUrl && !artLoadFailed ? (
+              {fullArtUrl ? (
                 <img 
                   src={fullArtUrl} 
                   alt={creature.name}
                   className="statblock-lightbox-img"
-                  onError={() => setArtLoadFailed(true)}
+                  onError={() => setFailedArtUrls(prev => new Set(prev).add(fullArtUrl))}
                 />
               ) : tokenUrl ? (
                 <div className="statblock-lightbox-token-wrap">
@@ -907,6 +950,7 @@ export default function CreatureStatblock({
                     src={tokenUrl} 
                     alt={creature.name}
                     className="statblock-lightbox-token-img"
+                    onError={() => setFailedTokenUrls(prev => new Set(prev).add(tokenUrl))}
                   />
                   <p className="statblock-lightbox-note">
                     Official VTT Token • No full-page book illustration
@@ -925,7 +969,7 @@ export default function CreatureStatblock({
                 </p>
               </div>
               <a 
-                href={fullArtUrl && !artLoadFailed ? fullArtUrl : tokenUrl} 
+                href={fullArtUrl || tokenUrl} 
                 target="_blank" 
                 rel="noreferrer"
                 className="statblock-lightbox-dl-btn"

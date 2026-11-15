@@ -201,6 +201,7 @@ export function parseModularAction(action, defaultType = 'Action') {
   // Check for Multiattack
   const isMultiattack = /^multiattack/i.test(name) || /multiataque/i.test(name);
   if (isMultiattack) {
+    const formatted = formatActionNarrative(rawText);
     return {
       name,
       isMultiattack: true,
@@ -338,7 +339,11 @@ export function parseModularAction(action, defaultType = 'Action') {
   const triggerMatch = rawText.match(/(?:Trigger:|Disparador:)\s*(.*?)\s*(?:Response:|Respuesta:)\s*(.*)/is);
   if (triggerMatch) {
     trigger = triggerMatch[1].trim();
-    response = triggerMatch[2].trim();
+    const remaining = rawText
+      .replace(/(?:Disparador:|Trigger:)\s*.*?(?=\s*(?:Respuesta:|Response:|\bSalvaci[oó]n\b|\bSaving Throw\b|\bFallo:|\bFailure:|\bImpacto:|\bHit:|$))/is, '')
+      .replace(/^\s*(?:Respuesta:|Response:)\s*/i, '')
+      .trim();
+    response = remaining;
   }
 
   // Narrative text formatting

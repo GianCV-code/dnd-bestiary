@@ -31,6 +31,7 @@ import { simulateBattle, DND_CLASSES, getStatsForClassAndLevel } from './engine/
 import { 
   getCreatureVersionMeta, 
   repairHollowCopies, 
+  propagateVersionMedia,
   groupCreaturesByName, 
   computeVersionDiff 
 } from './engine/versionManager';
@@ -211,7 +212,7 @@ function extractForcesSaves(c) {
   const saves = new Set();
   const textParts = [];
 
-  ['trait', 'action', 'reaction', 'legendary', 'mythic'].forEach(cat => {
+  ['trait', 'action', 'bonus', 'reaction', 'legendary', 'mythic'].forEach(cat => {
     (c[cat] || []).forEach(item => {
       if (item.name) textParts.push(item.name);
       (item.entries || []).forEach(e => {
@@ -244,6 +245,7 @@ function extractForcesSaves(c) {
 // Transform and index raw bestiary data for instant searches and edition grouping
 function indexRawBestiary(data) {
   const repaired = repairHollowCopies(data);
+  const mediaEnriched = propagateVersionMedia(repaired);
 
   const sizeMap = {
     'T': 'tiny diminuto',
@@ -254,8 +256,88 @@ function indexRawBestiary(data) {
     'G': 'gargantuan gargantuesco'
   };
 
-  return repaired.map(c => {
+  const SIZE_NORM_MAP = {
+    'medium': 'M', 'large': 'L', 'huge': 'H', 'small': 'S', 'tiny': 'T', 'gargantuan': 'G',
+    'm': 'M', 'l': 'L', 'h': 'H', 's': 'S', 't': 'T', 'g': 'G'
+  };
+
+  const TYPE_PLURALS = {
+    plant: 'plants plantas vegetacion vegetal flora',
+    beast: 'beasts bestias animales fauna animal',
+    dragon: 'dragons dragones',
+    monstrosity: 'monstrosities monstruosidades',
+    humanoid: 'humanoids humanoides',
+    undead: 'undeads no-muertos no muertos muertos vivientes',
+    fiend: 'fiends infernales demonios diablos',
+    fey: 'feéricos feericos fey hadas',
+    celestial: 'celestials celestiales',
+    construct: 'constructs constructos',
+    elemental: 'elementals elementales',
+    aberration: 'aberrations aberraciones',
+    giant: 'giants gigantes',
+    ooze: 'oozes cienos limos',
+    wyvern: 'wyverns wyvernos'
+  };
+
+  const TROPICAL_PATTERNS = [
+    /\bape\b/i, /\bbaboon\b/i, /\btiger\b/i, /\bpanther\b/i, /\bjaguar\b/i,
+    /\bgrung\b/i, /\bgirallon\b/i, /\bvelociraptor\b/i, /\btyrannosaurus\b/i,
+    /\ballosaurus\b/i, /\bbrontosaurus\b/i, /\bchwinga\b/i, /\bkamadan\b/i,
+    /\bsu-monster\b/i, /\bjaculi\b/i, /\bzorbo\b/i, /\beblis\b/i, /\bchultan\b/i
+  ];
+
+  return mediaEnriched.map(c => {
     const versionMeta = getCreatureVersionMeta(c);
+
+    // 1. Normalize Size (handles full words from MME 2024 like 'Medium' -> 'M')
+    const normSize = SIZE_NORM_MAP[String(c.size || '').toLowerCase()] || c.size || 'M';
+
+    // 2. Normalize Speed (handles object speeds like fly: { number: 150, condition: '(hover)' })
+    const speedNorm = { ...(c.speed || {}) };
+    let flyNum = 0;
+    let hoverFlag = !!speedNorm.canHover;
+    if (typeof speedNorm.fly === 'number') {
+      flyNum = speedNorm.fly;
+    } else if (typeof speedNorm.fly === 'object' && speedNorm.fly !== null) {
+      flyNum = speedNorm.fly.number || 0;
+      if (speedNorm.fly.condition && String(speedNorm.fly.condition).toLowerCase().includes('hover')) {
+        hoverFlag = true;
+      }
+    }
+    speedNorm.fly = flyNum;
+    speedNorm.canHover = hoverFlag;
+    if (typeof speedNorm.climb === 'object' && speedNorm.climb !== null) speedNorm.climb = speedNorm.climb.number || 0;
+    if (typeof speedNorm.swim === 'object' && speedNorm.swim !== null) speedNorm.swim = speedNorm.swim.number || 0;
+    if (typeof speedNorm.burrow === 'object' && speedNorm.burrow !== null) speedNorm.burrow = speedNorm.burrow.number || 0;
+
+    // 3. Enrich Environment in Memory (Deterministic rules)
+    const envSet = new Set((c.environment || []).map(e => String(e).toLowerCase().trim()));
+    // Rule 1: Swamp + Forest (without arctic) = Jungle
+    const hasForest = envSet.has('forest');
+    const hasSwamp = envSet.has('swamp');
+    const hasArctic = envSet.has('arctic');
+    if (hasForest && hasSwamp && !hasArctic && envSet.size <= 4) {
+      envSet.add('jungle');
+    }
+    // Rule 2: Tomb of Annihilation (ToA) campaign canon = Jungle
+    if (c.source === 'ToA') {
+      envSet.add('jungle');
+    }
+    // Rule 3: Canonical Tropical fauna/flora patterns (Apes, Tigers, Grungs, Dinosaurs)
+    if (TROPICAL_PATTERNS.some(p => p.test(c.name))) {
+      envSet.add('jungle');
+    }
+    // Normalizations for Outer Planes and Underground
+    for (const e of Array.from(envSet)) {
+      if (e.includes('outer planes') || e.includes('abyss') || e.includes('nine hells') || e.includes('astral') || e.includes('ethereal') || e.includes('feywild') || e.includes('shadowfell')) {
+        envSet.add('planar');
+      }
+      if (e.includes('underground')) {
+        envSet.add('underdark');
+      }
+    }
+    const enrichedEnvironment = Array.from(envSet);
+
     const parts = [
       c.name,
       c.type,
@@ -274,7 +356,7 @@ function indexRawBestiary(data) {
       (c.immune || []).join(' '),
       (c.vulnerable || []).join(' '),
       (c.conditionImmune || []).join(' '),
-      (c.environment || []).join(' ')
+      enrichedEnvironment.join(' ')
     ];
 
     const normalizedSize = normalizeSize(c.size);
@@ -351,6 +433,14 @@ function indexRawBestiary(data) {
       });
     });
 
+    (c.bonus || []).forEach(t => {
+      parts.push(t.name);
+      (t.entries || []).forEach(e => {
+        if (typeof e === 'string') parts.push(e);
+        else if (e && e.entries) parts.push(JSON.stringify(e));
+      });
+    });
+
     (c.reaction || []).forEach(t => {
       parts.push(t.name);
       (t.entries || []).forEach(e => {
@@ -382,6 +472,9 @@ function indexRawBestiary(data) {
 
     return {
       ...c,
+      size: normSize,
+      speed: speedNorm,
+      environment: enrichedEnvironment,
       versionMeta,
       forcesSaves,
       _searchIndex: parts.join(' ').toLowerCase()
@@ -450,10 +543,10 @@ export default function App() {
 
   // Default Starting Custom Party
   const DEFAULT_CUSTOM_PARTY = [
-    { id: 'cp-1', name: 'Thorin', className: 'Paladín', level: 5, hp: 44, ac: 18, toHit: 7, dpr: 24 },
-    { id: 'cp-2', name: 'Valeria', className: 'Mago', level: 5, hp: 32, ac: 15, toHit: 7, dpr: 28 },
-    { id: 'cp-3', name: 'Lyra', className: 'Clérigo', level: 5, hp: 38, ac: 18, toHit: 7, dpr: 18 },
-    { id: 'cp-4', name: 'Corvus', className: 'Pícaro', level: 5, hp: 38, ac: 16, toHit: 8, dpr: 22 }
+    { id: 'cp-1', name: 'Thorin', className: 'Paladin', level: 5, hp: 44, ac: 18, toHit: 7, dpr: 24 },
+    { id: 'cp-2', name: 'Valeria', className: 'Wizard', level: 5, hp: 32, ac: 15, toHit: 7, dpr: 28 },
+    { id: 'cp-3', name: 'Lyra', className: 'Cleric', level: 5, hp: 38, ac: 18, toHit: 7, dpr: 18 },
+    { id: 'cp-4', name: 'Corvus', className: 'Rogue', level: 5, hp: 38, ac: 16, toHit: 8, dpr: 22 }
   ];
 
   // Party Mode: 'custom' (Mis Jugadores) vs 'generic' (Grupo Rápido por Nivel)
@@ -505,8 +598,8 @@ export default function App() {
           if (Array.isArray(parsed) && parsed.length > 0) {
             const formatted = parsed.map((p, idx) => ({
               id: p.id || ('cp-' + Date.now() + '-' + idx),
-              name: p.name || 'Héroe',
-              className: p.class || p.className || 'Guerrero',
+              name: p.name || 'Hero',
+              className: p.class || p.className || 'Fighter',
               level: Number(p.lvl || p.level) || 5,
               hp: Number(p.hp) || 40,
               ac: Number(p.ac) || 16,
@@ -673,7 +766,7 @@ export default function App() {
 
     // 2. Edition Filter
     if (selectedEdition === '2024' && !c.versionMeta?.is2024) return false;
-    if (selectedEdition === '2014' && !c.versionMeta?.is2014) return false;
+    if (selectedEdition === '2014' && (c.versionMeta?.is2024 || c.versionMeta?.is3pp || c.versionMeta?.isCrossover)) return false;
     if (selectedEdition === '3pp' && !c.versionMeta?.is3pp) return false;
     if (selectedEdition === 'crossover' && !c.versionMeta?.isCrossover) return false;
 
@@ -972,14 +1065,14 @@ export default function App() {
   // Custom Player Handlers
   const handleAddCustomPlayer = () => {
     const newId = `cp-${Date.now()}`;
-    const defaultClass = 'Guerrero';
+    const defaultClass = 'Fighter';
     const defaultLevel = 5;
     const stats = getStatsForClassAndLevel(defaultClass, defaultLevel);
     setCustomPlayers(prev => [
       ...prev,
       {
         id: newId,
-        name: `Héroe ${prev.length + 1}`,
+        name: `Hero ${prev.length + 1}`,
         className: defaultClass,
         level: defaultLevel,
         hp: stats.hp,
@@ -1170,6 +1263,26 @@ export default function App() {
               <option value="ALL">All Types ({creatureTypes.length})</option>
               {creatureTypes.map(t => (
                 <option key={t} value={t}>{t.toUpperCase()}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Environment / Habitat (5e Tools) */}
+          <div>
+            <div className="filter-section-title">
+              <span>Environment / Habitat</span>
+              <Compass size={14} />
+            </div>
+            <select 
+              id="environment-filter-select"
+              className="select-styled"
+              style={{ width: '100%' }}
+              value={selectedEnvironment}
+              onChange={e => setSelectedEnvironment(e.target.value)}
+            >
+              <option value="ALL">All Habitats</option>
+              {ENVIRONMENTS.map(env => (
+                <option key={env.id} value={env.id}>{env.label}</option>
               ))}
             </select>
           </div>
@@ -1631,8 +1744,8 @@ export default function App() {
                                 type="button"
                                 className={`card-version-btn ${isSelected ? 'active' : ''} btn-${v.versionMeta.pillType}`}
                                 onClick={(e) => {
-                                  e.stopPropagation();
-                                  setCardVersionOverrides(prev => ({ ...prev, [group.groupKey]: v.id }));
+                                   e.stopPropagation();
+                                   setCardVersionOverrides(prev => ({ ...prev, [group.groupKey]: v.id }));
                                 }}
                                 title={`${v.versionMeta.shortLabel} (${v.sourceGroup || v.source}) — CR ${v.cr}, HP ${v.hp}, AC ${v.ac}`}
                               >
@@ -2187,6 +2300,7 @@ export default function App() {
                         </div>
                         <div className="metric-label">Combat Duration</div>
                       </div>
+                      <div className="metric-label">TPK Risk</div>
                     </div>
 
                     {/* Detailed Health Bars for Players */}
@@ -2218,10 +2332,40 @@ export default function App() {
                       ))}
                     </div>
                   </div>
-                )}
-              </div>
+
+                  {/* Detailed Health Bars for Players */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginTop: '6px' }}>
+                    <span style={{ fontSize: '0.7rem', color: 'var(--text-dark)', textTransform: 'uppercase', fontWeight: 600 }}>
+                      Estimated Final State of the Heroes:
+                    </span>
+                    {simResult.playersSummary?.map((p, idx) => (
+                      <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: '2px', background: 'rgba(0,0,0,0.25)', padding: '4px 6px', borderRadius: '4px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.75rem' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', overflow: 'hidden' }}>
+                            <span style={{ fontWeight: 600, color: p.isAlive ? '#f8fafc' : '#ef4444', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                              {p.name}
+                            </span>
+                            {p.className && (
+                              <span style={{ fontSize: '0.65rem', color: '#93c5fd', background: 'rgba(56, 189, 248, 0.12)', border: '1px solid rgba(56, 189, 248, 0.25)', padding: '1px 5px', borderRadius: '3px', fontWeight: 600 }}>
+                                {p.className}
+                              </span>
+                            )}
+                          </div>
+                          <span style={{ fontSize: '0.7rem', fontFamily: 'JetBrains Mono', color: p.isAlive ? 'var(--text-muted)' : '#ef4444' }}>
+                            {p.isAlive ? `${p.currentHp}/${p.maxHp} HP (${p.hpPercent}%)` : 'FALLEN (0 HP)'}
+                          </span>
+                        </div>
+                        <div style={{ height: '5px', background: 'rgba(255,255,255,0.08)', borderRadius: '3px', overflow: 'hidden' }}>
+                          <div style={{ width: `${p.hpPercent}%`, height: '100%', background: p.hpPercent > 40 ? '#10b981' : p.hpPercent > 15 ? '#f59e0b' : '#ef4444', transition: 'width 0.3s ease' }} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
-          </aside>
+          </div>
+        </aside>
         )}
       </div>
 

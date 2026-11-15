@@ -146,6 +146,59 @@ export function repairHollowCopies(creaturesList) {
 }
 
 /**
+ * Propagates artwork (artUrl, hasArt) and tokens (tokenUrl, hasToken) across versions of the same creature.
+ * When multiple editions of a creature exist (e.g. 2024 Revised, 2014 Classic, Dragonix MME 2024 vs MME 2014),
+ * editions lacking full illustration or token inherit them from sibling versions so artwork never disappears
+ * when toggling versions.
+ */
+export function propagateVersionMedia(creaturesList) {
+  if (!creaturesList || !Array.isArray(creaturesList)) return [];
+
+  const mediaMap = new Map();
+
+  for (const c of creaturesList) {
+    const key = (c.name || '').trim().toLowerCase();
+    if (!key) continue;
+
+    const meta = getCreatureVersionMeta(c);
+    let entry = mediaMap.get(key);
+    if (!entry) {
+      entry = { bestArt: null, bestArtPriority: 999, bestToken: null, bestTokenPriority: 999 };
+      mediaMap.set(key, entry);
+    }
+
+    if (c.artUrl && meta.priority < entry.bestArtPriority) {
+      entry.bestArt = c.artUrl;
+      entry.bestArtPriority = meta.priority;
+    }
+    if (c.tokenUrl && meta.priority < entry.bestTokenPriority) {
+      entry.bestToken = c.tokenUrl;
+      entry.bestTokenPriority = meta.priority;
+    }
+  }
+
+  return creaturesList.map(c => {
+    const key = (c.name || '').trim().toLowerCase();
+    const entry = mediaMap.get(key);
+    if (!entry) return c;
+
+    const needsArt = !c.artUrl && entry.bestArt;
+    const needsToken = !c.tokenUrl && entry.bestToken;
+
+    if (!needsArt && !needsToken) return c;
+
+    return {
+      ...c,
+      artUrl: c.artUrl || entry.bestArt,
+      hasArt: c.hasArt || !!entry.bestArt,
+      tokenUrl: c.tokenUrl || entry.bestToken,
+      hasToken: c.hasToken || !!entry.bestToken,
+      _mediaInherited: true
+    };
+  });
+}
+
+/**
  * Groups a list of creatures by normalized name, sorting their versions by edition priority.
  * Returns both { groups, groupsMap } and { creatureGroups, creatureGroupsMap } for compatibility.
  */
@@ -189,6 +242,25 @@ export function groupCreaturesByName(creaturesList) {
       if (diff !== 0) return diff;
       return (a.sourceGroup || '').localeCompare(b.sourceGroup || '');
     });
+
+    // Ensure all versions within group have artwork and token if any sibling has it
+    const canonicalArt = group.versions.find(v => v.artUrl)?.artUrl;
+    const canonicalToken = group.versions.find(v => v.tokenUrl)?.tokenUrl;
+
+    if (canonicalArt || canonicalToken) {
+      group.versions.forEach(v => {
+        if (!v.artUrl && canonicalArt) {
+          v.artUrl = canonicalArt;
+          v.hasArt = true;
+          v._artInherited = true;
+        }
+        if (!v.tokenUrl && canonicalToken) {
+          v.tokenUrl = canonicalToken;
+          v.hasToken = true;
+          v._tokenInherited = true;
+        }
+      });
+    }
 
     group.hasMultipleVersions = group.versions.length > 1;
     group.defaultVersion = group.versions[0];

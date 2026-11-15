@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { 
-  Save, 
-  FolderOpen, 
-  Share2, 
-  Check, 
+import {
+  Save,
+  FolderOpen,
+  Share2,
+  Check,
   HardDrive,
-  AlertCircle 
+  AlertCircle
 } from 'lucide-react';
 
 export default function PartySyncBar({ customPlayers, onPartyLoaded }) {
@@ -25,18 +25,18 @@ export default function PartySyncBar({ customPlayers, onPartyLoaded }) {
         const handle = await window.showSaveFilePicker({
           suggestedName: 'dnd_party.json',
           types: [{
-            description: 'Ficha de Jugadores D&D (JSON)',
+            description: 'D&D Player Party (JSON)',
             accept: { 'application/json': ['.json'] }
           }]
         });
         const writable = await handle.createWritable();
         await writable.write(jsonStr);
         await writable.close();
-        showToast(`¡Guardado en "${handle.name}"! Google Drive lo sincronizará.`);
+        showToast(`Saved to "${handle.name}"! Google Drive will sync it.`);
       } catch (err) {
         if (err.name !== 'AbortError') {
           console.error(err);
-          showToast('Error al guardar el archivo', 'error');
+          showToast('Error saving file', 'error');
         }
       }
     } else {
@@ -50,7 +50,7 @@ export default function PartySyncBar({ customPlayers, onPartyLoaded }) {
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      showToast('Archivo dnd_party.json descargado. Guárdalo en tu carpeta G:');
+      showToast('File dnd_party.json downloaded. Save it to your G: drive folder.');
     }
   };
 
@@ -60,7 +60,7 @@ export default function PartySyncBar({ customPlayers, onPartyLoaded }) {
       try {
         const [handle] = await window.showOpenFilePicker({
           types: [{
-            description: 'Ficha de Jugadores D&D (JSON)',
+            description: 'D&D Player Party (JSON)',
             accept: { 'application/json': ['.json'] }
           }],
           multiple: false
@@ -72,14 +72,14 @@ export default function PartySyncBar({ customPlayers, onPartyLoaded }) {
 
         if (Array.isArray(party) && party.length > 0) {
           onPartyLoaded(party);
-          showToast(`¡Cargado "${file.name}" y guardado en esta PC!`);
+          showToast(`Loaded "${file.name}" and saved to this PC!`);
         } else {
-          showToast('El archivo no contiene una lista de jugadores válida', 'error');
+          showToast('The file does not contain a valid party list', 'error');
         }
       } catch (err) {
         if (err.name !== 'AbortError') {
           console.error(err);
-          showToast('Error al leer el archivo', 'error');
+          showToast('Error reading file', 'error');
         }
       }
     } else {
@@ -97,10 +97,10 @@ export default function PartySyncBar({ customPlayers, onPartyLoaded }) {
             const party = Array.isArray(parsed) ? parsed : parsed.party;
             if (Array.isArray(party) && party.length > 0) {
               onPartyLoaded(party);
-              showToast(`¡Cargado "${file.name}" y guardado en esta PC!`);
+              showToast(`Loaded "${file.name}" and saved to this PC!`);
             }
           } catch (err) {
-            showToast('Archivo JSON no válido', 'error');
+            showToast('Invalid JSON file', 'error');
           }
         };
         reader.readAsText(file);
@@ -124,10 +124,10 @@ export default function PartySyncBar({ customPlayers, onPartyLoaded }) {
       const encoded = encodeURIComponent(btoa(unescape(encodeURIComponent(JSON.stringify(compactData)))));
       const url = `${window.location.origin}${window.location.pathname}#party=${encoded}`;
       navigator.clipboard.writeText(url);
-      showToast('¡Enlace copiado! Ábrelo en tu otra PC para transferir el grupo.');
+      showToast('Link copied! Open on your other PC to transfer party.');
     } catch (e) {
       console.error(e);
-      showToast('No se pudo generar el enlace', 'error');
+      showToast('Could not generate link', 'error');
     }
   };
 
@@ -136,37 +136,37 @@ export default function PartySyncBar({ customPlayers, onPartyLoaded }) {
       <div className="party-sync-header">
         <span className="party-sync-title">
           <HardDrive size={12} color="var(--accent-gold)" />
-          Sincronizar entre PCs (Google Drive / G:)
+          Sync across devices (Google Drive / G:)
         </span>
-        <button 
-          type="button" 
-          className="party-sync-share-btn" 
+        <button
+          type="button"
+          className="party-sync-share-btn"
           onClick={handleCopyLink}
-          title="Copiar link con tus jugadores para abrir en otra PC"
+          title="Copy link with your party to open on another PC"
         >
           <Share2 size={11} /> Link
         </button>
       </div>
 
       <div className="party-sync-actions">
-        <button 
-          type="button" 
-          className="party-sync-btn save" 
+        <button
+          type="button"
+          className="party-sync-btn save"
           onClick={handleSaveToDrive}
-          title="Guardar dnd_party.json en tu disco G: de Google Drive"
+          title="Save dnd_party.json to your Google Drive G: disk"
         >
           <Save size={13} />
-          <span>Guardar en G:</span>
+          <span>Save to G:</span>
         </button>
 
-        <button 
-          type="button" 
-          className="party-sync-btn load" 
+        <button
+          type="button"
+          className="party-sync-btn load"
           onClick={handleLoadFromDrive}
-          title="Cargar dnd_party.json desde tu disco G: de Google Drive"
+          title="Load dnd_party.json from your Google Drive G: disk"
         >
           <FolderOpen size={13} />
-          <span>Cargar de G:</span>
+          <span>Load from G:</span>
         </button>
       </div>
 
