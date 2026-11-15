@@ -128,7 +128,7 @@ function ModularCard({ action, isSubAction = false }) {
     );
   }
 
-  const hasAttackOrSave = action.atkBonus || action.saveDC;
+  const hasAttackOrSave = action.atkBonus || action.saveDC || action.isAutoHit;
   const hasDamage = action.avgDamage;
 
   return (
@@ -145,16 +145,34 @@ function ModularCard({ action, isSubAction = false }) {
           <div className="modular-hud-boxes">
             <div className="modular-hud-box">
               <span className="modular-hud-title">To Hit / DC</span>
-              {action.saveDC ? (
+              {action.atkBonus ? (
+                <>
+                  <span className="modular-hud-val-atk">
+                    {action.atkBonus} to hit
+                  </span>
+                  {action.saveDC && (
+                    <span className="modular-dice-sub" style={{ display: 'block', fontSize: '0.73rem', marginTop: '2px', color: '#c084fc' }}>
+                      DC {action.saveDC} {action.saveStat || ''}
+                    </span>
+                  )}
+                </>
+              ) : action.isAutoHit ? (
+                <>
+                  <span className="modular-hud-val-atk" style={{ color: '#38bdf8' }}>
+                    Auto-hit
+                  </span>
+                  {action.saveDC && (
+                    <span className="modular-dice-sub" style={{ display: 'block', fontSize: '0.73rem', marginTop: '2px', color: '#c084fc' }}>
+                      DC {action.saveDC} {action.saveStat || ''}
+                    </span>
+                  )}
+                </>
+              ) : action.saveDC ? (
                 <span className="modular-hud-val-save">
                   DC {action.saveDC} {action.saveStat || ''}
                 </span>
-              ) : action.atkBonus ? (
-                <span className="modular-hud-val-atk">
-                  {action.atkBonus} to hit
-                </span>
               ) : (
-                <span className="modular-hud-val-neutral">Action</span>
+                <span className="modular-hud-val-neutral">—</span>
               )}
             </div>
 
@@ -216,12 +234,9 @@ export default function CreatureStatblock({
   onClose
 }) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [artLoadFailed, setArtLoadFailed] = useState(false);
+  const [failedArtUrls, setFailedArtUrls] = useState(new Set());
+  const [failedTokenUrls, setFailedTokenUrls] = useState(new Set());
   const [isObsidianModalOpen, setIsObsidianModalOpen] = useState(false);
-
-  useEffect(() => {
-    setArtLoadFailed(false);
-  }, [creature?.id]);
 
   if (!creature) return null;
 
@@ -275,48 +290,77 @@ export default function CreatureStatblock({
   const mythic = creature.mythic || [];
   const spellcasting = creature.spellcasting || [];
 
-  // Token & Art URLs resolution (with smart MM dragon artwork mapping and cross-version fallback)
-  const source = creature.source || 'MM';
-  let artName = creature.name || '';
-  if (source === 'MM' && artName.includes('Dragon')) {
-    const match = artName.match(/^(Ancient|Young)\s+(.+Dragon)$/i);
-    if (match) {
-      artName = `Adult ${match[2]}`;
+  // Helper to resolve official 5etools URL
+  const getOfficialArtUrl = (c) => {
+    if (!c || (c.category && c.category !== 'Official WotC')) return null;
+    const src = c.source || 'MM';
+    let name = c.name || '';
+    if (src === 'MM' && name.includes('Dragon')) {
+      const match = name.match(/^(Ancient|Young)\s+(.+Dragon)$/i);
+      if (match) name = `Adult ${match[2]}`;
     }
-  }
+    return `https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/${src}/${encodeURIComponent(name)}.webp`;
+  };
 
-  // Ordered candidate artworks: current version -> sibling versions in group -> official 5eTools
+  const getOfficialTokenUrl = (c) => {
+    if (!c || (c.category && c.category !== 'Official WotC')) return null;
+    const src = c.source || 'MM';
+    return `https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/${src}/${encodeURIComponent(c.name)}.webp`;
+  };
+
+  // Ordered candidate artworks: current version -> sibling versions in group -> official 5eTools -> MM fallback
   const candidateArts = [];
   if (creature.artUrl) candidateArts.push(creature.artUrl);
+  const curOfficialArt = getOfficialArtUrl(creature);
+  if (curOfficialArt && !candidateArts.includes(curOfficialArt)) {
+    candidateArts.push(curOfficialArt);
+  }
   if (modalGroup?.versions) {
     for (const v of modalGroup.versions) {
       if (v.artUrl && !candidateArts.includes(v.artUrl)) {
         candidateArts.push(v.artUrl);
       }
+      const vOfficial = getOfficialArtUrl(v);
+      if (vOfficial && !candidateArts.includes(vOfficial)) {
+        candidateArts.push(vOfficial);
+      }
     }
   }
-  if (creature.category === 'Official WotC' || !creature.category) {
-    const officialArt = `https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/${source}/${encodeURIComponent(artName)}.webp`;
-    if (!candidateArts.includes(officialArt)) {
-      candidateArts.push(officialArt);
+  if ((creature.category === 'Official WotC' || !creature.category) && creature.source !== 'MM') {
+    let fbName = creature.name || '';
+    if (fbName.includes('Dragon')) {
+      const match = fbName.match(/^(Ancient|Young)\s+(.+Dragon)$/i);
+      if (match) fbName = `Adult ${match[2]}`;
+    }
+    const mmArt = `https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/MM/${encodeURIComponent(fbName)}.webp`;
+    if (!candidateArts.includes(mmArt)) {
+      candidateArts.push(mmArt);
     }
   }
   const fullArtUrl = candidateArts.find(url => !failedArtUrls.has(url)) || null;
 
-  // Ordered candidate tokens: current version -> sibling versions in group -> official 5eTools
+  // Ordered candidate tokens: current version -> sibling versions in group -> official 5eTools -> MM fallback
   const candidateTokens = [];
   if (creature.tokenUrl) candidateTokens.push(creature.tokenUrl);
+  const curOfficialToken = getOfficialTokenUrl(creature);
+  if (curOfficialToken && !candidateTokens.includes(curOfficialToken)) {
+    candidateTokens.push(curOfficialToken);
+  }
   if (modalGroup?.versions) {
     for (const v of modalGroup.versions) {
       if (v.tokenUrl && !candidateTokens.includes(v.tokenUrl)) {
         candidateTokens.push(v.tokenUrl);
       }
+      const vToken = getOfficialTokenUrl(v);
+      if (vToken && !candidateTokens.includes(vToken)) {
+        candidateTokens.push(vToken);
+      }
     }
   }
-  if (creature.category === 'Official WotC' || !creature.category) {
-    const officialToken = `https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/${source}/${encodeURIComponent(creature.name)}.webp`;
-    if (!candidateTokens.includes(officialToken)) {
-      candidateTokens.push(officialToken);
+  if ((creature.category === 'Official WotC' || !creature.category) && creature.source !== 'MM') {
+    const mmToken = `https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/MM/${encodeURIComponent(creature.name)}.webp`;
+    if (!candidateTokens.includes(mmToken)) {
+      candidateTokens.push(mmToken);
     }
   }
   const tokenUrl = candidateTokens.find(url => !failedTokenUrls.has(url)) || null;
@@ -327,7 +371,7 @@ export default function CreatureStatblock({
       {/* 1. Hero Cinematic Banner */}
       <div className="statblock-hero-banner">
         {/* Banner Background */}
-        {fullArtUrl && !artLoadFailed ? (
+        {fullArtUrl ? (
           <img 
             src={fullArtUrl} 
             alt={creature.name} 

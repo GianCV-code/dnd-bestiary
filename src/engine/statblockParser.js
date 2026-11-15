@@ -152,6 +152,8 @@ export function clean5eTags(text) {
   str = str.replace(/(^|[.\n]\s*)m,r\s+([+-]?\d+),\s*(reach|range)/gi, '$1Melee or Ranged Attack Roll: +$2, $3');
   str = str.replace(/(^|[.\n]\s*)m\s+([+-]?\d+),\s*(reach)/gi, '$1Melee Attack Roll: +$2, $3');
   str = str.replace(/(^|[.\n]\s*)r\s+([+-]?\d+),\s*(range)/gi, '$1Ranged Attack Roll: +$2, $3');
+  str = str.replace(/(^|[.\n]\s*)m\s+automatic\s+hit\b/gi, '$1Melee Attack Roll: automatic hit');
+  str = str.replace(/(^|[.\n]\s*)r\s+automatic\s+hit\b/gi, '$1Ranged Attack Roll: automatic hit');
 
   return str.replace(/\s{2,}/g, ' ').trim();
 }
@@ -250,15 +252,18 @@ export function parseModularAction(action, defaultType = 'Action') {
     }
   }
 
+  // Automatic hit detection
+  const isAutoHit = /automatic\s+hit|impacto\s+autom[aá]tico/i.test(rawText);
+
   // 2. Attack Type & Range/Reach
   let atkType = defaultType;
-  if (/melee\s*(?:weapon|spell)?\s*attack/i.test(rawText) || /cuerpo\s*a\s*cuerpo/i.test(rawText) || /melee\s*attack\s*roll/i.test(rawText) || /(?:^|[.\n]\s*)m\s*[+-]?\d+/i.test(rawText)) {
+  if (/melee\s*(?:weapon|spell)?\s*attack/i.test(rawText) || /cuerpo\s*a\s*cuerpo/i.test(rawText) || /melee\s*attack\s*roll/i.test(rawText) || /(?:^|[.\n]\s*)m\s*[+-]?\d+/i.test(rawText) || /(?:^|[.\n]\s*)m\s*automatic/i.test(rawText)) {
     if (/spell/i.test(rawText) || /conjuro/i.test(rawText)) {
       atkType = 'Melee Spell';
     } else {
       atkType = 'Melee Attack';
     }
-  } else if (/ranged\s*(?:weapon|spell)?\s*attack/i.test(rawText) || /a\s*distancia/i.test(rawText) || /ranged\s*attack\s*roll/i.test(rawText) || /(?:^|[.\n]\s*)r\s*[+-]?\d+/i.test(rawText)) {
+  } else if (/ranged\s*(?:weapon|spell)?\s*attack/i.test(rawText) || /a\s*distancia/i.test(rawText) || /ranged\s*attack\s*roll/i.test(rawText) || /(?:^|[.\n]\s*)r\s*[+-]?\d+/i.test(rawText) || /(?:^|[.\n]\s*)r\s*automatic/i.test(rawText)) {
     if (/spell/i.test(rawText) || /conjuro/i.test(rawText)) {
       atkType = 'Ranged Spell';
     } else {
@@ -276,10 +281,34 @@ export function parseModularAction(action, defaultType = 'Action') {
   }
 
   // 3. Average Damage, Dice, and Damage Type
-  const hitMatch = rawText.match(/(?:Hit:|Impacto:|Miss:|Fallo:)\s*(\d+)\s*(?:\(([^)]+)\))?\s*([a-zA-Z]+)?\s*damage/i);
-  const avgDamage = hitMatch ? hitMatch[1] : null;
-  const damageDice = hitMatch && hitMatch[2] ? hitMatch[2].trim() : null;
-  const damageType = hitMatch && hitMatch[3] ? hitMatch[3].trim() : null;
+  let avgDamage = null;
+  let damageDice = null;
+  let damageType = null;
+
+  // Direct dice without leading average number, e.g. "Hit: 1d10 + 2 Bludgeoning damage" or "Hit: 2d6 acid damage"
+  const diceFirstHitMatch = rawText.match(/(?:Hit:|Impacto:|Miss:|Fallo:)\s*(\d+d\d+(?:\s*[+-]\s*\d+)?)\s*([a-zA-Z]+)?\s*(?:damage|daño)/i);
+
+  // Standard 5e "Hit: 8 (1d8 + 4) piercing damage" or "Hit: 4 piercing damage"
+  const standardHitMatch = rawText.match(/(?:Hit:|Impacto:|Miss:|Fallo:)\s*(\d+)\s*(?:\(([^)]+)\))?\s*([a-zA-Z]+)?\s*(?:damage|daño)/i);
+
+  if (diceFirstHitMatch) {
+    damageDice = diceFirstHitMatch[1].trim();
+    damageType = diceFirstHitMatch[2] ? diceFirstHitMatch[2].trim() : null;
+    const dMatch = damageDice.match(/^(\d+)d(\d+)(?:\s*([+-])\s*(\d+))?$/i);
+    if (dMatch) {
+      const count = parseInt(dMatch[1], 10);
+      const sides = parseInt(dMatch[2], 10);
+      const sign = dMatch[3] === '-' ? -1 : 1;
+      const mod = dMatch[4] ? parseInt(dMatch[4], 10) : 0;
+      avgDamage = String(Math.floor(count * (sides + 1) / 2) + (sign * mod));
+    } else {
+      avgDamage = damageDice;
+    }
+  } else if (standardHitMatch) {
+    avgDamage = standardHitMatch[1];
+    damageDice = standardHitMatch[2] ? standardHitMatch[2].trim() : null;
+    damageType = standardHitMatch[3] ? standardHitMatch[3].trim() : null;
+  }
 
   // Secondary damage (e.g. "plus 14 (4d6) psychic damage")
   const plusMatch = rawText.match(/plus\s*(\d+)\s*(?:\(([^)]+)\))?\s*([a-zA-Z]+)?\s*damage/i);
@@ -354,6 +383,7 @@ export function parseModularAction(action, defaultType = 'Action') {
     introText,
     subActions,
     atkBonus,
+    isAutoHit,
     atkType: atkType || reach || defaultType,
     reach,
     avgDamage,

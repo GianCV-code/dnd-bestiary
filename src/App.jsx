@@ -1773,7 +1773,18 @@ export default function App() {
                       </div>
                       <div className="card-stat-item">
                         <span className="card-stat-label">Speed</span>
-                        <span className="card-stat-val">{creature.speed.walk || creature.speed.fly || 30} ft</span>
+                        <span className="card-stat-val">
+                          {(creature.speed && typeof creature.speed === 'object')
+                            ? (typeof creature.speed.walk === 'number'
+                                ? `${creature.speed.walk} ft`
+                                : (creature.speed.walk 
+                                    ? `${creature.speed.walk} ft` 
+                                    : (creature.speed.fly ? `fly ${creature.speed.fly} ft` : (creature.speed.swim ? `swim ${creature.speed.swim} ft` : '0 ft'))))
+                            : (typeof creature.speed === 'number'
+                                ? `${creature.speed} ft`
+                                : (typeof creature.speed === 'string' ? creature.speed : '30 ft'))
+                          }
+                        </span>
                       </div>
                     </div>
 
