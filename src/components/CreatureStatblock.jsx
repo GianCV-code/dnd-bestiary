@@ -241,11 +241,12 @@ export default function CreatureStatblock({
     } else if (typeof creature.speed === 'object') {
       const { walk, fly, swim, climb, burrow, canHover } = creature.speed;
       const hasOtherSpeeds = Boolean(fly || swim || climb || burrow);
-
-    if (creature.speed.fly) speedParts.push(`fly ${creature.speed.fly} ft${creature.speed.canHover ? ' (hover)' : ''}`);
-    if (creature.speed.swim) speedParts.push(`swim ${creature.speed.swim} ft`);
-    if (creature.speed.climb) speedParts.push(`climb ${creature.speed.climb} ft`);
-    if (creature.speed.burrow) speedParts.push(`burrow ${creature.speed.burrow} ft`);
+      if (walk !== undefined && walk !== null) speedParts.push(`${walk} ft`);
+      if (fly) speedParts.push(`fly ${fly} ft${canHover ? ' (hover)' : ''}`);
+      if (swim) speedParts.push(`swim ${swim} ft`);
+      if (climb) speedParts.push(`climb ${climb} ft`);
+      if (burrow) speedParts.push(`burrow ${burrow} ft`);
+    }
   }
   const speedText = speedParts.length > 0 ? speedParts.join(', ') : (creature.speed ? '0 ft' : '30 ft');
 

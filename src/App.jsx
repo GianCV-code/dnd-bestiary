@@ -2332,37 +2332,7 @@ export default function App() {
                       ))}
                     </div>
                   </div>
-
-                  {/* Detailed Health Bars for Players */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginTop: '6px' }}>
-                    <span style={{ fontSize: '0.7rem', color: 'var(--text-dark)', textTransform: 'uppercase', fontWeight: 600 }}>
-                      Estimated Final State of the Heroes:
-                    </span>
-                    {simResult.playersSummary?.map((p, idx) => (
-                      <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: '2px', background: 'rgba(0,0,0,0.25)', padding: '4px 6px', borderRadius: '4px' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.75rem' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', overflow: 'hidden' }}>
-                            <span style={{ fontWeight: 600, color: p.isAlive ? '#f8fafc' : '#ef4444', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                              {p.name}
-                            </span>
-                            {p.className && (
-                              <span style={{ fontSize: '0.65rem', color: '#93c5fd', background: 'rgba(56, 189, 248, 0.12)', border: '1px solid rgba(56, 189, 248, 0.25)', padding: '1px 5px', borderRadius: '3px', fontWeight: 600 }}>
-                                {p.className}
-                              </span>
-                            )}
-                          </div>
-                          <span style={{ fontSize: '0.7rem', fontFamily: 'JetBrains Mono', color: p.isAlive ? 'var(--text-muted)' : '#ef4444' }}>
-                            {p.isAlive ? `${p.currentHp}/${p.maxHp} HP (${p.hpPercent}%)` : 'FALLEN (0 HP)'}
-                          </span>
-                        </div>
-                        <div style={{ height: '5px', background: 'rgba(255,255,255,0.08)', borderRadius: '3px', overflow: 'hidden' }}>
-                          <div style={{ width: `${p.hpPercent}%`, height: '100%', background: p.hpPercent > 40 ? '#10b981' : p.hpPercent > 15 ? '#f59e0b' : '#ef4444', transition: 'width 0.3s ease' }} />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
+                )}
             </div>
           </div>
         </aside>
