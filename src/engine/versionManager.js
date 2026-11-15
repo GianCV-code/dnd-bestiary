@@ -15,16 +15,18 @@ export function getCreatureVersionMeta(c) {
   
   const is2024 = src === 'XMM' || src === 'XPHB' || src === 'XDMG' || 
                  srcGrp.includes('xmm') || srcGrp.includes('2024') || srcGrp.includes('revised');
-  const is2014 = src === 'MM' || src === 'PHB' || src === 'DMG' || srcGrp.includes('2014');
   const is3pp = c.category === 'Third-Party (3PP Pro)';
   const isCrossover = c.category === 'Crossover / Video Games';
+  const isCore2014 = src === 'MM' || src === 'PHB' || src === 'DMG' || srcGrp.includes('2014');
+  // All Official WotC creatures that are not 2024 revised are 2014 classic era creatures
+  const is2014 = (!is2024 && !is3pp && !isCrossover) || isCore2014;
 
   let badge = c.source || 'WotC';
   let shortLabel = c.sourceGroup || c.source || 'Official';
   let pillType = 'wotc';
   let priority = 3;
 
-    if (is2024 && !is3pp) {
+  if (is2024 && !is3pp) {
     badge = '2024';
     shortLabel = '2024 Revised';
     pillType = '2024';
@@ -35,7 +37,7 @@ export function getCreatureVersionMeta(c) {
     shortLabel = `${pub} (2024)`;
     pillType = '2024';
     priority = 1.5;
-  } else if (is2014) {
+  } else if (isCore2014) {
     badge = '2014';
     shortLabel = '2014 Classic';
     pillType = '2014';
@@ -67,6 +69,12 @@ export function getCreatureVersionMeta(c) {
     shortLabel = `${c.publisher}: ${c.sourceGroup || c.source}`;
     pillType = 'crossover';
     priority = 5;
+  } else {
+    // Other Official 2014 WotC books (adventures, campaign settings)
+    badge = c.source || 'WotC';
+    shortLabel = c.sourceGroup || c.source || 'Official';
+    pillType = 'wotc';
+    priority = 3;
   }
 
   // Check if it was a hollow stub (10 HP, 10 AC, 0 actions)

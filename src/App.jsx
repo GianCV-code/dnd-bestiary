@@ -40,76 +40,124 @@ import { loadBestiaryWithCache, clearBestiaryCache } from './engine/cacheManager
 
 // 5e Tools Advanced Filter Constants
 const SIZES = [
-  { id: 'T', label: 'T', title: 'Diminuto (Tiny)' },
-  { id: 'S', label: 'S', title: 'Pequeño (Small)' },
-  { id: 'M', label: 'M', title: 'Mediano (Medium)' },
-  { id: 'L', label: 'L', title: 'Grande (Large)' },
-  { id: 'H', label: 'H', title: 'Enorme (Huge)' },
-  { id: 'G', label: 'G', title: 'Gargantuesco (Gargantuan)' }
+  { id: 'T', label: 'T', title: 'Tiny' },
+  { id: 'S', label: 'S', title: 'Small' },
+  { id: 'M', label: 'M', title: 'Medium' },
+  { id: 'L', label: 'L', title: 'Large' },
+  { id: 'H', label: 'H', title: 'Huge' },
+  { id: 'G', label: 'G', title: 'Gargantuan' }
 ];
 
 const SAVES = [
-  { id: 'str', label: 'FUE / STR' },
-  { id: 'dex', label: 'DES / DEX' },
+  { id: 'str', label: 'STR' },
+  { id: 'dex', label: 'DEX' },
   { id: 'con', label: 'CON' },
   { id: 'int', label: 'INT' },
-  { id: 'wis', label: 'SAB / WIS' },
-  { id: 'cha', label: 'CAR / CHA' }
+  { id: 'wis', label: 'WIS' },
+  { id: 'cha', label: 'CHA' }
 ];
 
 const SPEEDS = [
-  { id: 'fly', label: 'Vuelo' },
-  { id: 'swim', label: 'Nado' },
-  { id: 'climb', label: 'Trepar' },
-  { id: 'burrow', label: 'Cavar' },
-  { id: 'hover', label: 'Levitar' }
+  { id: 'fly', label: 'Fly' },
+  { id: 'swim', label: 'Swim' },
+  { id: 'climb', label: 'Climb' },
+  { id: 'burrow', label: 'Burrow' },
+  { id: 'hover', label: 'Hover' }
 ];
 
 const SENSES = [
-  { id: 'darkvision', label: 'Visión Oscura' },
-  { id: 'blindsight', label: 'A ciegas' },
-  { id: 'tremorsense', label: 'Sísmica' },
-  { id: 'truesight', label: 'Verdadera' }
+  { id: 'darkvision', label: 'Darkvision' },
+  { id: 'blindsight', label: 'Blindsight' },
+  { id: 'tremorsense', label: 'Tremorsense' },
+  { id: 'truesight', label: 'Truesight' }
 ];
 
 const DAMAGE_TYPES = [
-  { id: 'fire', label: 'Fuego' },
-  { id: 'cold', label: 'Frío' },
-  { id: 'poison', label: 'Veneno' },
-  { id: 'lightning', label: 'Rayo' },
-  { id: 'acid', label: 'Ácido' },
-  { id: 'necrotic', label: 'Necrótico' },
-  { id: 'radiant', label: 'Radiante' },
-  { id: 'psychic', label: 'Psíquico' },
-  { id: 'force', label: 'Fuerza' },
-  { id: 'thunder', label: 'Trueno' }
+  { id: 'fire', label: 'Fire' },
+  { id: 'cold', label: 'Cold' },
+  { id: 'poison', label: 'Poison' },
+  { id: 'lightning', label: 'Lightning' },
+  { id: 'acid', label: 'Acid' },
+  { id: 'necrotic', label: 'Necrotic' },
+  { id: 'radiant', label: 'Radiant' },
+  { id: 'psychic', label: 'Psychic' },
+  { id: 'force', label: 'Force' },
+  { id: 'thunder', label: 'Thunder' },
+  { id: 'bludgeoning', label: 'Bludgeoning' },
+  { id: 'piercing', label: 'Piercing' },
+  { id: 'slashing', label: 'Slashing' }
 ];
 
 const CONDITIONS = [
-  { id: 'charmed', label: 'Hechizado' },
-  { id: 'frightened', label: 'Asustado' },
-  { id: 'paralyzed', label: 'Paralizado' },
-  { id: 'poisoned', label: 'Envenenado' },
-  { id: 'stunned', label: 'Aturdido' },
-  { id: 'blinded', label: 'Cegado' },
-  { id: 'exhaustion', label: 'Agotamiento' },
-  { id: 'prone', label: 'Derribado' }
+  { id: 'charmed', label: 'Charmed' },
+  { id: 'frightened', label: 'Frightened' },
+  { id: 'paralyzed', label: 'Paralyzed' },
+  { id: 'poisoned', label: 'Poisoned' },
+  { id: 'stunned', label: 'Stunned' },
+  { id: 'blinded', label: 'Blinded' },
+  { id: 'exhaustion', label: 'Exhaustion' },
+  { id: 'prone', label: 'Prone' },
+  { id: 'petrified', label: 'Petrified' },
+  { id: 'restrained', label: 'Restrained' },
+  { id: 'grappled', label: 'Grappled' },
+  { id: 'deafened', label: 'Deafened' },
+  { id: 'unconscious', label: 'Unconscious' }
 ];
 
+const CONDITION_SYNONYMS = {
+  charmed: ['charmed', 'charm', 'hechizado'],
+  frightened: ['frightened', 'fear', 'afraid', 'asustado'],
+  paralyzed: ['paralyzed', 'paralysed', 'paralizado'],
+  poisoned: ['poisoned', 'poison', 'posioned', 'envenenado'],
+  stunned: ['stunned', 'stun', 'aturdido'],
+  blinded: ['blinded', 'blind', 'cegado'],
+  exhaustion: ['exhaustion', 'exhausted', 'agotamiento'],
+  prone: ['prone', 'derribado'],
+  petrified: ['petrified', 'petrificado'],
+  restrained: ['restrained', 'apresado'],
+  grappled: ['grappled', 'agarrado'],
+  deafened: ['deafened', 'ensordecido'],
+  unconscious: ['unconscious', 'inconsciente']
+};
+
+const SIZE_NORM = {
+  'T': 'T', 'Tiny': 'T', 'tiny': 'T',
+  'S': 'S', 'Small': 'S', 'small': 'S',
+  'M': 'M', 'Medium': 'M', 'medium': 'M',
+  'L': 'L', 'Large': 'L', 'large': 'L',
+  'H': 'H', 'Huge': 'H', 'huge': 'H',
+  'G': 'G', 'Gargantuan': 'G', 'gargantuan': 'G'
+};
+
+function normalizeSize(s) {
+  return SIZE_NORM[s] || s || 'M';
+}
+
+function getSpeedNumber(val) {
+  if (typeof val === 'number') return val;
+  if (val && typeof val === 'object' && typeof val.number === 'number') return val.number;
+  if (typeof val === 'string') return parseInt(val, 10) || 0;
+  return 0;
+}
+
 const ENVIRONMENTS = [
-  { id: 'jungle', label: '🌴 Jungla / Tropical (Jungle)' },
-  { id: 'forest', label: '🌲 Bosque (Forest)' },
-  { id: 'swamp', label: '🍄 Pantano (Swamp)' },
-  { id: 'mountain', label: '⛰️ Montaña (Mountain)' },
-  { id: 'desert', label: '🏜️ Desierto (Desert)' },
-  { id: 'coastal', label: '🌊 Costa / Costero (Coastal)' },
-  { id: 'arctic', label: '❄️ Ártico / Nieve (Arctic)' },
-  { id: 'grassland', label: '🌾 Pradera / Llanura (Grassland)' },
-  { id: 'hill', label: '🌄 Colinas (Hill)' },
-  { id: 'underdark', label: '🦇 Infraoscuridad (Underdark)' },
-  { id: 'underwater', label: '🐠 Subacuático (Underwater)' },
-  { id: 'urban', label: '🏛️ Urbano (Urban)' },
-  { id: 'planar', label: '🌌 Planar / Otros Planos' }
+  { id: 'jungle', label: '🌴 Jungle / Tropical' },
+  { id: 'forest', label: '🌲 Forest' },
+  { id: 'swamp', label: '🍄 Swamp' },
+  { id: 'mountain', label: '⛰️ Mountain' },
+  { id: 'desert', label: '🏜️ Desert' },
+  { id: 'coastal', label: '🌊 Coastal' },
+  { id: 'arctic', label: '❄️ Arctic' },
+  { id: 'grassland', label: '🌾 Grassland' },
+  { id: 'hill', label: '🌄 Hill' },
+  { id: 'underdark', label: '🦇 Underdark' },
+  { id: 'underwater', label: '🐠 Underwater' },
+  { id: 'urban', label: '🏛️ Urban' },
+  { id: 'planar', label: '🌌 Planar / Other Planes' },
+  { id: 'badlands', label: '🏜️ Badlands' },
+  { id: 'farmland', label: '🚜 Farmland' },
+  { id: 'volcanic', label: '🌋 Volcanic' },
+  { id: 'any', label: '🌐 Any Environment' }
 ];
 
 // Spells with forced saving throws mapping (5e offensive saves)
@@ -151,12 +199,12 @@ const SPELL_SAVES_MAP = {
 
 // Regex patterns to identify saving throws forced on targets by attacks/traits/actions
 const FORCED_SAVE_PATTERNS = {
-  str: /\b(strength saving throw|dc \d+ strength|strength save|dc \d+ (to )?strength)\b/i,
-  dex: /\b(dexterity saving throw|dc \d+ dexterity|dexterity save|dc \d+ (to )?dexterity)\b/i,
-  con: /\b(constitution saving throw|dc \d+ constitution|constitution save|dc \d+ (to )?constitution)\b/i,
-  int: /\b(intelligence saving throw|dc \d+ intelligence|intelligence save|dc \d+ (to )?intelligence)\b/i,
-  wis: /\b(wisdom saving throw|dc \d+ wisdom|wisdom save|dc \d+ (to )?wisdom)\b/i,
-  cha: /\b(charisma saving throw|dc \d+ charisma|charisma save|dc \d+ (to )?charisma)\b/i
+  str: /\b(strength saving throw|dc \d+ (to )?strength|strength save|salvaci[oó]n de fuerza|tirada de salvaci[oó]n de fuerza|cd \d+.*fuerza)\b/i,
+  dex: /\b(dexterity saving throw|dc \d+ (to )?dexterity|dexterity save|salvaci[oó]n de destreza|tirada de salvaci[oó]n de destreza|cd \d+.*destreza)\b/i,
+  con: /\b(constitution saving throw|dc \d+ (to )?constitution|constitution save|salvaci[oó]n de constituci[oó]n|tirada de salvaci[oó]n de constituci[oó]n|cd \d+.*constituci[oó]n)\b/i,
+  int: /\b(intelligence saving throw|dc \d+ (to )?intelligence|intelligence save|salvaci[oó]n de inteligencia|tirada de salvaci[oó]n de inteligencia|cd \d+.*inteligencia)\b/i,
+  wis: /\b(wisdom saving throw|dc \d+ (to )?wisdom|wisdom save|salvaci[oó]n de sabidur[ií]a|tirada de salvaci[oó]n de sabidur[ií]a|cd \d+.*sabidur[ií]a)\b/i,
+  cha: /\b(charisma saving throw|dc \d+ (to )?charisma|charisma save|salvaci[oó]n de carisma|tirada de salvaci[oó]n de carisma|cd \d+.*carisma)\b/i
 };
 
 function extractForcesSaves(c) {
@@ -220,8 +268,8 @@ function indexRawBestiary(data) {
       versionMeta.is3pp ? '3pp third party' : '',
       versionMeta.isCrossover ? 'crossover video game' : '',
       c.source || '',
-      c.senses || '',
-      c.languages || '',
+      Array.isArray(c.senses) ? c.senses.join(' ') : (c.senses || ''),
+      Array.isArray(c.languages) ? c.languages.join(' ') : (c.languages || ''),
       (c.resist || []).join(' '),
       (c.immune || []).join(' '),
       (c.vulnerable || []).join(' '),
@@ -229,7 +277,33 @@ function indexRawBestiary(data) {
       (c.environment || []).join(' ')
     ];
 
-    if (sizeMap[c.size]) parts.push(sizeMap[c.size]);
+    const normalizedSize = normalizeSize(c.size);
+    if (sizeMap[normalizedSize]) parts.push(sizeMap[normalizedSize]);
+
+    // Bilingual damage and condition indexing
+    const dmgTermsMap = {
+      fire: 'fuego', cold: 'frío frio', poison: 'veneno', lightning: 'rayo relámpago',
+      acid: 'ácido acido', necrotic: 'necrótico necrotico', radiant: 'radiante',
+      psychic: 'psíquico psiquico', force: 'fuerza', thunder: 'trueno',
+      bludgeoning: 'contundente', piercing: 'perforante', slashing: 'cortante'
+    };
+    (c.immune || []).forEach(im => {
+      const s = (typeof im === 'string' ? im : JSON.stringify(im)).toLowerCase();
+      parts.push(s);
+      if (dmgTermsMap[s]) parts.push(`inmune ${dmgTermsMap[s]}`, `immune ${s}`);
+    });
+    (c.resist || []).forEach(res => {
+      const s = (typeof res === 'string' ? res : JSON.stringify(res)).toLowerCase();
+      parts.push(s);
+      if (dmgTermsMap[s]) parts.push(`resistencia ${dmgTermsMap[s]}`, `resist ${s}`);
+    });
+    if (c.senses) {
+      const sens = (Array.isArray(c.senses) ? c.senses.join(' ') : String(c.senses)).toLowerCase();
+      if (sens.includes('darkvision')) parts.push('visión oscura vision oscura darkvision');
+      if (sens.includes('blindsight')) parts.push('a ciegas vista a ciegas blindsight');
+      if (sens.includes('tremorsense')) parts.push('sensibilidad sísmica sismica tremorsense');
+      if (sens.includes('truesight')) parts.push('visión verdadera vision verdadera truesight');
+    }
 
     if (c.save) {
       Object.keys(c.save).forEach(k => {
@@ -244,11 +318,17 @@ function indexRawBestiary(data) {
     }
 
     if (c.speed) {
-      if (c.speed.fly > 0) parts.push('fly flying flight volar vuelo');
-      if (c.speed.swim > 0) parts.push('swim swimming nadar nado');
-      if (c.speed.climb > 0) parts.push('climb climbing trepar');
-      if (c.speed.burrow > 0) parts.push('burrow burrowing cavar');
-      if (c.speed.canHover) parts.push('hover levitar');
+      const flySpeed = getSpeedNumber(c.speed.fly);
+      const swimSpeed = getSpeedNumber(c.speed.swim);
+      const climbSpeed = getSpeedNumber(c.speed.climb);
+      const burrowSpeed = getSpeedNumber(c.speed.burrow);
+      const canHover = !!(c.speed.canHover || (c.speed.fly && typeof c.speed.fly === 'object' && c.speed.fly.condition && c.speed.fly.condition.toLowerCase().includes('hover')));
+
+      if (flySpeed > 0) parts.push('fly flying flight volar vuelo');
+      if (swimSpeed > 0) parts.push('swim swimming nadar nado');
+      if (climbSpeed > 0) parts.push('climb climbing trepar');
+      if (burrowSpeed > 0) parts.push('burrow burrowing cavar');
+      if (canHover) parts.push('hover levitar');
     }
 
     if (c.legendary && c.legendary.length > 0) parts.push('legendary legendary action acciones legendarias');
@@ -343,6 +423,30 @@ export default function App() {
 
   // Modal / Selected Detail Creature
   const [activeModalCreature, setActiveModalCreature] = useState(null);
+  const [visibleCount, setVisibleCount] = useState(60);
+
+  useEffect(() => {
+    setVisibleCount(60);
+  }, [
+    search, 
+    selectedEdition,
+    selectedType, 
+    selectedSizes, 
+    selectedCrRange, 
+    selectedForcesSaves,
+    selectedSaves, 
+    selectedSpeeds, 
+    selectedSenses, 
+    selectedDamageImmunities, 
+    selectedDamageResistances, 
+    selectedConditionImmunities, 
+    selectedEnvironment, 
+    hasLegendary, 
+    isSpellcaster, 
+    hasTokenOnly,
+    sortBy,
+    groupVersions
+  ]);
 
   // Default Starting Custom Party
   const DEFAULT_CUSTOM_PARTY = [
@@ -573,11 +677,11 @@ export default function App() {
     if (selectedEdition === '3pp' && !c.versionMeta?.is3pp) return false;
     if (selectedEdition === 'crossover' && !c.versionMeta?.isCrossover) return false;
 
-    // 3. Creature Type Filter
-    if (selectedType !== 'ALL' && c.type !== selectedType) return false;
+    // 3. Creature Type Filter (Case-insensitive)
+    if (selectedType !== 'ALL' && (c.type || '').toLowerCase() !== selectedType.toLowerCase()) return false;
 
-    // 4. Size Filter
-    if (selectedSizes.length > 0 && !selectedSizes.includes(c.size)) return false;
+    // 4. Size Filter (Normalized)
+    if (selectedSizes.length > 0 && !selectedSizes.includes(normalizeSize(c.size))) return false;
 
     // 5. CR Range Filter
     if (c.crNumeric < selectedCrRange.min || c.crNumeric > selectedCrRange.max) return false;
@@ -596,14 +700,14 @@ export default function App() {
       if (!matchesSaves) return false;
     }
 
-    // 8. Movement Speeds
+    // 8. Movement Speeds (Supports numeric, object, and condition formats)
     if (selectedSpeeds.length > 0) {
       const matchesSpeeds = selectedSpeeds.every(sp => {
-        if (sp === 'fly') return (c.speed?.fly || 0) > 0;
-        if (sp === 'swim') return (c.speed?.swim || 0) > 0;
-        if (sp === 'climb') return (c.speed?.climb || 0) > 0;
-        if (sp === 'burrow') return (c.speed?.burrow || 0) > 0;
-        if (sp === 'hover') return !!c.speed?.canHover;
+        if (sp === 'fly') return getSpeedNumber(c.speed?.fly) > 0;
+        if (sp === 'swim') return getSpeedNumber(c.speed?.swim) > 0;
+        if (sp === 'climb') return getSpeedNumber(c.speed?.climb) > 0;
+        if (sp === 'burrow') return getSpeedNumber(c.speed?.burrow) > 0;
+        if (sp === 'hover') return !!(c.speed?.canHover || (c.speed?.fly && typeof c.speed.fly === 'object' && c.speed.fly.condition && c.speed.fly.condition.toLowerCase().includes('hover')));
         return true;
       });
       if (!matchesSpeeds) return false;
@@ -611,7 +715,7 @@ export default function App() {
 
     // 9. Senses
     if (selectedSenses.length > 0) {
-      const senseStr = (c.senses || '').toLowerCase();
+      const senseStr = (Array.isArray(c.senses) ? c.senses.join(' ') : (c.senses || '')).toLowerCase();
       const matchesSenses = selectedSenses.every(sense => senseStr.includes(sense));
       if (!matchesSenses) return false;
     }
@@ -632,21 +736,27 @@ export default function App() {
       if (!matchesResistances) return false;
     }
 
-    // 12. Condition Immunities
+    // 12. Condition Immunities (With synonym & typo tolerance)
     if (selectedConditionImmunities.length > 0) {
-      const matchesConditions = selectedConditionImmunities.every(cond => 
-        (c.conditionImmune || []).some(ci => (typeof ci === 'string' ? ci : JSON.stringify(ci)).toLowerCase().includes(cond))
-      );
+      const matchesConditions = selectedConditionImmunities.every(cond => {
+        const targets = CONDITION_SYNONYMS[cond] || [cond];
+        return (c.conditionImmune || []).some(ci => {
+          const str = (typeof ci === 'string' ? ci : JSON.stringify(ci)).toLowerCase();
+          return targets.some(t => str.includes(t));
+        });
+      });
       if (!matchesConditions) return false;
     }
 
-    // 13. Environment
+    // 13. Environment (Supports all 5e environments and regional aliases)
     if (selectedEnvironment !== 'ALL') {
       const envTarget = selectedEnvironment.toLowerCase();
       const matchesEnv = (c.environment || []).some(env => {
         const e = env.toLowerCase();
         if (envTarget === 'jungle') return e.includes('jungle') || e.includes('tropical');
-        if (envTarget === 'planar') return e.includes('planar') || e.includes('feywild') || e.includes('shadowfell') || e.includes('abyss') || e.includes('astral') || e.includes('ethereal') || e.includes('nine hells');
+        if (envTarget === 'planar') return e.includes('planar') || e.includes('plane') || e.includes('feywild') || e.includes('shadowfell') || e.includes('abyss') || e.includes('astral') || e.includes('ethereal') || e.includes('nine hells');
+        if (envTarget === 'underdark') return e.includes('underdark') || e.includes('underground');
+        if (envTarget === 'any') return e === 'any';
         return e.includes(envTarget);
       });
       if (!matchesEnv) return false;
@@ -654,7 +764,12 @@ export default function App() {
 
     // 14. Special Traits
     if (hasLegendary && (!c.legendary || c.legendary.length === 0)) return false;
-    if (isSpellcaster && (!c.spellcasting || c.spellcasting.length === 0)) return false;
+    if (isSpellcaster) {
+      const isCaster = (c.spellcasting && c.spellcasting.length > 0) ||
+        (c.trait || []).some(t => t.name && /spellcasting|lanzamiento de conjuros/i.test(t.name)) ||
+        (c.action || []).some(a => a.name && /spellcasting|lanzamiento de conjuros/i.test(a.name));
+      if (!isCaster) return false;
+    }
     if (hasTokenOnly && !c.hasToken) return false;
 
     return true;
@@ -913,8 +1028,8 @@ export default function App() {
     return (
       <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '16px', background: '#0a0c10' }}>
         <Flame className="brand-icon" style={{ width: '48px', height: '48px', animation: 'pulse 1.5s infinite' }} />
-        <h2 style={{ fontFamily: 'Cinzel', color: '#fbbf24' }}>Cargando Bestiario Táctico...</h2>
-        <p style={{ color: '#94a3b8', fontSize: '0.9rem' }}>Indexando 10.490+ criaturas de WotC (112 libros), Third-Party Pro y Crossovers...</p>
+        <h2 style={{ fontFamily: 'Cinzel', color: '#fbbf24' }}>Loading Tactical Bestiary...</h2>
+        <p style={{ color: '#94a3b8', fontSize: '0.9rem' }}>Indexing 10,992 creatures from WotC (114 books), Third-Party Pro, and Crossovers...</p>
       </div>
     );
   }
@@ -959,10 +1074,10 @@ export default function App() {
               transition: 'all 0.2s',
               boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)'
             }}
-            title="Abrir la demo de estilos para mostrar las imágenes de las criaturas y recuento 5eTools"
+            title="Open image style demonstration with 5eTools gallery"
           >
             <span>🎨</span>
-            <span>Demo Estilos de Imagen</span>
+            <span>Image Styles Demo</span>
           </a>
           <a
             href="./demos.html"
@@ -982,10 +1097,10 @@ export default function App() {
               textDecoration: 'none',
               transition: 'all 0.2s'
             }}
-            title="Abrir el comparador interactivo de las 6 demos de statblocks"
+            title="Open interactive 6-statblock comparator"
           >
             <span>🧪</span>
-            <span>Ver Demos Statblock</span>
+            <span>View Statblock Demos</span>
           </a>
           <button 
             id="encounter-drawer-toggle"
@@ -993,7 +1108,7 @@ export default function App() {
             onClick={() => setIsEncounterOpen(!isEncounterOpen)}
           >
             <Swords size={18} />
-            <span>Encuentro & Simulador</span>
+            <span>Encounter & Combat Sim</span>
             {encounterMetrics.totalMonsters > 0 && (
               <span className="badge-counter">{encounterMetrics.totalMonsters}</span>
             )}
@@ -1008,7 +1123,7 @@ export default function App() {
           {/* Quick Search Box with Keyword Intelligence */}
           <div>
             <div className="filter-section-title">
-              <span>Búsqueda Inteligente</span>
+              <span>Intelligent Search</span>
               <Search size={14} />
             </div>
             <div className="search-input-wrapper">
@@ -1017,13 +1132,13 @@ export default function App() {
                 id="monster-search-input"
                 type="text"
                 className="search-input"
-                placeholder='Ej: "Wisdom", "Fire immune", "Lich"...'
+                placeholder='e.g. "Wisdom", "Fire immune", "Lich"...'
                 value={search}
                 onChange={e => setSearch(e.target.value)}
               />
             </div>
             <p className="filter-subtext">
-              Filtra por nombres, salvaciones (ej. <em>"Wisdom save"</em>), rasgos, acciones, conjuros, o daño.
+              Filters by name, saving throws (e.g. <em>"Wisdom save"</em>), traits, actions, spells, or damage types.
             </p>
           </div>
 
@@ -1035,14 +1150,14 @@ export default function App() {
               onClick={handleResetFilters}
             >
               <RotateCcw size={13} />
-              <span>Limpiar filtros ({activeFiltersCount})</span>
+              <span>Clear filters ({activeFiltersCount})</span>
             </button>
           )}
 
           {/* Creature Type Filter */}
           <div>
             <div className="filter-section-title">
-              <span>Tipo de Criatura</span>
+              <span>Creature Type</span>
               <Compass size={14} />
             </div>
             <select 
@@ -1052,7 +1167,7 @@ export default function App() {
               value={selectedType}
               onChange={e => setSelectedType(e.target.value)}
             >
-              <option value="ALL">Todos los Tipos ({creatureTypes.length})</option>
+              <option value="ALL">All Types ({creatureTypes.length})</option>
               {creatureTypes.map(t => (
                 <option key={t} value={t}>{t.toUpperCase()}</option>
               ))}
@@ -1062,7 +1177,7 @@ export default function App() {
           {/* Size Filter */}
           <div>
             <div className="filter-section-title">
-              <span>Tamaño (Size)</span>
+              <span>Size</span>
               <SlidersHorizontal size={14} />
             </div>
             <div className="filter-chips-grid">
@@ -1085,7 +1200,7 @@ export default function App() {
           {/* CR Filter Range & Presets */}
           <div>
             <div className="filter-section-title">
-              <span>Desafío (CR: {selectedCrRange.min} - {selectedCrRange.max})</span>
+              <span>Challenge Rating (CR: {selectedCrRange.min} - {selectedCrRange.max})</span>
               <Shield size={14} />
             </div>
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
@@ -1099,7 +1214,7 @@ export default function App() {
                 value={selectedCrRange.min}
                 onChange={e => setSelectedCrRange(prev => ({ ...prev, min: Number(e.target.value) }))}
               />
-              <span style={{ color: 'var(--text-dark)' }}>hasta</span>
+              <span style={{ color: 'var(--text-dark)' }}>to</span>
               <input 
                 id="cr-max-input"
                 type="number"
@@ -1140,15 +1255,15 @@ export default function App() {
                 className={`cr-preset-chip ${selectedCrRange.min === 0 && selectedCrRange.max === 30 ? 'active' : ''}`}
                 onClick={() => setSelectedCrRange({ min: 0, max: 30 })}
               >
-                Todos
+                All
               </span>
             </div>
           </div>
 
           {/* Saving Throws Forced on Targets (Offensive Saves - 5e Tools) */}
           <div>
-            <div className="filter-section-title" title="Filtra criaturas que obligan a tirar salvación con sus ataques, conjuros o rasgos">
-              <span>Exige Salvación (Ataques/Magia)</span>
+            <div className="filter-section-title" title="Filters creatures that force saving throws on targets with attacks, spells, or traits">
+              <span>Offensive Saves Forced</span>
               <Zap size={14} style={{ color: '#fbbf24' }} />
             </div>
             <div className="filter-chips-grid">
@@ -1158,7 +1273,7 @@ export default function App() {
                   <button 
                     key={sv.id}
                     id={`filter-forces-save-${sv.id}`}
-                    title={`Criaturas que obligan a superar salvación de ${sv.label}`}
+                    title={`Creatures that force ${sv.label} saving throws`}
                     className={`chip-btn ${isSelected ? 'active-amber' : ''}`}
                     onClick={() => toggleFilterItem(selectedForcesSaves, setSelectedForcesSaves, sv.id)}
                   >
@@ -1169,14 +1284,14 @@ export default function App() {
               })}
             </div>
             <p className="filter-subtext">
-              Alientos, venenos, conjuros, auras o miradas que imponen CD a los aventureros.
+              Breaths, poisons, spells, auras, or gazes that impose saving throws on targets.
             </p>
           </div>
 
           {/* Saving Throws Proficiency (Defensive Saves - 5e Tools) */}
           <div>
-            <div className="filter-section-title" title="Filtra criaturas con bonificador de competencia defensivo">
-              <span>Defensa: Competente en Salvación</span>
+            <div className="filter-section-title" title="Filters creatures with proficiency in saving throws">
+              <span>Defensive Saves (Proficient)</span>
               <Shield size={14} style={{ color: '#10b981' }} />
             </div>
             <div className="filter-chips-grid">
@@ -1186,7 +1301,7 @@ export default function App() {
                   <button 
                     key={sv.id}
                     id={`filter-save-${sv.id}`}
-                    title={`Criaturas con bonificador defensivo en salvación de ${sv.label}`}
+                    title={`Creatures with defensive proficiency in ${sv.label} saves`}
                     className={`chip-btn ${isSelected ? 'active-emerald' : ''}`}
                     onClick={() => toggleFilterItem(selectedSaves, setSelectedSaves, sv.id)}
                   >
@@ -1201,7 +1316,7 @@ export default function App() {
           {/* Movement Types (5e Tools) */}
           <div>
             <div className="filter-section-title">
-              <span>Desplazamiento / Movilidad</span>
+              <span>Movement / Speed</span>
               <Wind size={14} />
             </div>
             <div className="filter-chips-grid">
@@ -1223,7 +1338,7 @@ export default function App() {
           {/* Senses (5e Tools) */}
           <div>
             <div className="filter-section-title">
-              <span>Sentidos Especiales</span>
+              <span>Special Senses</span>
               <Eye size={14} />
             </div>
             <div className="filter-chips-grid">
@@ -1245,7 +1360,7 @@ export default function App() {
           {/* Damage Immunities (5e Tools) */}
           <div>
             <div className="filter-section-title">
-              <span>Inmunidad a Daño</span>
+              <span>Damage Immunities</span>
               <Skull size={14} />
             </div>
             <div className="filter-chips-grid">
@@ -1267,11 +1382,11 @@ export default function App() {
           {/* Damage Resistances (5e Tools) */}
           <div>
             <div className="filter-section-title">
-              <span>Resistencia a Daño</span>
+              <span>Damage Resistances</span>
               <Shield size={14} />
             </div>
             <div className="filter-chips-grid">
-              {DAMAGE_TYPES.slice(0, 8).map(dt => {
+              {DAMAGE_TYPES.map(dt => {
                 const isSelected = selectedDamageResistances.includes(dt.id);
                 return (
                   <button 
@@ -1289,7 +1404,7 @@ export default function App() {
           {/* Condition Immunities (5e Tools) */}
           <div>
             <div className="filter-section-title">
-              <span>Inmunidad a Estados</span>
+              <span>Condition Immunities</span>
               <Activity size={14} />
             </div>
             <div className="filter-chips-grid">
@@ -1311,7 +1426,7 @@ export default function App() {
           {/* Environment / Habitat (5e Tools) */}
           <div>
             <div className="filter-section-title">
-              <span>Entorno / Hábitat</span>
+              <span>Environment</span>
               <Compass size={14} />
             </div>
             <select 
@@ -1321,7 +1436,7 @@ export default function App() {
               value={selectedEnvironment}
               onChange={e => setSelectedEnvironment(e.target.value)}
             >
-              <option value="ALL">Todos los Hábitats</option>
+              <option value="ALL">All Environments</option>
               {ENVIRONMENTS.map(env => (
                 <option key={env.id} value={env.id}>{env.label}</option>
               ))}
@@ -1331,7 +1446,7 @@ export default function App() {
           {/* Combat Features & Token Toggles */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             <div className="filter-section-title">
-              <span>Rasgos Especiales</span>
+              <span>Combat Traits</span>
               <Sparkles size={14} />
             </div>
             <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', cursor: 'pointer', color: 'var(--text-muted)' }}>
@@ -1342,7 +1457,7 @@ export default function App() {
                 onChange={e => setHasLegendary(e.target.checked)}
                 style={{ accentColor: 'var(--accent-crimson)' }}
               />
-              <span>Acciones Legendarias</span>
+              <span>Legendary Actions</span>
             </label>
             <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', cursor: 'pointer', color: 'var(--text-muted)' }}>
               <input 
@@ -1352,7 +1467,7 @@ export default function App() {
                 onChange={e => setIsSpellcaster(e.target.checked)}
                 style={{ accentColor: 'var(--accent-crimson)' }}
               />
-              <span>Lanzador de Conjuros</span>
+              <span>Spellcaster</span>
             </label>
             <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', cursor: 'pointer', color: 'var(--text-muted)' }}>
               <input 
@@ -1362,7 +1477,7 @@ export default function App() {
                 onChange={e => setHasTokenOnly(e.target.checked)}
                 style={{ accentColor: 'var(--accent-crimson)' }}
               />
-              <span>Solo criaturas con Token VTT</span>
+              <span>Only with VTT Token</span>
             </label>
           </div>
         </aside>
@@ -1372,10 +1487,10 @@ export default function App() {
           <div className="view-toolbar">
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
               <span className="result-count">
-                Mostrando <strong>{groupVersions ? filteredCreatureGroups.length : flatFilteredCreatures.length}</strong> {groupVersions ? 'criaturas únicas' : 'criaturas'}
+                Showing <strong>{groupVersions ? filteredCreatureGroups.length : flatFilteredCreatures.length}</strong> {groupVersions ? 'unique creatures' : 'creatures'}
                 {groupVersions && (
                   <span style={{ fontSize: '0.75rem', color: 'var(--text-dark)', marginLeft: '6px' }}>
-                    ({totalMatchingVersionsCount} versiones indexadas)
+                    ({totalMatchingVersionsCount} indexed versions)
                   </span>
                 )}
               </span>
@@ -1385,26 +1500,26 @@ export default function App() {
                 type="button"
                 className={`group-toggle-btn ${groupVersions ? 'active' : ''}`}
                 onClick={() => setGroupVersions(prev => !prev)}
-                title={groupVersions ? "Haz clic para ver el catálogo desglosado (sin agrupar reimpresiones)" : "Haz clic para agrupar versiones bajo una misma criatura"}
+                title={groupVersions ? "Click to view full flat list (without grouping reprints)" : "Click to group editions under a single creature entry"}
               >
                 <Layers size={13} />
-                <span>{groupVersions ? 'Versiones Agrupadas' : 'Desglosado'}</span>
+                <span>{groupVersions ? 'Grouped Versions' : 'Flat List'}</span>
               </button>
 
               {/* Quick Edition Selector Pills */}
-              <div className="edition-filter-group" title="Filtrar criaturas por edición de reglas o tipo de fuente">
+              <div className="edition-filter-group" title="Filter creatures by rules edition or source type">
                 <button 
                   type="button"
                   className={`edition-btn ${selectedEdition === 'ALL' ? 'active' : ''}`}
                   onClick={() => setSelectedEdition('ALL')}
                 >
-                  Todas
+                  All
                 </button>
                 <button 
                   type="button"
                   className={`edition-btn btn-2024-filter ${selectedEdition === '2024' ? 'active' : ''}`}
                   onClick={() => setSelectedEdition(selectedEdition === '2024' ? 'ALL' : '2024')}
-                  title="Mostrar criaturas con versión oficial revisada 2024 (XMM, XPHB, XDMG)"
+                  title="Show creatures with official 2024 revised edition (XMM, XPHB, XDMG)"
                 >
                   ✨ 2024
                 </button>
@@ -1412,7 +1527,7 @@ export default function App() {
                   type="button"
                   className={`edition-btn btn-2014-filter ${selectedEdition === '2014' ? 'active' : ''}`}
                   onClick={() => setSelectedEdition(selectedEdition === '2014' ? 'ALL' : '2014')}
-                  title="Mostrar criaturas con versión oficial clásica 2014 (Monster Manual, etc.)"
+                  title="Show creatures with official 2014 classic edition (Monster Manual, etc.)"
                 >
                   📜 2014
                 </button>
@@ -1420,15 +1535,15 @@ export default function App() {
                   type="button"
                   className={`edition-btn btn-3pp-filter ${selectedEdition === '3pp' ? 'active' : ''}`}
                   onClick={() => setSelectedEdition(selectedEdition === '3pp' ? 'ALL' : '3pp')}
-                  title="Mostrar criaturas de editoriales Third-Party (Kobold Press, MCDM, etc.)"
+                  title="Show creatures from professional Third-Party publishers (Kobold Press, MCDM, etc.)"
                 >
-                  🛡️ 3PP
+                  🛡️ 3PP Pro
                 </button>
                 <button 
                   type="button"
                   className={`edition-btn btn-crossover-filter ${selectedEdition === 'crossover' ? 'active' : ''}`}
                   onClick={() => setSelectedEdition(selectedEdition === 'crossover' ? 'ALL' : 'crossover')}
-                  title="Mostrar criaturas de crossovers de videojuegos (Dark Souls, Monster Hunter, etc.)"
+                  title="Show creatures from video game crossovers (Dark Souls, Monster Hunter, etc.)"
                 >
                   🎮 Crossovers
                 </button>
@@ -1436,25 +1551,25 @@ export default function App() {
             </div>
 
             <div className="sort-controls">
-              <span style={{ fontSize: '0.8rem', color: 'var(--text-dark)' }}>Ordenar por:</span>
+              <span style={{ fontSize: '0.8rem', color: 'var(--text-dark)' }}>Sort by:</span>
               <select 
                 className="select-styled"
                 value={sortBy}
                 onChange={e => setSortBy(e.target.value)}
               >
-                <option value="name-asc">Nombre (A-Z)</option>
-                <option value="name-desc">Nombre (Z-A)</option>
-                <option value="cr-asc">Desafío CR (Menor a Mayor)</option>
-                <option value="cr-desc">Desafío CR (Mayor a Menor)</option>
-                <option value="hp-desc">Puntos de Golpe HP</option>
-                <option value="ac-desc">Clase de Armadura CA</option>
+                <option value="name-asc">Name (A-Z)</option>
+                <option value="name-desc">Name (Z-A)</option>
+                <option value="cr-asc">Challenge Rating (Low to High)</option>
+                <option value="cr-desc">Challenge Rating (High to Low)</option>
+                <option value="hp-desc">Hit Points (HP)</option>
+                <option value="ac-desc">Armor Class (AC)</option>
               </select>
             </div>
           </div>
 
           <div className="creatures-scroll-area">
             <div className="creatures-grid">
-              {(groupVersions ? filteredCreatureGroups : flatFilteredCreatures).slice(0, 100).map(item => {
+              {(groupVersions ? filteredCreatureGroups : flatFilteredCreatures).slice(0, visibleCount).map(item => {
                 const isGroup = groupVersions;
                 const group = isGroup ? item : null;
                 const creature = isGroup ? item.activeVersion : item;
@@ -1500,7 +1615,7 @@ export default function App() {
                       <div className="card-versions-bar">
                         <div className="card-versions-header">
                           <span className="card-versions-title">
-                            <Sparkles size={11} /> {group.versions.length} versiones
+                            <Sparkles size={11} /> {group.versions.length} {group.versions.length === 1 ? 'version' : 'versions'}
                           </span>
                           <span className={`card-versions-active-tag tag-${creature.versionMeta.pillType}`}>
                             {creature.versionMeta.shortLabel}
@@ -1519,7 +1634,7 @@ export default function App() {
                                   e.stopPropagation();
                                   setCardVersionOverrides(prev => ({ ...prev, [group.groupKey]: v.id }));
                                 }}
-                                title={`${v.versionMeta.shortLabel} (${v.sourceGroup || v.source}) — CR ${v.cr}, HP ${v.hp}, CA ${v.ac}`}
+                                title={`${v.versionMeta.shortLabel} (${v.sourceGroup || v.source}) — CR ${v.cr}, HP ${v.hp}, AC ${v.ac}`}
                               >
                                 {v.versionMeta.is2024 && <span className="btn-sparkle">✨</span>}
                                 {v.versionMeta.is2014 && <span className="btn-sparkle">📜</span>}
@@ -1536,15 +1651,15 @@ export default function App() {
 
                     <div className="card-stats-row">
                       <div className="card-stat-item">
-                        <span className="card-stat-label">CA / Armor</span>
+                        <span className="card-stat-label">AC / Armor</span>
                         <span className="card-stat-val">{creature.ac}</span>
                       </div>
                       <div className="card-stat-item">
-                        <span className="card-stat-label">HP / Vida</span>
+                        <span className="card-stat-label">HP / Hit Points</span>
                         <span className="card-stat-val">{creature.hp}</span>
                       </div>
                       <div className="card-stat-item">
-                        <span className="card-stat-label">Velocidad</span>
+                        <span className="card-stat-label">Speed</span>
                         <span className="card-stat-val">{creature.speed.walk || creature.speed.fly || 30} ft</span>
                       </div>
                     </div>
@@ -1552,13 +1667,13 @@ export default function App() {
                     {(creature.forcesSaves?.length > 0 || (creature.save && Object.keys(creature.save).length > 0)) && (
                       <div className="card-saves-row">
                         {creature.forcesSaves?.length > 0 && (
-                          <span className="card-forces-saves-badge" title="Tiradas de salvación que exige a los jugadores">
+                          <span className="card-forces-saves-badge" title="Saving throws forced on targets">
                             <Zap size={10} />
-                            Exige: {creature.forcesSaves.map(s => s.toUpperCase()).join(', ')}
+                            Forces: {creature.forcesSaves.map(s => s.toUpperCase()).join(', ')}
                           </span>
                         )}
                         {creature.save && Object.keys(creature.save).length > 0 && (
-                          <span className="card-def-saves-badge" title="Salvaciones en las que la criatura es competente defensivamente">
+                          <span className="card-def-saves-badge" title="Saving throws in which the creature is proficient">
                             <Shield size={10} />
                             Def: {Object.keys(creature.save).map(s => s.toUpperCase()).join(', ')}
                           </span>
@@ -1585,16 +1700,45 @@ export default function App() {
                       <button 
                         className="add-encounter-btn"
                         onClick={(e) => handleAddToEncounter(creature, e)}
-                        title="Añadir a la batalla"
+                        title="Add to encounter"
                       >
                         <Plus size={14} />
-                        <span>Al Encuentro</span>
+                        <span>Add to Encounter</span>
                       </button>
                     </div>
                   </div>
                 );
               })}
             </div>
+
+            {/* Load More Button when there are more matching creatures */}
+            {(groupVersions ? filteredCreatureGroups : flatFilteredCreatures).length > visibleCount && (
+              <div style={{ display: 'flex', justifyContent: 'center', padding: '24px 0 16px', width: '100%' }}>
+                <button
+                  type="button"
+                  className="btn-load-more"
+                  onClick={() => setVisibleCount(prev => prev + 60)}
+                  style={{
+                    padding: '10px 24px',
+                    borderRadius: '8px',
+                    background: 'rgba(245, 158, 11, 0.15)',
+                    border: '1px solid rgba(245, 158, 11, 0.4)',
+                    color: '#fde68a',
+                    fontSize: '0.9rem',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    transition: 'all 0.2s',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
+                  }}
+                >
+                  <span>Load more creatures (Showing {visibleCount} of {(groupVersions ? filteredCreatureGroups : flatFilteredCreatures).length})</span>
+                  <ChevronRight size={16} />
+                </button>
+              </div>
+            )}
           </div>
         </main>
 
@@ -1625,7 +1769,7 @@ export default function App() {
                     onClick={() => setPartyMode('custom')}
                   >
                     <Users size={14} />
-                    <span>Mis Jugadores ({customPlayers.length})</span>
+                    <span>My Players ({customPlayers.length})</span>
                   </button>
                   <button 
                     id="party-mode-generic-btn"
@@ -1633,7 +1777,7 @@ export default function App() {
                     onClick={() => setPartyMode('generic')}
                   >
                     <SlidersHorizontal size={14} />
-                    <span>Grupo Rápido ({partyGroups.reduce((sum, g) => sum + (Number(g.count) || 0), 0)})</span>
+                    <span>Quick Party ({partyGroups.reduce((sum, g) => sum + (Number(g.count) || 0), 0)})</span>
                   </button>
                 </div>
 
@@ -1646,14 +1790,14 @@ export default function App() {
                     />
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                       <span style={{ fontSize: '0.75rem', color: 'var(--text-dark)', fontWeight: 600, textTransform: 'uppercase' }}>
-                        Fichas Reales de los Jugadores
+                        Player Character Roster
                       </span>
                       <button 
                         onClick={handleResetCustomParty}
-                        title="Restablecer plantilla inicial de 4 jugadores"
+                        title="Reset to default 4-player party"
                         style={{ fontSize: '0.7rem', color: 'var(--text-dark)', display: 'flex', alignItems: 'center', gap: '3px' }}
                       >
-                        <RotateCcw size={10} /> Restablecer
+                        <RotateCcw size={10} /> Reset
                       </button>
                     </div>
 
@@ -1664,10 +1808,10 @@ export default function App() {
                             <input 
                               type="text"
                               className="player-name-input"
-                              placeholder="Nombre PJ"
+                              placeholder="PC Name"
                               value={player.name}
                               onChange={e => handleUpdateCustomPlayer(player.id, 'name', e.target.value)}
-                              title="Nombre del Personaje"
+                              title="Character Name"
                             />
 
                             <select 
@@ -1688,7 +1832,7 @@ export default function App() {
                                   };
                                 }));
                               }}
-                              title="Clase de D&D (al cambiar actualiza stats sugeridas)"
+                              title="D&D Class (updates suggested stats on change)"
                             >
                               {DND_CLASSES.map(cls => (
                                 <option key={cls} value={cls}>{cls}</option>
@@ -1696,7 +1840,7 @@ export default function App() {
                             </select>
 
                             <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
-                              <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Nv</span>
+                              <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Lv</span>
                               <input 
                                 type="number"
                                 min="1"
@@ -1707,7 +1851,7 @@ export default function App() {
                                   const newLvl = Math.max(1, Math.min(20, Number(e.target.value) || 1));
                                   handleUpdateCustomPlayer(player.id, 'level', newLvl);
                                 }}
-                                title="Nivel del Personaje (1-20)"
+                                title="Character Level (1-20)"
                               />
                             </div>
 
@@ -1715,14 +1859,14 @@ export default function App() {
                               <button 
                                 className="player-delete-btn"
                                 onClick={() => handleRemoveCustomPlayer(player.id)}
-                                title="Eliminar este jugador"
+                                title="Remove this player"
                               >
                                 <Trash2 size={13} />
                               </button>
                             )}
                           </div>
 
-                          {/* 4 Essential Stats Grid: HP, CA, +ToHit, DPR */}
+                          {/* 4 Essential Stats Grid: HP, AC, +ToHit, DPR */}
                           <div className="custom-player-stats-grid">
                             <div className="stat-field-mini">
                               <span className="stat-field-label">HP</span>
@@ -1733,12 +1877,12 @@ export default function App() {
                                 className="stat-field-input"
                                 value={player.hp}
                                 onChange={e => handleUpdateCustomPlayer(player.id, 'hp', e.target.value)}
-                                title="Puntos de Golpe Máximos"
+                                title="Max Hit Points"
                               />
                             </div>
 
                             <div className="stat-field-mini">
-                              <span className="stat-field-label">CA</span>
+                              <span className="stat-field-label">AC</span>
                               <input 
                                 type="number"
                                 min="1"
@@ -1746,12 +1890,12 @@ export default function App() {
                                 className="stat-field-input"
                                 value={player.ac}
                                 onChange={e => handleUpdateCustomPlayer(player.id, 'ac', e.target.value)}
-                                title="Clase de Armadura"
+                                title="Armor Class"
                               />
                             </div>
 
                             <div className="stat-field-mini">
-                              <span className="stat-field-label" title="Bono para impactar principal (ej. +7). Para conjuros de salvación equivale a CD - 8">+ATK</span>
+                              <span className="stat-field-label" title="Main attack bonus (+To-Hit, e.g. +7). For save-based casters, enter DC - 8">+ATK</span>
                               <input 
                                 type="number"
                                 min="-5"
@@ -1759,12 +1903,12 @@ export default function App() {
                                 className="stat-field-input"
                                 value={player.toHit}
                                 onChange={e => handleUpdateCustomPlayer(player.id, 'toHit', e.target.value)}
-                                title="Bono de Ataque principal (+To-Hit, ej. +7). Si el personaje usa solo conjuros con Salvación, introduce su (CD - 8)."
+                                title="Main Attack Bonus (+To-Hit, e.g. +7). For spellcasters using saves, enter (Save DC - 8)."
                               />
                             </div>
 
                             <div className="stat-field-mini">
-                              <span className="stat-field-label">DPR (Daño)</span>
+                              <span className="stat-field-label">DPR</span>
                               <input 
                                 type="number"
                                 min="1"
@@ -1772,14 +1916,14 @@ export default function App() {
                                 className="stat-field-input"
                                 value={player.dpr}
                                 onChange={e => handleUpdateCustomPlayer(player.id, 'dpr', e.target.value)}
-                                title="Daño Promedio por Asalto (DPR)"
+                                title="Average Damage Per Round (DPR)"
                               />
                             </div>
 
                             <button 
                               className="preset-magic-btn"
                               onClick={() => handleApplyClassPreset(player.id)}
-                              title="Recalcular automáticamente HP, CA, Atk y DPR sugeridos para esta clase y nivel"
+                              title="Automatically recalculate suggested HP, AC, Atk, and DPR for this class and level"
                             >
                               <Sparkles size={13} />
                             </button>
@@ -1794,7 +1938,7 @@ export default function App() {
                       onClick={handleAddCustomPlayer}
                     >
                       <Plus size={14} />
-                      <span>Añadir Jugador a la Mesa</span>
+                      <span>Add Player to Table</span>
                     </button>
                   </div>
                 ) : (
@@ -1802,19 +1946,19 @@ export default function App() {
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                       <span style={{ fontSize: '0.75rem', color: 'var(--text-dark)', fontWeight: 600, textTransform: 'uppercase' }}>
-                        Grupos Genéricos por Nivel
+                        Generic Level Groups
                       </span>
                       <button 
                         onClick={handleAddPartyGroup}
                         style={{ color: '#38bdf8', fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '4px' }}
                       >
-                        <Plus size={12} /> Añadir Nivel
+                        <Plus size={12} /> Add Level Group
                       </button>
                     </div>
 
                     {partyGroups.map(group => (
                       <div key={group.id} className="party-group-row">
-                        <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Cantidad:</span>
+                        <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Count:</span>
                         <input 
                           type="number"
                           min="1"
@@ -1824,7 +1968,7 @@ export default function App() {
                           value={group.count}
                           onChange={e => handleUpdatePartyGroup(group.id, 'count', e.target.value)}
                         />
-                        <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Nivel:</span>
+                        <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Level:</span>
                         <input 
                           type="number"
                           min="1"
@@ -1848,7 +1992,7 @@ export default function App() {
                 )}
 
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--text-dark)', marginTop: '4px', borderTop: '1px solid var(--border-subtle)', paddingTop: '8px' }}>
-                  <span>Sistema de Reglas:</span>
+                  <span>Rules System:</span>
                   <select 
                     className="select-styled"
                     style={{ padding: '2px 8px', fontSize: '0.75rem' }}
@@ -1866,21 +2010,21 @@ export default function App() {
                 <div className="panel-card-title">
                   <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <Skull size={14} />
-                    <span>Monstruos en Combate ({encounterMetrics.totalMonsters})</span>
+                    <span>Monsters in Combat ({encounterMetrics.totalMonsters})</span>
                   </span>
                   {encounterMonsters.length > 0 && (
                     <button 
                       onClick={() => setEncounterMonsters([])}
                       style={{ color: '#f43f5e', fontSize: '0.75rem' }}
                     >
-                      Limpiar
+                      Clear
                     </button>
                   )}
                 </div>
 
                 {encounterMonsters.length === 0 ? (
                   <p style={{ fontSize: '0.8rem', color: 'var(--text-dark)', fontStyle: 'italic', textAlign: 'center', padding: '12px 0' }}>
-                    Haz clic en "+ Al Encuentro" en cualquier criatura para añadirla.
+                    Click "+ Add to Encounter" on any creature card to add it.
                   </p>
                 ) : (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -1900,7 +2044,7 @@ export default function App() {
                             </span>
                           </div>
                           <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
-                            CR {creature.cr} &bull; {creature.xp.toLocaleString()} XP c/u
+                            CR {creature.cr} &bull; {creature.xp.toLocaleString()} XP each
                           </div>
                         </div>
 
@@ -1931,7 +2075,7 @@ export default function App() {
               <div className="difficulty-meter">
                 <div className="meter-header">
                   <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', fontWeight: 700, color: 'var(--text-muted)' }}>
-                    Dificultad Oficial (KFC)
+                    Official Difficulty (KFC)
                   </span>
                   <span 
                     className="difficulty-badge"
@@ -1956,17 +2100,17 @@ export default function App() {
                 </div>
 
                 <div className="meter-stats-row">
-                  <span>XP Real: <strong>{encounterMetrics.rawXp.toLocaleString()} XP</strong></span>
+                  <span>Raw XP: <strong>{encounterMetrics.rawXp.toLocaleString()} XP</strong></span>
                   {rulesSystem === '2014' && (
-                    <span>Mult: <strong>&times;{encounterMetrics.multiplier}</strong> ({encounterMetrics.adjustedXp.toLocaleString()} XP Ajustada)</span>
+                    <span>Mult: <strong>&times;{encounterMetrics.multiplier}</strong> ({encounterMetrics.adjustedXp.toLocaleString()} Adjusted XP)</span>
                   )}
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '4px', fontSize: '0.65rem', textAlign: 'center', marginTop: '4px', color: 'var(--text-dark)' }}>
-                  <div>Fácil: {encounterMetrics.partyBudget.easy?.toLocaleString() || encounterMetrics.partyBudget.low?.toLocaleString()}</div>
-                  <div>Medio: {encounterMetrics.partyBudget.medium?.toLocaleString() || encounterMetrics.partyBudget.moderate?.toLocaleString()}</div>
-                  <div>Difícil: {encounterMetrics.partyBudget.hard?.toLocaleString() || encounterMetrics.partyBudget.high?.toLocaleString()}</div>
-                  <div>Mortal: {encounterMetrics.partyBudget.deadly?.toLocaleString() || '—'}</div>
+                  <div>Easy: {encounterMetrics.partyBudget.easy?.toLocaleString() || encounterMetrics.partyBudget.low?.toLocaleString()}</div>
+                  <div>Medium: {encounterMetrics.partyBudget.medium?.toLocaleString() || encounterMetrics.partyBudget.moderate?.toLocaleString()}</div>
+                  <div>Hard: {encounterMetrics.partyBudget.hard?.toLocaleString() || encounterMetrics.partyBudget.high?.toLocaleString()}</div>
+                  <div>Deadly: {encounterMetrics.partyBudget.deadly?.toLocaleString() || '—'}</div>
                 </div>
               </div>
 
@@ -1975,7 +2119,7 @@ export default function App() {
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <span style={{ fontFamily: 'Cinzel', fontWeight: 700, fontSize: '0.95rem', color: '#fff', display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <Zap size={16} color="#e11d48" />
-                    <span>BattleSim: Simulación Táctica</span>
+                    <span>BattleSim: Tactical Combat Simulator</span>
                   </span>
                   <span style={{ fontSize: '0.7rem', color: 'var(--accent-gold)' }}>Markov Model</span>
                 </div>
@@ -1983,8 +2127,8 @@ export default function App() {
                 {/* Luck Slider */}
                 <div className="luck-slider-row">
                   <div className="luck-labels">
-                    <span>Factor Suerte: <strong>{luck < 0.45 ? 'Desafortunada' : luck > 0.55 ? 'Afortunada' : 'Neutral'} ({(luck * 100).toFixed(0)}%)</strong></span>
-                    <span>1d20 Medio: {(21 * luck).toFixed(1)}</span>
+                    <span>Luck Factor: <strong>{luck < 0.45 ? 'Unlucky' : luck > 0.55 ? 'Lucky' : 'Neutral'} ({(luck * 100).toFixed(0)}%)</strong></span>
+                    <span>1d20 Avg: {(21 * luck).toFixed(1)}</span>
                   </div>
                   <input 
                     type="range"
@@ -1996,9 +2140,9 @@ export default function App() {
                     onChange={e => setLuck(parseFloat(e.target.value))}
                   />
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.65rem', color: 'var(--text-dark)' }}>
-                    <span>0.35 (Pésima racha)</span>
-                    <span>0.50 (Estándar)</span>
-                    <span>0.65 (Críticos épicos)</span>
+                    <span>0.35 (Terrible run)</span>
+                    <span>0.50 (Standard)</span>
+                    <span>0.65 (Epic crits)</span>
                   </div>
                 </div>
 
@@ -2008,17 +2152,17 @@ export default function App() {
                   disabled={encounterMonsters.length === 0}
                 >
                   <Play size={16} />
-                  <span>{isSimulating ? 'Simulando...' : 'Simular Combate'}</span>
+                  <span>{isSimulating ? 'Simulating...' : 'Simulate Combat'}</span>
                 </button>
 
                 {simResult && encounterMonsters.length > 0 && (
                   <div className="simulation-results-box">
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.06)', paddingBottom: '6px' }}>
                       <span style={{ fontSize: '0.85rem', fontWeight: 600, color: simResult.victory ? '#34d399' : '#f43f5e' }}>
-                        {simResult.victory ? 'Victoria Estimada del Grupo' : 'Riesgo Crítico de Derrota'}
+                        {simResult.victory ? 'Estimated Party Victory' : 'Critical TPK Risk'}
                       </span>
                       <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                        {simResult.rounds} Rondas promedio
+                        {simResult.rounds} Avg Rounds
                       </span>
                     </div>
 
@@ -2027,28 +2171,28 @@ export default function App() {
                         <div className="metric-val" style={{ color: simResult.partyRemainingHpPercent > 50 ? '#34d399' : '#fbbf24' }}>
                           {simResult.partyRemainingHpPercent}%
                         </div>
-                        <div className="metric-label">HP Restante Party</div>
+                        <div className="metric-label">Party Remaining HP</div>
                       </div>
 
                       <div className="metric-card">
                         <div className="metric-val" style={{ color: simResult.tpkRisk > 50 ? '#ef4444' : simResult.tpkRisk > 20 ? '#fbbf24' : '#34d399' }}>
                           {simResult.tpkRisk}%
                         </div>
-                        <div className="metric-label">Riesgo TPK</div>
+                        <div className="metric-label">TPK Risk</div>
                       </div>
 
                       <div className="metric-card">
                         <div className="metric-val" style={{ color: '#38bdf8' }}>
                           {simResult.rounds} Rds
                         </div>
-                        <div className="metric-label">Duración Combate</div>
+                        <div className="metric-label">Combat Duration</div>
                       </div>
                     </div>
 
                     {/* Detailed Health Bars for Players */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginTop: '6px' }}>
                       <span style={{ fontSize: '0.7rem', color: 'var(--text-dark)', textTransform: 'uppercase', fontWeight: 600 }}>
-                        Estado Final Estimado de los Héroes:
+                        Estimated Final State of Heroes:
                       </span>
                       {simResult.playersSummary?.map((p, idx) => (
                         <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: '2px', background: 'rgba(0,0,0,0.25)', padding: '4px 6px', borderRadius: '4px' }}>
@@ -2064,7 +2208,7 @@ export default function App() {
                               )}
                             </div>
                             <span style={{ fontSize: '0.7rem', fontFamily: 'JetBrains Mono', color: p.isAlive ? 'var(--text-muted)' : '#ef4444' }}>
-                              {p.isAlive ? `${p.currentHp}/${p.maxHp} HP (${p.hpPercent}%)` : 'CAÍDO (0 HP)'}
+                              {p.isAlive ? `${p.currentHp}/${p.maxHp} HP (${p.hpPercent}%)` : 'DOWN (0 HP)'}
                             </span>
                           </div>
                           <div style={{ height: '5px', background: 'rgba(255,255,255,0.08)', borderRadius: '3px', overflow: 'hidden' }}>
