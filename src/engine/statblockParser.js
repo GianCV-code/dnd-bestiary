@@ -181,15 +181,18 @@ export function parseModularAction(action, defaultType = 'Action') {
   // Detección de impacto automático
   const isAutoHit = /\bautomatic\s+hit\b/i.test(rawText) || /\bautomático\s+hit\b/i.test(rawText);
 
-  // 1. Detección exhaustiva de tirada de ataque (+X to hit, 'm,r +5', 'mw 8', etc.)
+  // 1. Detección exhaustiva de tirada de ataque (+X to hit, 'm,r +5', 'mw 8', 'ms + 9', etc.)
   const atkMatch = rawText.match(
-    /(?:(?:mw,rw|ms,rs|m,r|mp,rp|mw,rs|mw|rw|ms|rs|mp|rp|m|r)\s*([+-]?\d+))|(?:([+-]?\d+)\s*(?:to\s*hit|para\s*impactar))|(?:(?:Attack\s*Roll|Tirada\s*de\s*ataque|Ataque[a-záéíóú\s]*):\s*([+-]?\d+))|(?:(?:Ataque|Attack)[^:.]*:\s*([+-]\d+))/i
+    /(?:(?:mw,rw|ms,rs|m,r|mp,rp|mw,rs|mw|rw|ms|rs|mp|rp|m|r)\s*([+-]?\s*\d+))|(?:([+-]?\s*\d+)\s*(?:to\s*hit|para\s*impactar))|(?:(?:Attack\s*Roll|Tirada\s*de\s*ataque|Ataque[a-záéíóú\s]*):\s*([+-]?\s*\d+))|(?:(?:Ataque|Attack)[^:.]*:\s*([+-]?\s*\d+))/i
   );
   let atkBonus = null;
   if (atkMatch) {
-    atkBonus = atkMatch[1] || atkMatch[2] || atkMatch[3] || atkMatch[4];
-    if (atkBonus && !atkBonus.startsWith('+') && !atkBonus.startsWith('-')) {
-      atkBonus = `+${atkBonus}`;
+    const rawBonus = atkMatch[1] || atkMatch[2] || atkMatch[3] || atkMatch[4];
+    if (rawBonus) {
+      atkBonus = rawBonus.replace(/\s+/g, '');
+      if (!atkBonus.startsWith('+') && !atkBonus.startsWith('-')) {
+        atkBonus = `+${atkBonus}`;
+      }
     }
   }
 
@@ -255,26 +258,29 @@ export function parseModularAction(action, defaultType = 'Action') {
   // 3. Daño
   // Soporta:
   // a) "Hit: 21 (3d10 + 5) piercing damage"
-  // b) "Hit: 1d10 + 2 Bludgeoning damage" (sin promedio explícito)
-  // c) "Hit: 4 piercing damage" (daño plano sin dados)
+  // b) "taking 63 (18d6) fire damage on a failed save" (salvaciones de área, alientos, etc.)
+  // c) "Hit: 1d10 + 2 Bludgeoning damage" o "taking 8d6 fire damage" (sin promedio explícito)
+  // d) "Hit: 4 piercing damage" (daño plano sin dados)
   let avgDamage = null;
   let damageDice = null;
   let damageType = null;
 
-  const withDiceAvg = rawText.match(/(?:Hit:|Impacto:|Fallo:|Failure:)\s*(\d+)\s*\(([^)]+)\)(?:\s+([^.]+?)\s+damage)?/i);
+  const dmgPrefix = /(?:Hit:|Impacto:|Fallo:|Failure:|taking|takes|take|deals|deal|suffers|suffer|recibiendo|recibe|sufriendo|inflige)\s*/;
+
+  const withDiceAvg = rawText.match(new RegExp(dmgPrefix.source + '(\\d+)\\s*\\(([^)]+)\\)(?:\\s+([^.]+?)\\s+damage)?', 'i'));
   if (withDiceAvg) {
     avgDamage = withDiceAvg[1];
     damageDice = withDiceAvg[2].trim();
     damageType = withDiceAvg[3] ? withDiceAvg[3].trim() : null;
   } else {
-    const justDice = rawText.match(/(?:Hit:|Impacto:|Fallo:|Failure:)\s*(\d+d\d+(?:\s*[+-]\s*\d+)?)(?:\s+([^.]+?)\s+damage)?/i);
+    const justDice = rawText.match(new RegExp(dmgPrefix.source + '(\\d+d\\d+(?:\\s*[+-]\\s*\\d+)?)(?:\\s+([^.]+?)\\s+damage)?', 'i'));
     if (justDice) {
       damageDice = justDice[1].trim();
       const calculated = calcDiceAverage(damageDice);
       avgDamage = calculated != null ? String(calculated) : null;
       damageType = justDice[2] ? justDice[2].trim() : null;
     } else {
-      const flatDmg = rawText.match(/(?:Hit:|Impacto:|Fallo:|Failure:)\s*(\d+)(?:\s+([^.]+?)\s+damage)?/i);
+      const flatDmg = rawText.match(new RegExp(dmgPrefix.source + '(\\d+)(?:\\s+([^.]+?)\\s+damage)?', 'i'));
       if (flatDmg) {
         avgDamage = flatDmg[1];
         damageDice = null;
@@ -284,9 +290,16 @@ export function parseModularAction(action, defaultType = 'Action') {
   }
 
   if (damageType) {
-    damageType = damageType.replace(/^de\s+daño\s+/i, '').replace(/\s+damage$/i, '').trim();
-    if (damageType.length > 20 && damageType.includes(',')) {
-      damageType = 'Multiple';
+    damageType = damageType
+      .replace(/^de\s+daño\s+/i, '')
+      .replace(/\s+damage$/i, '')
+      .replace(/\s+on\s+a\s+failed\s+save.*/i, '')
+      .replace(/\s+si\s+falla\s+la\s+salvaci[oó]n.*/i, '')
+      .trim();
+    if (damageType.length > 20 && (damageType.includes(',') || damageType.includes(' '))) {
+      const firstWord = damageType.split(/[\s,]+/)[0];
+      const validTypes = ['acid', 'bludgeoning', 'cold', 'fire', 'force', 'lightning', 'necrotic', 'piercing', 'poison', 'psychic', 'radiant', 'slashing', 'thunder'];
+      damageType = validTypes.includes(firstWord.toLowerCase()) ? firstWord : 'Multiple';
     }
   }
 
@@ -480,22 +493,24 @@ export function formatActionNarrative(text) {
 
   // Reemplazo para prefijos de 2 letras o compuestos con número / bono
   str = str.replace(
-    /\b(mw,rw|ms,rs|m,r|mp,rp|mw,rs|mw|rw|ms|rs|mp|rp)\s*([+-]?\d+)\s*(?:to\s*hit|para\s*impactar)?\s*,?\s*/gi,
+    /\b(mw,rw|ms,rs|m,r|mp,rp|mw,rs|mw|rw|ms|rs|mp|rp)\s*([+-]?\s*\d+)\s*(?:to\s*hit|para\s*impactar)?\s*,?\s*/gi,
     (match, tag, bonus) => {
       const label = atkPrefixMap[tag.toLowerCase()];
       if (!label) return match;
-      const b = (bonus.startsWith('+') || bonus.startsWith('-')) ? bonus : `+${bonus}`;
+      const cleanBonus = bonus.replace(/\s+/g, '');
+      const b = (cleanBonus.startsWith('+') || cleanBonus.startsWith('-')) ? cleanBonus : `+${cleanBonus}`;
       return `${label}: ${b} to hit, `;
     }
   );
 
   // Reemplazo para m o r simples con número / bono
   str = str.replace(
-    /(?:^|(?<=[:.\n•\-]\s*))\b(m|r)\s*([+-]?\d+)\s*(?:to\s*hit|para\s*impactar)?\s*,?\s*/gi,
+    /(?:^|(?<=[:.\n•\-]\s*))\b(m|r)\s*([+-]?\s*\d+)\s*(?:to\s*hit|para\s*impactar)?\s*,?\s*/gi,
     (match, tag, bonus) => {
       const label = atkPrefixMap[tag.toLowerCase()];
       if (!label) return match;
-      const b = (bonus.startsWith('+') || bonus.startsWith('-')) ? bonus : `+${bonus}`;
+      const cleanBonus = bonus.replace(/\s+/g, '');
+      const b = (cleanBonus.startsWith('+') || cleanBonus.startsWith('-')) ? cleanBonus : `+${cleanBonus}`;
       return `${label}: ${b} to hit, `;
     }
   );

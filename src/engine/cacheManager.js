@@ -5,10 +5,10 @@
  * Automatically invalidates when CURRENT_DATA_VERSION changes.
  */
 
-export const CURRENT_DATA_VERSION = '20261114_speed_damage_fix';
+export const CURRENT_DATA_VERSION = '20261114_universal_audit_fix';
 
 const DB_NAME = 'DND_BESTIARY_PERSISTENT_CACHE';
-const DB_VERSION = 6; // Incremented to automatically bust stale caches and ensure speed 0 and calculated damage averages are loaded
+const DB_VERSION = 7; // Incremented to automatically bust stale caches and ensure universal audit fixes, resolved copies, and saving throw damage are loaded
 const STORE_NAME = 'bestiary_data';
 const CACHE_KEY = 'cached_indexed_creatures';
 const META_KEY = 'cache_metadata';

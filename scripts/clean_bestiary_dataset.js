@@ -90,24 +90,26 @@ function cleanTextString(text) {
     (match, tag, mod) => `${atkPrefixMap[tag.toLowerCase()]}: ${mod} to hit, `
   );
 
-  // Número / bono a impactar: ej. 'mw +5 to hit' o 'm,r 5, reach...'
+  // Número / bono a impactar: ej. 'mw +5 to hit', 'ms + 9 to hit', 'mw 6 to hit' o 'm,r 5, reach...'
   str = str.replace(
-    /(?:^|(?<=[:.\n•\-]\s*))\b(mw,rw|ms,rs|m,r|mp,rp|mw,rs|mw|rw|ms|rs|mp|rp)\s*([+-]?\d+)\s*(?:to\s*hit|para\s*impactar)?\s*,?\s*/gi,
+    /(?:^|(?<=[:.\n•\-]\s*))\b(mw,rw|ms,rs|m,r|mp,rp|mw,rs|mw|rw|ms|rs|mp|rp)\s*([+-]?\s*\d+)\s*(?:to\s*hit|para\s*impactar)?\s*,?\s*/gi,
     (match, tag, bonus) => {
       const label = atkPrefixMap[tag.toLowerCase()];
       if (!label) return match;
-      const b = (bonus.startsWith('+') || bonus.startsWith('-')) ? bonus : `+${bonus}`;
+      const cleanBonus = bonus.replace(/\s+/g, '');
+      const b = (cleanBonus.startsWith('+') || cleanBonus.startsWith('-')) ? cleanBonus : `+${cleanBonus}`;
       return `${label}: ${b} to hit, `;
     }
   );
 
   // Prefijos simples m o r con número
   str = str.replace(
-    /(?:^|(?<=[:.\n•\-]\s*))\b(m|r)\s*([+-]?\d+)\s*(?:to\s*hit|para\s*impactar)?\s*,?\s*/gi,
+    /(?:^|(?<=[:.\n•\-]\s*))\b(m|r)\s*([+-]?\s*\d+)\s*(?:to\s*hit|para\s*impactar)?\s*,?\s*/gi,
     (match, tag, bonus) => {
       const label = atkPrefixMap[tag.toLowerCase()];
       if (!label) return match;
-      const b = (bonus.startsWith('+') || bonus.startsWith('-')) ? bonus : `+${bonus}`;
+      const cleanBonus = bonus.replace(/\s+/g, '');
+      const b = (cleanBonus.startsWith('+') || cleanBonus.startsWith('-')) ? cleanBonus : `+${cleanBonus}`;
       return `${label}: ${b} to hit, `;
     }
   );
