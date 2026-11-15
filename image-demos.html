@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laboratorio de Estilos de Imagen en Statblock - D&D 5e</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap');
+    
+    body { 
+      font-family: 'Outfit', sans-serif; 
+      background-color: #07090e;
+      color: #f1f5f9;
+    }
+    .font-cinzel { font-family: 'Cinzel', serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+    /* Custom scrollbars */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0b0f19; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+
+    /* Glassmorphism helpers */
+    .glass-card {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card-amber {
+      background: rgba(30, 20, 10, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+    .glass-card-frosted {
+      background: rgba(10, 15, 28, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Ambient element glows */
+    .glow-fire { box-shadow: 0 0 35px -5px rgba(239, 68, 68, 0.35); }
+    .glow-arcane { box-shadow: 0 0 35px -5px rgba(168, 85, 247, 0.35); }
+    .glow-gold { box-shadow: 0 0 30px -5px rgba(245, 158, 11, 0.3); }
+
+    /* Shimmer effect for tokens */
+    @keyframes pulseRing {
+      0% { transform: scale(0.98); opacity: 0.8; }
+      50% { transform: scale(1.02); opacity: 1; filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.6)); }
+      100% { transform: scale(0.98); opacity: 0.8; }
+    }
+    .token-ring-animated {
+      animation: pulseRing 3.5s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="p-3 md:p-6 min-h-screen selection:bg-amber-500/30 selection:text-amber-200">
+
+  <div class="max-w-6xl mx-auto space-y-6">
+
+    <!-- Top Navigation & Branding -->
+    <header class="border-b border-slate-800/80 pb-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center shadow-lg shadow-amber-500/20 text-slate-950 font-bold text-lg">
+            🎨
+          </div>
+          <div>
+            <h1 class="text-xl md:text-2xl font-bold font-cinzel text-amber-300 tracking-wide flex items-center gap-2">
+              Laboratorio de Estilos de Imagen
+              <span class="text-[10px] font-mono uppercase bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded-full font-bold">
+                D&D 5e Statblocks
+              </span>
+            </h1>
+            <p class="text-slate-400 text-xs md:text-sm">
+              Explora y compara 6 enfoques de diseño visual para integrar ilustraciones oficiales de 5eTools y tokens VTT al abrir la ficha de criatura.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Nav Buttons -->
+      <div class="flex items-center gap-2 text-xs">
+        <a href="demos.html" class="px-3 py-1.5 rounded-lg border border-slate-700/80 bg-slate-800/60 hover:bg-slate-700 text-slate-300 transition-all flex items-center gap-1.5 font-medium shadow-sm hover:text-white">
+          <span>🐉</span> Laboratorio de Statblocks
+        </a>
+        <a href="/" class="px-3 py-1.5 rounded-lg border border-amber-500/30 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 transition-all flex items-center gap-1.5 font-medium shadow-sm">
+          <span>⚔️</span> Bestiario Principal
+        </a>
+      </div>
+    </header>
+
+    <!-- Selector de Criatura para la Demo -->
+    <div class="bg-slate-900/90 border border-slate-800 p-3 rounded-2xl space-y-2.5 shadow-xl">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold text-slate-400 uppercase tracking-wider font-mono">1. Criatura de Prueba:</span>
+          <span class="text-[11px] text-slate-500">Prueba cómo responde cada estilo a criaturas con arte épico vs. sin arte</span>
+        </div>
+        <div id="creature-status-badge" class="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5 w-fit">
+          <span>●</span> Tiene Ilustración Completa + Token
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+        <button onclick="setDemoCreature('dragon')" id="cbtn-dragon" class="creature-tab p-2 rounded-xl border text-left transition-all flex items-center gap-2.5 bg-amber-500/15 border-amber-500/50 text-amber-300 shadow-md">
+          <img src="https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/MM/Ancient%20Red%20Dragon.webp" class="w-8 h-8 rounded-full border border-amber-400/50 object-cover flex-shrink-0" alt="Dragon" />
+          <div class="truncate">
+            <div class="font-bold text-xs truncate">Red Dragon</div>
+            <div class="text-[10px] text-amber-400/80 font-mono">CR 17 • Jefe</div>
+          </div>
+        </button>
+
+        <button onclick="setDemoCreature('beholder')" id="cbtn-beholder" class="creature-tab p-2 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-all flex items-center gap-2.5">
+          <img src="https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/MM/Beholder.webp" class="w-8 h-8 rounded-full border border-purple-400/50 object-cover flex-shrink-0" alt="Beholder" />
+          <div class="truncate">
+            <div class="font-bold text-xs truncate">Beholder</div>
+            <div class="text-[10px] text-purple-400/80 font-mono">CR 13 • Vertical</div>
+          </div>
+        </button>
+
+        <button onclick="setDemoCreature('mindflayer')" id="cbtn-mindflayer" class="creature-tab p-2 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-all flex items-center gap-2.5">
+          <img src="https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/MM/Mind%20Flayer.webp" class="w-8 h-8 rounded-full border border-indigo-400/50 object-cover flex-shrink-0" alt="Mind Flayer" />
+          <div class="truncate">
+            <div class="font-bold text-xs truncate">Mind Flayer</div>
+            <div class="text-[10px] text-indigo-400/80 font-mono">CR 7 • Psiónico</div>
+          </div>
+        </button>
+
+        <button onclick="setDemoCreature('kobold')" id="cbtn-kobold" class="creature-tab p-2 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-all flex items-center gap-2.5">
+          <img src="https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/MM/Kobold.webp" class="w-8 h-8 rounded-full border border-amber-600/50 object-cover flex-shrink-0" alt="Kobold" />
+          <div class="truncate">
+            <div class="font-bold text-xs truncate">Kobold</div>
+            <div class="text-[10px] text-amber-500/80 font-mono">CR 1/8 • Minion</div>
+          </div>
+        </button>
+
+        <button onclick="setDemoCreature('croc')" id="cbtn-croc" class="creature-tab p-2 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-all flex items-center gap-2.5">
+          <img src="https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/MM/Giant%20Crocodile.webp" class="w-8 h-8 rounded-full border border-emerald-500/50 object-cover flex-shrink-0" alt="Giant Crocodile" />
+          <div class="truncate">
+            <div class="font-bold text-xs truncate">Giant Crocodile</div>
+            <div class="text-[10px] text-rose-400 font-mono">⚠️ Sin Arte (Token)</div>
+          </div>
+        </button>
+
+        <button onclick="setDemoCreature('acolyte')" id="cbtn-acolyte" class="creature-tab p-2 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-all flex items-center gap-2.5">
+          <img src="https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/MM/Acolyte.webp" class="w-8 h-8 rounded-full border border-sky-400/50 object-cover flex-shrink-0" alt="Acolyte" />
+          <div class="truncate">
+            <div class="font-bold text-xs truncate">Acolyte</div>
+            <div class="text-[10px] text-rose-400 font-mono">⚠️ Sin Arte (NPC)</div>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Barra de Selección de Estilos Visuales -->
+    <div class="bg-slate-900/90 border border-slate-800 p-3 rounded-2xl space-y-2.5 shadow-xl">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider font-mono">2. Estilo de Presentación de Imagen:</span>
+        <span class="text-[11px] text-amber-400 font-mono hidden sm:inline">Selecciona un estilo o visualiza la comparativa panorámica</span>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <button onclick="setDemoStyle('all')" id="sbtn-all" class="style-tab px-3.5 py-2 rounded-xl font-bold text-xs transition-all bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/20 hover:bg-amber-400 flex items-center gap-1.5">
+          <span>🌟</span> VER TODAS A LA VEZ (Comparativa)
+        </button>
+
+        <button onclick="setDemoStyle(1)" id="sbtn-1" class="style-tab px-3 py-2 rounded-xl font-semibold text-xs border border-slate-800 bg-slate-900/60 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-all flex items-center gap-1.5">
+          <span>🌄</span> 1. Hero Banner Cinematográfico
+        </button>
+
+        <button onclick="setDemoStyle(2)" id="sbtn-2" class="style-tab px-3 py-2 rounded-xl font-semibold text-xs border border-slate-800 bg-slate-900/60 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-all flex items-center gap-1.5">
+          <span>🖼️</span> 2. Split Screen Táctico (2 Columnas)
+        </button>
+
+        <button onclick="setDemoStyle(3)" id="sbtn-3" class="style-tab px-3 py-2 rounded-xl font-semibold text-xs border border-slate-800 bg-slate-900/60 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-all flex items-center gap-1.5">
+          <span>📜</span> 3. Classic Monster Manual Inset
+        </button>
+
+        <button onclick="setDemoStyle(4)" id="sbtn-4" class="style-tab px-3 py-2 rounded-xl font-semibold text-xs border border-slate-800 bg-slate-900/60 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-all flex items-center gap-1.5">
+          <span>⚡</span> 4. HUD Táctico + Quick Drawer
+        </button>
+
+        <button onclick="setDemoStyle(5)" id="sbtn-5" class="style-tab px-3 py-2 rounded-xl font-semibold text-xs border border-slate-800 bg-slate-900/60 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-all flex items-center gap-1.5">
+          <span>🌌</span> 5. Atmospheric Watermark & Glass
+        </button>
+
+        <button onclick="setDemoStyle(6)" id="sbtn-6" class="style-tab px-3 py-2 rounded-xl font-semibold text-xs border border-slate-800 bg-slate-900/60 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-all flex items-center gap-1.5">
+          <span>🎭</span> 6. Modo Dual DM / Player-Safe
+        </button>
+
+        <button onclick="setDemoStyle('census')" id="sbtn-census" class="style-tab px-3.5 py-2 rounded-xl font-bold text-xs border border-rose-500/40 bg-rose-500/10 text-rose-300 hover:bg-rose-500/20 transition-all flex items-center gap-1.5 ml-auto">
+          <span>📊</span> RECUENTO 5ETOOLS (1,235 Sin Arte)
+        </button>
+      </div>
+    </div>
+
+    <!-- Contenedor Principal donde se renderizan los Estilos -->
+    <main id="showcase-container" class="space-y-12">
+      <!-- Inyectado dinámicamente -->
+    </main>
+
+  </div>
+
+  <!-- Lightbox Modal para Ver Arte Completo en HD -->
+  <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md p-4 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300" onclick="closeLightbox()">
+    <div class="relative max-w-4xl max-h-[90vh] flex flex-col items-center" onclick="event.stopPropagation()">
+      <button onclick="closeLightbox()" class="absolute -top-12 right-0 text-slate-400 hover:text-white bg-slate-800/80 p-2 rounded-full border border-slate-700 transition-all" title="Cerrar (Esc)">
+        ✕ Cerrar
+      </button>
+      <img id="lightbox-img" src="" alt="Full Artwork" class="max-w-full max-h-[80vh] rounded-2xl shadow-2xl border border-slate-700/60 object-contain" />
+      <div id="lightbox-caption" class="mt-3 text-center text-xs text-slate-300 font-mono bg-slate-900/90 px-4 py-2 rounded-xl border border-slate-800">
+        <!-- Caption -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // DATASET DE CRIATURAS PARA DEMOS
+    const DEMO_CREATURES = {
+      dragon: {
+        id: 'dragon',
+        name: 'Adult Red Dragon',
+        size: 'Huge',
+        type: 'Dragon',
+        typeTags: [],
+        alignment: 'Chaotic Evil',
+        cr: '17',
+        xp: '18,000 XP',
+        pb: '+6',
+        ac: 19,
+        acText: '19 (armadura natural)',
+        hp: 256,
+        hpFormula: '19d12 + 133',
+        speed: '40 ft., trepar 40 ft., volar 80 ft.',
+        stats: { str: 27, dex: 10, con: 25, int: 16, wis: 13, cha: 21 },
+        saves: { str: '+8', dex: '+6', con: '+13', int: '+3', wis: '+7', cha: '+11' },
+        skills: 'Percepción +13, Sigilo +6',
+        damageImmunities: 'Fuego',
+        senses: 'Vista ciega 60 ft., Visión en la oscuridad 120 ft., Percepción pasiva 23',
+        languages: 'Común, Dracónico',
+        source: 'MM',
+        sourceName: 'Monster Manual (2014)',
+        hasArt: true,
+        artUrl: 'https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/MM/Adult%20Red%20Dragon.webp',
+        tokenUrl: 'https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/MM/Ancient%20Red%20Dragon.webp',
+        accentColor: '#ef4444',
+        accentGlow: 'glow-fire',
+        flavorQuote: "El dragón rojo es el epítome de la arrogancia y la destrucción tiránica entre los dragones cromáticos.",
+        traits: [
+          { name: "Legendary Resistance (3/Día)", text: "Si el dragón falla una tirada de salvación, puede elegir tener éxito en su lugar." }
+        ],
+        actions: [
+          { name: "Multiattack", text: "El dragón puede usar su Presencia Pavorosa. Luego realiza tres ataques: uno con su Mordisco y dos con sus Garras." },
+          { name: "Bite (Mordisco)", atkType: "Cuerpo a cuerpo", bonus: 14, reach: "10 ft.", avgDamage: 19, damageDice: "2d10 + 8", damageType: "Perforante + 2d6 Fuego" },
+          { name: "Fire Breath (Aliento de Fuego - Recarga 5-6)", text: "El dragón exhala fuego en un cono de 60 pies. Cada criatura debe realizar una TS de Destreza DC 21, recibiendo 63 (18d6) de daño de fuego si falla, o la mitad si tiene éxito." }
+        ]
+      },
+
+      beholder: {
+        id: 'beholder',
+        name: 'Beholder',
+        size: 'Large',
+        type: 'Aberration',
+        typeTags: [],
+        alignment: 'Lawful Evil',
+        cr: '13',
+        xp: '10,000 XP',
+        pb: '+5',
+        ac: 18,
+        acText: '18 (armadura natural)',
+        hp: 180,
+        hpFormula: '19d10 + 76',
+        speed: '0 ft., volar 20 ft. (levita)',
+        stats: { str: 10, dex: 14, con: 18, int: 17, wis: 15, cha: 17 },
+        saves: { str: '+0', dex: '+2', con: '+4', int: '+8', wis: '+7', cha: '+8' },
+        skills: 'Percepción +12',
+        conditionImmunities: 'Tumbado',
+        senses: 'Visión en la oscuridad 120 ft., Percepción pasiva 22',
+        languages: 'Infracomún, Habla profunda',
+        source: 'MM',
+        sourceName: 'Monster Manual (2014)',
+        hasArt: true,
+        artUrl: 'https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/MM/Beholder.webp',
+        tokenUrl: 'https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/MM/Beholder.webp',
+        accentColor: '#a855f7',
+        accentGlow: 'glow-arcane',
+        flavorQuote: "Paranoico y omnividente, una aberración flotante cuyos diez pedúnculos oculares canalizan rayos mágicos letales.",
+        traits: [
+          { name: "Antimagic Cone (Cono Antimagia)", text: "El ojo central del contemplador crea un cono de antimagia de 150 pies. Todas las magias y conjuros son suprimidos dentro del área." }
+        ],
+        actions: [
+          { name: "Bite (Mordisco)", atkType: "Cuerpo a cuerpo", bonus: 5, reach: "5 ft.", avgDamage: 14, damageDice: "4d6", damageType: "Perforante" },
+          { name: "Eye Rays (Rayos Oculares)", text: "El contemplador dispara tres de los siguientes rayos mágicos al azar (tirando 3d10): Rayo Desintegrador, Rayo de Muerte, Rayo Paralizante, Rayo Petrificador, etc." }
+        ]
+      },
+
+      mindflayer: {
+        id: 'mindflayer',
+        name: 'Mind Flayer (Ilítido)',
+        size: 'Medium',
+        type: 'Aberration',
+        typeTags: [],
+        alignment: 'Lawful Evil',
+        cr: '7',
+        xp: '2,900 XP',
+        pb: '+3',
+        ac: 15,
+        acText: '15 (camisote de mallas)',
+        hp: 71,
+        hpFormula: '13d8 + 13',
+        speed: '30 ft.',
+        stats: { str: 11, dex: 12, con: 12, int: 19, wis: 17, cha: 17 },
+        saves: { str: '+0', dex: '+1', con: '+1', int: '+7', wis: '+6', cha: '+6' },
+        skills: 'Arcanos +7, Engaño +6, Perspicacia +6, Percepción +6, Sigilo +4',
+        senses: 'Visión en la oscuridad 120 ft., Percepción pasiva 16',
+        languages: 'Infracomún, Habla profunda, Telepatía 120 ft.',
+        source: 'MM',
+        sourceName: 'Monster Manual (2014)',
+        hasArt: true,
+        artUrl: 'https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/MM/Mind%20Flayer.webp',
+        tokenUrl: 'https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/MM/Mind%20Flayer.webp',
+        accentColor: '#6366f1',
+        accentGlow: 'glow-arcane',
+        flavorQuote: "Tiranos psiónicos de la Infraoscuridad que devoran cerebros sintientes para sostener su intelecto cósmico.",
+        traits: [
+          { name: "Magic Resistance (Resistencia Mágica)", text: "Tiene Ventaja en tiradas de salvación contra conjuros y otros efectos mágicos." }
+        ],
+        actions: [
+          { name: "Tentacles (Tentáculos)", atkType: "Cuerpo a cuerpo", bonus: 7, reach: "5 ft.", avgDamage: 15, damageDice: "2d10 + 4", damageType: "Psíquico", effect: "El objetivo queda agarrado (DC 15) y aturdido." },
+          { name: "Extract Brain (Extraer Cerebro)", text: "Ataque contra humanoide incapacitado agarrado por el ilítido: 55 (10d10) de daño perforante. Si reduce sus HP a 0, mata al objetivo extrayendo y devorando su cerebro." },
+          { name: "Mind Blast (Estallido Mental - Recarga 5-6)", text: "Cono de 60 pies. DC 15 Inteligencia o sufre 22 (4d8 + 4) daño psíquico y queda aturdido por 1 minuto." }
+        ]
+      },
+
+      kobold: {
+        id: 'kobold',
+        name: 'Kobold',
+        size: 'Small',
+        type: 'Humanoid',
+        typeTags: ['kobold'],
+        alignment: 'Lawful Evil',
+        cr: '1/8',
+        xp: '25 XP',
+        pb: '+2',
+        ac: 12,
+        acText: '12 (cuero)',
+        hp: 5,
+        hpFormula: '2d6 - 2',
+        speed: '30 ft.',
+        stats: { str: 7, dex: 15, con: 9, int: 8, wis: 7, cha: 8 },
+        saves: { str: '-2', dex: '+2', con: '-1', int: '-1', wis: '-2', cha: '-1' },
+        skills: 'Sigilo +4',
+        senses: 'Visión en la oscuridad 60 ft., Percepción pasiva 8',
+        languages: 'Común, Dracónico',
+        source: 'MM',
+        sourceName: 'Monster Manual (2014)',
+        hasArt: true,
+        artUrl: 'https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/MM/Kobold.webp',
+        tokenUrl: 'https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/MM/Kobold.webp',
+        accentColor: '#d97706',
+        accentGlow: 'glow-gold',
+        flavorQuote: "Criaturas reptilianas gregarias que adoran a los dragones y compensan su debilidad física con emboscadas coordinadas y trampas.",
+        traits: [
+          { name: "Pack Tactics (Tácticas de Manada)", text: "Tiene Ventaja en tiradas de ataque contra una criatura si al menos un aliado está a 5 pies de ella." },
+          { name: "Sunlight Sensitivity", text: "Desventaja en ataques y Percepción bajo luz solar directa." }
+        ],
+        actions: [
+          { name: "Dagger (Daga)", atkType: "Cuerpo a cuerpo", bonus: 4, reach: "5 ft.", avgDamage: 4, damageDice: "1d4 + 2", damageType: "Perforante" },
+          { name: "Sling (Honda)", atkType: "A distancia", bonus: 4, reach: "30/120 ft.", avgDamage: 4, damageDice: "1d4 + 2", damageType: "Contundente" }
+        ]
+      },
+
+      croc: {
+        id: 'croc',
+        name: 'Giant Crocodile',
+        size: 'Huge',
+        type: 'Beast',
+        typeTags: [],
+        alignment: 'Unaligned',
+        cr: '5',
+        xp: '1,800 XP',
+        pb: '+3',
+        ac: 14,
+        acText: '14 (armadura natural)',
+        hp: 85,
+        hpFormula: '9d12 + 27',
+        speed: '30 ft., nadar 50 ft.',
+        stats: { str: 21, dex: 9, con: 17, int: 2, wis: 10, cha: 7 },
+        saves: { str: '+5', dex: '-1', con: '+3', int: '-4', wis: '+0', cha: '-2' },
+        skills: 'Sigilo +5',
+        senses: 'Percepción pasiva 10',
+        languages: '—',
+        source: 'MM',
+        sourceName: 'Monster Manual (2014)',
+        hasArt: false, // ¡DEMOSTRACIÓN DE FALLBACK!
+        artUrl: null,
+        tokenUrl: 'https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/MM/Giant%20Crocodile.webp',
+        accentColor: '#10b981',
+        accentGlow: 'glow-gold',
+        flavorQuote: "Un depredador fluvial titánico capaz de atrapar aventureros enteros en sus mandíbulas de piedra.",
+        traits: [
+          { name: "Hold Breath (Aguantar la Respiración)", text: "El cocodrilo puede aguantar la respiración hasta por 30 minutos." }
+        ],
+        actions: [
+          { name: "Multiattack", text: "Realiza dos ataques: uno con su Mordisco y uno con su Coletazo." },
+          { name: "Bite (Mordisco)", atkType: "Cuerpo a cuerpo", bonus: 8, reach: "5 ft.", avgDamage: 21, damageDice: "3d10 + 5", damageType: "Perforante", effect: "El objetivo queda agarrado (escape DC 16) y apresado." },
+          { name: "Tail (Coletazo)", atkType: "Cuerpo a cuerpo", bonus: 8, reach: "10 ft.", avgDamage: 14, damageDice: "2d8 + 5", damageType: "Contundente", effect: "El objetivo debe superar una TS de Fuerza DC 16 o caer Tumbado." }
+        ]
+      },
+
+      acolyte: {
+        id: 'acolyte',
+        name: 'Acolyte (Acólito)',
+        size: 'Medium',
+        type: 'Humanoid',
+        typeTags: ['any race'],
+        alignment: 'Any Alignment',
+        cr: '1/4',
+        xp: '50 XP',
+        pb: '+2',
+        ac: 10,
+        acText: '10',
+        hp: 9,
+        hpFormula: '2d8',
+        speed: '30 ft.',
+        stats: { str: 10, dex: 10, con: 10, int: 10, wis: 14, cha: 11 },
+        saves: { str: '+0', dex: '+0', con: '+0', int: '+0', wis: '+2', cha: '+0' },
+        skills: 'Medicina +4, Religión +2',
+        senses: 'Percepción pasiva 12',
+        languages: 'Dos idiomas cualesquiera',
+        source: 'MM',
+        sourceName: 'Monster Manual (2014)',
+        hasArt: false, // ¡DEMOSTRACIÓN DE NPC SIN ARTE!
+        artUrl: null,
+        tokenUrl: 'https://raw.githubusercontent.com/5etools-mirror-3/5etools-img/main/bestiary/tokens/MM/Acolyte.webp',
+        accentColor: '#38bdf8',
+        accentGlow: 'glow-gold',
+        flavorQuote: "Sacerdotes novicios y servidores de templos que canalizan magia curativa básica.",
+        traits: [
+          { name: "Spellcasting (Lanzamiento de Conjuros)", text: "Es un lanzador de conjuros de nivel 1 (Sabiduría, DC 12, +4 al impacto). Trucos: Sacred Flame, Thaumaturgy. Nivel 1 (3 espacios): Bless, Cure Wounds, Sanctuary." }
+        ],
+        actions: [
+          { name: "Club (Garrote)", atkType: "Cuerpo a cuerpo", bonus: 2, reach: "5 ft.", avgDamage: 2, damageDice: "1d4", damageType: "Contundente" }
+        ]
+      }
+    };
+
+    let currentCreature = DEMO_CREATURES.dragon;
+    let currentStyle = 'all'; // 'all' | 1 | 2 | 3 | 4 | 5 | 6 | 'census'
+
+    // SELECT CREATURE
+    function setDemoCreature(creatureKey) {
+      currentCreature = DEMO_CREATURES[creatureKey] || DEMO_CREATURES.dragon;
+      
+      // Update Tab Styles
+      document.querySelectorAll('.creature-tab').forEach(b => {
+        b.className = "creature-tab p-2 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-all flex items-center gap-2.5";
+      });
+      const activeBtn = document.getElementById(`cbtn-${creatureKey}`);
+      if (activeBtn) {
+        activeBtn.className = "creature-tab p-2 rounded-xl border text-left transition-all flex items-center gap-2.5 bg-amber-500/15 border-amber-500/50 text-amber-300 shadow-md";
+      }
+
+      // Update Status Badge
+      const badge = document.getElementById('creature-status-badge');
+      if (currentCreature.hasArt) {
+        badge.className = "text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5 w-fit";
+        badge.innerHTML = `<span>●</span> Ilustración HD + Token VTT (${currentCreature.source})`;
+      } else {
+        badge.className = "text-[11px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 flex items-center gap-1.5 w-fit";
+        badge.innerHTML = `<span>⚠️</span> Sin Ilustración en Libro • Fallback a Token VTT`;
+      }
+
+      renderCurrentView();
+    }
+
+    // SELECT STYLE
+    function setDemoStyle(styleKey) {
+      currentStyle = styleKey;
+
+      document.querySelectorAll('.style-tab').forEach(b => {
+        b.className = "style-tab px-3 py-2 rounded-xl font-semibold text-xs border border-slate-800 bg-slate-900/60 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-all flex items-center gap-1.5";
+      });
+
+      const activeBtn = document.getElementById(`sbtn-${styleKey}`);
+      if (activeBtn) {
+        if (styleKey === 'all') {
+          activeBtn.className = "style-tab px-3.5 py-2 rounded-xl font-bold text-xs transition-all bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/20 hover:bg-amber-400 flex items-center gap-1.5";
+        } else if (styleKey === 'census') {
+          activeBtn.className = "style-tab px-3.5 py-2 rounded-xl font-bold text-xs border border-rose-500 bg-rose-500 text-slate-950 shadow-lg shadow-rose-500/20 transition-all flex items-center gap-1.5 ml-auto";
+        } else {
+          activeBtn.className = "style-tab px-3 py-2 rounded-xl font-bold text-xs border border-amber-500/50 bg-amber-500/15 text-amber-300 shadow-md transition-all flex items-center gap-1.5";
+        }
+      }
+
+      renderCurrentView();
+    }
+
+    // RENDER HELPERS
+    function renderStatsRow(c) {
+      const stats = [
+        { label: 'FUE', val: c.stats.str, mod: Math.floor((c.stats.str-10)/2) },
+        { label: 'DES', val: c.stats.dex, mod: Math.floor((c.stats.dex-10)/2) },
+        { label: 'CON', val: c.stats.con, mod: Math.floor((c.stats.con-10)/2) },
+        { label: 'INT', val: c.stats.int, mod: Math.floor((c.stats.int-10)/2) },
+        { label: 'SAB', val: c.stats.wis, mod: Math.floor((c.stats.wis-10)/2) },
+        { label: 'CAR', val: c.stats.cha, mod: Math.floor((c.stats.cha-10)/2) }
+      ];
+      return `
+        <div class="grid grid-cols-6 gap-1.5 text-center bg-slate-950/60 p-2 rounded-xl border border-slate-800/80">
+          ${stats.map(s => `
+            <div class="p-1 rounded-lg bg-slate-900/70 border border-slate-800/50">
+              <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">${s.label}</div>
+              <div class="font-bold text-xs text-slate-100">${s.val}</div>
+              <div class="text-[10px] font-mono font-semibold text-amber-400">${s.mod >= 0 ? `+${s.mod}` : s.mod}</div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function renderVitalBadges(c) {
+      return `
+        <div class="grid grid-cols-3 gap-2 text-center text-xs">
+          <div class="bg-slate-900/80 border border-slate-800 p-2 rounded-xl">
+            <span class="text-[10px] text-slate-400 block uppercase font-mono">Clase de Armadura</span>
+            <span class="text-sm font-bold text-amber-300 font-mono">${c.ac}</span>
+            <span class="text-[10px] text-slate-500 block truncate">${c.acText}</span>
+          </div>
+          <div class="bg-slate-900/80 border border-slate-800 p-2 rounded-xl">
+            <span class="text-[10px] text-slate-400 block uppercase font-mono">Puntos de Golpe</span>
+            <span class="text-sm font-bold text-rose-400 font-mono">${c.hp}</span>
+            <span class="text-[10px] text-slate-500 block truncate">${c.hpFormula}</span>
+          </div>
+          <div class="bg-slate-900/80 border border-slate-800 p-2 rounded-xl">
+            <span class="text-[10px] text-slate-400 block uppercase font-mono">Velocidad</span>
+            <span class="text-xs font-semibold text-slate-200 block truncate mt-1">${c.speed}</span>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderTraitsAndActions(c) {
+      return `
+        <div class="space-y-3 pt-2 text-xs">
+          ${c.traits && c.traits.length > 0 ? `
+            <div class="space-y-1.5">
+              <div class="text-[11px] font-bold text-amber-400 uppercase font-mono tracking-wider border-b border-amber-500/20 pb-0.5">Rasgos</div>
+              ${c.traits.map(t => `
+                <div><strong class="text-slate-200">${t.name}.</strong> <span class="text-slate-300">${t.text}</span></div>
+              `).join('')}
+            </div>
+          ` : ''}
+
+          <div class="space-y-2">
+            <div class="text-[11px] font-bold text-amber-400 uppercase font-mono tracking-wider border-b border-amber-500/20 pb-0.5 flex items-center justify-between">
+              <span>Acciones</span>
+              <span class="text-[10px] text-slate-500 lowercase font-normal">Ataques & Poderes</span>
+            </div>
+            ${c.actions.map(a => `
+              <div class="p-2 rounded-lg bg-slate-950/40 border border-slate-800/60">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="font-bold text-slate-200 text-xs">${a.name}</span>
+                  ${a.atkType ? `<span class="text-[10px] font-mono text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/30">+${a.bonus} impacto</span>` : ''}
+                </div>
+                ${a.text ? `<p class="text-slate-300 text-[11px] mt-1">${a.text}</p>` : ''}
+                ${a.damageDice ? `
+                  <div class="text-[11px] text-slate-400 mt-1">
+                    <span class="text-rose-400 font-mono font-bold">${a.avgDamage}</span> (${a.damageDice}) ${a.damageType}. ${a.reach ? `Alcance ${a.reach}.` : ''}
+                    ${a.effect ? `<span class="text-amber-300">${a.effect}</span>` : ''}
+                  </div>
+                ` : ''}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // ESTILO 1: HERO CINEMATIC BANNER
+    // ==========================================
+    function renderStyle1(c) {
+      const heroImage = c.hasArt ? c.artUrl : c.tokenUrl;
+      return `
+        <div class="rounded-2xl overflow-hidden border border-slate-800 bg-slate-900 shadow-2xl relative">
+          <!-- Etiqueta de Estilo -->
+          <div class="absolute top-3 left-3 z-20 flex items-center gap-1.5 bg-black/70 backdrop-blur-md px-2.5 py-1 rounded-full border border-amber-500/40 text-[10px] text-amber-300 font-mono font-semibold">
+            <span>🌄</span> Estilo 1: Hero Cinematic Banner
+          </div>
+
+          <!-- Hero Banner Top -->
+          <div class="relative h-56 md:h-64 w-full overflow-hidden bg-slate-950 flex items-center justify-center">
+            ${c.hasArt ? `
+              <img src="${c.artUrl}" alt="${c.name}" class="w-full h-full object-cover object-center scale-105 filter brightness-90 contrast-105 transition-all hover:scale-100 duration-700" />
+            ` : `
+              <!-- Fallback cuando no hay ilustración en el libro -->
+              <div class="w-full h-full bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 flex flex-col items-center justify-center p-4 text-center">
+                <img src="${c.tokenUrl}" alt="${c.name}" class="w-24 h-24 rounded-full border-2 border-amber-500/60 shadow-xl object-cover mb-2" />
+                <span class="text-xs text-amber-300/80 font-mono">Sin ilustración oficial en libro • Token VTT Oficial 5eTools</span>
+              </div>
+            `}
+            
+            <!-- Vignette gradient fade to bottom & sides -->
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-slate-900/60 via-transparent to-slate-900/60"></div>
+
+            <!-- Botón Ver Completa (Lightbox) -->
+            ${c.hasArt ? `
+              <button onclick="openLightbox('${c.artUrl}', '${c.name} - Ilustración Oficial ${c.source}')" class="absolute top-3 right-3 z-20 bg-slate-950/80 hover:bg-slate-900 backdrop-blur-md px-3 py-1.5 rounded-xl border border-slate-700/80 text-xs font-semibold text-slate-200 transition-all flex items-center gap-1.5 shadow-lg">
+                <span>🔍</span> Ver Completa
+              </button>
+            ` : ''}
+
+            <!-- Token Flotante superpuesto al pie del banner -->
+            <div class="absolute bottom-3 left-4 md:left-6 z-20 flex items-end gap-3.5">
+              <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-amber-400 p-0.5 bg-slate-950 shadow-2xl overflow-hidden flex-shrink-0 token-ring-animated">
+                <img src="${c.tokenUrl}" alt="${c.name} token" class="w-full h-full rounded-full object-cover" />
+              </div>
+              <div class="pb-1 text-shadow">
+                <div class="flex items-center gap-2">
+                  <h2 class="text-xl md:text-2xl font-bold font-cinzel text-amber-300 leading-tight">${c.name}</h2>
+                  <span class="text-xs font-bold font-mono px-2 py-0.5 rounded-full bg-amber-500 text-slate-950">CR ${c.cr}</span>
+                </div>
+                <p class="text-xs text-slate-300">
+                  ${c.size} ${c.type}, ${c.alignment} • <span class="text-slate-400">${c.sourceName}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Body del Statblock -->
+          <div class="p-4 md:p-6 space-y-4">
+            ${renderVitalBadges(c)}
+            ${renderStatsRow(c)}
+            ${renderTraitsAndActions(c)}
+          </div>
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // ESTILO 2: SPLIT SCREEN TÁCTICO (2 COLUMNAS)
+    // ==========================================
+    function renderStyle2(c) {
+      return `
+        <div class="rounded-2xl overflow-hidden border border-slate-800 bg-slate-900 shadow-2xl relative">
+          <!-- Etiqueta de Estilo -->
+          <div class="absolute top-3 left-3 z-20 flex items-center gap-1.5 bg-black/70 backdrop-blur-md px-2.5 py-1 rounded-full border border-purple-500/40 text-[10px] text-purple-300 font-mono font-semibold">
+            <span>🖼️</span> Estilo 2: Split Screen Táctico (2 Columnas)
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 min-h-[560px]">
+            <!-- Columna Izquierda: Galería de Arte Dedicada -->
+            <div class="lg:col-span-5 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 p-6 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-slate-800 relative overflow-hidden">
+              
+              <!-- Ambient element glow background -->
+              <div class="absolute inset-0 opacity-20 pointer-events-none ${c.accentGlow}"></div>
+
+              <div class="pt-6">
+                <span class="text-[10px] font-mono uppercase tracking-widest text-slate-500 block mb-1">Galería Visual Oficial</span>
+                <h3 class="text-lg font-bold font-cinzel text-amber-300">${c.name}</h3>
+                <p class="text-xs text-slate-400">${c.size} ${c.type} • ${c.sourceName}</p>
+              </div>
+
+              <!-- Artwork Display Area -->
+              <div class="my-4 flex flex-col items-center justify-center relative">
+                ${c.hasArt ? `
+                  <div class="relative group cursor-pointer" onclick="openLightbox('${c.artUrl}', '${c.name} - Ilustración Oficial ${c.source}')">
+                    <img src="${c.artUrl}" alt="${c.name}" class="max-h-72 w-auto object-contain drop-shadow-2xl rounded-xl transition-all group-hover:scale-105 duration-300" />
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-center justify-center gap-1.5 text-xs text-white font-semibold">
+                      <span>🔍</span> Clic para Pantalla Completa
+                    </div>
+                  </div>
+                ` : `
+                  <!-- Fallback con Token en gran formato -->
+                  <div class="flex flex-col items-center justify-center p-6 text-center">
+                    <div class="w-36 h-36 rounded-full border-4 border-amber-500/40 shadow-2xl p-1 bg-slate-900 mb-3">
+                      <img src="${c.tokenUrl}" alt="${c.name}" class="w-full h-full rounded-full object-cover" />
+                    </div>
+                    <span class="text-xs text-slate-400 font-mono">Token VTT Oficial</span>
+                    <span class="text-[11px] text-slate-500 mt-1">El manual no incluye ilustración de cuerpo entero para esta criatura.</span>
+                  </div>
+                `}
+              </div>
+
+              <!-- Bottom Bar de la Columna Izquierda: Token + Cita de Lore -->
+              <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800/80 space-y-2">
+                <div class="flex items-center gap-3">
+                  <img src="${c.tokenUrl}" alt="${c.name} token" class="w-10 h-10 rounded-full border border-amber-400/60 object-cover flex-shrink-0" />
+                  <div>
+                    <span class="text-[10px] font-mono text-slate-400 uppercase block">Token para VTT</span>
+                    <span class="text-xs font-semibold text-slate-200">Roll20 / Foundry VTT Ready</span>
+                  </div>
+                </div>
+                ${c.flavorQuote ? `
+                  <p class="text-[11px] italic text-slate-400 border-t border-slate-800/60 pt-1.5">
+                    "${c.flavorQuote}"
+                  </p>
+                ` : ''}
+              </div>
+            </div>
+
+            <!-- Columna Derecha: Ficha de Combate Completa -->
+            <div class="lg:col-span-7 p-4 md:p-6 space-y-4 overflow-y-auto max-h-[640px]">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div>
+                  <h2 class="text-xl font-bold font-cinzel text-amber-300">${c.name}</h2>
+                  <p class="text-xs text-slate-400">${c.size} ${c.type}, ${c.alignment}</p>
+                </div>
+                <div class="text-right">
+                  <span class="text-sm font-bold font-mono px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40">CR ${c.cr}</span>
+                  <span class="text-[10px] text-slate-500 block mt-0.5">${c.xp}</span>
+                </div>
+              </div>
+
+              ${renderVitalBadges(c)}
+              ${renderStatsRow(c)}
+              ${renderTraitsAndActions(c)}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // ESTILO 3: CLASSIC MONSTER MANUAL INSET
+    // ==========================================
+    function renderStyle3(c) {
+      return `
+        <div class="rounded-2xl overflow-hidden border border-amber-500/30 bg-[#0d1017] shadow-2xl relative p-4 md:p-6 space-y-4">
+          <!-- Etiqueta de Estilo -->
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div class="flex items-center gap-1.5 text-xs text-amber-400 font-mono font-semibold">
+              <span>📜</span> Estilo 3: Classic Monster Manual Inset (Estilo Libro Oficial)
+            </div>
+            <span class="text-[10px] text-slate-500 font-mono">Edición D&D 5e Tradicional</span>
+          </div>
+
+          <!-- Header con Nombre y Meta -->
+          <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 border-b-2 border-amber-500/40 pb-3">
+            <div>
+              <h2 class="text-2xl md:text-3xl font-bold font-cinzel text-amber-300 tracking-wide">${c.name}</h2>
+              <p class="text-xs text-slate-400 italic mt-0.5">
+                ${c.size} ${c.type}, ${c.alignment} • ${c.sourceName}
+              </p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono font-bold px-2.5 py-1 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40">CR ${c.cr} (${c.xp})</span>
+              <span class="text-xs font-mono font-bold px-2 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700">PB ${c.pb}</span>
+            </div>
+          </div>
+
+          <!-- Layout Inset: Ficha a la izquierda + Recuadro Ilustrado a la Derecha -->
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-start">
+            
+            <div class="md:col-span-8 space-y-4">
+              ${renderVitalBadges(c)}
+              ${renderStatsRow(c)}
+              ${renderTraitsAndActions(c)}
+            </div>
+
+            <!-- Recuadro Ilustrado Tipo Manual Físico -->
+            <div class="md:col-span-4 bg-slate-950/90 border-2 border-amber-500/30 rounded-xl p-3 shadow-xl space-y-2.5">
+              <div class="flex items-center justify-between text-[11px] border-b border-slate-800 pb-1.5 font-mono">
+                <span class="text-amber-400 font-semibold">FIGURA ILUSTRADA</span>
+                <span class="text-slate-500">${c.source}</span>
+              </div>
+
+              <div class="relative bg-slate-900 rounded-lg p-2 flex items-center justify-center min-h-[200px] overflow-hidden group">
+                ${c.hasArt ? `
+                  <img src="${c.artUrl}" alt="${c.name}" class="max-h-48 w-auto object-contain cursor-pointer transition-transform group-hover:scale-105" onclick="openLightbox('${c.artUrl}', '${c.name} - ${c.sourceName}')" />
+                  <button onclick="openLightbox('${c.artUrl}', '${c.name}')" class="absolute bottom-2 right-2 bg-black/70 hover:bg-black text-[10px] text-slate-200 px-2 py-1 rounded border border-slate-700 opacity-0 group-hover:opacity-100 transition-opacity">
+                    🔍 Zoom
+                  </button>
+                ` : `
+                  <div class="text-center p-3">
+                    <img src="${c.tokenUrl}" alt="${c.name}" class="w-20 h-20 rounded-full mx-auto border-2 border-amber-500/50 mb-2 object-cover" />
+                    <span class="text-[11px] text-slate-400 block font-mono">Token Circular VTT</span>
+                  </div>
+                `}
+              </div>
+
+              <!-- Pie de foto estilo libro -->
+              <div class="text-[10px] text-slate-400 italic text-center leading-relaxed border-t border-slate-800/80 pt-1.5">
+                ${c.hasArt ? `Ilustración oficial del compendio <em>${c.sourceName}</em>.` : `Ficha adaptada con ficha táctica y token VTT oficial.`}
+              </div>
+
+              <!-- Token de combate en miniatura -->
+              <div class="bg-slate-900/60 p-2 rounded-lg flex items-center gap-2 border border-slate-800">
+                <img src="${c.tokenUrl}" alt="${c.name} token" class="w-8 h-8 rounded-full border border-amber-400/60 object-cover" />
+                <div class="text-[10px] leading-tight">
+                  <span class="font-bold text-slate-200 block">Token de Rejilla</span>
+                  <span class="text-slate-500">1 casilla (${c.size})</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // ESTILO 4: HUD TÁCTICO FLOTANTE + QUICK DRAWER
+    // ==========================================
+    let isDrawerOpen = false;
+    window.toggleDemoDrawer = function() {
+      isDrawerOpen = !isDrawerOpen;
+      const drawer = document.getElementById('tactical-art-drawer');
+      if (drawer) {
+        if (isDrawerOpen) {
+          drawer.classList.remove('translate-x-full');
+        } else {
+          drawer.classList.add('translate-x-full');
+        }
+      }
+    };
+
+    function renderStyle4(c) {
+      return `
+        <div class="rounded-2xl overflow-hidden border border-slate-800 bg-slate-900 shadow-2xl relative p-4 md:p-6 space-y-4">
+          <!-- Drawer Lateral Flotante -->
+          <div id="tactical-art-drawer" class="absolute top-0 right-0 bottom-0 w-80 bg-slate-950/95 backdrop-blur-xl border-l border-slate-700/80 z-30 p-5 shadow-2xl transition-transform duration-300 translate-x-full flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+                <div class="flex items-center gap-2">
+                  <span class="text-amber-400">🖼️</span>
+                  <span class="font-bold font-cinzel text-sm text-slate-100">Drawer de Arte Táctico</span>
+                </div>
+                <button onclick="toggleDemoDrawer()" class="text-slate-400 hover:text-white text-xs bg-slate-800 px-2 py-1 rounded">
+                  ✕ Cerrar
+                </button>
+              </div>
+
+              <div class="bg-slate-900/80 rounded-xl p-3 border border-slate-800 flex items-center justify-center mb-3">
+                ${c.hasArt ? `
+                  <img src="${c.artUrl}" alt="${c.name}" class="max-h-60 w-auto object-contain cursor-pointer" onclick="openLightbox('${c.artUrl}', '${c.name}')" />
+                ` : `
+                  <div class="text-center p-4">
+                    <img src="${c.tokenUrl}" alt="${c.name}" class="w-24 h-24 rounded-full mx-auto border-2 border-amber-400 mb-2 object-cover" />
+                    <span class="text-xs text-slate-400 font-mono">Token VTT</span>
+                  </div>
+                `}
+              </div>
+
+              <div class="space-y-1.5 text-xs text-slate-400">
+                <div><strong class="text-slate-200">Criatura:</strong> ${c.name}</div>
+                <div><strong class="text-slate-200">Fuente:</strong> ${c.sourceName}</div>
+                <div><strong class="text-slate-200">Tamaño:</strong> ${c.size} (${c.type})</div>
+              </div>
+            </div>
+
+            <button onclick="openLightbox('${c.hasArt ? c.artUrl : c.tokenUrl}', '${c.name}')" class="w-full py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl shadow-lg transition-all">
+              🔍 Ver en Pantalla Completa
+            </button>
+          </div>
+
+          <!-- Header HUD con Avatar Compacto -->
+          <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+            <div class="flex items-center gap-3.5">
+              <!-- Avatar Circular con Anillo Animado -->
+              <div class="relative cursor-pointer group" onclick="toggleDemoDrawer()" title="Clic para abrir Drawer de Arte">
+                <div class="w-14 h-14 rounded-full border-2 border-amber-400 p-0.5 bg-slate-950 shadow-lg overflow-hidden flex-shrink-0 group-hover:border-amber-300 transition-colors">
+                  <img src="${c.tokenUrl}" alt="${c.name}" class="w-full h-full rounded-full object-cover" />
+                </div>
+                <div class="absolute -bottom-1 -right-1 bg-amber-500 text-slate-950 text-[9px] font-mono font-bold px-1.5 rounded-full border border-slate-900">
+                  CR ${c.cr}
+                </div>
+              </div>
+
+              <div>
+                <div class="flex items-center gap-2">
+                  <h2 class="text-xl md:text-2xl font-bold font-cinzel text-amber-300">${c.name}</h2>
+                  <span class="text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-semibold hidden sm:inline">
+                    ⚡ Combate Rápido
+                  </span>
+                </div>
+                <p class="text-xs text-slate-400">${c.size} ${c.type}, ${c.alignment} • ${c.sourceName}</p>
+              </div>
+            </div>
+
+            <!-- Botón Drawer -->
+            <button onclick="toggleDemoDrawer()" class="px-3 py-1.5 rounded-xl border border-amber-500/40 bg-amber-500/15 text-amber-300 hover:bg-amber-500/25 text-xs font-semibold transition-all flex items-center gap-1.5 shadow-sm">
+              <span>🖼️</span> <span class="hidden sm:inline">Ver Ilustración / Token</span>
+            </button>
+          </div>
+
+          <!-- Statblock que aprovecha el 100% del viewport vertical -->
+          ${renderVitalBadges(c)}
+          ${renderStatsRow(c)}
+          ${renderTraitsAndActions(c)}
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // ESTILO 5: ATMOSPHERIC WATERMARK & GLASS
+    // ==========================================
+    function renderStyle5(c) {
+      const bgImg = c.hasArt ? c.artUrl : c.tokenUrl;
+      return `
+        <div class="rounded-2xl overflow-hidden border border-slate-700/60 shadow-2xl relative p-4 md:p-6 space-y-4 bg-slate-950">
+          
+          <!-- Background Watermark con Desenfoque y Overlay -->
+          <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            <img src="${bgImg}" alt="" class="w-full h-full object-cover object-top opacity-20 filter blur-[2px] scale-110" />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/60"></div>
+          </div>
+
+          <!-- Contenido Sobre el Glassmorphism -->
+          <div class="relative z-10 space-y-4">
+            <!-- Etiqueta de Estilo -->
+            <div class="flex items-center justify-between border-b border-white/10 pb-3">
+              <div class="flex items-center gap-1.5 text-xs text-amber-300 font-mono font-semibold">
+                <span>🌌</span> Estilo 5: Atmospheric Watermark con Glassmorphism
+              </div>
+              <span class="text-[10px] text-slate-400 font-mono">Dark Fantasy Inmersivo</span>
+            </div>
+
+            <!-- Header con Tarjeta Glass -->
+            <div class="glass-card-frosted p-4 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xl">
+              <div class="flex items-center gap-3">
+                <img src="${c.tokenUrl}" alt="${c.name}" class="w-12 h-12 rounded-full border border-amber-400 shadow-md object-cover flex-shrink-0" />
+                <div>
+                  <h2 class="text-xl md:text-2xl font-bold font-cinzel text-amber-300">${c.name}</h2>
+                  <p class="text-xs text-slate-300">${c.size} ${c.type}, ${c.alignment} • ${c.sourceName}</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40">CR ${c.cr} (${c.xp})</span>
+                ${c.hasArt ? `
+                  <button onclick="openLightbox('${c.artUrl}', '${c.name}')" class="text-xs bg-slate-800/80 hover:bg-slate-700 px-2.5 py-1 rounded-lg border border-slate-600 text-slate-200 transition-all">
+                    🔍 Arte
+                  </button>
+                ` : ''}
+              </div>
+            </div>
+
+            <!-- Bloques Glassmorphism -->
+            <div class="glass-card-frosted p-4 rounded-2xl shadow-xl space-y-4">
+              ${renderVitalBadges(c)}
+              ${renderStatsRow(c)}
+              ${renderTraitsAndActions(c)}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // ESTILO 6: MODO DUAL DM / PLAYER-SAFE
+    // ==========================================
+    let playerSafeMode = false;
+    window.togglePlayerSafe = function(isPlayer) {
+      playerSafeMode = isPlayer;
+      renderCurrentView();
+    };
+
+    function renderStyle6(c) {
+      return `
+        <div class="rounded-2xl overflow-hidden border border-slate-800 bg-slate-900 shadow-2xl relative p-4 md:p-6 space-y-4">
+          <!-- Top Switcher de Modos: DM vs Jugadores -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+            <div>
+              <div class="flex items-center gap-1.5 text-xs text-amber-400 font-mono font-semibold">
+                <span>🎭</span> Estilo 6: Modo Dual "Ficha DM vs Mostrar a Jugadores"
+              </div>
+              <p class="text-[11px] text-slate-400">Alterna entre la vista táctica de combate y la vista limpia para proyectar en mesa o Discord</p>
+            </div>
+
+            <!-- Tab Switcher -->
+            <div class="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs w-fit">
+              <button onclick="togglePlayerSafe(false)" class="px-3 py-1.5 rounded-lg font-semibold transition-all ${!playerSafeMode ? 'bg-amber-500 text-slate-950 shadow-md font-bold' : 'text-slate-400 hover:text-slate-200'}">
+                ⚔️ Ficha DM (Privada)
+              </button>
+              <button onclick="togglePlayerSafe(true)" class="px-3 py-1.5 rounded-lg font-semibold transition-all ${playerSafeMode ? 'bg-indigo-600 text-white shadow-md font-bold' : 'text-slate-400 hover:text-slate-200'}">
+                📺 Mostrar a Jugadores (Sin Spoilers)
+              </button>
+            </div>
+          </div>
+
+          ${playerSafeMode ? `
+            <!-- VISTA PLAYER-SAFE: Oculta HP, CA, debilidades y ataques secretos -->
+            <div class="bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 p-6 rounded-2xl border border-indigo-500/30 text-center space-y-6">
+              <div>
+                <span class="text-[10px] font-mono uppercase tracking-widest text-indigo-400 font-bold block mb-1">
+                  👁️ Proyección para Jugadores • Vista Pública
+                </span>
+                <h2 class="text-3xl md:text-4xl font-bold font-cinzel text-amber-300">${c.name}</h2>
+                <p class="text-sm text-slate-400 mt-1">${c.size} • ${c.type}</p>
+              </div>
+
+              <!-- Gran Ilustración Central -->
+              <div class="max-w-md mx-auto relative group">
+                ${c.hasArt ? `
+                  <img src="${c.artUrl}" alt="${c.name}" class="max-h-80 mx-auto object-contain drop-shadow-2xl rounded-2xl cursor-pointer" onclick="openLightbox('${c.artUrl}', '${c.name}')" />
+                ` : `
+                  <div class="p-6 bg-slate-900 rounded-2xl border border-slate-800">
+                    <img src="${c.tokenUrl}" alt="${c.name}" class="w-32 h-32 rounded-full mx-auto border-4 border-amber-400 shadow-xl object-cover mb-3" />
+                    <span class="text-xs text-slate-400 font-mono">Retrato de la Criatura</span>
+                  </div>
+                `}
+              </div>
+
+              <!-- Cita Descriptiva Evocadora para el DM leer a los jugadores -->
+              <div class="max-w-lg mx-auto bg-slate-950/70 p-4 rounded-xl border border-slate-800 text-xs italic text-slate-300 leading-relaxed">
+                "${c.flavorQuote || 'Una presencia imponente se alza ante vosotros, emanando un aura de peligro tangible.'}"
+              </div>
+
+              <div class="text-[11px] text-slate-500 font-mono">
+                🛡️ Las estadísticas mecánicas (CA, HP, resistencias y acciones) están ocultas para evitar metagaming.
+              </div>
+            </div>
+          ` : `
+            <!-- VISTA COMPLETA DM CON TOKEN COMPACTO -->
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <img src="${c.tokenUrl}" alt="${c.name}" class="w-12 h-12 rounded-full border border-amber-400 object-cover" />
+                  <div>
+                    <h2 class="text-xl font-bold font-cinzel text-amber-300">${c.name}</h2>
+                    <p class="text-xs text-slate-400">${c.size} ${c.type}, ${c.alignment} • ${c.sourceName}</p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="text-sm font-bold font-mono px-2.5 py-1 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40">CR ${c.cr}</span>
+                </div>
+              </div>
+
+              ${renderVitalBadges(c)}
+              ${renderStatsRow(c)}
+              ${renderTraitsAndActions(c)}
+            </div>
+          `}
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // SECCIÓN ESPECIAL: RECUENTO & AUDITORÍA 5ETOOLS
+    // ==========================================
+    function renderCensusSection() {
+      return `
+        <div class="space-y-6">
+          <!-- Banner de Resumen Ejecutivo -->
+          <div class="bg-gradient-to-r from-rose-950/60 via-slate-900 to-slate-900 p-6 rounded-2xl border border-rose-500/30 shadow-2xl">
+            <div class="flex items-center gap-2.5 mb-2">
+              <span class="text-2xl">📊</span>
+              <h2 class="text-xl md:text-2xl font-bold font-cinzel text-rose-300">
+                Auditoría y Recuento de Imágenes en 5eTools
+              </h2>
+            </div>
+            <p class="text-sm text-slate-300 max-w-3xl leading-relaxed">
+              Análisis exhaustivo de las <strong>10,496 criaturas</strong> de la base de datos del bestiario y de los repositorios fuente oficiales y de la comunidad de 5eTools (<code class="text-rose-300 font-mono">5etools-src</code> / <code class="text-rose-300 font-mono">5etools-img</code>).
+            </p>
+          </div>
+
+          <!-- Métricas Clave (Tarjetas KPI) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <div class="bg-slate-900/90 border border-slate-800 p-4 rounded-xl">
+              <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400 block">Total Criaturas Oficiales WotC</span>
+              <span class="text-2xl font-bold font-cinzel text-amber-300">4,574</span>
+              <span class="text-[11px] text-emerald-400 block mt-1">✓ 100% tienen Token VTT</span>
+            </div>
+
+            <div class="bg-slate-900/90 border border-slate-800 p-4 rounded-xl">
+              <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400 block">Con Ilustración de Arte (Fluff)</span>
+              <span class="text-2xl font-bold font-cinzel text-emerald-400">3,339</span>
+              <span class="text-[11px] text-slate-400 block mt-1">73.0% de criaturas oficiales</span>
+            </div>
+
+            <div class="bg-slate-900/90 border border-rose-500/30 p-4 rounded-xl bg-rose-950/20">
+              <span class="text-[10px] font-mono uppercase tracking-wider text-rose-300 block">Oficiales SIN Ilustración en Libro</span>
+              <span class="text-2xl font-bold font-cinzel text-rose-400">1,235</span>
+              <span class="text-[11px] text-rose-300/80 block mt-1">27.0% (Bestias & NPCs de aventuras)</span>
+            </div>
+
+            <div class="bg-slate-900/90 border border-slate-800 p-4 rounded-xl">
+              <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400 block">Terceros (3PP) & Crossovers</span>
+              <span class="text-2xl font-bold font-cinzel text-indigo-400">5,922</span>
+              <span class="text-[11px] text-indigo-300/80 block mt-1">Kobold Press, MCDM, etc.</span>
+            </div>
+          </div>
+
+          <!-- Desglose por Libros Principales con Criaturas sin Arte -->
+          <div class="bg-slate-900/90 border border-slate-800 p-5 rounded-2xl space-y-4">
+            <h3 class="text-sm font-bold font-cinzel text-amber-300 uppercase tracking-wider flex items-center gap-2">
+              <span>📚</span> Top Libros con Criaturas sin Arte Gráfico en 5eTools
+            </h3>
+            <p class="text-xs text-slate-400">
+              La razón por la que no tienen arte en 5eTools es editorial: en los libros físicos de D&D nunca se dibujaron individualmente (suelen ser bestias comunes del apéndice o PNJs genéricos de módulos de aventura). Sin embargo, <strong>5eTools sí les generó tokens redondos oficiales</strong> a todos ellos.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+              <div class="space-y-2">
+                <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950 border border-slate-800/80">
+                  <span class="font-semibold text-slate-200">Tales from the Yawning Portal (TftYP)</span>
+                  <span class="font-mono text-rose-400 font-bold">113 sin arte <span class="text-slate-500">/ 133 (85%)</span></span>
+                </div>
+                <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950 border border-slate-800/80">
+                  <span class="font-semibold text-slate-200">Waterdeep: Dungeon of the Mad Mage (WDMM)</span>
+                  <span class="font-mono text-rose-400 font-bold">88 sin arte <span class="text-slate-500">/ 110 (80%)</span></span>
+                </div>
+                <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950 border border-slate-800/80">
+                  <span class="font-semibold text-slate-200">Monster Manual (2014) (MM)</span>
+                  <span class="font-mono text-rose-400 font-bold">81 sin arte <span class="text-slate-500">/ 450 (18%)</span></span>
+                </div>
+                <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950 border border-slate-800/80">
+                  <span class="font-semibold text-slate-200">Storm King's Thunder (SKT)</span>
+                  <span class="font-mono text-rose-400 font-bold">71 sin arte <span class="text-slate-500">/ 105 (68%)</span></span>
+                </div>
+                <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950 border border-slate-800/80">
+                  <span class="font-semibold text-slate-200">Out of the Abyss (OotA)</span>
+                  <span class="font-mono text-rose-400 font-bold">57 sin arte <span class="text-slate-500">/ 103 (55%)</span></span>
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950 border border-slate-800/80">
+                  <span class="font-semibold text-slate-200">Waterdeep: Dragon Heist (WDH)</span>
+                  <span class="font-mono text-rose-400 font-bold">48 sin arte <span class="text-slate-500">/ 95 (50%)</span></span>
+                </div>
+                <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950 border border-slate-800/80">
+                  <span class="font-semibold text-slate-200">Keys from the Golden Vault (KftGV)</span>
+                  <span class="font-mono text-rose-400 font-bold">41 sin arte <span class="text-slate-500">/ 57 (72%)</span></span>
+                </div>
+                <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950 border border-slate-800/80">
+                  <span class="font-semibold text-slate-200">Curse of Strahd (CoS)</span>
+                  <span class="font-mono text-rose-400 font-bold">40 sin arte <span class="text-slate-500">/ 97 (41%)</span></span>
+                </div>
+                <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950 border border-slate-800/80">
+                  <span class="font-semibold text-slate-200">Ghosts of Saltmarsh (GoS)</span>
+                  <span class="font-mono text-rose-400 font-bold">37 sin arte <span class="text-slate-500">/ 57 (65%)</span></span>
+                </div>
+                <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950 border border-slate-800/80">
+                  <span class="font-semibold text-slate-200">Volo's Guide to Monsters (VGM)</span>
+                  <span class="font-mono text-rose-400 font-bold">37 sin arte <span class="text-slate-500">/ 143 (26%)</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Muestra de Criaturas Específicas del Monster Manual sin arte -->
+          <div class="bg-slate-900/90 border border-slate-800 p-5 rounded-2xl space-y-3">
+            <h4 class="text-xs font-bold font-mono uppercase tracking-wider text-slate-300">
+              Ejemplos Representativos del Monster Manual sin Arte (Tienen Token Oficial):
+            </h4>
+            <div class="flex flex-wrap gap-1.5 text-xs">
+              ${[
+                'Giant Crocodile', 'Acolyte', 'Bandit', 'Berserker', 'Ape', 'Awakened Shrub', 
+                'Awakened Tree', 'Axe Beak', 'Baboon', 'Black Bear', 'Blood Hawk', 'Boar', 
+                'Brown Bear', 'Camel', 'Cat', 'Cave Bear', 'Constrictor Snake', 'Crab', 'Crocodile',
+                'Deer', 'Draft Horse', 'Eagle', 'Elephant', 'Elk', 'Flying Snake', 'Giant Ape'
+              ].map(name => `
+                <span class="px-2.5 py-1 rounded-lg bg-slate-950 border border-slate-800 text-slate-300 font-mono text-[11px]">
+                  ${name}
+                </span>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // MAIN RENDER CONTROLLER
+    function renderCurrentView() {
+      const container = document.getElementById('showcase-container');
+      if (!container) return;
+
+      if (currentStyle === 'census') {
+        container.innerHTML = renderCensusSection();
+        return;
+      }
+
+      if (currentStyle === 'all') {
+        container.innerHTML = `
+          <div class="space-y-12">
+            <div class="border-b border-amber-500/30 pb-3 flex items-center justify-between">
+              <div>
+                <h2 class="text-xl font-bold font-cinzel text-amber-300">Comparativa Panorámica de los 6 Diseños</h2>
+                <p class="text-xs text-slate-400">Revisa cómo se comporta cada propuesta con la criatura activa actual: <strong class="text-slate-200">${currentCreature.name}</strong></p>
+              </div>
+              <span class="text-xs font-mono text-amber-400">6 Estilos Activos</span>
+            </div>
+
+            <!-- 1 -->
+            <div>${renderStyle1(currentCreature)}</div>
+            <!-- 2 -->
+            <div>${renderStyle2(currentCreature)}</div>
+            <!-- 3 -->
+            <div>${renderStyle3(currentCreature)}</div>
+            <!-- 4 -->
+            <div>${renderStyle4(currentCreature)}</div>
+            <!-- 5 -->
+            <div>${renderStyle5(currentCreature)}</div>
+            <!-- 6 -->
+            <div>${renderStyle6(currentCreature)}</div>
+          </div>
+        `;
+        return;
+      }
+
+      switch (currentStyle) {
+        case 1: container.innerHTML = renderStyle1(currentCreature); break;
+        case 2: container.innerHTML = renderStyle2(currentCreature); break;
+        case 3: container.innerHTML = renderStyle3(currentCreature); break;
+        case 4: container.innerHTML = renderStyle4(currentCreature); break;
+        case 5: container.innerHTML = renderStyle5(currentCreature); break;
+        case 6: container.innerHTML = renderStyle6(currentCreature); break;
+        default: container.innerHTML = renderStyle1(currentCreature); break;
+      }
+    }
+
+    // LIGHTBOX FUNCTIONS
+    window.openLightbox = function(url, caption) {
+      const modal = document.getElementById('lightbox-modal');
+      const img = document.getElementById('lightbox-img');
+      const cap = document.getElementById('lightbox-caption');
+      if (!modal || !img) return;
+
+      img.src = url;
+      cap.innerHTML = caption || 'Ilustración Oficial de Criatura';
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+    };
+
+    window.closeLightbox = function() {
+      const modal = document.getElementById('lightbox-modal');
+      if (!modal) return;
+      modal.classList.add('opacity-0', 'pointer-events-none');
+    };
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    // INIT
+    renderCurrentView();
+  </script>
+</body>
+</html>
