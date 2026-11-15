@@ -34,15 +34,28 @@ export function formatObsidianAlignment(a) {
 }
 
 export function formatObsidianSpeed(speed) {
-  if (!speed) return '30 ft.';
+  if (speed == null) return '30 ft.';
   if (typeof speed === 'string') return speed;
+  if (typeof speed === 'number') return `${speed} ft.`;
   const parts = [];
-  if (speed.walk) parts.push(`${speed.walk} ft.`);
-  if (speed.burrow) parts.push(`burrow ${speed.burrow} ft.`);
-  if (speed.climb) parts.push(`climb ${speed.climb} ft.`);
-  if (speed.fly) parts.push(`fly ${speed.fly} ft.${speed.canHover ? ' (hover)' : ''}`);
-  if (speed.swim) parts.push(`swim ${speed.swim} ft.`);
-  return parts.length > 0 ? parts.join(', ') : '30 ft.';
+  const { walk, fly, swim, climb, burrow, canHover } = speed;
+  const hasOther = Boolean(fly || swim || climb || burrow);
+
+  if (typeof walk === 'number') {
+    if (walk > 0 || !hasOther) {
+      parts.push(`${walk} ft.`);
+    } else if (walk === 0) {
+      parts.push(`0 ft.`);
+    }
+  } else if (walk) {
+    parts.push(`${walk} ft.`);
+  }
+
+  if (burrow) parts.push(`burrow ${burrow} ft.`);
+  if (climb) parts.push(`climb ${climb} ft.`);
+  if (fly) parts.push(`fly ${fly} ft.${canHover ? ' (hover)' : ''}`);
+  if (swim) parts.push(`swim ${swim} ft.`);
+  return parts.length > 0 ? parts.join(', ') : '0 ft.';
 }
 
 /**

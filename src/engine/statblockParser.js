@@ -145,6 +145,20 @@ export function extractEntryText(entries) {
 }
 
 /**
+ * Calcula el daño promedio de una expresión de dados (ej. '1d10 + 2' -> 7, '2d6' -> 7, '4d6 + 4' -> 18)
+ */
+export function calcDiceAverage(diceStr) {
+  if (!diceStr || typeof diceStr !== 'string') return null;
+  const match = diceStr.match(/^(\d+)d(\d+)(?:\s*([+-])\s*(\d+))?/i);
+  if (!match) return null;
+  const count = parseInt(match[1], 10);
+  const die = parseInt(match[2], 10);
+  const sign = match[3] === '-' ? -1 : 1;
+  const mod = match[4] ? parseInt(match[4], 10) * sign : 0;
+  return Math.floor(count * (die + 1) / 2 + mod);
+}
+
+/**
  * Parsea una acción, acción adicional o reacción en campos tácticos para Tarjetas Modulares
  */
 export function parseModularAction(action, defaultType = 'Action') {
@@ -180,46 +194,46 @@ export function parseModularAction(action, defaultType = 'Action') {
   }
 
   // 2. Tipo de Ataque (reconocimiento preciso de ataques duales y tipos de daño)
+  // Inspeccionamos la cabecera antes de "Hit:" para no confundir efectos narrativos posteriores
+  const preHitText = rawText.split(/(?:Hit:|Impacto:|Fallo:|Failure:)/i)[0] || rawText;
   let atkType = defaultType;
-  const isDual = /\b(?:mw,rw|m,r|ms,rs|mp,rp)\b/i.test(rawText) || 
-                 /(?:cuerpo\s*a\s*cuerpo|melee).*?(?:distancia|ranged)/i.test(rawText) ||
-                 /(?:reach|alcance).*?(?:or|o).*?(?:range|rango)/i.test(rawText);
+  const isDual = /\b(?:mw,rw|m,r|ms,rs|mp,rp)\b/i.test(preHitText) || 
+                 /(?:cuerpo\s*a\s*cuerpo|melee).*?(?:distancia|ranged)/i.test(preHitText) ||
+                 /(?:distancia|ranged).*?(?:cuerpo\s*a\s*cuerpo|melee)/i.test(preHitText) ||
+                 /(?:reach|alcance).*?(?:or|o).*?(?:range|rango)/i.test(preHitText);
 
   if (isDual) {
-    if (/conjuro/i.test(rawText) || /spell/i.test(rawText) || /\bms,rs\b/i.test(rawText)) {
+    if (/conjuro/i.test(preHitText) || /spell/i.test(preHitText) || /\bms,rs\b/i.test(preHitText)) {
       atkType = 'Melee / Ranged Spell';
-    } else if (/\bmw,rw\b/i.test(rawText) || /weapon/i.test(rawText) || /arma/i.test(rawText)) {
+    } else if (/\bmw,rw\b/i.test(preHitText) || /weapon/i.test(preHitText) || /arma/i.test(preHitText)) {
       atkType = 'Melee / Ranged Weapon';
     } else {
       atkType = 'Melee or Ranged';
     }
-  } else if (
-    /cuerpo\s*a\s*cuerpo/i.test(rawText) || 
-    /melee/i.test(rawText) || 
-    /^\s*m[ws]?\b/i.test(rawText) || 
-    /(?:^|[:.\n•\-]\s*)\b(m|mw|ms)\b/i.test(rawText) || 
-    (/\breach\b/i.test(rawText) && !/\brange\b/i.test(rawText))
-  ) {
-    if (/conjuro/i.test(rawText) || /spell/i.test(rawText) || /\bms\b/i.test(rawText)) {
-      atkType = 'Melee Spell';
-    } else if (/weapon/i.test(rawText) || /arma/i.test(rawText) || /\bmw\b/i.test(rawText)) {
-      atkType = 'Melee Weapon';
-    } else {
-      atkType = 'Melee Attack';
-    }
-  } else if (
-    /a\s*distancia/i.test(rawText) || 
-    /ranged/i.test(rawText) || 
-    /^\s*r[ws]?\b/i.test(rawText) || 
-    /(?:^|[:.\n•\-]\s*)\b(r|rw|rs)\b/i.test(rawText) || 
-    (/\brange\b/i.test(rawText) && !/\breach\b/i.test(rawText))
-  ) {
-    if (/conjuro/i.test(rawText) || /spell/i.test(rawText) || /\brs\b/i.test(rawText)) {
-      atkType = 'Ranged Spell';
-    } else if (/weapon/i.test(rawText) || /arma/i.test(rawText) || /\brw\b/i.test(rawText)) {
-      atkType = 'Ranged Weapon';
-    } else {
-      atkType = 'Ranged Attack';
+  } else {
+    const isExplicitRanged = /(?:^|[:.\n•\-]\s*)\s*(?:ranged|a\s*distancia|rw\b|rs\b)/i.test(preHitText);
+    const isExplicitMelee = /(?:^|[:.\n•\-]\s*)\s*(?:melee|cuerpo\s*a\s*cuerpo|mw\b|ms\b)/i.test(preHitText);
+
+    if (isExplicitRanged && !isExplicitMelee) {
+      if (/conjuro/i.test(preHitText) || /spell/i.test(preHitText) || /\brs\b/i.test(preHitText)) {
+        atkType = 'Ranged Spell';
+      } else if (/weapon/i.test(preHitText) || /arma/i.test(preHitText) || /\brw\b/i.test(preHitText)) {
+        atkType = 'Ranged Weapon';
+      } else {
+        atkType = 'Ranged Attack';
+      }
+    } else if (isExplicitMelee && !isExplicitRanged) {
+      if (/conjuro/i.test(preHitText) || /spell/i.test(preHitText) || /\bms\b/i.test(preHitText)) {
+        atkType = 'Melee Spell';
+      } else if (/weapon/i.test(preHitText) || /arma/i.test(preHitText) || /\bmw\b/i.test(preHitText)) {
+        atkType = 'Melee Weapon';
+      } else {
+        atkType = 'Melee Attack';
+      }
+    } else if (/\breach\b|\balcance\b/i.test(preHitText) && !/\brange\b|\brango\b/i.test(preHitText)) {
+      atkType = /spell|conjuro/i.test(preHitText) ? 'Melee Spell' : (/weapon|arma/i.test(preHitText) ? 'Melee Weapon' : 'Melee Attack');
+    } else if (/\brange\b|\brango\b/i.test(preHitText) && !/\breach\b|\balcance\b/i.test(preHitText)) {
+      atkType = /spell|conjuro/i.test(preHitText) ? 'Ranged Spell' : (/weapon|arma/i.test(preHitText) ? 'Ranged Weapon' : 'Ranged Attack');
     }
   }
 
@@ -239,18 +253,61 @@ export function parseModularAction(action, defaultType = 'Action') {
   }
 
   // 3. Daño
-  // Ejemplo: "Hit: 21 (3d10 + 5) piercing damage" o "Impacto: 7 (1d6 + 4) Slashing damage plus 14 (4d6) Psychic damage"
-  const hitMatch = rawText.match(/(?:Hit:|Impacto:|Fallo:|Failure:)\s*(\d+)\s*(?:\(([^)]+)\))?(?:\s+([^.]+?)\s+damage)?/i);
-  const avgDamage = hitMatch ? hitMatch[1] : null;
-  const damageDice = hitMatch && hitMatch[2] ? hitMatch[2].trim() : null;
-  let damageType = hitMatch && hitMatch[3] ? hitMatch[3].trim() : null;
-  if (damageType && damageType.length > 20 && damageType.includes(',')) {
-    damageType = 'Multiple';
+  // Soporta:
+  // a) "Hit: 21 (3d10 + 5) piercing damage"
+  // b) "Hit: 1d10 + 2 Bludgeoning damage" (sin promedio explícito)
+  // c) "Hit: 4 piercing damage" (daño plano sin dados)
+  let avgDamage = null;
+  let damageDice = null;
+  let damageType = null;
+
+  const withDiceAvg = rawText.match(/(?:Hit:|Impacto:|Fallo:|Failure:)\s*(\d+)\s*\(([^)]+)\)(?:\s+([^.]+?)\s+damage)?/i);
+  if (withDiceAvg) {
+    avgDamage = withDiceAvg[1];
+    damageDice = withDiceAvg[2].trim();
+    damageType = withDiceAvg[3] ? withDiceAvg[3].trim() : null;
+  } else {
+    const justDice = rawText.match(/(?:Hit:|Impacto:|Fallo:|Failure:)\s*(\d+d\d+(?:\s*[+-]\s*\d+)?)(?:\s+([^.]+?)\s+damage)?/i);
+    if (justDice) {
+      damageDice = justDice[1].trim();
+      const calculated = calcDiceAverage(damageDice);
+      avgDamage = calculated != null ? String(calculated) : null;
+      damageType = justDice[2] ? justDice[2].trim() : null;
+    } else {
+      const flatDmg = rawText.match(/(?:Hit:|Impacto:|Fallo:|Failure:)\s*(\d+)(?:\s+([^.]+?)\s+damage)?/i);
+      if (flatDmg) {
+        avgDamage = flatDmg[1];
+        damageDice = null;
+        damageType = flatDmg[2] ? flatDmg[2].trim() : null;
+      }
+    }
   }
 
-  // Daño adicional / secundario (ej. "plus 14 (4d6) fire damage")
-  const plusMatch = rawText.match(/plus\s*(\d+)\s*(?:\(([^)]+)\))?\s*([a-zA-Záéíóú]+)?\s*damage/i);
-  const plusDamage = plusMatch ? `${plusMatch[1]} (${plusMatch[2] || ''}) ${plusMatch[3] || ''}`.trim() : null;
+  if (damageType) {
+    damageType = damageType.replace(/^de\s+daño\s+/i, '').replace(/\s+damage$/i, '').trim();
+    if (damageType.length > 20 && damageType.includes(',')) {
+      damageType = 'Multiple';
+    }
+  }
+
+  // Daño adicional / secundario (ej. "plus 14 (4d6) fire damage" o "plus 2d6 fire damage")
+  let plusDamage = null;
+  const plusWithDiceAvg = rawText.match(/plus\s*(\d+)\s*\(([^)]+)\)\s*([a-zA-Záéíóú]+)?\s*damage/i);
+  if (plusWithDiceAvg) {
+    plusDamage = `${plusWithDiceAvg[1]} (${plusWithDiceAvg[2].trim()}) ${plusWithDiceAvg[3] || ''}`.trim();
+  } else {
+    const plusJustDice = rawText.match(/plus\s*(\d+d\d+(?:\s*[+-]\s*\d+)?)\s*([a-zA-Záéíóú]+)?\s*damage/i);
+    if (plusJustDice) {
+      const pDice = plusJustDice[1].trim();
+      const pAvg = calcDiceAverage(pDice);
+      plusDamage = `${pAvg != null ? pAvg : ''} (${pDice}) ${plusJustDice[2] || ''}`.trim();
+    } else {
+      const plusFlat = rawText.match(/plus\s*(\d+)\s*([a-zA-Záéíóú]+)?\s*damage/i);
+      if (plusFlat) {
+        plusDamage = `${plusFlat[1]} ${plusFlat[2] || ''}`.trim();
+      }
+    }
+  }
 
   // 4. Salvación / CD
   let saveDC = null;

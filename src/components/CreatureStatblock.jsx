@@ -77,7 +77,7 @@ function ModularCard({ action }) {
               <span className="modular-hud-title">AVERAGE DAMAGE</span>
               {action.avgDamage ? (
                 <span className="modular-hud-val-dmg">
-                  {action.avgDamage} <span className="modular-dice-sub">({action.damageDice || ''})</span>
+                  {action.avgDamage} {action.damageDice ? <span className="modular-dice-sub">({action.damageDice})</span> : null}
                   {action.damageType ? ` ${action.damageType}` : ''}
                   {action.plusDamage ? ` + ${action.plusDamage}` : ''}
                 </span>
@@ -146,16 +146,31 @@ export default function CreatureStatblock({
   // Velocidad formateada
   const speedParts = [];
   if (creature.speed) {
-    if (creature.speed.walk) speedParts.push(`${creature.speed.walk} ft`);
-    else if (typeof creature.speed === 'number') speedParts.push(`${creature.speed} ft`);
-    else if (typeof creature.speed === 'string') speedParts.push(creature.speed);
+    if (typeof creature.speed === 'number') {
+      speedParts.push(`${creature.speed} ft`);
+    } else if (typeof creature.speed === 'string') {
+      speedParts.push(creature.speed);
+    } else if (typeof creature.speed === 'object') {
+      const { walk, fly, swim, climb, burrow, canHover } = creature.speed;
+      const hasOtherSpeeds = Boolean(fly || swim || climb || burrow);
 
-    if (creature.speed.fly) speedParts.push(`fly ${creature.speed.fly} ft${creature.speed.canHover ? ' (hover)' : ''}`);
-    if (creature.speed.swim) speedParts.push(`swim ${creature.speed.swim} ft`);
-    if (creature.speed.climb) speedParts.push(`climb ${creature.speed.climb} ft`);
-    if (creature.speed.burrow) speedParts.push(`burrow ${creature.speed.burrow} ft`);
+      if (typeof walk === 'number') {
+        if (walk > 0 || !hasOtherSpeeds) {
+          speedParts.push(`${walk} ft`);
+        } else if (walk === 0) {
+          speedParts.push(`0 ft`);
+        }
+      } else if (walk) {
+        speedParts.push(`${walk} ft`);
+      }
+
+      if (fly) speedParts.push(`fly ${fly} ft${canHover ? ' (hover)' : ''}`);
+      if (swim) speedParts.push(`swim ${swim} ft`);
+      if (climb) speedParts.push(`climb ${climb} ft`);
+      if (burrow) speedParts.push(`burrow ${burrow} ft`);
+    }
   }
-  const speedText = speedParts.length > 0 ? speedParts.join(', ') : '30 ft';
+  const speedText = speedParts.length > 0 ? speedParts.join(', ') : (creature.speed ? '0 ft' : '30 ft');
 
   // Iniciativa estimada o explícita
   const dexMod = Math.floor(((creature.dex || 10) - 10) / 2);
