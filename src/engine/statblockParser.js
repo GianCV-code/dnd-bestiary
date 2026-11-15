@@ -197,15 +197,15 @@ export function extractEntryText(entries) {
 export function parseModularAction(action, defaultType = 'Action') {
   if (!action) return null;
   const name = clean5eTags(action.name || '');
+  const rawText = extractEntryText(action.entries);
 
   // Check for Multiattack
   const isMultiattack = /^multiattack/i.test(name) || /multiataque/i.test(name);
   if (isMultiattack) {
-    const formatted = formatActionNarrative(rawText);
     return {
       name,
       isMultiattack: true,
-      rawText: extractEntryText(action.entries)
+      rawText
     };
   }
 
@@ -237,8 +237,6 @@ export function parseModularAction(action, defaultType = 'Action') {
       subActions = rawSubs.map(s => parseModularAction(s, 'Option'));
     }
   }
-
-  const rawText = extractEntryText(action.entries);
 
   // 1. Attack Roll (+X to hit, Melee Attack Roll: +X, etc.)
   const atkMatch = rawText.match(
