@@ -73,6 +73,21 @@ const SENSES = [
   { id: 'truesight', label: 'Truesight' }
 ];
 
+const ALL_CR_OPTIONS = [
+  { value: 0, label: '0' },
+  { value: 0.125, label: '1/8' },
+  { value: 0.25, label: '1/4' },
+  { value: 0.5, label: '1/2' },
+  ...Array.from({ length: 30 }, (_, i) => ({ value: i + 1, label: String(i + 1) }))
+];
+
+const formatCrLabel = (val) => {
+  if (val === 0.125) return '1/8';
+  if (val === 0.25) return '1/4';
+  if (val === 0.5) return '1/2';
+  return String(val ?? 0);
+};
+
 const DAMAGE_TYPES = [
   { id: 'fire', label: 'Fire' },
   { id: 'cold', label: 'Cold' },
@@ -1313,33 +1328,85 @@ export default function App() {
           {/* CR Filter Range & Presets */}
           <div>
             <div className="filter-section-title">
-              <span>Challenge Rating (CR: {selectedCrRange.min} - {selectedCrRange.max})</span>
+              <span>
+                Challenge Rating (CR:{' '}
+                {selectedCrRange.min === selectedCrRange.max
+                  ? formatCrLabel(selectedCrRange.min)
+                  : `${formatCrLabel(selectedCrRange.min)} - ${formatCrLabel(selectedCrRange.max)}`}
+                )
+              </span>
               <Shield size={14} />
             </div>
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-              <input 
-                id="cr-min-input"
-                type="number"
-                min="0"
-                max="30"
+              <select 
+                id="cr-min-select"
                 className="select-styled"
-                style={{ width: '70px' }}
+                style={{ width: '90px' }}
                 value={selectedCrRange.min}
-                onChange={e => setSelectedCrRange(prev => ({ ...prev, min: Number(e.target.value) }))}
-              />
+                onChange={e => {
+                  const newMin = Number(e.target.value);
+                  setSelectedCrRange(prev => ({ 
+                    min: newMin, 
+                    max: Math.max(newMin, prev.max) 
+                  }));
+                }}
+              >
+                {ALL_CR_OPTIONS.map(opt => (
+                  <option key={`cr-min-${opt.value}`} value={opt.value}>
+                    CR {opt.label}
+                  </option>
+                ))}
+              </select>
               <span style={{ color: 'var(--text-dark)' }}>to</span>
-              <input 
-                id="cr-max-input"
-                type="number"
-                min="0"
-                max="30"
+              <select 
+                id="cr-max-select"
                 className="select-styled"
-                style={{ width: '70px' }}
+                style={{ width: '90px' }}
                 value={selectedCrRange.max}
-                onChange={e => setSelectedCrRange(prev => ({ ...prev, max: Number(e.target.value) }))}
-              />
+                onChange={e => {
+                  const newMax = Number(e.target.value);
+                  setSelectedCrRange(prev => ({ 
+                    min: Math.min(prev.min, newMax), 
+                    max: newMax 
+                  }));
+                }}
+              >
+                {ALL_CR_OPTIONS.map(opt => (
+                  <option key={`cr-max-${opt.value}`} value={opt.value}>
+                    CR {opt.label}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="cr-presets">
+              <span 
+                className={`cr-preset-chip ${selectedCrRange.min === 0 && selectedCrRange.max === 0.5 ? 'active' : ''}`}
+                onClick={() => setSelectedCrRange({ min: 0, max: 0.5 })}
+                title="Filtrar criaturas de CR menor a 1 (0, 1/8, 1/4, 1/2)"
+              >
+                &lt; 1
+              </span>
+              <span 
+                className={`cr-preset-chip ${selectedCrRange.min === 0.125 && selectedCrRange.max === 0.125 ? 'active' : ''}`}
+                onClick={() => setSelectedCrRange({ min: 0.125, max: 0.125 })}
+                title="Solo CR 1/8"
+              >
+                1/8
+              </span>
+              <span 
+                className={`cr-preset-chip ${selectedCrRange.min === 0.25 && selectedCrRange.max === 0.25 ? 'active' : ''}`}
+                onClick={() => setSelectedCrRange({ min: 0.25, max: 0.25 })}
+                title="Solo CR 1/4"
+              >
+                1/4
+              </span>
+              <span 
+                className={`cr-preset-chip ${selectedCrRange.min === 0.5 && selectedCrRange.max === 0.5 ? 'active' : ''}`}
+                onClick={() => setSelectedCrRange({ min: 0.5, max: 0.5 })}
+                title="Solo CR 1/2"
+              >
+                1/2
+              </span>
               <span 
                 className={`cr-preset-chip ${selectedCrRange.min === 0 && selectedCrRange.max === 4 ? 'active' : ''}`}
                 onClick={() => setSelectedCrRange({ min: 0, max: 4 })}

@@ -512,14 +512,20 @@ export default function CreatureStatblock({
                 >
                   <div className="tab-top-row">
                     <span className="tab-badge-title">
-                      {v.versionMeta.is2024 && '✨ '}
-                      {v.versionMeta.is2014 && '📜 '}
-                      {v.versionMeta.badge}
+                      {v.versionMeta?.isVariant ? (
+                        <>🧬 {v.versionMeta.variantLabel || 'Variante'}</>
+                      ) : (
+                        <>
+                          {v.versionMeta?.is2024 && '✨ '}
+                          {v.versionMeta?.is2014 && '📜 '}
+                          {v.versionMeta?.variantLabel ? `⭐ ${v.versionMeta.variantLabel}` : v.versionMeta?.badge}
+                        </>
+                      )}
                     </span>
                     {isSelected && <span className="tab-selected-dot">● Active</span>}
                   </div>
-                  <div className="tab-source-sub" title={v.sourceGroup || v.source}>
-                    {v.sourceGroup || v.source}
+                  <div className="tab-source-sub" title={v.name !== modalGroup.name ? v.name : (v.sourceGroup || v.source)}>
+                    {v.name !== modalGroup.name ? v.name : (v.sourceGroup || v.source)}
                   </div>
                   <div className="tab-quick-stats">
                     CR {v.cr} • {v.hp} HP • AC {v.ac}

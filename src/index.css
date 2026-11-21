@@ -2022,6 +2022,11 @@ select option {
   box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
 }
 
+.modal-version-tab.active.tab-variant {
+  border-color: #10b981;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+}
+
 .modal-version-tab.active.tab-3pp {
   border-color: #a855f7;
   box-shadow: 0 0 12px rgba(168, 85, 247, 0.3);

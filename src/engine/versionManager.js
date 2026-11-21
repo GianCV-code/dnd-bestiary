@@ -167,19 +167,42 @@ export function propagateVersionMedia(creaturesList) {
       mediaMap.set(key, entry);
     }
 
-    if (c.artUrl && meta.priority < entry.bestArtPriority) {
+    if (c.artUrl && meta.priority <= entry.bestArtPriority) {
       entry.bestArt = c.artUrl;
       entry.bestArtPriority = meta.priority;
     }
-    if (c.tokenUrl && meta.priority < entry.bestTokenPriority) {
+    if (c.tokenUrl && meta.priority <= entry.bestTokenPriority) {
       entry.bestToken = c.tokenUrl;
       entry.bestTokenPriority = meta.priority;
     }
   }
 
+  // Helper to extract base name for variant / companion / minion / swarm matching
+  const extractBaseVariantName = (name) => {
+    const norm = (name || '').trim().toLowerCase();
+    const cleaned = norm
+      .replace(/\s+companion$/i, '')
+      .replace(/\s+minion$/i, '')
+      .replace(/\s+\(variant\)$/i, '')
+      .replace(/\s+familiar$/i, '')
+      .replace(/\s+mount$/i, '')
+      .replace(/^swarm of\s+/i, '')
+      .trim();
+    return cleaned !== norm ? cleaned : null;
+  };
+
   return creaturesList.map(c => {
     const key = (c.name || '').trim().toLowerCase();
-    const entry = mediaMap.get(key);
+    let entry = mediaMap.get(key);
+
+    // If no direct exact match has media, look up variant base name
+    if (!entry || (!entry.bestArt && !entry.bestToken)) {
+      const baseKey = extractBaseVariantName(c.name);
+      if (baseKey && mediaMap.has(baseKey)) {
+        entry = mediaMap.get(baseKey);
+      }
+    }
+
     if (!entry) return c;
 
     const needsArt = !c.artUrl && entry.bestArt;
@@ -198,6 +221,80 @@ export function propagateVersionMedia(creaturesList) {
   });
 }
 
+const EXCLUDED_VARIANT_PATTERN = /\b(companion|mount|familiar|slime servant|minion)\b/i;
+const BIO_VARIANT_PREFIXES = ['fungal', 'corrupted', 'elder', 'lesser', 'greater', 'mutated', 'spore'];
+
+function capitalizeWord(s) {
+  return s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : '';
+}
+
+/**
+ * Resolves whether a creature is a recognized variant of a base creature under Approach B:
+ * 1. Explicit '(Variant)' in name (e.g. 'Chimera (Protector Variant)')
+ * 2. Monster Hunter ranks and growth stages (e.g. 'Archtempered Velkhana', 'Baby Barroth')
+ * 3. 3PP biological/thematic variants within the same source (e.g. 'Fungal Acid Ant')
+ * Explicitly excludes companions, mounts, familiars, and slime servants.
+ */
+export function resolveVariantBaseInfo(c, namesInSameSource) {
+  if (!c || !c.name) return null;
+  const norm = c.name.toLowerCase().trim();
+  const src = c.sourceGroup || c.source || '';
+
+  if (EXCLUDED_VARIANT_PATTERN.test(norm)) return null;
+
+  // 1. Explicit (Variant) suffix
+  const variantMatch = norm.match(/^(.*?)\s*\((.*?variant.*?)\)$/i);
+  if (variantMatch) {
+    const candidate = variantMatch[1].trim();
+    if (namesInSameSource && namesInSameSource.has(candidate)) {
+      const rawLabel = variantMatch[2].replace(/variant/i, '').trim();
+      return {
+        baseNameKey: candidate,
+        variantLabel: rawLabel ? capitalizeWord(rawLabel) : 'Variante'
+      };
+    }
+  }
+
+  // 2. Monster Hunter Ranks and Stages
+  if (src === 'Monster Hunter Monster Manual') {
+    const rankMatch = norm.match(/^(tempered|archtempered|adolescent|baby|young|juvenile)\s+(.*)$/i);
+    if (rankMatch) {
+      const candidate = rankMatch[2].trim();
+      if (namesInSameSource && namesInSameSource.has(candidate)) {
+        return {
+          baseNameKey: candidate,
+          variantLabel: capitalizeWord(rankMatch[1])
+        };
+      }
+    }
+    const stageSuffixMatch = norm.match(/^(.*?)\s+(cub|pup|kit|shoat)$/i);
+    if (stageSuffixMatch) {
+      const candidate = stageSuffixMatch[1].trim();
+      if (namesInSameSource && namesInSameSource.has(candidate)) {
+        return {
+          baseNameKey: candidate,
+          variantLabel: capitalizeWord(stageSuffixMatch[2])
+        };
+      }
+    }
+  }
+
+  // 3. Biological 3PP Variants within same source
+  for (const prefix of BIO_VARIANT_PREFIXES) {
+    if (norm.startsWith(prefix + ' ')) {
+      const candidate = norm.slice(prefix.length + 1).trim();
+      if (namesInSameSource && namesInSameSource.has(candidate)) {
+        return {
+          baseNameKey: candidate,
+          variantLabel: capitalizeWord(prefix)
+        };
+      }
+    }
+  }
+
+  return null;
+}
+
 /**
  * Groups a list of creatures by normalized name, sorting their versions by edition priority.
  * Returns both { groups, groupsMap } and { creatureGroups, creatureGroupsMap } for compatibility.
@@ -214,20 +311,41 @@ export function groupCreaturesByName(creaturesList) {
     };
   }
 
+  // 1. Index creature names by source for variant detection
+  const sourceIndex = new Map();
   for (const c of creaturesList) {
-    const key = (c.name || '').trim().toLowerCase();
-    if (!key) continue;
+    const src = c.sourceGroup || c.source || 'Other';
+    if (!sourceIndex.has(src)) sourceIndex.set(src, new Set());
+    sourceIndex.get(src).add((c.name || '').toLowerCase().trim());
+  }
 
-    if (!groupsMap.has(key)) {
-      groupsMap.set(key, {
-        groupKey: key,
+  // 2. Map creatures to canonical groups
+  for (const c of creaturesList) {
+    const norm = (c.name || '').trim().toLowerCase();
+    if (!norm) continue;
+
+    const src = c.sourceGroup || c.source || 'Other';
+    const namesInSource = sourceIndex.get(src);
+    const variantInfo = resolveVariantBaseInfo(c, namesInSource);
+
+    const canonicalKey = variantInfo ? variantInfo.baseNameKey : norm;
+
+    if (!groupsMap.has(canonicalKey)) {
+      groupsMap.set(canonicalKey, {
+        groupKey: canonicalKey,
         name: c.name,
         versions: []
       });
     }
 
     const versionMeta = getCreatureVersionMeta(c);
-    groupsMap.get(key).versions.push({
+    if (variantInfo) {
+      versionMeta.isVariant = true;
+      versionMeta.variantLabel = variantInfo.variantLabel;
+      versionMeta.pillType = 'variant';
+    }
+
+    groupsMap.get(canonicalKey).versions.push({
       ...c,
       versionMeta
     });
@@ -236,8 +354,30 @@ export function groupCreaturesByName(creaturesList) {
   const groups = [];
 
   for (const group of groupsMap.values()) {
-    // Sort versions by priority: 2024 -> 2014 -> Core WotC -> 3PP -> Crossover -> Hollow
+    // Determine if group contains variants
+    const hasVariants = group.versions.some(v => v.versionMeta?.isVariant);
+
+    if (hasVariants) {
+      // Find base creature to use as group name
+      const baseVersion = group.versions.find(v => !v.versionMeta?.isVariant);
+      if (baseVersion) {
+        group.name = baseVersion.name;
+        // Assign base label for clarity if multiple versions/variants exist
+        if (!baseVersion.versionMeta.variantLabel) {
+          baseVersion.versionMeta.variantLabel = group.versions.some(v => v.sourceGroup === 'Monster Hunter Monster Manual') 
+            ? 'Adulto' 
+            : 'Común';
+        }
+      }
+    }
+
+    // Sort versions:
+    // Base versions come first (!isVariant), then priority, then sourceGroup
     group.versions.sort((a, b) => {
+      const aIsVar = a.versionMeta?.isVariant ? 1 : 0;
+      const bIsVar = b.versionMeta?.isVariant ? 1 : 0;
+      if (aIsVar !== bIsVar) return aIsVar - bIsVar;
+
       const diff = a.versionMeta.priority - b.versionMeta.priority;
       if (diff !== 0) return diff;
       return (a.sourceGroup || '').localeCompare(b.sourceGroup || '');
@@ -265,6 +405,16 @@ export function groupCreaturesByName(creaturesList) {
     group.hasMultipleVersions = group.versions.length > 1;
     group.defaultVersion = group.versions[0];
     groups.push(group);
+  }
+
+  // 3. Register aliases in groupsMap so any variant name points directly to the canonical group
+  for (const group of groups) {
+    for (const v of group.versions) {
+      const vKey = (v.name || '').trim().toLowerCase();
+      if (vKey && !groupsMap.has(vKey)) {
+        groupsMap.set(vKey, group);
+      }
+    }
   }
 
   return {

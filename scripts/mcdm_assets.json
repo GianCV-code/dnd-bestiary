@@ -1,0 +1,1790 @@
+{
+  "fmTokens": [
+    {
+      "name": "Abyssal Hyena.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Abyssal%20Hyena.webp"
+    },
+    {
+      "name": "Angulotl Blade.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Angulotl%20Blade.webp"
+    },
+    {
+      "name": "Angulotl Needler.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Angulotl%20Needler.webp"
+    },
+    {
+      "name": "Angulotl Seer.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Angulotl%20Seer.webp"
+    },
+    {
+      "name": "Angulotl Slink.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Angulotl%20Slink.webp"
+    },
+    {
+      "name": "Angulotl Tadpole.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Angulotl%20Tadpole.webp"
+    },
+    {
+      "name": "Angulotl Yegg.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Angulotl%20Yegg.webp"
+    },
+    {
+      "name": "Ankheg.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Ankheg.webp"
+    },
+    {
+      "name": "Anthracia_ Princess of Venom.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Anthracia_%20Princess%20of%20Venom.webp"
+    },
+    {
+      "name": "Arcane Amalgam.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Arcane%20Amalgam.webp"
+    },
+    {
+      "name": "Argan Rael.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Argan%20Rael.webp"
+    },
+    {
+      "name": "Aronar Valkys.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Aronar%20Valkys.webp"
+    },
+    {
+      "name": "Ashen Hoarder.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Ashen%20Hoarder.webp"
+    },
+    {
+      "name": "Ashyra.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Ashyra.webp"
+    },
+    {
+      "name": "Athmia Valkys.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Athmia%20Valkys.webp"
+    },
+    {
+      "name": "Atæshia.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Atæshia.webp"
+    },
+    {
+      "name": "Aurumvas.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Aurumvas.webp"
+    },
+    {
+      "name": "Baron Uthrak.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Baron%20Uthrak.webp"
+    },
+    {
+      "name": "Basilisk Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Basilisk%20Companion.webp"
+    },
+    {
+      "name": "Basilisk.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Basilisk.webp"
+    },
+    {
+      "name": "Bear Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Bear%20Companion.webp"
+    },
+    {
+      "name": "Bear.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Bear.webp"
+    },
+    {
+      "name": "Bird of Prey.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Bird%20of%20Prey.webp"
+    },
+    {
+      "name": "Blood Hawk Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Blood%20Hawk%20Companion.webp"
+    },
+    {
+      "name": "Blood-Starved Vampire.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Blood-Starved%20Vampire.webp"
+    },
+    {
+      "name": "Bloodlord Varrox.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Bloodlord%20Varrox.webp"
+    },
+    {
+      "name": "Bonestalker.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Bonestalker.webp"
+    },
+    {
+      "name": "Boog.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Boog.webp"
+    },
+    {
+      "name": "Bredbeddle.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Bredbeddle.webp"
+    },
+    {
+      "name": "Bugbear Channeler.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Bugbear%20Channeler.webp"
+    },
+    {
+      "name": "Bugbear Predator.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Bugbear%20Predator.webp"
+    },
+    {
+      "name": "Caithas.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Caithas.webp"
+    },
+    {
+      "name": "Camel Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Camel%20Companion.webp"
+    },
+    {
+      "name": "Camel.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Camel.webp"
+    },
+    {
+      "name": "Canon Athenodorus.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Canon%20Athenodorus.webp"
+    },
+    {
+      "name": "Ceemal.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Ceemal.webp"
+    },
+    {
+      "name": "Chimera Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Chimera%20Companion.webp"
+    },
+    {
+      "name": "Chimera.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Chimera.webp"
+    },
+    {
+      "name": "Chimeron.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Chimeron.webp"
+    },
+    {
+      "name": "Clawfish Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Clawfish%20Companion.webp"
+    },
+    {
+      "name": "Clawfish.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Clawfish.webp"
+    },
+    {
+      "name": "Cloak.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Cloak.webp"
+    },
+    {
+      "name": "Count Rhodar von Glauer.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Count%20Rhodar%20von%20Glauer.webp"
+    },
+    {
+      "name": "Crawling Claw Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Crawling%20Claw%20Companion.webp"
+    },
+    {
+      "name": "Crawling Claw.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Crawling%20Claw.webp"
+    },
+    {
+      "name": "Crux of Fire.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Crux%20of%20Fire.webp"
+    },
+    {
+      "name": "Crux of Frost.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Crux%20of%20Frost.webp"
+    },
+    {
+      "name": "Dancing Lady.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Dancing%20Lady.webp"
+    },
+    {
+      "name": "Deathhawk.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Deathhawk.webp"
+    },
+    {
+      "name": "Decrepit Skeleton.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Decrepit%20Skeleton.webp"
+    },
+    {
+      "name": "Deep Dreamer.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Deep%20Dreamer.webp"
+    },
+    {
+      "name": "Devil Adjudicator.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Devil%20Adjudicator.webp"
+    },
+    {
+      "name": "Devil Jurist.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Devil%20Jurist.webp"
+    },
+    {
+      "name": "Devil Legate.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Devil%20Legate.webp"
+    },
+    {
+      "name": "Devil Magistrate.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Devil%20Magistrate.webp"
+    },
+    {
+      "name": "Devil Notary.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Devil%20Notary.webp"
+    },
+    {
+      "name": "Devil Retainer.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Devil%20Retainer.webp"
+    },
+    {
+      "name": "Dire Bird of Prey.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Dire%20Bird%20of%20Prey.webp"
+    },
+    {
+      "name": "Dohma Raskovar.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Dohma%20Raskovar.webp"
+    },
+    {
+      "name": "Dragonet.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Dragonet.webp"
+    },
+    {
+      "name": "Draven Malas.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Draven%20Malas.webp"
+    },
+    {
+      "name": "Durixaviinox.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Durixaviinox.webp"
+    },
+    {
+      "name": "Earth Elemental Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Earth%20Elemental%20Companion.webp"
+    },
+    {
+      "name": "Empyrean Stag.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Empyrean%20Stag.webp"
+    },
+    {
+      "name": "Essence of Storms.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Essence%20of%20Storms.webp"
+    },
+    {
+      "name": "Excess.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Excess.webp"
+    },
+    {
+      "name": "Fire Giant Red Fist.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Fire%20Giant%20Red%20Fist.webp"
+    },
+    {
+      "name": "Flesh Mournling.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Flesh%20Mournling.webp"
+    },
+    {
+      "name": "Flintmoth Swarm.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Flintmoth%20Swarm.webp"
+    },
+    {
+      "name": "Force of Blood.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Force%20of%20Blood.webp"
+    },
+    {
+      "name": "Force of Earth.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Force%20of%20Earth.webp"
+    },
+    {
+      "name": "Force of Iron.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Force%20of%20Iron.webp"
+    },
+    {
+      "name": "Forzaantirilys.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Forzaantirilys.webp"
+    },
+    {
+      "name": "Fossil Cryptic.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Fossil%20Cryptic.webp"
+    },
+    {
+      "name": "Frost Giant Storm Hurler.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Frost%20Giant%20Storm%20Hurler.webp"
+    },
+    {
+      "name": "Gem Jelly Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Gem%20Jelly%20Companion.webp"
+    },
+    {
+      "name": "Gem Jelly.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Gem%20Jelly.webp"
+    },
+    {
+      "name": "Ghoul.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Ghoul.webp"
+    },
+    {
+      "name": "Giant Zombie.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Giant%20Zombie.webp"
+    },
+    {
+      "name": "Gibbering Mouther Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Gibbering%20Mouther%20Companion.webp"
+    },
+    {
+      "name": "Gibbering Mouther.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Gibbering%20Mouther.webp"
+    },
+    {
+      "name": "Gnoll Abyssal Summoner.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Gnoll%20Abyssal%20Summoner.webp"
+    },
+    {
+      "name": "Gnoll Bonesplitter.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Gnoll%20Bonesplitter.webp"
+    },
+    {
+      "name": "Gnoll Marauder.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Gnoll%20Marauder.webp"
+    },
+    {
+      "name": "Goblin Assassin.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Goblin%20Assassin.webp"
+    },
+    {
+      "name": "Goblin Cursespitter.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Goblin%20Cursespitter.webp"
+    },
+    {
+      "name": "Goblin Lackey.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Goblin%20Lackey.webp"
+    },
+    {
+      "name": "Goblin Sneak.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Goblin%20Sneak.webp"
+    },
+    {
+      "name": "Goblin Sniper.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Goblin%20Sniper.webp"
+    },
+    {
+      "name": "Goblin Spinecleaver.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Goblin%20Spinecleaver.webp"
+    },
+    {
+      "name": "Goxomoc.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Goxomoc.webp"
+    },
+    {
+      "name": "Green Hag.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Green%20Hag.webp"
+    },
+    {
+      "name": "Griffon.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Griffon.webp"
+    },
+    {
+      "name": "Grilp.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Grilp.webp"
+    },
+    {
+      "name": "Halorin Yandres.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Halorin%20Yandres.webp"
+    },
+    {
+      "name": "Harlo Honeygrin.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Harlo%20Honeygrin.webp"
+    },
+    {
+      "name": "Harpy.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Harpy.webp"
+    },
+    {
+      "name": "Haunt.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Haunt.webp"
+    },
+    {
+      "name": "Hellhound Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Hellhound%20Companion.webp"
+    },
+    {
+      "name": "Hellhound Cur.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Hellhound%20Cur.webp"
+    },
+    {
+      "name": "Hellhound.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Hellhound.webp"
+    },
+    {
+      "name": "High Mage Vairae.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/High%20Mage%20Vairae.webp"
+    },
+    {
+      "name": "Hill Giant Flunky.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Hill%20Giant%20Flunky.webp"
+    },
+    {
+      "name": "Hobgoblin Death Captain.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Hobgoblin%20Death%20Captain.webp"
+    },
+    {
+      "name": "Hobgoblin Smokebinder.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Hobgoblin%20Smokebinder.webp"
+    },
+    {
+      "name": "Hobgoblin Trooper.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Hobgoblin%20Trooper.webp"
+    },
+    {
+      "name": "Hobgoblin War Mage.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Hobgoblin%20War%20Mage.webp"
+    },
+    {
+      "name": "Hulking Brain.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Hulking%20Brain.webp"
+    },
+    {
+      "name": "Human Apprentice Mage.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Human%20Apprentice%20Mage.webp"
+    },
+    {
+      "name": "Human Brawler.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Human%20Brawler.webp"
+    },
+    {
+      "name": "Human Death Cultist.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Human%20Death%20Cultist.webp"
+    },
+    {
+      "name": "Human Knave.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Human%20Knave.webp"
+    },
+    {
+      "name": "Human Raider.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Human%20Raider.webp"
+    },
+    {
+      "name": "Human Storm Wizard.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Human%20Storm%20Wizard.webp"
+    },
+    {
+      "name": "Human Trickshot.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Human%20Trickshot.webp"
+    },
+    {
+      "name": "Infernal Chancellor Lazivos.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Infernal%20Chancellor%20Lazivos.webp"
+    },
+    {
+      "name": "Ithu'rath.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Ithu'rath.webp"
+    },
+    {
+      "name": "Jedar Pike.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Jedar%20Pike.webp"
+    },
+    {
+      "name": "Jutkarr Flintfingers.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Jutkarr%20Flintfingers.webp"
+    },
+    {
+      "name": "Kingfissure Worm Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Kingfissure%20Worm%20Companion.webp"
+    },
+    {
+      "name": "Kingfissure Worm.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Kingfissure%20Worm.webp"
+    },
+    {
+      "name": "Kiona the Dread Lord.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Kiona%20the%20Dread%20Lord.webp"
+    },
+    {
+      "name": "Kishina Darrowind.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Kishina%20Darrowind.webp"
+    },
+    {
+      "name": "Klar.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Klar.webp"
+    },
+    {
+      "name": "Kobold Artifex.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Kobold%20Artifex.webp"
+    },
+    {
+      "name": "Kobold Legionary.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Kobold%20Legionary.webp"
+    },
+    {
+      "name": "Kobold Signifer.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Kobold%20Signifer.webp"
+    },
+    {
+      "name": "Kobold Veles.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Kobold%20Veles.webp"
+    },
+    {
+      "name": "Kobold Venator.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Kobold%20Venator.webp"
+    },
+    {
+      "name": "Koptourok.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Koptourok.webp"
+    },
+    {
+      "name": "Kraken.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Kraken.webp"
+    },
+    {
+      "name": "Lacuna.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Lacuna.webp"
+    },
+    {
+      "name": "Lady Avalla Deseo.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Lady%20Avalla%20Deseo.webp"
+    },
+    {
+      "name": "Lady Emer.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Lady%20Emer.webp"
+    },
+    {
+      "name": "Lamasombra.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Lamasombra.webp"
+    },
+    {
+      "name": "Lestheris Soldrei.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Lestheris%20Soldrei.webp"
+    },
+    {
+      "name": "Leyleech Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Leyleech%20Companion.webp"
+    },
+    {
+      "name": "Leyleech.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Leyleech.webp"
+    },
+    {
+      "name": "Lightbender Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Lightbender%20Companion.webp"
+    },
+    {
+      "name": "Lightbender.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Lightbender.webp"
+    },
+    {
+      "name": "Lightthief.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Lightthief.webp"
+    },
+    {
+      "name": "Little Bear.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Little%20Bear.webp"
+    },
+    {
+      "name": "Little Wildcat.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Little%20Wildcat.webp"
+    },
+    {
+      "name": "Lizardfolk Grunt.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Lizardfolk%20Grunt.webp"
+    },
+    {
+      "name": "Lizardfolk Hunter.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Lizardfolk%20Hunter.webp"
+    },
+    {
+      "name": "Lizardfolk Scaletooth.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Lizardfolk%20Scaletooth.webp"
+    },
+    {
+      "name": "Lizardfolk Terrorsaur.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Lizardfolk%20Terrorsaur.webp"
+    },
+    {
+      "name": "Llyvessa.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Llyvessa.webp"
+    },
+    {
+      "name": "Logger.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Logger.webp"
+    },
+    {
+      "name": "Lord Erasmus Deseo.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Lord%20Erasmus%20Deseo.webp"
+    },
+    {
+      "name": "Lord Syuul.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Lord%20Syuul.webp"
+    },
+    {
+      "name": "Manticore Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Manticore%20Companion.webp"
+    },
+    {
+      "name": "Manticore.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Manticore.webp"
+    },
+    {
+      "name": "Marble Stone Giant.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Marble%20Stone%20Giant.webp"
+    },
+    {
+      "name": "Marvorok.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Marvorok.webp"
+    },
+    {
+      "name": "Medusa Headstrong.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Medusa%20Headstrong.webp"
+    },
+    {
+      "name": "Medusa.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Medusa.webp"
+    },
+    {
+      "name": "Mimic Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Mimic%20Companion.webp"
+    },
+    {
+      "name": "Mimic Mimiature.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Mimic%20Mimiature.webp"
+    },
+    {
+      "name": "Mimic.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Mimic.webp"
+    },
+    {
+      "name": "Mindkiller.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Mindkiller.webp"
+    },
+    {
+      "name": "Minotaur Lackey.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Minotaur%20Lackey.webp"
+    },
+    {
+      "name": "Minotaur.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Minotaur.webp"
+    },
+    {
+      "name": "Mohler Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Mohler%20Companion.webp"
+    },
+    {
+      "name": "Mohler.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Mohler.webp"
+    },
+    {
+      "name": "Multivok Bodyguard.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Multivok%20Bodyguard.webp"
+    },
+    {
+      "name": "Multivok Chief.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Multivok%20Chief.webp"
+    },
+    {
+      "name": "Mummy.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Mummy.webp"
+    },
+    {
+      "name": "Mycete.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Mycete.webp"
+    },
+    {
+      "name": "Night Hag.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Night%20Hag.webp"
+    },
+    {
+      "name": "Ogre Basher.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Ogre%20Basher.webp"
+    },
+    {
+      "name": "Orc Blacksmith.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Orc%20Blacksmith.webp"
+    },
+    {
+      "name": "Orc Blitzer.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Orc%20Blitzer.webp"
+    },
+    {
+      "name": "Orc Bloodrunner.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Orc%20Bloodrunner.webp"
+    },
+    {
+      "name": "Orc Conduit.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Orc%20Conduit.webp"
+    },
+    {
+      "name": "Orc Fury.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Orc%20Fury.webp"
+    },
+    {
+      "name": "Orc Garroter.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Orc%20Garroter.webp"
+    },
+    {
+      "name": "Orc Godcaller.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Orc%20Godcaller.webp"
+    },
+    {
+      "name": "Orc Rampart.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Orc%20Rampart.webp"
+    },
+    {
+      "name": "Otyugh Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Otyugh%20Companion.webp"
+    },
+    {
+      "name": "Otyugh Dregsbelcher.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Otyugh%20Dregsbelcher.webp"
+    },
+    {
+      "name": "Otyugh.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Otyugh.webp"
+    },
+    {
+      "name": "Overmind.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Overmind.webp"
+    },
+    {
+      "name": "Owlbear Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Owlbear%20Companion.webp"
+    },
+    {
+      "name": "Owlbear.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Owlbear.webp"
+    },
+    {
+      "name": "Pitling.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Pitling.webp"
+    },
+    {
+      "name": "Prince Ellan Farra.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Prince%20Ellan%20Farra.webp"
+    },
+    {
+      "name": "Principle of Growth.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Principle%20of%20Growth.webp"
+    },
+    {
+      "name": "Qar_ Master of Jackals.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Qar_%20Master%20of%20Jackals.webp"
+    },
+    {
+      "name": "Qazyldrath.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Qazyldrath.webp"
+    },
+    {
+      "name": "Queen Bargnot.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Queen%20Bargnot.webp"
+    },
+    {
+      "name": "Radlee Thugram.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Radlee%20Thugram.webp"
+    },
+    {
+      "name": "Rot Angel.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Rot%20Angel.webp"
+    },
+    {
+      "name": "Rotbeast Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Rotbeast%20Companion.webp"
+    },
+    {
+      "name": "Rotbeast.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Rotbeast.webp"
+    },
+    {
+      "name": "Rotting Zombie.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Rotting%20Zombie.webp"
+    },
+    {
+      "name": "Ruinant.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Ruinant.webp"
+    },
+    {
+      "name": "Sair.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Sair.webp"
+    },
+    {
+      "name": "Scarlet Shadow.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Scarlet%20Shadow.webp"
+    },
+    {
+      "name": "Scyza.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Scyza.webp"
+    },
+    {
+      "name": "Sea Hag Apprentice.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Sea%20Hag%20Apprentice.webp"
+    },
+    {
+      "name": "Sea Hag.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Sea%20Hag.webp"
+    },
+    {
+      "name": "Servok Builder.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Servok%20Builder.webp"
+    },
+    {
+      "name": "Servok Miner.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Servok%20Miner.webp"
+    },
+    {
+      "name": "Servok War Engine.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Servok%20War%20Engine.webp"
+    },
+    {
+      "name": "Shade.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Shade.webp"
+    },
+    {
+      "name": "Shambling Mound Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Shambling%20Mound%20Companion.webp"
+    },
+    {
+      "name": "Shambling Mound.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Shambling%20Mound.webp"
+    },
+    {
+      "name": "Shieldscale Drangolin.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Shieldscale%20Drangolin.webp"
+    },
+    {
+      "name": "Shtriga Nonna.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Shtriga%20Nonna.webp"
+    },
+    {
+      "name": "Skitterling.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Skitterling.webp"
+    },
+    {
+      "name": "Slaughter Demon.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Slaughter%20Demon.webp"
+    },
+    {
+      "name": "Starving Harpy.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Starving%20Harpy.webp"
+    },
+    {
+      "name": "Stirge Broodling.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Stirge%20Broodling.webp"
+    },
+    {
+      "name": "Stirge Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Stirge%20Companion.webp"
+    },
+    {
+      "name": "Stirge.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Stirge.webp"
+    },
+    {
+      "name": "Stoneback Isopod Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Stoneback%20Isopod%20Companion.webp"
+    },
+    {
+      "name": "Stoneback Isopod.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Stoneback%20Isopod.webp"
+    },
+    {
+      "name": "Swamp Dryad.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Swamp%20Dryad.webp"
+    },
+    {
+      "name": "Swarm of Insects.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Swarm%20of%20Insects.webp"
+    },
+    {
+      "name": "Swarm of Spiders.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Swarm%20of%20Spiders.webp"
+    },
+    {
+      "name": "Sylphise.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Sylphise.webp"
+    },
+    {
+      "name": "The Horror.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/The%20Horror.webp"
+    },
+    {
+      "name": "Thornblood.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Thornblood.webp"
+    },
+    {
+      "name": "Time Raider Armiger.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Time%20Raider%20Armiger.webp"
+    },
+    {
+      "name": "Time Raider Freebooter.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Time%20Raider%20Freebooter.webp"
+    },
+    {
+      "name": "Time Raider Nemesis.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Time%20Raider%20Nemesis.webp"
+    },
+    {
+      "name": "Time Raider Vertex.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Time%20Raider%20Vertex.webp"
+    },
+    {
+      "name": "Tormenauk.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Tormenauk.webp"
+    },
+    {
+      "name": "Treant.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Treant.webp"
+    },
+    {
+      "name": "Treyvan von Hirnschmann.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Treyvan%20von%20Hirnschmann.webp"
+    },
+    {
+      "name": "Troll.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Troll.webp"
+    },
+    {
+      "name": "Tusker Demon.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Tusker%20Demon.webp"
+    },
+    {
+      "name": "Tuval-Uthriar.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Tuval-Uthriar.webp"
+    },
+    {
+      "name": "Vali.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Vali.webp"
+    },
+    {
+      "name": "Valochera.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Valochera.webp"
+    },
+    {
+      "name": "Vampire Spawn.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Vampire%20Spawn.webp"
+    },
+    {
+      "name": "Vampire.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Vampire.webp"
+    },
+    {
+      "name": "Victory Graves.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Victory%20Graves.webp"
+    },
+    {
+      "name": "Vivienn Dirroze.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Vivienn%20Dirroze.webp"
+    },
+    {
+      "name": "Voiceless Talker Artillerist.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Voiceless%20Talker%20Artillerist.webp"
+    },
+    {
+      "name": "Voiceless Talker Operative.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Voiceless%20Talker%20Operative.webp"
+    },
+    {
+      "name": "Voiceless Talker.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Voiceless%20Talker.webp"
+    },
+    {
+      "name": "War Spider.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/War%20Spider.webp"
+    },
+    {
+      "name": "Weeping Willow.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Weeping%20Willow.webp"
+    },
+    {
+      "name": "Wight Deathguard.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Wight%20Deathguard.webp"
+    },
+    {
+      "name": "Wildcat Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Wildcat%20Companion.webp"
+    },
+    {
+      "name": "Wildcat.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Wildcat.webp"
+    },
+    {
+      "name": "Wobalas.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Wobalas.webp"
+    },
+    {
+      "name": "Worg Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Worg%20Companion.webp"
+    },
+    {
+      "name": "Wraith.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Wraith.webp"
+    },
+    {
+      "name": "Wyvern Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Wyvern%20Companion.webp"
+    },
+    {
+      "name": "Wyvern.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Wyvern.webp"
+    },
+    {
+      "name": "Xaantikorijek.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Xaantikorijek.webp"
+    },
+    {
+      "name": "Xorannox.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Xorannox.webp"
+    },
+    {
+      "name": "Yserthrax.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Yserthrax.webp"
+    },
+    {
+      "name": "Yumgrub.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Yumgrub.webp"
+    },
+    {
+      "name": "Zenith Aastrika.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Zenith%20Aastrika.webp"
+    },
+    {
+      "name": "Zombie.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/monsterToken/Zombie.webp"
+    }
+  ],
+  "fmFluff": [
+    {
+      "name": "Abyssal Hyena.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Abyssal%20Hyena.webp"
+    },
+    {
+      "name": "Angulotl Blade.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Angulotl%20Blade.webp"
+    },
+    {
+      "name": "Angulotl Needler.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Angulotl%20Needler.webp"
+    },
+    {
+      "name": "Angulotl Seer.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Angulotl%20Seer.webp"
+    },
+    {
+      "name": "Angulotl Slink.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Angulotl%20Slink.webp"
+    },
+    {
+      "name": "Angulotl Yegg.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Angulotl%20Yegg.webp"
+    },
+    {
+      "name": "Ankheg.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Ankheg.webp"
+    },
+    {
+      "name": "Arcane Amalgam.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Arcane%20Amalgam.webp"
+    },
+    {
+      "name": "Ashen Hoarder.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Ashen%20Hoarder.webp"
+    },
+    {
+      "name": "Ashyra.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Ashyra.webp"
+    },
+    {
+      "name": "Ataeshia.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Ataeshia.webp"
+    },
+    {
+      "name": "Aurumvas.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Aurumvas.webp"
+    },
+    {
+      "name": "Baron Uthrak.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Baron%20Uthrak.webp"
+    },
+    {
+      "name": "Basilisk.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Basilisk.webp"
+    },
+    {
+      "name": "Bear.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Bear.webp"
+    },
+    {
+      "name": "Bird of Prey.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Bird%20of%20Prey.webp"
+    },
+    {
+      "name": "Bloodlord Varrox.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Bloodlord%20Varrox.webp"
+    },
+    {
+      "name": "Bonestalker.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Bonestalker.webp"
+    },
+    {
+      "name": "Bredbeddle.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Bredbeddle.webp"
+    },
+    {
+      "name": "Bugbear Channeler.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Bugbear%20Channeler.webp"
+    },
+    {
+      "name": "Bugbear Predator.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Bugbear%20Predator.webp"
+    },
+    {
+      "name": "Camel.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Camel.webp"
+    },
+    {
+      "name": "Chimera.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Chimera.webp"
+    },
+    {
+      "name": "Chimeron.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Chimeron.webp"
+    },
+    {
+      "name": "Clawfish.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Clawfish.webp"
+    },
+    {
+      "name": "Count Rhodar von Glauer.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Count%20Rhodar%20von%20Glauer.webp"
+    },
+    {
+      "name": "Crawling Claw Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Crawling%20Claw%20Companion.webp"
+    },
+    {
+      "name": "Crux of Fire.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Crux%20of%20Fire.webp"
+    },
+    {
+      "name": "Crux of Frost.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Crux%20of%20Frost.webp"
+    },
+    {
+      "name": "Dancing Lady.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Dancing%20Lady.webp"
+    },
+    {
+      "name": "Deathhawk.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Deathhawk.webp"
+    },
+    {
+      "name": "Decrepit Skeleton.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Decrepit%20Skeleton.webp"
+    },
+    {
+      "name": "Deep Dreamer.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Deep%20Dreamer.webp"
+    },
+    {
+      "name": "Devil Adjudicator.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Devil%20Adjudicator.webp"
+    },
+    {
+      "name": "Devil Jurist.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Devil%20Jurist.webp"
+    },
+    {
+      "name": "Devil Legate.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Devil%20Legate.webp"
+    },
+    {
+      "name": "Devil Notary.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Devil%20Notary.webp"
+    },
+    {
+      "name": "Devil Retainer.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Devil%20Retainer.webp"
+    },
+    {
+      "name": "Dohma Raskovar.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Dohma%20Raskovar.webp"
+    },
+    {
+      "name": "Dragonet.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Dragonet.webp"
+    },
+    {
+      "name": "Durixaviinox.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Durixaviinox.webp"
+    },
+    {
+      "name": "Earth Elemental Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Earth%20Elemental%20Companion.webp"
+    },
+    {
+      "name": "Empyrean Stag.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Empyrean%20Stag.webp"
+    },
+    {
+      "name": "Essence of Storms.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Essence%20of%20Storms.webp"
+    },
+    {
+      "name": "Fire Giant Red Fist.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Fire%20Giant%20Red%20Fist.webp"
+    },
+    {
+      "name": "Flesh Mournling.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Flesh%20Mournling.webp"
+    },
+    {
+      "name": "Flintmoth Swarm.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Flintmoth%20Swarm.webp"
+    },
+    {
+      "name": "Fluff00.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Fluff00.webp"
+    },
+    {
+      "name": "Fluff01.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Fluff01.webp"
+    },
+    {
+      "name": "Fluff02.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Fluff02.webp"
+    },
+    {
+      "name": "Force of Blood.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Force%20of%20Blood.webp"
+    },
+    {
+      "name": "Force of Earth.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Force%20of%20Earth.webp"
+    },
+    {
+      "name": "Force of Iron.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Force%20of%20Iron.webp"
+    },
+    {
+      "name": "Forzaantirilys.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Forzaantirilys.webp"
+    },
+    {
+      "name": "Fossil Cryptic.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Fossil%20Cryptic.webp"
+    },
+    {
+      "name": "Frost Giant Storm Hurler.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Frost%20Giant%20Storm%20Hurler.webp"
+    },
+    {
+      "name": "Gem Jelly.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Gem%20Jelly.webp"
+    },
+    {
+      "name": "Ghoul.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Ghoul.webp"
+    },
+    {
+      "name": "Gibbering Mouther.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Gibbering%20Mouther.webp"
+    },
+    {
+      "name": "Gnoll Abyssal Summoner.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Gnoll%20Abyssal%20Summoner.webp"
+    },
+    {
+      "name": "Gnoll Bonesplitter.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Gnoll%20Bonesplitter.webp"
+    },
+    {
+      "name": "Gnoll Marauder.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Gnoll%20Marauder.webp"
+    },
+    {
+      "name": "Goblin Cursespitter.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Goblin%20Cursespitter.webp"
+    },
+    {
+      "name": "Goblin Lackey.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Goblin%20Lackey.webp"
+    },
+    {
+      "name": "Goblin Sneak.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Goblin%20Sneak.webp"
+    },
+    {
+      "name": "Goblin Sniper.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Goblin%20Sniper.webp"
+    },
+    {
+      "name": "Goblin Spinecleaver.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Goblin%20Spinecleaver.webp"
+    },
+    {
+      "name": "Goxomoc.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Goxomoc.webp"
+    },
+    {
+      "name": "Green Hag.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Green%20Hag.webp"
+    },
+    {
+      "name": "Griffon.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Griffon.webp"
+    },
+    {
+      "name": "Grilp.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Grilp.webp"
+    },
+    {
+      "name": "Harpy.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Harpy.webp"
+    },
+    {
+      "name": "Haunt.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Haunt.webp"
+    },
+    {
+      "name": "Hellhound.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Hellhound.webp"
+    },
+    {
+      "name": "High Mage Vairae.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/High%20Mage%20Vairae.webp"
+    },
+    {
+      "name": "Hill Giant Flunky.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Hill%20Giant%20Flunky.webp"
+    },
+    {
+      "name": "Hobgoblin Death Captain.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Hobgoblin%20Death%20Captain.webp"
+    },
+    {
+      "name": "Hobgoblin Smokebinder.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Hobgoblin%20Smokebinder.webp"
+    },
+    {
+      "name": "Hobgoblin Trooper.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Hobgoblin%20Trooper.webp"
+    },
+    {
+      "name": "Hobgoblin War Mage.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Hobgoblin%20War%20Mage.webp"
+    },
+    {
+      "name": "Hulking Brain.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Hulking%20Brain.webp"
+    },
+    {
+      "name": "Human Apprentice Mage.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Human%20Apprentice%20Mage.webp"
+    },
+    {
+      "name": "Human Brawler.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Human%20Brawler.webp"
+    },
+    {
+      "name": "Human Death Cultist.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Human%20Death%20Cultist.webp"
+    },
+    {
+      "name": "Human Knave.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Human%20Knave.webp"
+    },
+    {
+      "name": "Human Raider.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Human%20Raider.webp"
+    },
+    {
+      "name": "Human Storm Wizard.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Human%20Storm%20Wizard.webp"
+    },
+    {
+      "name": "Human Trickshot.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Human%20Trickshot.webp"
+    },
+    {
+      "name": "Infernal Chancellor Lazivos.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Infernal%20Chancellor%20Lazivos.webp"
+    },
+    {
+      "name": "Ithu'rath.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Ithu'rath.webp"
+    },
+    {
+      "name": "Kingfissure Worm Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Kingfissure%20Worm%20Companion.webp"
+    },
+    {
+      "name": "Kingfissure Worm.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Kingfissure%20Worm.webp"
+    },
+    {
+      "name": "Kiona the Dread Lord.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Kiona%20the%20Dread%20Lord.webp"
+    },
+    {
+      "name": "Kobold Artifex.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Kobold%20Artifex.webp"
+    },
+    {
+      "name": "Kobold Legionary.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Kobold%20Legionary.webp"
+    },
+    {
+      "name": "Kobold Signifer.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Kobold%20Signifer.webp"
+    },
+    {
+      "name": "Kobold Veles.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Kobold%20Veles.webp"
+    },
+    {
+      "name": "Kobold Venator.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Kobold%20Venator.webp"
+    },
+    {
+      "name": "Koptourok.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Koptourok.webp"
+    },
+    {
+      "name": "Kraken.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Kraken.webp"
+    },
+    {
+      "name": "Lacuna.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Lacuna.webp"
+    },
+    {
+      "name": "Lady Emer.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Lady%20Emer.webp"
+    },
+    {
+      "name": "Lamasombra.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Lamasombra.webp"
+    },
+    {
+      "name": "Leyleech.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Leyleech.webp"
+    },
+    {
+      "name": "Lightbender Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Lightbender%20Companion.webp"
+    },
+    {
+      "name": "Lightthief.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Lightthief.webp"
+    },
+    {
+      "name": "Lizardfolk Hunter.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Lizardfolk%20Hunter.webp"
+    },
+    {
+      "name": "Lizardfolk Scaletooth.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Lizardfolk%20Scaletooth.webp"
+    },
+    {
+      "name": "Lizardfolk Terrorsaur.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Lizardfolk%20Terrorsaur.webp"
+    },
+    {
+      "name": "Lord Syuul.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Lord%20Syuul.webp"
+    },
+    {
+      "name": "Manticore.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Manticore.webp"
+    },
+    {
+      "name": "Marble Stone Giant.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Marble%20Stone%20Giant.webp"
+    },
+    {
+      "name": "Marvorok.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Marvorok.webp"
+    },
+    {
+      "name": "Medusa Headstrong.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Medusa%20Headstrong.webp"
+    },
+    {
+      "name": "Medusa.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Medusa.webp"
+    },
+    {
+      "name": "Mimic Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Mimic%20Companion.webp"
+    },
+    {
+      "name": "Mimic.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Mimic.webp"
+    },
+    {
+      "name": "Mindkiller.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Mindkiller.webp"
+    },
+    {
+      "name": "Minotaur Lackey.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Minotaur%20Lackey.webp"
+    },
+    {
+      "name": "Minotaur.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Minotaur.webp"
+    },
+    {
+      "name": "Mohler Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Mohler%20Companion.webp"
+    },
+    {
+      "name": "Multivok Bodyguard.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Multivok%20Bodyguard.webp"
+    },
+    {
+      "name": "Multivok Chief.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Multivok%20Chief.webp"
+    },
+    {
+      "name": "Mummy.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Mummy.webp"
+    },
+    {
+      "name": "Night Hag.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Night%20Hag.webp"
+    },
+    {
+      "name": "Ogre Basher.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Ogre%20Basher.webp"
+    },
+    {
+      "name": "Orc Blacksmith.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Orc%20Blacksmith.webp"
+    },
+    {
+      "name": "Orc Blitzer.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Orc%20Blitzer.webp"
+    },
+    {
+      "name": "Orc Conduit.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Orc%20Conduit.webp"
+    },
+    {
+      "name": "Orc Garroter.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Orc%20Garroter.webp"
+    },
+    {
+      "name": "Orc Godcaller.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Orc%20Godcaller.webp"
+    },
+    {
+      "name": "Orc Rampart.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Orc%20Rampart.webp"
+    },
+    {
+      "name": "Otyugh.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Otyugh.webp"
+    },
+    {
+      "name": "Owlbear.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Owlbear.webp"
+    },
+    {
+      "name": "Pitling.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Pitling.webp"
+    },
+    {
+      "name": "Principle of Growth.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Principle%20of%20Growth.webp"
+    },
+    {
+      "name": "Qazyldrath.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Qazyldrath.webp"
+    },
+    {
+      "name": "Queen Bargnot.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Queen%20Bargnot.webp"
+    },
+    {
+      "name": "Rot Angel.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Rot%20Angel.webp"
+    },
+    {
+      "name": "Rotbeast.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Rotbeast.webp"
+    },
+    {
+      "name": "Rotting Zombie.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Rotting%20Zombie.webp"
+    },
+    {
+      "name": "Ruinant.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Ruinant.webp"
+    },
+    {
+      "name": "Scyza.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Scyza.webp"
+    },
+    {
+      "name": "Sea Hag Apprentice.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Sea%20Hag%20Apprentice.webp"
+    },
+    {
+      "name": "Sea Hag.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Sea%20Hag.webp"
+    },
+    {
+      "name": "Servok Builder.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Servok%20Builder.webp"
+    },
+    {
+      "name": "Servok Miner.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Servok%20Miner.webp"
+    },
+    {
+      "name": "Servok War Engine.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Servok%20War%20Engine.webp"
+    },
+    {
+      "name": "Shade.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Shade.webp"
+    },
+    {
+      "name": "Shambling Mound.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Shambling%20Mound.webp"
+    },
+    {
+      "name": "Shieldscale Drangolin.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Shieldscale%20Drangolin.webp"
+    },
+    {
+      "name": "Shtriga Nonna.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Shtriga%20Nonna.webp"
+    },
+    {
+      "name": "Skitterling.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Skitterling.webp"
+    },
+    {
+      "name": "Slaughter Demon.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Slaughter%20Demon.webp"
+    },
+    {
+      "name": "Stirge.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Stirge.webp"
+    },
+    {
+      "name": "Stoneback Isopod.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Stoneback%20Isopod.webp"
+    },
+    {
+      "name": "Swamp Dryad.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Swamp%20Dryad.webp"
+    },
+    {
+      "name": "Swarm of Spiders.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Swarm%20of%20Spiders.webp"
+    },
+    {
+      "name": "Thornblood.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Thornblood.webp"
+    },
+    {
+      "name": "Time Raider Armiger.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Time%20Raider%20Armiger.webp"
+    },
+    {
+      "name": "Time Raider Freebooter.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Time%20Raider%20Freebooter.webp"
+    },
+    {
+      "name": "Time Raider Nemesis.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Time%20Raider%20Nemesis.webp"
+    },
+    {
+      "name": "Time Raider Vertex.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Time%20Raider%20Vertex.webp"
+    },
+    {
+      "name": "Tormenauk.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Tormenauk.webp"
+    },
+    {
+      "name": "Treant.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Treant.webp"
+    },
+    {
+      "name": "Troll.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Troll.webp"
+    },
+    {
+      "name": "Tusker Demon.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Tusker%20Demon.webp"
+    },
+    {
+      "name": "Valochera.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Valochera.webp"
+    },
+    {
+      "name": "Voiceless Talker Operative.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Voiceless%20Talker%20Operative.webp"
+    },
+    {
+      "name": "Voiceless Talker.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Voiceless%20Talker.webp"
+    },
+    {
+      "name": "War Spider.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/War%20Spider.webp"
+    },
+    {
+      "name": "Weeping Willow.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Weeping%20Willow.webp"
+    },
+    {
+      "name": "Wight Deathguard.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Wight%20Deathguard.webp"
+    },
+    {
+      "name": "Wildcat.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Wildcat.webp"
+    },
+    {
+      "name": "Wobalas.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Wobalas.webp"
+    },
+    {
+      "name": "Worg Companion.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Worg%20Companion.webp"
+    },
+    {
+      "name": "Wraith.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Wraith.webp"
+    },
+    {
+      "name": "Wyvern.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Wyvern.webp"
+    },
+    {
+      "name": "Xaantikorijek.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Xaantikorijek.webp"
+    },
+    {
+      "name": "Xorannox.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Xorannox.webp"
+    },
+    {
+      "name": "Yserthrax.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Yserthrax.webp"
+    },
+    {
+      "name": "Yumgrub.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Yumgrub.webp"
+    },
+    {
+      "name": "Zenith Aastrika.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Zenith%20Aastrika.webp"
+    },
+    {
+      "name": "Zombie.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/FleeMortals/Fluff/Zombie.webp"
+    }
+  ],
+  "welTokens": [
+    {
+      "name": "Minotaur Lackey Slime Servant.webp",
+      "download_url": "https://raw.githubusercontent.com/TheGiddyLimit/homebrew-img/main/img/WhereEvilLives/bestiary/tokens/Minotaur%20Lackey%20Slime%20Servant.webp"
+    }
+  ],
+  "welFluff": [
+    {
+      "name": "tokens",
+      "download_url": null
+    }
+  ]
+}
