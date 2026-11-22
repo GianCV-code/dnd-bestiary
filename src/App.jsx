@@ -504,9 +504,10 @@ export default function App() {
 
   // Search & 5e Tools Advanced Filters State
   const [search, setSearch] = useState('');
-  const [selectedType, setSelectedType] = useState('ALL');
+  const [selectedTypes, setSelectedTypes] = useState([]);
   const [selectedSizes, setSelectedSizes] = useState([]);
   const [selectedCrRange, setSelectedCrRange] = useState({ min: 0, max: 30 });
+  const [selectedCrs, setSelectedCrs] = useState([]);
   const [selectedForcesSaves, setSelectedForcesSaves] = useState([]); // Offensive (Exige Salvación)
   const [selectedSaves, setSelectedSaves] = useState([]); // Defensive (Competencia en Salvación)
   const [selectedSpeeds, setSelectedSpeeds] = useState([]);
@@ -514,7 +515,7 @@ export default function App() {
   const [selectedDamageImmunities, setSelectedDamageImmunities] = useState([]);
   const [selectedDamageResistances, setSelectedDamageResistances] = useState([]);
   const [selectedConditionImmunities, setSelectedConditionImmunities] = useState([]);
-  const [selectedEnvironment, setSelectedEnvironment] = useState('ALL');
+  const [selectedEnvironments, setSelectedEnvironments] = useState([]);
   const [hasLegendary, setHasLegendary] = useState(false);
   const [isSpellcaster, setIsSpellcaster] = useState(false);
   const [hasTokenOnly, setHasTokenOnly] = useState(false);
@@ -538,9 +539,10 @@ export default function App() {
   }, [
     search, 
     selectedEdition,
-    selectedType, 
+    selectedTypes, 
     selectedSizes, 
     selectedCrRange, 
+    selectedCrs,
     selectedForcesSaves,
     selectedSaves, 
     selectedSpeeds, 
@@ -548,7 +550,7 @@ export default function App() {
     selectedDamageImmunities, 
     selectedDamageResistances, 
     selectedConditionImmunities, 
-    selectedEnvironment, 
+    selectedEnvironments, 
     hasLegendary, 
     isSpellcaster, 
     hasTokenOnly,
@@ -705,9 +707,10 @@ export default function App() {
     let count = 0;
     if (search.trim()) count++;
     if (selectedEdition !== 'ALL') count++;
-    if (selectedType !== 'ALL') count++;
+    if (selectedTypes.length > 0) count += selectedTypes.length;
     if (selectedSizes.length > 0) count += selectedSizes.length;
-    if (selectedCrRange.min > 0 || selectedCrRange.max < 30) count++;
+    if (selectedCrs.length > 0) count += selectedCrs.length;
+    else if (selectedCrRange.min > 0 || selectedCrRange.max < 30) count++;
     if (selectedForcesSaves.length > 0) count += selectedForcesSaves.length;
     if (selectedSaves.length > 0) count += selectedSaves.length;
     if (selectedSpeeds.length > 0) count += selectedSpeeds.length;
@@ -715,7 +718,7 @@ export default function App() {
     if (selectedDamageImmunities.length > 0) count += selectedDamageImmunities.length;
     if (selectedDamageResistances.length > 0) count += selectedDamageResistances.length;
     if (selectedConditionImmunities.length > 0) count += selectedConditionImmunities.length;
-    if (selectedEnvironment !== 'ALL') count++;
+    if (selectedEnvironments.length > 0) count += selectedEnvironments.length;
     if (hasLegendary) count++;
     if (isSpellcaster) count++;
     if (hasTokenOnly) count++;
@@ -723,9 +726,10 @@ export default function App() {
   }, [
     search, 
     selectedEdition,
-    selectedType, 
+    selectedTypes, 
     selectedSizes, 
     selectedCrRange, 
+    selectedCrs,
     selectedForcesSaves,
     selectedSaves, 
     selectedSpeeds, 
@@ -733,7 +737,7 @@ export default function App() {
     selectedDamageImmunities, 
     selectedDamageResistances, 
     selectedConditionImmunities, 
-    selectedEnvironment, 
+    selectedEnvironments, 
     hasLegendary, 
     isSpellcaster, 
     hasTokenOnly
@@ -742,9 +746,10 @@ export default function App() {
   const handleResetFilters = () => {
     setSearch('');
     setSelectedEdition('ALL');
-    setSelectedType('ALL');
+    setSelectedTypes([]);
     setSelectedSizes([]);
     setSelectedCrRange({ min: 0, max: 30 });
+    setSelectedCrs([]);
     setSelectedForcesSaves([]);
     setSelectedSaves([]);
     setSelectedSpeeds([]);
@@ -752,7 +757,7 @@ export default function App() {
     setSelectedDamageImmunities([]);
     setSelectedDamageResistances([]);
     setSelectedConditionImmunities([]);
-    setSelectedEnvironment('ALL');
+    setSelectedEnvironments([]);
     setHasLegendary(false);
     setIsSpellcaster(false);
     setHasTokenOnly(false);
@@ -785,14 +790,18 @@ export default function App() {
     if (selectedEdition === '3pp' && !c.versionMeta?.is3pp) return false;
     if (selectedEdition === 'crossover' && !c.versionMeta?.isCrossover) return false;
 
-    // 3. Creature Type Filter (Case-insensitive)
-    if (selectedType !== 'ALL' && (c.type || '').toLowerCase() !== selectedType.toLowerCase()) return false;
+    // 3. Creature Type Filter (Case-insensitive multi-select)
+    if (selectedTypes.length > 0 && !selectedTypes.includes((c.type || '').toLowerCase().trim())) return false;
 
     // 4. Size Filter (Normalized)
     if (selectedSizes.length > 0 && !selectedSizes.includes(normalizeSize(c.size))) return false;
 
-    // 5. CR Range Filter
-    if (c.crNumeric < selectedCrRange.min || c.crNumeric > selectedCrRange.max) return false;
+    // 5. CR Filter (Multi-select specific CRs or Range)
+    if (selectedCrs.length > 0) {
+      if (!selectedCrs.includes(c.crNumeric)) return false;
+    } else if (c.crNumeric < selectedCrRange.min || c.crNumeric > selectedCrRange.max) {
+      return false;
+    }
 
     // 6. Saving Throws Forced on Targets (Offensive)
     if (selectedForcesSaves.length > 0) {
@@ -856,16 +865,17 @@ export default function App() {
       if (!matchesConditions) return false;
     }
 
-    // 13. Environment (Supports all 5e environments and regional aliases)
-    if (selectedEnvironment !== 'ALL') {
-      const envTarget = selectedEnvironment.toLowerCase();
-      const matchesEnv = (c.environment || []).some(env => {
-        const e = env.toLowerCase();
-        if (envTarget === 'jungle') return e.includes('jungle') || e.includes('tropical');
-        if (envTarget === 'planar') return e.includes('planar') || e.includes('plane') || e.includes('feywild') || e.includes('shadowfell') || e.includes('abyss') || e.includes('astral') || e.includes('ethereal') || e.includes('nine hells');
-        if (envTarget === 'underdark') return e.includes('underdark') || e.includes('underground');
-        if (envTarget === 'any') return e === 'any';
-        return e.includes(envTarget);
+    // 13. Environment (Supports multi-select environments with regional aliases)
+    if (selectedEnvironments.length > 0) {
+      const matchesEnv = selectedEnvironments.some(envTarget => {
+        return (c.environment || []).some(env => {
+          const e = env.toLowerCase();
+          if (envTarget === 'jungle') return e.includes('jungle') || e.includes('tropical');
+          if (envTarget === 'planar') return e.includes('planar') || e.includes('plane') || e.includes('feywild') || e.includes('shadowfell') || e.includes('abyss') || e.includes('astral') || e.includes('ethereal') || e.includes('nine hells');
+          if (envTarget === 'underdark') return e.includes('underdark') || e.includes('underground');
+          if (envTarget === 'any') return e === 'any';
+          return e.includes(envTarget);
+        });
       });
       if (!matchesEnv) return false;
     }
@@ -937,9 +947,10 @@ export default function App() {
     cardVersionOverrides,
     search,
     selectedEdition,
-    selectedType,
+    selectedTypes,
     selectedSizes,
     selectedCrRange,
+    selectedCrs,
     selectedForcesSaves,
     selectedSaves,
     selectedSpeeds,
@@ -947,7 +958,7 @@ export default function App() {
     selectedDamageImmunities,
     selectedDamageResistances,
     selectedConditionImmunities,
-    selectedEnvironment,
+    selectedEnvironments,
     hasLegendary,
     isSpellcaster,
     hasTokenOnly,
@@ -973,9 +984,10 @@ export default function App() {
     creatures,
     search,
     selectedEdition,
-    selectedType,
+    selectedTypes,
     selectedSizes,
     selectedCrRange,
+    selectedCrs,
     selectedForcesSaves,
     selectedSaves,
     selectedSpeeds,
@@ -983,7 +995,7 @@ export default function App() {
     selectedDamageImmunities,
     selectedDamageResistances,
     selectedConditionImmunities,
-    selectedEnvironment,
+    selectedEnvironments,
     hasLegendary,
     isSpellcaster,
     hasTokenOnly,
@@ -1262,44 +1274,74 @@ export default function App() {
             </button>
           )}
 
-          {/* Creature Type Filter */}
+          {/* Creature Type Filter (Multi-select) */}
           <div>
             <div className="filter-section-title">
-              <span>Creature Type</span>
-              <Compass size={14} />
+              <span>Creature Type {selectedTypes.length > 0 ? `(${selectedTypes.length})` : ''}</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                {selectedTypes.length > 0 && (
+                  <button
+                    type="button"
+                    className="filter-clear-sub-btn"
+                    onClick={() => setSelectedTypes([])}
+                    title="Clear selected types"
+                  >
+                    Clear
+                  </button>
+                )}
+                <Compass size={14} />
+              </div>
             </div>
-            <select 
-              id="type-filter-select"
-              className="select-styled"
-              style={{ width: '100%' }}
-              value={selectedType}
-              onChange={e => setSelectedType(e.target.value)}
-            >
-              <option value="ALL">All Types ({creatureTypes.length})</option>
-              {creatureTypes.map(t => (
-                <option key={t} value={t}>{t.toUpperCase()}</option>
-              ))}
-            </select>
+            <div className="filter-chips-grid" style={{ maxHeight: '160px', overflowY: 'auto' }}>
+              {creatureTypes.map(t => {
+                const isSelected = selectedTypes.includes(t.toLowerCase());
+                return (
+                  <button 
+                    key={t}
+                    type="button"
+                    className={`chip-btn ${isSelected ? 'active-amber' : ''}`}
+                    onClick={() => toggleFilterItem(selectedTypes, setSelectedTypes, t.toLowerCase())}
+                  >
+                    {t.toUpperCase()}
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Environment / Habitat (5e Tools) */}
+          {/* Environment / Habitat (Multi-select) */}
           <div>
             <div className="filter-section-title">
-              <span>Environment / Habitat</span>
-              <Compass size={14} />
+              <span>Environment / Habitat {selectedEnvironments.length > 0 ? `(${selectedEnvironments.length})` : ''}</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                {selectedEnvironments.length > 0 && (
+                  <button
+                    type="button"
+                    className="filter-clear-sub-btn"
+                    onClick={() => setSelectedEnvironments([])}
+                    title="Clear selected environments"
+                  >
+                    Clear
+                  </button>
+                )}
+                <Compass size={14} />
+              </div>
             </div>
-            <select 
-              id="environment-filter-select"
-              className="select-styled"
-              style={{ width: '100%' }}
-              value={selectedEnvironment}
-              onChange={e => setSelectedEnvironment(e.target.value)}
-            >
-              <option value="ALL">All Habitats</option>
-              {ENVIRONMENTS.map(env => (
-                <option key={env.id} value={env.id}>{env.label}</option>
-              ))}
-            </select>
+            <div className="filter-chips-grid" style={{ maxHeight: '180px', overflowY: 'auto' }}>
+              {ENVIRONMENTS.map(env => {
+                const isSelected = selectedEnvironments.includes(env.id);
+                return (
+                  <button 
+                    key={env.id}
+                    type="button"
+                    className={`chip-btn ${isSelected ? 'active-amber' : ''}`}
+                    onClick={() => toggleFilterItem(selectedEnvironments, setSelectedEnvironments, env.id)}
+                  >
+                    {env.label}
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           {/* Size Filter */}
@@ -1325,30 +1367,133 @@ export default function App() {
             </div>
           </div>
 
-          {/* CR Filter Range & Presets */}
+          {/* CR Filter Range & Multi-Select Presets */}
           <div>
             <div className="filter-section-title">
               <span>
-                Challenge Rating (CR:{' '}
-                {selectedCrRange.min === selectedCrRange.max
-                  ? formatCrLabel(selectedCrRange.min)
-                  : `${formatCrLabel(selectedCrRange.min)} - ${formatCrLabel(selectedCrRange.max)}`}
-                )
+                Challenge Rating{' '}
+                {selectedCrs.length > 0
+                  ? `(${selectedCrs.length} selected)`
+                  : `(CR: ${selectedCrRange.min === selectedCrRange.max ? formatCrLabel(selectedCrRange.min) : `${formatCrLabel(selectedCrRange.min)} - ${formatCrLabel(selectedCrRange.max)}`})`}
               </span>
-              <Shield size={14} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                {(selectedCrs.length > 0 || selectedCrRange.min > 0 || selectedCrRange.max < 30) && (
+                  <button
+                    type="button"
+                    className="filter-clear-sub-btn"
+                    onClick={() => {
+                      setSelectedCrs([]);
+                      setSelectedCrRange({ min: 0, max: 30 });
+                    }}
+                    title="Clear CR filters"
+                  >
+                    Clear
+                  </button>
+                )}
+                <Shield size={14} />
+              </div>
             </div>
+
+            {/* Quick Tier & Preset Chips */}
+            <div className="cr-presets" style={{ marginBottom: '8px' }}>
+              <span 
+                className={`cr-preset-chip ${selectedCrs.length === 4 && [0, 0.125, 0.25, 0.5].every(v => selectedCrs.includes(v)) ? 'active' : ''}`}
+                onClick={() => {
+                  const frac = [0, 0.125, 0.25, 0.5];
+                  const allSelected = frac.every(v => selectedCrs.includes(v));
+                  if (allSelected) {
+                    setSelectedCrs(prev => prev.filter(v => !frac.includes(v)));
+                  } else {
+                    setSelectedCrs(prev => Array.from(new Set([...prev, ...frac])));
+                  }
+                }}
+                title="Toggle all CR < 1 (0, 1/8, 1/4, 1/2)"
+              >
+                &lt; 1
+              </span>
+              <span 
+                className={`cr-preset-chip ${selectedCrs.length === 0 && selectedCrRange.min === 0 && selectedCrRange.max === 30 ? 'active' : ''}`}
+                onClick={() => {
+                  setSelectedCrs([]);
+                  setSelectedCrRange({ min: 0, max: 30 });
+                }}
+              >
+                All
+              </span>
+              <span 
+                className={`cr-preset-chip ${ALL_CR_OPTIONS.filter(o => o.value >= 0 && o.value <= 4).every(o => selectedCrs.includes(o.value)) ? 'active' : ''}`}
+                onClick={() => {
+                  const t1 = ALL_CR_OPTIONS.filter(o => o.value >= 0 && o.value <= 4).map(o => o.value);
+                  setSelectedCrs(t1);
+                  setSelectedCrRange({ min: 0, max: 4 });
+                }}
+              >
+                T1 (0-4)
+              </span>
+              <span 
+                className={`cr-preset-chip ${ALL_CR_OPTIONS.filter(o => o.value >= 5 && o.value <= 10).every(o => selectedCrs.includes(o.value)) ? 'active' : ''}`}
+                onClick={() => {
+                  const t2 = ALL_CR_OPTIONS.filter(o => o.value >= 5 && o.value <= 10).map(o => o.value);
+                  setSelectedCrs(t2);
+                  setSelectedCrRange({ min: 5, max: 10 });
+                }}
+              >
+                T2 (5-10)
+              </span>
+              <span 
+                className={`cr-preset-chip ${ALL_CR_OPTIONS.filter(o => o.value >= 11 && o.value <= 16).every(o => selectedCrs.includes(o.value)) ? 'active' : ''}`}
+                onClick={() => {
+                  const t3 = ALL_CR_OPTIONS.filter(o => o.value >= 11 && o.value <= 16).map(o => o.value);
+                  setSelectedCrs(t3);
+                  setSelectedCrRange({ min: 11, max: 16 });
+                }}
+              >
+                T3 (11-16)
+              </span>
+              <span 
+                className={`cr-preset-chip ${ALL_CR_OPTIONS.filter(o => o.value >= 17 && o.value <= 30).every(o => selectedCrs.includes(o.value)) ? 'active' : ''}`}
+                onClick={() => {
+                  const t4 = ALL_CR_OPTIONS.filter(o => o.value >= 17 && o.value <= 30).map(o => o.value);
+                  setSelectedCrs(t4);
+                  setSelectedCrRange({ min: 17, max: 30 });
+                }}
+              >
+                T4 (17+)
+              </span>
+            </div>
+
+            {/* Multi-Select Individual CR Chips */}
+            <div className="filter-chips-grid" style={{ maxHeight: '140px', overflowY: 'auto', marginBottom: '8px' }}>
+              {ALL_CR_OPTIONS.map(opt => {
+                const isSelected = selectedCrs.includes(opt.value);
+                return (
+                  <button
+                    key={`cr-chip-${opt.value}`}
+                    type="button"
+                    className={`chip-btn ${isSelected ? 'active-amber' : ''}`}
+                    onClick={() => toggleFilterItem(selectedCrs, setSelectedCrs, opt.value)}
+                    style={{ minWidth: '38px', padding: '3px 6px', fontSize: '0.75rem' }}
+                    title={`Toggle CR ${opt.label}`}
+                  >
+                    {opt.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Quick Range Selectors */}
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <span style={{ fontSize: '0.72rem', color: 'var(--text-dark)' }}>Range:</span>
               <select 
                 id="cr-min-select"
                 className="select-styled"
-                style={{ width: '90px' }}
+                style={{ width: '85px', fontSize: '0.75rem', padding: '3px 6px' }}
                 value={selectedCrRange.min}
                 onChange={e => {
                   const newMin = Number(e.target.value);
-                  setSelectedCrRange(prev => ({ 
-                    min: newMin, 
-                    max: Math.max(newMin, prev.max) 
-                  }));
+                  const newMax = Math.max(newMin, selectedCrRange.max);
+                  setSelectedCrRange({ min: newMin, max: newMax });
+                  setSelectedCrs(ALL_CR_OPTIONS.filter(o => o.value >= newMin && o.value <= newMax).map(o => o.value));
                 }}
               >
                 {ALL_CR_OPTIONS.map(opt => (
@@ -1357,18 +1502,17 @@ export default function App() {
                   </option>
                 ))}
               </select>
-              <span style={{ color: 'var(--text-dark)' }}>to</span>
+              <span style={{ color: 'var(--text-dark)', fontSize: '0.75rem' }}>to</span>
               <select 
                 id="cr-max-select"
                 className="select-styled"
-                style={{ width: '90px' }}
+                style={{ width: '85px', fontSize: '0.75rem', padding: '3px 6px' }}
                 value={selectedCrRange.max}
                 onChange={e => {
                   const newMax = Number(e.target.value);
-                  setSelectedCrRange(prev => ({ 
-                    min: Math.min(prev.min, newMax), 
-                    max: newMax 
-                  }));
+                  const newMin = Math.min(selectedCrRange.min, newMax);
+                  setSelectedCrRange({ min: newMin, max: newMax });
+                  setSelectedCrs(ALL_CR_OPTIONS.filter(o => o.value >= newMin && o.value <= newMax).map(o => o.value));
                 }}
               >
                 {ALL_CR_OPTIONS.map(opt => (
@@ -1377,66 +1521,6 @@ export default function App() {
                   </option>
                 ))}
               </select>
-            </div>
-            <div className="cr-presets">
-              <span 
-                className={`cr-preset-chip ${selectedCrRange.min === 0 && selectedCrRange.max === 0.5 ? 'active' : ''}`}
-                onClick={() => setSelectedCrRange({ min: 0, max: 0.5 })}
-                title="Filtrar criaturas de CR menor a 1 (0, 1/8, 1/4, 1/2)"
-              >
-                &lt; 1
-              </span>
-              <span 
-                className={`cr-preset-chip ${selectedCrRange.min === 0.125 && selectedCrRange.max === 0.125 ? 'active' : ''}`}
-                onClick={() => setSelectedCrRange({ min: 0.125, max: 0.125 })}
-                title="Solo CR 1/8"
-              >
-                1/8
-              </span>
-              <span 
-                className={`cr-preset-chip ${selectedCrRange.min === 0.25 && selectedCrRange.max === 0.25 ? 'active' : ''}`}
-                onClick={() => setSelectedCrRange({ min: 0.25, max: 0.25 })}
-                title="Solo CR 1/4"
-              >
-                1/4
-              </span>
-              <span 
-                className={`cr-preset-chip ${selectedCrRange.min === 0.5 && selectedCrRange.max === 0.5 ? 'active' : ''}`}
-                onClick={() => setSelectedCrRange({ min: 0.5, max: 0.5 })}
-                title="Solo CR 1/2"
-              >
-                1/2
-              </span>
-              <span 
-                className={`cr-preset-chip ${selectedCrRange.min === 0 && selectedCrRange.max === 4 ? 'active' : ''}`}
-                onClick={() => setSelectedCrRange({ min: 0, max: 4 })}
-              >
-                T1 (0-4)
-              </span>
-              <span 
-                className={`cr-preset-chip ${selectedCrRange.min === 5 && selectedCrRange.max === 10 ? 'active' : ''}`}
-                onClick={() => setSelectedCrRange({ min: 5, max: 10 })}
-              >
-                T2 (5-10)
-              </span>
-              <span 
-                className={`cr-preset-chip ${selectedCrRange.min === 11 && selectedCrRange.max === 16 ? 'active' : ''}`}
-                onClick={() => setSelectedCrRange({ min: 11, max: 16 })}
-              >
-                T3 (11-16)
-              </span>
-              <span 
-                className={`cr-preset-chip ${selectedCrRange.min === 17 && selectedCrRange.max === 30 ? 'active' : ''}`}
-                onClick={() => setSelectedCrRange({ min: 17, max: 30 })}
-              >
-                T4 (17+)
-              </span>
-              <span 
-                className={`cr-preset-chip ${selectedCrRange.min === 0 && selectedCrRange.max === 30 ? 'active' : ''}`}
-                onClick={() => setSelectedCrRange({ min: 0, max: 30 })}
-              >
-                All
-              </span>
             </div>
           </div>
 
@@ -1603,25 +1687,6 @@ export default function App() {
             </div>
           </div>
 
-          {/* Environment / Habitat (5e Tools) */}
-          <div>
-            <div className="filter-section-title">
-              <span>Environment</span>
-              <Compass size={14} />
-            </div>
-            <select 
-              id="environment-filter-select"
-              className="select-styled"
-              style={{ width: '100%' }}
-              value={selectedEnvironment}
-              onChange={e => setSelectedEnvironment(e.target.value)}
-            >
-              <option value="ALL">All Environments</option>
-              {ENVIRONMENTS.map(env => (
-                <option key={env.id} value={env.id}>{env.label}</option>
-              ))}
-            </select>
-          </div>
 
           {/* Combat Features & Token Toggles */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>

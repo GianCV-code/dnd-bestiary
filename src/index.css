@@ -2037,6 +2037,25 @@ select option {
   box-shadow: 0 0 12px rgba(239, 68, 68, 0.3);
 }
 
+.filter-clear-sub-btn {
+  background: none;
+  border: none;
+  color: var(--accent-gold);
+  font-size: 0.68rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 1px 4px;
+  border-radius: var(--radius-sm);
+  text-decoration: underline;
+  opacity: 0.85;
+  transition: opacity 0.15s ease;
+}
+
+.filter-clear-sub-btn:hover {
+  opacity: 1;
+  color: #fbbf24;
+}
+
 .tab-top-row {
   display: flex;
   align-items: center;
