@@ -15,10 +15,13 @@ import {
   BookOpen,
   Compass,
   Maximize2,
-  Image as ImageIcon
+  Image as ImageIcon,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
 import { parseModularAction, calculatePB, extractEntryText, clean5eTags } from '../engine/statblockParser';
 import ObsidianExportModal from './ObsidianExportModal.jsx';
+import { getMonsterFluff } from '../services/fluffService';
 
 /**
  * Renders nested statblock entries, preserving HTML tables, lists, and sub-entries.
@@ -237,6 +240,38 @@ export default function CreatureStatblock({
   const [failedArtUrls, setFailedArtUrls] = useState(new Set());
   const [failedTokenUrls, setFailedTokenUrls] = useState(new Set());
   const [isObsidianModalOpen, setIsObsidianModalOpen] = useState(false);
+
+  // 5eTools Monster Fluff / Lore State
+  const [fluffData, setFluffData] = useState(null);
+  const [isFluffLoading, setIsFluffLoading] = useState(false);
+  const [isFluffExpanded, setIsFluffExpanded] = useState(true);
+
+  // Fetch Fluff / Lore on demand
+  useEffect(() => {
+    let isMounted = true;
+    if (!creature) {
+      setFluffData(null);
+      return;
+    }
+    setIsFluffLoading(true);
+    getMonsterFluff(creature)
+      .then(data => {
+        if (isMounted) {
+          setFluffData(data);
+          setIsFluffLoading(false);
+        }
+      })
+      .catch(() => {
+        if (isMounted) {
+          setFluffData(null);
+          setIsFluffLoading(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [creature?.id, creature?.name, creature?.source]);
 
   if (!creature) return null;
 
@@ -936,6 +971,88 @@ export default function CreatureStatblock({
           </div>
         )}
 
+        {/* 10.5 Monster Lore, Ecology & Fluff (5eTools Ecosystem) */}
+        {isFluffLoading ? (
+          <div className="lore-loading-skeleton">
+            <BookOpen size={16} />
+            <span>Cargando historia y ecología de la criatura...</span>
+          </div>
+        ) : (fluffData && fluffData.entries && fluffData.entries.length > 0) && (
+          <div className="modular-section lore-section">
+            <button 
+              type="button" 
+              className="modular-section-header header-lore"
+              onClick={() => setIsFluffExpanded(prev => !prev)}
+              aria-expanded={isFluffExpanded}
+            >
+              <div className="modular-section-title text-amber">
+                <BookOpen size={18} />
+                <span>Historia, Ecología y Lore</span>
+              </div>
+              <div className="lore-header-badges">
+                {fluffData.isFallback ? (
+                  <span className="lore-badge-fallback" title={`Lore heredado del Monster Manual (MM) para ${fluffData.fallbackCreature}`}>
+                    ⚠️ Lore MM ({fluffData.fallbackCreature})
+                  </span>
+                ) : (
+                  <span className="lore-badge-source">
+                    {fluffData.sourceGroup || fluffData.source}
+                  </span>
+                )}
+                <span className="lore-toggle-btn">
+                  {isFluffExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                </span>
+              </div>
+            </button>
+
+            {isFluffExpanded && (
+              <div className="lore-content-container">
+                {/* Fallback Notice from Monster Manual */}
+                {fluffData.isFallback && (
+                  <div className="lore-fallback-alert">
+                    <AlertTriangle size={16} className="lore-alert-icon" />
+                    <div className="lore-alert-text">
+                      <strong>Lore de referencia (Monster Manual - {fluffData.fallbackCreature}):</strong>
+                      {' '}Esta criatura o variante no incluye descripción narrativa propia en su libro de origen (<em>{creature.sourceGroup || creature.source}</em>). Se muestra la historia y ecología de la especie base del <strong>Monster Manual (MM)</strong> como contexto.
+                    </div>
+                  </div>
+                )}
+
+                {/* Narrative Lore Text */}
+                <div className="lore-entries">
+                  {fluffData.entries && fluffData.entries.map((entry, idx) => {
+                    if (typeof entry === 'string') {
+                      return <p key={idx} className="lore-paragraph">{entry}</p>;
+                    }
+                    if (entry && entry.name) {
+                      return (
+                        <div key={idx} className="lore-subheading-block">
+                          <h5 className="lore-subheading">{entry.name}</h5>
+                          {entry.entries && entry.entries.map((sub, sIdx) => (
+                            <p key={sIdx} className="lore-paragraph">
+                              {typeof sub === 'string' ? sub : (sub.name ? `${sub.name}: ${JSON.stringify(sub.entries || '')}` : JSON.stringify(sub))}
+                            </p>
+                          ))}
+                        </div>
+                      );
+                    }
+                    if (entry && entry.type === 'list' && entry.items) {
+                      return (
+                        <ul key={idx} className="lore-list">
+                          {entry.items.map((it, iIdx) => (
+                            <li key={iIdx}>{it}</li>
+                          ))}
+                        </ul>
+                      );
+                    }
+                    return null;
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* 11. Bottom Action Bar */}
         <div className="statblock-bottom-bar">
           <button 
@@ -972,7 +1089,7 @@ export default function CreatureStatblock({
       {lightboxOpen && (
         <div 
           className="statblock-lightbox-backdrop"
-          onClick={() => setLightboxOpen(false)}
+          onClick={() => { setLightboxOpen(false); setActiveLightboxMedia(null); }}
         >
           <div 
             className="statblock-lightbox-content"

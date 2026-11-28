@@ -4168,3 +4168,208 @@ select option {
 .border-mythic {
   border-color: rgba(225, 29, 72, 0.4) !important;
 }
+
+/* ==========================================================================
+   MONSTER LORE / FLUFF SECTION (5eTools Ecosystem)
+   ========================================================================== */
+.lore-section {
+  margin-top: 14px;
+  background: rgba(18, 18, 26, 0.75);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: 10px;
+  padding: 14px 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lore-section:hover {
+  border-color: rgba(245, 158, 11, 0.45);
+}
+
+.modular-section-header.header-lore {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(245, 158, 11, 0.25);
+  padding: 0 0 10px 0;
+  margin-bottom: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.modular-section-header.header-lore:hover .modular-section-title {
+  color: #fde68a;
+}
+
+.lore-header-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lore-badge-source {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.lore-badge-fallback {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(239, 68, 68, 0.18);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.lore-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fbbf24;
+  transition: background 0.2s ease;
+}
+
+.lore-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.lore-content-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: fadeIn 0.25s ease;
+}
+
+.lore-fallback-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(239, 68, 68, 0.12);
+  border-left: 3px solid #ef4444;
+  padding: 10px 12px;
+  border-radius: 4px 6px 6px 4px;
+  font-size: 0.85rem;
+  color: #fecaca;
+  line-height: 1.45;
+}
+
+.lore-alert-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #f87171;
+}
+
+.lore-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 6px 0;
+}
+
+.lore-gallery-item {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #0d0e15;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lore-gallery-item:hover {
+  transform: translateY(-2px);
+  border-color: #fbbf24;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+}
+
+.lore-gallery-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.3s ease;
+}
+
+.lore-gallery-item:hover .lore-gallery-img {
+  transform: scale(1.06);
+}
+
+.lore-gallery-zoom {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fbbf24;
+  padding: 3px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lore-entries {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #d1d5db;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.lore-paragraph {
+  margin: 0;
+  color: #cbd5e1;
+}
+
+.lore-subheading-block {
+  margin-top: 8px;
+}
+
+.lore-subheading {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #f59e0b;
+  margin: 0 0 6px 0;
+  border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+  padding-bottom: 3px;
+}
+
+.lore-list {
+  margin: 4px 0 6px 18px;
+  padding: 0;
+  color: #cbd5e1;
+}
+
+.lore-list li {
+  margin-bottom: 4px;
+}
+
+.lore-loading-skeleton {
+  padding: 12px;
+  color: #94a3b8;
+  font-size: 0.88rem;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

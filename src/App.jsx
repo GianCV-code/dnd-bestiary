@@ -38,6 +38,7 @@ import {
 import PartySyncBar from './components/PartySyncBar';
 import CreatureStatblock from './components/CreatureStatblock';
 import { loadBestiaryWithCache, clearBestiaryCache } from './engine/cacheManager';
+import { preloadFluffWhenIdle } from './services/fluffService';
 
 // 5e Tools Advanced Filter Constants
 const SIZES = [
@@ -660,6 +661,7 @@ export default function App() {
       .then(indexed => {
         setCreatures(indexed);
         setLoading(false);
+        preloadFluffWhenIdle();
       })
       .catch(err => {
         console.error(err);
